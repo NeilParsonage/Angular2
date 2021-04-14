@@ -1,0 +1,5 @@
+<div *ngFor="let uiMessage of dataUiMessages; index as idx">
+  <mat-card class="snackbar-message" [ngClass]="uiMessage.cssClass" (click)="removeMessage(idx)">{{
+    uiMessage.message.text
+  }}</mat-card>
+</div>

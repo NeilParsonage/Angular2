@@ -1,0 +1,16 @@
+::ng-deep .mat-card {
+  color: inherit;
+  opacity: 0.95;
+}
+
+::ng-deep .mat-snack-bar-container {
+  background: transparent;
+  font-size: 14px;
+  padding: 0;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.snackbar-message {
+  margin: 10px 0;
+}

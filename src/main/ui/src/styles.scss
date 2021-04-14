@@ -1,0 +1,59 @@
+//@import '../node_modules/primeng/resources/themes/nova-light/theme.css';
+//@import '../node_modules/primeng/resources/primeng.min.css';
+//@import '../node_modules/primeicons/primeicons.css';
+
+//@import '~primeng/resources/themes/nova-light/theme.css';
+//@import '~primeng/resources/primeng.min.css';
+//@import '~primeng/primeicons/primeicons.css';
+
+@import './daimler-theme.scss';
+
+$primary-light: mat-color($daimler-theme-primary, lighter);
+$primary-default: mat-color($daimler-theme-primary, default);
+$primary-dark: mat-color($daimler-theme-primary, darker);
+$primary-foreground: mat-color($daimler-theme-primary, foreground);
+$primary-lighter: mat-color($daimler-theme-primary, A400);
+
+$accent-light: mat-color($daimler-theme-accent, lighter);
+$accent-default: mat-color($daimler-theme-accent, default);
+$accent-dark: mat-color($daimler-theme-accent, darker);
+
+$warn-default: mat-color($daimler-theme-warn, default);
+$warn-foreground: mat-color($daimler-theme-warn, foreground);
+
+$select-background-color: whitesmoke;
+
+html,
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.msgStandard,
+.msgInfo {
+  background-color: $primary-default;
+  color: $primary-foreground;
+}
+
+.msgError {
+  background-color: $warn-default;
+  color: $warn-foreground;
+}
+
+.userAction {
+  cursor: pointer;
+}
+
+::ng-deep .mat-form-field-flex {
+  background-color: transparent !important;
+}
+
+.step-description {
+  padding-top: 32px;
+  padding-bottom: 8px;
+}

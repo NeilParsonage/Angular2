@@ -1,0 +1,74 @@
+@import '~@angular/material/theming';
+@include mat-core();
+$mat-daimler: (
+  50: #e8eaf6,
+  100: #a6cad8,
+  200: #79aebf,
+  300: #5097ab,
+  400: #007a93,
+  500: #00677f,
+  600: #00566a,
+  700: #004355,
+  800: #003340,
+  900: #002833,
+  A100: #7bc6e0,
+  A200: #00677f,
+  A400: #aef9ff,
+  A700: #4895ae,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+$mat-daimler-warn: (
+  50: #c8a0a0,
+  100: #aa736e,
+  200: #8c463c,
+  300: #ff0000,
+  400: #5a130a,
+  500: #71180c,
+  600: #5a130a,
+  700: #440e07,
+  800: #270000,
+  900: #010000,
+  A100: #dc745d,
+  A200: #72170c,
+  A400: #a64633,
+  A700: #430000,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+$daimler-theme-primary: mat-palette($mat-daimler, $default: 500, $lighter: 300, $darker: 700);
+$daimler-theme-accent: mat-palette($mat-daimler, $default: 200, $lighter: 100, $darker: 300);
+$daimler-theme-warn: mat-palette($mat-daimler-warn);
+$daimler-theme: mat-light-theme($daimler-theme-primary, $daimler-theme-accent, $daimler-theme-warn);
+
+@include angular-material-theme($daimler-theme);
+/* *
+	Pantone®	CMYK	HEX	RGB	RAL	Light Grey	Cool Grey 1	0/0/0/10	#E6E6E6	230/230/230	9002 Grauweiß	Light Grey +20K	–	0/0/0/30	#C8C8C8	200/200/200	–	Light Grey +40K	–	0/0/0/50	#9E9E9E	158/158/158	–	Light Grey +60K	–	0/0/0/70	#707070	112/112/112	–	Light Grey +80K	–	0/0/0/90	#444444	68/68/68	–	 	 	 	 	 	 	Petrol	315	100/10/20/45	#00677F	0/103/127	220 40 40	Petrol +20K	–	100/10/20/65	#00566A	0/86/106	–	Petrol +40K	–	100/10/20/85	#004355	0/67/85	–	Petrol 80%	–	80% 100/10/20/45	#007A93	0/122/147	–	Petrol 60%	–	60% 100/10/20/45	#5097AB	80/151/171	–	Petrol 40%	–	40% 100/10/20/45	#79AEBF	121/174/191	–	Petrol 20%	–	20% 100/10/20/45	#A6CAD8	166/202/216	–	 	 	 	 	 	 	Deep Red	202	10/100/60/50	#71180C	113/24/12	030 30 40	Deep Red +20K	–	10/100/60/70	#5A130A	90/19/10	–	Deep Red +40K	–	10/100/60/90	#440E07	68/14/7	–	 	 	 	 	 	 	Signalrot	485	0/100/100/20	#FF0000	255/0/0 */

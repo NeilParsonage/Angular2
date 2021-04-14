@@ -1,0 +1,10 @@
+{
+  "/priv/*": {
+    "target": "https://vsdlgm198.opitz-consulting.int/emst2-fhiui2",
+    "secure": false
+  },
+  "/pub/*": {
+    "target": "https://vsdlgm198.opitz-consulting.int/emst2-fhiui2",
+    "secure": false
+  }
+}

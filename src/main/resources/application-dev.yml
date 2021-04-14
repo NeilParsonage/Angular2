@@ -1,0 +1,25 @@
+#server: 
+#  port: 8081
+
+spring:
+  datasource:
+    # remove me - driver-class-name: oracle.jdbc.driver.OracleDriver
+    validationQuery: 'SELECT 1 FROM DUAL'
+    url: jdbc:oracle:thin:@vsdlgm200.opitz-consulting.int:1521:fhi060
+    username: fhi_ci
+    password: fhi_ci
+keycloak:
+    realm: "060"
+    auth-server-url:  https://vsdlgm198.opitz-consulting.int/auth/
+    ssl-required: none
+    resource: emst2-fhi
+    disable-trust-manager: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    com.daimler.emst2.frw.aspects: DEBUG
+    ROOT: INFO
+    com.daimler.emst2: DEBUG
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %-25([%t]) %-5p %-55([%c{55}]) - %m%ex{short}%n'

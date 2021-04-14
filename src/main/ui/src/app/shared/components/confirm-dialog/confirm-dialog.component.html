@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>{{ options.title }}</h2>
+<mat-dialog-content *ngIf="options.message" class="mat-typography">
+  <span>{{ options.message }}</span>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button color="primary" (click)="onChoiceAbort()">
+      <mat-icon *ngIf="this.getButtonIconAbort()">{{this.getButtonIconAbort()}}</mat-icon><span>  {{ getButtonTextAbort() }}</span></button>
+  <button mat-raised-button color="primary" (click)="onChoiceConfirm()" cdkFocusInitial>
+    <mat-icon *ngIf="this.getButtonIconConfirm()">{{this.getButtonIconConfirm()}}</mat-icon><span>  {{ getButtonTextConfirm() }}</span></button>
+</mat-dialog-actions>

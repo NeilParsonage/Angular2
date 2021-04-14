@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<licenseSummary>
+  <dependencies>
+      <dependency>
+          <groupId>com.opitz</groupId>
+          <artifactId>jee-propertyresolver-api</artifactId>
+          <version>1.0.0</version>
+          <licenses>
+              <license>
+                  <name>OC License</name>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>com.opitz</groupId>
+          <artifactId>jee-propertyresolver-systemEnv</artifactId>
+          <version>1.0.0</version>
+          <licenses>
+              <license>
+                  <name>OC License</name>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>com.opitz</groupId>
+          <artifactId>jee-propertyresolver-swarm</artifactId>
+          <version>1.0.0</version>
+          <licenses>
+              <license>
+                  <name>OC License</name>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>com.oracle.jdbc</groupId>
+          <artifactId>ojdbc7</artifactId>
+          <version>1.0.0</version>
+          <licenses>
+              <license>
+                  <name>Oracle License</name>
+                  <url>http://www.oracle.com/technetwork/licenses/distribution-license-152002.html</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>jaxrs-validator</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>keycloak-client-config-api</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>jaxrs-jaxb</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>undertow</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>bootstrap</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>cdi</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>jaxrs</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>io</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>datasources</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>meta-spi</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>naming</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>spi</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>config-api-runtime</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>config-api</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>jpa</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>container</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>request-controller</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>keycloak</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>jolokia</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>hibernate-validator</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>cdi-config</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>connector</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>bean-validation</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>ee</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>transactions</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>jca</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>security</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>ejb</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>jaxrs-cdi</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+      <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>logging</artifactId>
+          <version>2017.10.0</version>
+          <licenses>
+              <license>
+                  <name>Apache License, Version 2.0</name>
+                  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+              </license>
+          </licenses>
+      </dependency>
+  </dependencies>
+</licenseSummary>

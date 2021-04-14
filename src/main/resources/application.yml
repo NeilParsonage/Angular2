@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    open-in-view: false
+    show-sql: true
+  datasource:
+    validationQuery: 'SELECT 1 FROM DUAL'
+    hikari:
+      poolName: wkal_cp
+      minimumIdle: 5
+      maximumPoolSize: 10
+      registerMbeans: true
+keycloak:
+    principal-attribute: preferred_username
+    use-resource-role-mappings: true
