@@ -22,4 +22,4 @@ jobs:
           curl -X POST $URL \
             -H "Content-Type: application/json" \
             -H "Authorization: token $GITHUB_TOKEN" \
-            --data '{ "body": "The current PR is '"$PR_NUMBER"'. Visit here: [Dina PR-Link]('"$PR_KUBE_LINK"')" }'
+            --data '{ "body": "The current PR is '"$PR_NUMBER"'. Visit here: [FHI PR-Link]('"$PR_KUBE_LINK"')" }'
