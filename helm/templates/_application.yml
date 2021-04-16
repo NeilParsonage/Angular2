@@ -2,19 +2,19 @@
 appconfig:
    app-client-alias: emst2-fhi
 
-kas: 
-   application:
-      name: emst2-kas
+#kas: 
+#   application:
+#      name: emst2-kas
 
 # set this to the folder where your mock data for kas is stored
 # example D:/noscan/60_fhi/emst2-fhi/src/test/resources/kasx-data
-kas-mock: 
-    root-folder: __not__existing__
+#kas-mock: 
+#    root-folder: __not__existing__
 #   root-folder: /kas-data/fileDto 
 
-sma-acl: 
-   application: 
-      name: emst2-sma-acl
+#sma-acl: 
+#   application: 
+#      name: emst2-sma-acl
 
 eureka:
    hostname: {{ .Values.eureka.hostname }}
@@ -45,22 +45,22 @@ logging:
     level:
         de.oc.dai.emst2.fhi.services.ClientLoggerService: WARN
         
-sma:
-   datasource:
-      password: {{ .Values.sma.datasource.password }}
-      username: {{ .Values.sma.datasource.username }}
-      jdbc-url: {{ .Values.sma.datasource.jdbcUrl }}
+#sma:
+#   datasource:
+#      password: {{ .Values.sma.datasource.password }}
+#      username: {{ .Values.sma.datasource.username }}
+#      jdbc-url: {{ .Values.sma.datasource.jdbcUrl }}
 spring:
    datasource:
       password: {{ .Values.spring.datasource.password }}
       username: {{ .Values.spring.datasource.username }}
-      jdbc-url: {{ .Values.spring.datasource.jdbcUrl }}
-   profiles: 
-      active:
-         {{- range $profiles := .Values.profiles.active }}
-         - {{ . }}
-         {{- end }}
-         
+      jdbc-url: {{ .Values.spring.datasource.url }}
+#   profiles: 
+#      active:
+#         {{- range $profiles := .Values.profiles.active }}
+#         - {{ . }}
+#         {{- end }}
+
 keycloak:
 {{ toYaml .Values.keycloak | indent 2 }}
 {{ end }}

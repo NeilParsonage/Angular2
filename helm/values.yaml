@@ -15,23 +15,23 @@ eureka:
   hostname: vsdlgm198.opitz-consulting.int
   defaultZone: https://vsdlgm198.opitz-consulting.int/eureka/eureka
 
-sma:
-  datasource:
-    password: plf_dev
-    username: plf_dev
-    jdbcUrl: jdbc:oracle:thin:@vsdlgm202:1521:ZSM
+#sma:
+#  datasource:
+#    password: plf_dev
+#    username: plf_dev
+#    jdbcUrl: jdbc:oracle:thin:@vsdlgm202:1521:ZSM
 
 spring:
   datasource:
-    password: plf_dev
-    username: plf_dev
-    jdbcUrl: jdbc:oracle:thin:@vsdlgm202:1521:ZSM
+    password: fhi_ci
+    username: fhi_ci
+    url: jdbc:oracle:thin:@vsdlgm200.opitz-consulting.int:1521:fhi060
 
-profiles: 
-  active: 
-    - zebra-mock
-    - kas_mock
-    - sma_mock
+#profiles: 
+#  active: 
+#    - zebra-mock
+#    - kas_mock
+#    - sma_mock
 
 keycloak:
   realm: "060"
