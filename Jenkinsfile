@@ -211,7 +211,7 @@ spec:
                     dir( 'src/main/ui' ) {
                       sh "echo 'registry=${NPM_REPOSITORY}' > .npmrc"
                       sh 'npm i'
-                      sh 'npm run build'
+                      sh 'npm run build:prod'
                     }
                     sh 'mkdir -p target/classes/static'
                     sh 'cp -r src/main/ui/dist/* target/classes/static/'
