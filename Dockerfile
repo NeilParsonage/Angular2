@@ -1,9 +1,9 @@
-FROM @container-registry@/emst/dc-java-base:latest
+FROM emst/adoptopenjdk-11-jdk-openj9-base:latest
 
 RUN mkdir -p /opt/service/config
-COPY *.jar /opt/service/
+COPY target/*.jar /opt/service/
 WORKDIR /opt/service
 
 EXPOSE 8080
 
-ENTRYPOINT ["sh", "-c", "java -Xmx128m -Djava.security.egd=file:/dev/./urandom -jar *.jar"]
+ENTRYPOINT ["sh", "-c", "java -jar *.jar"]

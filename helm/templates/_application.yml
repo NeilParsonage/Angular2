@@ -1,66 +1,41 @@
 {{ define "fhi.application.yaml"}}
 appconfig:
-   app-client-alias: emst2-fhi
-
-#kas: 
-#   application:
-#      name: emst2-kas
-
-# set this to the folder where your mock data for kas is stored
-# example D:/noscan/60_fhi/emst2-fhi/src/test/resources/kasx-data
-#kas-mock: 
-#    root-folder: __not__existing__
-#   root-folder: /kas-data/fileDto 
-
-#sma-acl: 
-#   application: 
-#      name: emst2-sma-acl
+{{- with (first .Values.ingress.hosts) }}
+   hostname: {{ .host }}
+{{- end }}
 
 eureka:
-   hostname: {{ .Values.eureka.hostname }}
    instance:
-      securePort: 443
-      securePortEnabled: true
-      nonSecurePortEnabled: false
-      statusPageUrl: https://${eureka.hostname}/${appconfig.app-client-alias}/actuator/info
-      healthCheckUrl: https://${eureka.hostname}/${appconfig.app-client-alias}/actuator/health
-      homePageUrl: https://${eureka.hostname}/${appconfig.app-client-alias}/
-      leaseRenewalIntervalInSeconds: 1
-      leaseExpirationDurationInSeconds: 2
+      statusPageUrl: https://${appconfig.hostname}/actuator/info
+      healthCheckUrl: https://${appconfig.hostname}/actuator/health
+      homePageUrl: https://${appconfig.hostname}/
    client:
       register-with-eureka: true
       fetch-registry: true
       service-url:
          defaultZone: {{ .Values.eureka.defaultZone }}
-      healthcheck:
-         enabled: true
-      lease:
-         duration: 5
 server:
    use-forward-headers: true
    servlet:
-      context-path: /${appconfig.app-client-alias}
-logging:
-    file: fhi.log
-    level:
-        de.oc.dai.emst2.fhi.services.ClientLoggerService: WARN
+      context-path: /
+      
+#logging:
+#    level:
+#        de.oc.dai.emst2.fhi.services.ClientLoggerService: WARN
         
-#sma:
-#   datasource:
-#      password: {{ .Values.sma.datasource.password }}
-#      username: {{ .Values.sma.datasource.username }}
-#      jdbc-url: {{ .Values.sma.datasource.jdbcUrl }}
 spring:
+   application:
+      name: {{ .Release.Name }}
    datasource:
       password: {{ .Values.spring.datasource.password }}
       username: {{ .Values.spring.datasource.username }}
-      jdbc-url: {{ .Values.spring.datasource.url }}
-#   profiles: 
-#      active:
-#         {{- range $profiles := .Values.profiles.active }}
-#         - {{ . }}
-#         {{- end }}
-
+      url: {{ .Values.spring.datasource.url }}
+   profiles: 
+      active:
+         {{- range $profiles := .Values.profiles.active }}
+         - {{ . }}
+         {{- end }}
+         
 keycloak:
 {{ toYaml .Values.keycloak | indent 2 }}
 {{ end }}

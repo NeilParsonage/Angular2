@@ -1,0 +1,27 @@
+name: Cleanup Pull-Request
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  build:
+    runs-on:
+      - self-hosted
+      - builder
+      - daidev
+    steps:
+      - uses: actions/checkout@v2
+      - name: Checkout GitHub Action Repo
+        uses: actions/checkout@v2
+        with:
+          repository: emst/.github
+          ref: master
+          token: ${{ secrets.PAT_CLONE_SHARED_GITHUB }}
+          path: ./emst-actions
+
+      - name: Delete PR from K8s
+        uses: ./emst-actions/actions/cleanup-pr
+        with:
+          monorepo-token: ${{ secrets.PAT_TRIGGER_K8S_DEPLOYMENT }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,78 @@
+name: Build master and create release
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  createRelease:
+    runs-on:
+      - self-hosted
+      - builder
+      - daidev
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: 1) Checkout GitHub Action Repo
+        uses: actions/checkout@v2
+        with:
+          repository: emst/.github
+          ref: master
+          token: ${{ secrets.PAT_CLONE_SHARED_GITHUB }}
+          path: ./emst-actions
+      - name: Create release
+        id: create-release
+        uses: ./emst-actions/actions/emst2-create-release
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  build:
+    needs:
+      - createRelease
+    runs-on:
+      - self-hosted
+      - builder
+      - daidev
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Checkout GitHub Action Repo
+        uses: actions/checkout@v2
+        with:
+          repository: emst/.github
+          ref: master
+          token: ${{ secrets.PAT_CLONE_SHARED_GITHUB }}
+          path: ./emst-actions
+      - name: Compile & Deploy
+        id: compile
+        uses: ./emst-actions/actions/emst2-complete
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          buildenv: daidev
+          monorepo-token: ${{ secrets.PAT_TRIGGER_K8S_DEPLOYMENT }}
+    outputs:
+      version: ${{ steps.compile.outputs.version }}
+
+  updateMonorepo:
+    needs:
+      - build
+    runs-on:
+      - self-hosted
+      - builder
+      - daidev
+    steps:
+      - name: Checkout GitHub Action Repo
+        uses: actions/checkout@v2
+        with:
+          repository: emst/.github
+          ref: master
+          token: ${{ secrets.PAT_CLONE_SHARED_GITHUB }}
+          path: ./emst-actions
+      - name: Write Version to monorepo
+        uses: ./emst-actions/actions/write-version
+        with:
+          artifact-name: ${{ github.event.repository.name }}
+          version: ${{ needs.build.outputs.version }}
+          token: ${{ secrets.PAT_TRIGGER_K8S_DEPLOYMENT }}

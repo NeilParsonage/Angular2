@@ -37,14 +37,15 @@ spec:
             - name: http
               containerPort: 8080
               protocol: TCP
-#          livenessProbe:
-#            httpGet:
-#              path: /
-#              port: http
-#          readinessProbe:
-#            httpGet:
-#              path: /
-#              port: http
+          livenessProbe:
+            initialDelaySeconds: 10
+            httpGet:
+              path: /actuator/health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
