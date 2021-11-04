@@ -47,3 +47,5 @@ Thumbs.db
 # VS Code settings
 .vscode/settings.json
 *.code-workspace
+.directory
+"/
