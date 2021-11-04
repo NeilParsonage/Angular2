@@ -1,0 +1,35 @@
+name: Build Pull-Request on Master
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on:
+      - self-hosted
+      - builder
+      - ${{ matrix.env }}
+    strategy:
+      fail-fast: false
+      matrix:
+        env:
+          - ocdev
+          - daidev
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Checkout GitHub Action Repo
+        uses: actions/checkout@v2
+        with:
+          repository: emst/.github
+          ref: master
+          token: ${{ secrets.PAT_CLONE_SHARED_GITHUB }}
+          path: ./emst-actions
+      - name: Compile & Deploy
+        uses: ./emst-actions/actions/emst2-complete
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          buildenv: ${{ matrix.env }}
+          monorepo-token: ${{ secrets.PAT_TRIGGER_K8S_DEPLOYMENT }}
