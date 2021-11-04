@@ -5,7 +5,7 @@ spring:
   datasource:
     # remove me - driver-class-name: oracle.jdbc.driver.OracleDriver
     validationQuery: 'SELECT 1 FROM DUAL'
-    url: jdbc:oracle:thin:@vsdlgm200.opitz-consulting.int:1521:fhi060
+    url: jdbc:oracle:thin:@dbvm1.emst.opitz-consulting.int:1521/ORDERFUL
     username: fhi_ci
     password: fhi_ci
 keycloak:
