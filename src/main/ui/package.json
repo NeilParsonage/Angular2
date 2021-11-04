@@ -6,7 +6,7 @@
     "dev": "ng serve --proxy-config proxy.json",
     "dev-local": "ng serve --proxy-config proxy-local.json",
     "build:dev": "ng build",
-    "build:prod": "ng build --prod",
+    "build": "ng build --configuration production",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
