@@ -1,10 +1,17 @@
 {
   "/priv/*": {
-    "target": "http://localhost:8080/",
-    "secure": false
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug"
   },
   "/pub/*": {
-    "target": "http://localhost:8080/",
-    "secure": false
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/actuator/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug"
   }
 }

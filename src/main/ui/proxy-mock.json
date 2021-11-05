@@ -1,0 +1,14 @@
+{
+  "/priv/*": {
+    "target": "http://localhost:4200",
+    "secure": false
+  },
+  "/pub/*": {
+    "target": "http://localhost:4200",
+    "secure": false
+  },
+  "/actuator/*": {
+    "target": "http://localhost:4200",
+    "secure": false
+  }
+}

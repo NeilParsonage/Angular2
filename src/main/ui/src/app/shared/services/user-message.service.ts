@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { UiMessage } from '../models/ui-message';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MessageCardStapleComponent } from '../components/message-card-staple/message-card-staple.component';
-import { timeout } from 'rxjs/operators';
-import { interval } from 'rxjs';
+import { UiMessage } from '../models/ui-message';
 
 /**
  * Dieser Service schickt neue Oberflächenmeldungen [UiMessage(s)] an die referenzierte Mat-Snackbar-Komponente.
@@ -17,20 +15,19 @@ import { interval } from 'rxjs';
  *      für die applikationsweite Oberflächenmeldungsversorgung anzupassen.
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserMessageService {
   private messages = new Array<UiMessage>();
 
   private snackBar: MatSnackBar;
-  private customSnackBar: any;
-
-  constructor() {}
+  private customSnackBar;
 
   /**
    * Oberflächennachricht darstellen :
    * Fügt eine neue Oberflächenmeldung für die Applikation hinzu.
    * In die Snackbar-Instanz wird die Komponente 'MessageCardStapleComponent' integriert
+   *
    * @param snackBar Referenz auf die Mat-Snackbar-Komponente.
    * @param uiMsg Oberflächennachrichten - UiMessage
    */
@@ -42,15 +39,12 @@ export class UserMessageService {
   }
 
   private processMessages() {
-    console.log('UserMessageService::processMessages()');
-
     if (this.messages.length < 1) {
-      console.log('UserMessageService processMessages - cancel no more messages to show!');
       return;
     }
 
     this.customSnackBar = this.snackBar.openFromComponent(MessageCardStapleComponent, {
-      data: this.messages
+      data: this.messages,
     });
     this.customSnackBar.instance.init(this.getUiMessages(), this.customSnackBar);
   }

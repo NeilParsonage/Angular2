@@ -1,7 +1,0 @@
-{
-  "name": "@project.name@",
-  "version": "@jgitver.calculated_version@",
-  "revision": "@jgitver.git_sha1_8@",
-  "buildTimestamp": "@maven.build.timestamp@",
-  "buildBranch": "@jgitver.branch_name@ @jgitver.git_sha1_full@"
-}

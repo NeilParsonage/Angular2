@@ -4,5 +4,5 @@ export interface Message {
   text: string;
   type: MessageType;
   id?: string;
-  source?: any;
+  source?;
 }

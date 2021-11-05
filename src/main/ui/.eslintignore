@@ -1,0 +1,6 @@
+**/*.spec.ts
+node_modules/
+e2e/
+**/http-error-interceptor
+**/.eslintrc.js
+**/polyfills.ts

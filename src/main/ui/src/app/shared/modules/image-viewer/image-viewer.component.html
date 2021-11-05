@@ -1,0 +1,65 @@
+<div
+  [daiToggleFullscreen]="fullscreen"
+  class="img-container"
+  [style.backgroundColor]="config.containerBackgroundColor"
+  (wheel)="scrollZoom($event)"
+  (dragover)="onDragOver($event)"
+  fxFlex="center center"
+>
+  <img
+    [src]="src[index]"
+    [ngStyle]="style"
+    height="100%"
+    width="100%"
+    alt="Image not found..."
+    (dragstart)="onDragStart($event)"
+    (load)="onLoad()"
+    (loadstart)="onLoadStart()"
+  />
+  <!-- Div below will be used to hide the 'ghost' image when dragging -->
+  <div></div>
+  <div class="spinner-container" *ngIf="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- <button type="button" [class]="config.btnClass" *ngIf="config.btnShow.rotateCounterClockwise" (click)="rotateCounterClockwise()">
+    <span [class]="config.btnIcons.rotateCounterClockwise"></span>
+  </button>
+  <button type="button" [class]="config.btnClass" *ngIf="config.btnShow.rotateClockwise" (click)="rotateClockwise()">
+    <span [class]="config.btnIcons.rotateClockwise"></span>
+  </button>
+-->
+  <button  mat-fab color="primary" *ngIf="config.btnShow.zoomOut" (click)="zoomOut()">
+    <mat-icon>{{config.btnIcons.zoomOut}}</mat-icon>
+  </button>
+  <button  mat-fab color="primary" *ngIf="config.btnShow.zoomIn" (click)="zoomIn()">
+    <mat-icon>{{config.btnIcons.zoomIn}}</mat-icon>
+  </button>
+
+<!--
+  <button type="button" [class]="config.btnClass" *ngIf="config.btnShow.zoomOut" (click)="zoomOut()">
+    <span [class]="config.btnIcons.zoomOut">{{config.btnIcons.zoomOut}}</span>
+  </button>
+  <button type="button" [class]="config.btnClass" *ngIf="config.btnShow.zoomIn" (click)="zoomIn()">
+    <span [class]="config.btnIcons.zoomIn">{{config.btnIcons.zoomIn}}</span>
+  </button> -->
+
+  <button  mat-fab color="primary" *ngFor="let cBtn of config.customBtns" (click)="fireCustomEvent(cBtn.name, index)">
+    <mat-icon>{{cBtn.icon}}</mat-icon>
+  </button>
+
+
+  <!-- <button type="button" id="ngx-fs-btn" [class]="config.btnClass" (click)="toggleFullscreen()" *ngIf="config.allowFullscreen">
+    <span [class]="config.btnIcons.fullscreen"></span>
+  </button> -->
+<!--
+  <div class="nav-button-container" *ngIf="src.length > 1">
+    <button type="button" [class]="config.btnClass" (click)="prevImage()" [disabled]="index === 0" *ngIf="config.btnShow.prev">
+      <span [class]="config.btnIcons.prev"></span>
+    </button>
+    <button type="button" [class]="config.btnClass" (click)="nextImage()" [disabled]="index === src.length - 1" *ngIf="config.btnShow.next">
+      <span [class]="config.btnIcons.next"></span>
+    </button>
+  </div>
+-->
+</div>

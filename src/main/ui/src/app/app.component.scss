@@ -1,47 +1,15 @@
-@import '../styles.scss';
+@import "../styles.scss";
 
-.appbar-container {
-  padding-bottom: 12px;
+.connectionLost {
+  background-color: $warn-color;
+  color: white;
+  margin-left: calc(50vw - 24px);
+  position: absolute;
+  top: 0;
+  z-index: 1031;
 }
 
-mat-sidenav {
-  width: 288px; // 3 * base grid 96px
-  height: calc(100vh); // "over-height" to cover grey background with white
-}
-
-mat-sidenav-content {
-  padding-bottom: 12px;
-  padding-left: 24px;
-  padding-right: 24px;
-  height: calc(100vh - 100px); // 100 := 76 (app bar + padding) + 2 * 12 padding (nav-content)
-}
-
-mat-sidenav-container {
-  height: calc(100vh - 76px); // 76 := 64 app-bar + 1 * 12 padding
-}
-
-.show-hover:hover,
-.show-hover:active {
-  color: lightgray;
-}
-
-.mat-icon-button.large {
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-
-  .mat-icon {
-    font-size: 40px;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-  }
-}
-
-.spinnerCenter {
-  margin: 0 auto;
-}
-
-.large {
-  margin-left: 48px;
+::ng-deep .connection-lost-tooltip {
+  z-index: 1031;
+  background-color: $warn-color;
 }
