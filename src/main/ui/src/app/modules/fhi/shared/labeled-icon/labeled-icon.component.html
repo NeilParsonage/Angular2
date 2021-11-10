@@ -1,0 +1,9 @@
+<div fxLayout fxLayoutAlign="space-between">
+  <div>
+    <mat-label class="dai-label">{{ label }}</mat-label>
+  </div>
+  <div style="padding-left: 16px" fxFlexLayout fxLayoutAlign="start" fxLayoutGap="8px">
+    <mat-icon style="padding-left: 16px">{{ item }}</mat-icon>
+    <mat-label *ngIf="!!itemText" style="font-size: 10px; font-weight: bold">{{ itemText }}</mat-label>
+  </div>
+</div>

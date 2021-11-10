@@ -1,54 +1,45 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, Observable, BehaviorSubject } from 'rxjs';
-import { UiMessage } from '../../shared/models/ui-message';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { UiMessage } from 'src/app/shared/models/ui-message';
+import { MessageUtil } from 'src/app/shared/utils/message-util';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ContextService {
-  private pageTitle$ = new BehaviorSubject<string>('Startseite');
+  connectionOk = true;
 
-  private manualPage$ = new BehaviorSubject<string>('https://wiki.dewoe.corpintra.net/wikiemst/index.php/W060.FHI');
+  lastWorkingRequest = new Date();
 
   private isBackendRequestInProgress$ = new BehaviorSubject<boolean>(false);
 
-  private forcePageRefresh$ = new Subject<any>();
+  private pageUserMessage$ = new Subject<UiMessage>();
 
-  private pageUserMessage$ = new BehaviorSubject<UiMessage>(null);
-
-  private locale: string = 'de-DE';
-
-  private customErrorMessageHandler: (response: any) => string;
-
-
-
-  constructor() {
-    console.log('+++++ new ContextService');
-  }
-
-  public setCurrentPageInfo(pageTitle: string, manualPage: string): void {
-    this.pageTitle$.next(pageTitle);
-    this.manualPage$.next(manualPage);
-  }
-
-  public getLocale(): string {
-    return this.locale;
-  }
-
-  public getPageTitle() {
-    return this.pageTitle$.asObservable();
-  }
-
-  public getManualPage() {
-    return this.manualPage$.asObservable();
+  updateConnectionWorkingState(isworking: boolean): void {
+    this.connectionOk = isworking;
+    if (isworking) {
+      this.lastWorkingRequest = new Date();
+    }
   }
 
   public isBackendRequestInProgress() {
     return this.isBackendRequestInProgress$.asObservable();
   }
 
-  public getForcePageRefresh() {
-    return this.forcePageRefresh$.asObservable();
+  public addHttpError(error: HttpErrorResponse): void {
+    const errorMessage = MessageUtil.createErrorMsgByResponse(error);
+    this.addUserMessage(errorMessage);
+  }
+
+  public addErrorString(errorString: string) {
+    const errorMessage = MessageUtil.createErrorMsg(errorString);
+    this.addUserMessage(errorMessage);
+  }
+
+  public addInfoString(infoString: string) {
+    const infoMessage = MessageUtil.createInfoMsg(infoString);
+    this.addUserMessage(infoMessage);
   }
 
   public addUserMessage(uiMessage: UiMessage) {
@@ -60,20 +51,6 @@ export class ContextService {
   }
 
   public setBackendRequestInProgress(prog: boolean) {
-    // console.log('***context*** requestInProgress change '+ prog + ' date '+new Date().getMilliseconds());
     this.isBackendRequestInProgress$.next(prog);
   }
-
-  public setCustomErrorMessageHandler(customHandler: ((response: any) => string) ) {
-    this.customErrorMessageHandler = customHandler;
-  }
-
-  public getCustomErrorMessageHandler(): ((response: any) => string) {
-    return this.customErrorMessageHandler;
-  }
-
-  public forcePageRefresh() {
-    this.forcePageRefresh$.next();
-  }
-
 }

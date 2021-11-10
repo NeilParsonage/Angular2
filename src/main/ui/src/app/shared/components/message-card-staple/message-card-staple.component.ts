@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { UiMessage } from '../../models/ui-message';
+import { Component } from '@angular/core';
 import { MatSnackBarRef } from '@angular/material/snack-bar';
+import { UiMessage } from '../../models/ui-message';
 
 /**
  * Die Komponente 'MessageCardStapleComponent' visualisiert mehrere UiMessages
@@ -11,19 +11,16 @@ import { MatSnackBarRef } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-message-card-staple',
   templateUrl: './message-card-staple.component.html',
-  styleUrls: ['./message-card-staple.component.scss']
+  styleUrls: ['./message-card-staple.component.scss'],
 })
-export class MessageCardStapleComponent implements OnInit {
+export class MessageCardStapleComponent {
   dataUiMessages: UiMessage[];
   snackBarRef: MatSnackBarRef<MessageCardStapleComponent>;
-
-  constructor() {}
-
-  ngOnInit() {}
 
   /**
    * Initialisiert die Komponente mit den anzuzeigenden Nachrichten und integriert diese in eine
    * Material-Snackbar-Instanz.
+   *
    * @param messages darzustellende Oberflächenmeldungen (UiMessages)
    * @param snackBarReference Referenz zu einer Snackbar
    */
@@ -35,10 +32,10 @@ export class MessageCardStapleComponent implements OnInit {
   /**
    * Entfernt eine Nachricht aus der Darstellung.
    * Sollten keine Nachrichten mehr vorhanden sein, wird die Mat-Snackbar geschlossen.
+   *
    * @param idx Position im Nachrichtenfeld.
    */
   removeMessage(idx: number) {
-    console.log('message-card-staple: removeMessage(' + idx + ')');
     this.dataUiMessages.splice(idx, 1);
     if (this.dataUiMessages.length < 1) {
       this.snackBarRef.dismiss();

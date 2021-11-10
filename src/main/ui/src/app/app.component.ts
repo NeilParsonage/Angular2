@@ -1,107 +1,82 @@
-import { Breakpoints, MediaMatcher, BreakpointObserver } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnInit, OnDestroy, AfterViewChecked } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { map, first } from 'rxjs/operators';
-import { ContextService } from './core/services/context.service';
-import { KeycloakService } from 'keycloak-angular';
-import { AboutDialogComponent } from './about-dialog/about-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AppToolbarButton, AppToolbarListener, DaiUiFrameService } from 'emst-ui-frame';
+import { KeycloakService } from 'keycloak-angular';
+import { KeycloakInstance } from 'keycloak-js';
+import { Subscription } from 'rxjs';
+import { routes } from './app-routing.module';
+import { ContextService } from './core/services/context.service';
+//import { InfoDialogService } from './shared/services/info-dialog/info-dialog.service';
 import { UserMessageService } from './shared/services/user-message.service';
-import { FhiErrorMessageHandler } from './modules/fhi/fhi-error-message.handler';
-import { Title } from '@angular/platform-browser';
-import { AppService } from './modules/fhi/services/app.service';
 
-
+const appToolbarButtons: AppToolbarButton[] = [];
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit, OnDestroy, AfterViewChecked {
-  title = 'fhiui';
-  pageTitle = '';
-  manualPage = './';
-  appInfo = 'FHI '
-  isHandset: boolean;
+export class AppComponent implements OnInit, OnDestroy {
+  title = 'FHI';
+  keycloakInstance: KeycloakInstance;
+  appToolbarButtons = appToolbarButtons;
+  appRoutes = routes;
 
-  fillerContent = Array.from(
-    { length: 50 },
-    () =>
-      `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-       laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-       voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-       cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
-  );
-
-  private pageTitleSub: Subscription;
-  private manualPageSub: Subscription;
   private pageUserMessages: Subscription;
 
-  private isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.HandsetPortrait) // <=> breakpoint max-width 599px
-    .pipe(map(result => result.matches));
+  /**
+   * config AppToolbarLister - custom name (for logging only), method that is called on raised events -
+   * for method implementation see below
+   * any component can add itself as listener to these events -
+   * BEWARE: take care that no conflicting reactions happen across different handlers to the same event
+   */
+  readonly listenerConfig: AppToolbarListener = {
+    name: 'my-component-name: AppComponent',
+    onAppToolbarEvent: eventName => this.handleGlobalAppToolbarEvents(eventName),
+  };
 
   constructor(
-    public dialog: MatDialog,
     public keycloakService: KeycloakService,
     public context: ContextService,
-    public appService: AppService,
     private snackBar: MatSnackBar,
-    private breakpointObserver: BreakpointObserver,
     private userMessageService: UserMessageService,
-    private cdRef: ChangeDetectorRef,
-    private titleService: Title
-  ) {
-    this.isHandset$.subscribe(isaHandset => {
-      this.isHandset = isaHandset;
-    });
+    private daiUiFrameService: DaiUiFrameService,
+    private httpClient: HttpClient,
+    public contextService: ContextService
+  ) {}
+
+  ngOnInit() {
+    this.keycloakInstance = this.keycloakService.getKeycloakInstance();
     this.pageUserMessages = this.context.getPageUserMessages().subscribe(msg => {
       if (msg !== null && msg) {
-        console.debug('next pageUserMessage' + msg.message.text);
         this.userMessageService.process(this.snackBar, msg);
       }
     });
-    this.context.setCustomErrorMessageHandler((function(response:string): string {
-      console.debug('call FhiErrorMessageHandler')
-      return FhiErrorMessageHandler.process(response);
-    }));
 
-    this.appService.getInfo()
-      .pipe(first())
-        .subscribe(
-            data => {
-              let appInfoDetail: string = this.appInfo + data.werk + " " + data.umgebung;
-              this.titleService.setTitle(appInfoDetail);
-              this.appInfo = appInfoDetail;
-            }
-      );
-
+    this.daiUiFrameService.registerAppToolbarButtonsGlobal(appToolbarButtons);
+    this.daiUiFrameService.registerListener(this.listenerConfig);
   }
 
-  ngOnInit() {
-    this.pageTitleSub = this.context.getPageTitle().subscribe(pageTitle => (this.pageTitle = pageTitle));
-    this.manualPageSub = this.context.getManualPage().subscribe(manualPage => (this.manualPage = manualPage));
-  }
-
-  ngOnDestroy() {
-    this.pageTitleSub.unsubscribe();
-    this.manualPageSub.unsubscribe();
+  ngOnDestroy(): void {
     this.pageUserMessages.unsubscribe();
   }
 
-  ngAfterViewChecked() {
-    this.cdRef.detectChanges();
+  private handleGlobalAppToolbarEvents(eventName: string): void {
+    switch (eventName) {
+      case 'global-settings-clicked':
+        // eslint-disable-next-line no-console
+        console.log('handle event: "global-settings-clicked"');
+        break;
+      case 'global-notifications-clicked':
+        // eslint-disable-next-line no-console
+        console.log('handle event: "global-notifications-clicked"');
+        break;
+      default:
+        break;
+    }
   }
 
-  showAbout() {
-    this.dialog.open(AboutDialogComponent, {
-      height: '480px',
-      width: '624px'
-    });
-  }
-  public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+  actionTestServerConnection(): void {
+    this.httpClient.get('/actuator/info').subscribe();
   }
 }

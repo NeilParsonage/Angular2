@@ -1,25 +1,16 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from 'src/app/shared/modules/material.module';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MomentPipe } from 'src/app/shared/pipes/moment-pipe';
-import { PrimeModule } from 'src/app/shared/modules/prime.module';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
+import { LibEmstTableModule } from 'emst-table';
+import { MaterialModule } from 'src/app/shared/modules/material.module';
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { LabeledIconComponent } from './shared/labeled-icon/labeled-icon.component';
+import { LabeledTextComponent } from './shared/labeled-text/labeled-text.component';
 
 @NgModule({
-  declarations: [
-    PagenotfoundComponent,
-    MomentPipe,
-  ],
-  imports: [CommonModule, MaterialModule, PrimeModule, FlexLayoutModule, FormsModule, ReactiveFormsModule],
-  exports: [
-      PagenotfoundComponent,
-      MomentPipe,
-  ],
-  providers: [
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
-  ]
+  declarations: [LabeledTextComponent, WelcomeComponent, LabeledIconComponent],
+  providers: [],
+  imports: [CommonModule, FlexLayoutModule, FormsModule, LibEmstTableModule, MaterialModule, ReactiveFormsModule],
 })
 export class FhiModule {}

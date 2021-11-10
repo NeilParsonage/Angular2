@@ -1,43 +1,162 @@
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { catchError, tap, finalize } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
-import { MessageUtil } from 'src/app/shared/util/message-util';
-import { ContextService } from './../services/context.service';
-import { FhiErrorMessageHandler } from 'src/app/modules/fhi/fhi-error-message.handler';
+import { Observable } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { ErrorDto } from '../models/error-dto';
+import { ContextService } from '../services/context.service';
 
 @Injectable()
-export class HttpErrorInterceptor implements HttpInterceptor { // over engineered? HttpDataInterceptor better as generic entry point
-  constructor(private context: ContextService) {}
+export class HttpErrorInterceptor implements HttpInterceptor {
+  /**
+   * This prefix token is written in our backend in <b>RestResponseEntityExceptionHandler</b>.
+   * So don't change here without adopting there!
+   */
+  CUSTOM_PREFIX = 'FHI - ';
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(request).pipe(
-      catchError((response: HttpErrorResponse) => {
-        let errorMessage: string;
-        if (this.context.getCustomErrorMessageHandler()) {
-          const errorHandler = this.context.getCustomErrorMessageHandler();
-          const msg = errorHandler(response);
-          if (msg) {
-            errorMessage = msg;
-          }
-        } else if (typeof response.error === 'string') {
-          errorMessage = response.error;
-        } else if (response.error) {
-          errorMessage = response.error.error;
-        }  else if (response.statusText) {
-          errorMessage = response.statusText;
+  readonly noErrorHandlingWhitelistMap = new Map<string, Array<string>>();
+
+  constructor(private contextService: ContextService) {
+    this.initErrorHandlingWhitelistMap();
+  }
+
+  // whitelist requests, that do their own error handling and dont want to use generic error message - e.g. zebra printer popup
+  private initErrorHandlingWhitelistMap() {
+    const whitelistArrayPost = new Array<string>();
+    this.noErrorHandlingWhitelistMap.set('POST', whitelistArrayPost);
+    // whitelistArrayPost.push(this.zebraPrintJobsEndpoint);
+
+    const whitelistArrayGet = new Array<string>();
+    this.noErrorHandlingWhitelistMap.set('GET', whitelistArrayGet);
+    // whitelistArrayGet.push(this.documentResourcesEndpoint);
+  }
+
+  public intercept(req: HttpRequest<undefined>, next: HttpHandler): Observable<HttpEvent<undefined>> {
+    // if url is whitelisted for its custom error handling -> call next handler
+    const urlWhitelist = this.noErrorHandlingWhitelistMap.get(req.method);
+    const isCustomErrorHandling = urlWhitelist?.filter(url => req.url.startsWith(url)).length > 0;
+    return next.handle(req).pipe(
+      tap(event => {
+        if (event instanceof HttpResponse) {
+          this.contextService.updateConnectionWorkingState(true);
         }
-        console.error('error while request: ', response);
-        if (!errorMessage) {
-          errorMessage = 'Unbekannter Fehler!';
-        }
-        const uiMessage = MessageUtil.createErrorMsg(errorMessage);
-        this.context.addUserMessage(uiMessage);
-        return throwError(response);
       }),
-      finalize(() => {
-        this.context.setBackendRequestInProgress(false);
+      catchError(err => {
+        this.updateConnectionStatus(err);
+
+        let myError = err;
+        try {
+          myError = this.convertErrorResponse(myError);
+        } catch (e) {
+          myError = err;
+        }
+
+        // if generic error handling
+        if (!isCustomErrorHandling) {
+          // create usermessages
+          this.contextService.addHttpError(myError);
+        }
+
+        return new Promise<undefined>((resolve, reject) => {
+          try {
+            reject(this.convertErrorResponse(err));
+          } catch (e) {
+            reject(err);
+          }
+        });
       })
     );
+  }
+
+  private updateConnectionStatus(errorEvent: HttpErrorResponse): void {
+    // if error is text message and starts with DINA
+    const errorDto = this.getErrorDto(errorEvent);
+    if (this.isDinaError(errorDto)) {
+      this.contextService.updateConnectionWorkingState(true);
+    } else {
+      // connection problem
+      this.contextService.updateConnectionWorkingState(false);
+    }
+  }
+
+  private convertErrorResponse(errorEvent: HttpErrorResponse): HttpErrorResponse {
+    const errorDto = this.getErrorDto(errorEvent);
+
+    // if error is text message and starts with DINA
+    if (this.isDinaError(errorDto)) {
+      return this.createModifiedDinaError(errorEvent, errorDto);
+    }
+
+    // if error structure is ok -> go on
+    if (errorDto) {
+      return this.createModifiedBackendError(errorEvent, errorDto);
+    }
+
+    // else try to construct errorDto
+    return this.createModifiedError(errorEvent);
+  }
+
+  private getErrorDto(errorEvent: HttpErrorResponse): ErrorDto {
+    const errorDto = errorEvent?.error;
+    if (this.isString(errorDto?.error) && this.isString(errorDto?.message) && errorDto?.status !== undefined && errorDto?.timestamp !== undefined) {
+      return errorDto;
+    }
+    if (errorEvent?.error instanceof ProgressEvent) {
+      const progressEvent: any = errorEvent?.error;
+      return {
+        error: 'ProgressEvent error',
+        message: errorEvent?.message,
+        status: errorEvent?.status,
+        timestamp: new Date(),
+        isDinaError: false,
+      } as ErrorDto;
+    }
+    return undefined;
+  }
+
+  private isDinaError(errorDto: ErrorDto): boolean {
+    if (!errorDto) {
+      return false;
+    }
+    const result = errorDto.error?.startsWith(this.CUSTOM_PREFIX);
+    // set custom dina error flag if prefix found
+    errorDto.isDinaError = result;
+    return result;
+  }
+
+  private createModifiedDinaError(errorEvent: HttpErrorResponse, errorDto: ErrorDto): HttpErrorResponse {
+    const errmsg = errorDto?.error?.toString();
+    errorDto.error = errmsg?.substring(this.CUSTOM_PREFIX.length);
+    return this.createErrorResponse(errorEvent, errorDto);
+  }
+
+  private createModifiedError(errorEvent: HttpErrorResponse): HttpErrorResponse {
+    // build new error as message of error.error and error.message
+    if (this.isString(errorEvent?.error)) {
+      const errorDto: ErrorDto = {
+        error: errorEvent?.error?.toString(),
+      };
+      return this.createErrorResponse(errorEvent, errorDto);
+    }
+    // no modification done
+    return errorEvent;
+  }
+
+  private createModifiedBackendError(errorEvent: HttpErrorResponse, errorDto: ErrorDto): HttpErrorResponse {
+    errorDto.error = errorDto?.error + ' - ' + errorDto?.message;
+    return this.createErrorResponse(errorEvent, errorDto);
+  }
+
+  private createErrorResponse(errorEvent: HttpErrorResponse, errorDto: ErrorDto): HttpErrorResponse {
+    return new HttpErrorResponse({
+      error: errorDto,
+      headers: errorEvent?.headers,
+      status: errorEvent?.status,
+      statusText: errorEvent?.statusText,
+      url: errorEvent?.url,
+    });
+  }
+
+  private isString(stringCandidate: any): boolean {
+    return typeof stringCandidate === 'string' || stringCandidate instanceof String;
   }
 }

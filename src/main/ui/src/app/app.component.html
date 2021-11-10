@@ -1,54 +1,15 @@
-<div class="appbar-container">
-  <mat-toolbar color="primary" class="mat-elevation-z8">
-    <button mat-icon-button (click)="sidenav.toggle()"><mat-icon class="show-hover">menu</mat-icon></button>
-    <h1 class="example-app-name">{{ appInfo }} - {{ pageTitle }}</h1>
+<button
+  *ngIf="!contextService.connectionOk"
+  mat-fab
+  color="warn"
+  class="connectionLost"
+  matTooltip="Daten konnten nicht mit dem Server abgeglichen werden. Letzte erfolgreiche Serververbindung: {{
+    contextService.lastWorkingRequest | date: 'H:mm'
+  }} Uhr"
+  matTooltipClass="connection-lost-tooltip"
+  (click)="actionTestServerConnection()"
+>
+  <mat-icon>offline_bolt</mat-icon>
+</button>
 
-    <span class="toolbar-spacer"></span>
-
-    <button mat-icon-button>
-      <mat-icon
-        *ngIf="!(context.isBackendRequestInProgress() | async)"
-        class="show-hover"
-        (click)="context.forcePageRefresh()"
-        >refresh</mat-icon
-      >
-      <mat-spinner
-        *ngIf="context.isBackendRequestInProgress() | async"
-        color="accent"
-        [diameter]="24"
-        class="spinnerCenter"
-      ></mat-spinner>
-    </button>
-    <button mat-icon-button>
-      <mat-icon
-        class="show-hover"
-        matBadgeSize="medium"
-        matBadgeColor="accent"
-        >notifications</mat-icon
-      >
-    </button>
-    <a mat-icon-button target="_blank" [href]="manualPage"><mat-icon class="show-hover">help</mat-icon></a>
-    <button mat-icon-button><mat-icon class="show-hover">view_module</mat-icon></button>
-
-    <button mat-icon-button [matMenuTriggerFor]="userMenu" class="large">
-      <mat-icon class="show-hover">account_circle</mat-icon>
-    </button>
-    <mat-menu #userMenu="matMenu">
-      <button mat-menu-item (click)="showAbout()">
-        <mat-icon>info</mat-icon>
-        <span>Info Dialog</span>
-      </button>
-      <mat-divider></mat-divider>
-      <button mat-menu-item (click)="keycloakService.logout()">
-        <mat-icon>power_settings_new</mat-icon>
-        <span>{{ keycloakService.getUsername() }} abmelden</span>
-      </button>
-    </mat-menu>
-  </mat-toolbar>
-</div>
-
-<mat-sidenav-container>
-  <mat-sidenav #sidenav [mode]="isHandset ? 'over' : 'side'"><app-nav></app-nav></mat-sidenav>
-
-  <mat-sidenav-content> <router-outlet></router-outlet> </mat-sidenav-content>
-</mat-sidenav-container>
+<dai-ui-frame [keycloakInstance]="keycloakInstance" [appRoutes]="appRoutes" [appTitle]="title" [appInfo$]=""> </dai-ui-frame>

@@ -1,3 +1,5 @@
+@import "../../../../styles.scss";
+
 ::ng-deep .mat-card {
   color: inherit;
   opacity: 0.95;
@@ -11,6 +13,13 @@
   box-shadow: none;
 }
 
-.snackbar-message {
-  margin: 10px 0;
+.msgStandard,
+.msgInfo {
+  background-color: $primary-default;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.msgError {
+  background-color: $warn-default;
+  color: rgba(255, 255, 255, 0.7) !important;
 }

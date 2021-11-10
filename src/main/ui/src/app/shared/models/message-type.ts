@@ -1,3 +1,6 @@
 export enum MessageType {
-  INFO, WARN, ERROR
+  INFO,
+  WARN,
+  ERROR,
+  FREIE_EINSCHREIBEN,
 }

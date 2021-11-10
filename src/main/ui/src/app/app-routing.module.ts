@@ -1,27 +1,32 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AppAuthGuard } from './app.authguard';
-import { Privileges } from './modules/fhi/models/privileges';
-import { PagenotfoundComponent } from './modules/fhi/components/pagenotfound/pagenotfound.component';
+import { RouterModule, Routes } from '@angular/router';
+import { WelcomeComponent } from './modules/fhi/components/welcome/welcome.component';
 
-const routes: Routes = [
-  { path: '', redirectTo: '/kalender', pathMatch: 'full' },
-  /*{
-    path: 'kalender',
-    component: KalenderUeberblickComponent,
-    canActivate: [AppAuthGuard],
-    data: { roles: [Privileges.FHI_READER,Privileges.FHI_ADMIN, Privileges.ASP_EDITOR, Privileges.FINISH_EDITOR, Privileges.LACK_EDITOR, Privileges.MONTAGE_EDITOR, Privileges.NA2000_EDITOR, Privileges.ROHBAU_EDITOR] }
-  }, */
+export const routes: Routes = [
   {
-    path: 'pagenotfound',
-    component: PagenotfoundComponent,
+    path: '',
+    redirectTo: 'welcome',
+    pathMatch: 'full',
+    data: {
+      roles: [],
+      displaySidemenu: false,
+    },
+  },
+  {
+    path: 'welcome',
+    component: WelcomeComponent,
+    data: {
+      title: 'Welcome',
+      roles: [],
+      displaySidemenu: true,
+      displayText: 'Welcome to FHI',
+      displayIcon: 'home',
+    },
   },
 ];
 
-
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AppAuthGuard]
 })
 export class AppRoutingModule {}
