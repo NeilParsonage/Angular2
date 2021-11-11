@@ -33,7 +33,7 @@ export const routes: Routes = [
       roles: [],
       displaySidemenu: true,
       displayText: 'Einzelauskunft',
-      displayIcon: 'home',
+      displayIcon: 'info',
     },
   },
 ];
