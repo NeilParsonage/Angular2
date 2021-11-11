@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EinzelauskunftComponent } from './modules/fhi/components/einzelauskunft/einzelauskunft.component';
 import { WelcomeComponent } from './modules/fhi/components/welcome/welcome.component';
 
 export const routes: Routes = [
@@ -20,6 +21,18 @@ export const routes: Routes = [
       roles: [],
       displaySidemenu: true,
       displayText: 'Welcome to FHI',
+      displayIcon: 'home',
+    },
+  },
+
+  {
+    path: 'Einzelauskunft',
+    component: EinzelauskunftComponent,
+    data: {
+      title: 'Einzelauskunft',
+      roles: [],
+      displaySidemenu: true,
+      displayText: 'Einzelauskunft',
       displayIcon: 'home',
     },
   },

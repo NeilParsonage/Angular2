@@ -1,0 +1,21 @@
+<div class="content">
+  <h4>Reihenfolge</h4>
+  <div fxLayout="row">
+    <mat-form-field class="selectItem">
+      <mat-label>Ges. lfd. Nr.</mat-label>
+      <input matInput type="number" [readonly]="true" [(ngModel)]="einzelauskunft.lfdNrGes" />
+    </mat-form-field>
+  </div>
+  <div fxLayout="row">
+    <mat-form-field class="selectItem">
+      <mat-label>Ist lfd. FHI</mat-label>
+      <input matInput type="number" [readonly]="true" [(ngModel)]="einzelauskunft.lfdNrFhi" />
+    </mat-form-field>
+  </div>
+  <div fxLayout="row">
+    <mat-form-field class="selectItem">
+      <mat-label>Ist lfd. LMT</mat-label>
+      <input matInput type="number" [readonly]="true" [(ngModel)]="einzelauskunft.lfdNrLmt" />
+    </mat-form-field>
+  </div>
+</div>
