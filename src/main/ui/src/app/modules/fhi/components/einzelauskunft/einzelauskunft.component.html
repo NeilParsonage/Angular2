@@ -1,0 +1,33 @@
+<div class="container mat-elevation-z8">
+  <app-einzelauskunft-kopf [daten]="auftrag"></app-einzelauskunft-kopf>
+  <div class="divider">
+    <mat-divider></mat-divider>
+  </div>
+
+  <div fxLayout="row">
+    <div fxLayout="column" fxFlex="8">
+      <app-einzelauskunft-rf [daten]="auftrag"></app-einzelauskunft-rf>
+    </div>
+    <div fxFlex="5px" fx class="content">
+      <mat-divider [vertical]="true" style="height: 100%"></mat-divider>
+    </div>
+
+    <div fxLayout="column" fxFlex="92">
+      <div class="content">
+        <h4>Termine</h4>
+      </div>
+    </div>
+  </div>
+  <div class="divider">
+    <mat-divider></mat-divider>
+  </div>
+  <div class="content">
+    <h4>Sendestatus</h4>
+  </div>
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+</div>
