@@ -35,6 +35,40 @@ public class Auftraege implements Serializable {
     @Column(name = "Lfd_Nr_Ubm")
     private Long lfdNrUbm;
 
+    @Column(name = "Fzgartneu")
+    private String fzgArt;
+
+    @Column(name = "Bandnr")
+    private Long bandNr;
+
+    @Column(name = "Fhsbm")
+    private String fhsBaumuster;
+
+    @Column(name = "Fzgbm")
+    private String fzgbaumuster;
+
+    @Column(name = "Aufnr")
+    private String anr;
+
+    @Column(name = "Verkbez")
+    private String verkBez;
+
+    public String getFzgArt() {
+        return fzgArt;
+    }
+
+    public void setFzgArt(String fzgArt) {
+        this.fzgArt = fzgArt;
+    }
+
+    public Long getBandNr() {
+        return bandNr;
+    }
+
+    public void setBandNr(Long bandNr) {
+        this.bandNr = bandNr;
+    }
+
     public String getPnr() {
         return this.pnr;
     }
@@ -75,5 +109,36 @@ public class Auftraege implements Serializable {
         this.lfdNrUbm = lfdNrUbm;
     }
 
+    public String getFhsBaumuster() {
+        return fhsBaumuster;
+    }
+
+    public void setFhsBaumuster(String fhsBaumuster) {
+        this.fhsBaumuster = fhsBaumuster;
+    }
+
+    public String getFzgbaumuster() {
+        return fzgbaumuster;
+    }
+
+    public void setFzgbaumuster(String fzgbaumuster) {
+        this.fzgbaumuster = fzgbaumuster;
+    }
+
+    public String getAnr() {
+        return anr;
+    }
+
+    public void setAnr(String anr) {
+        this.anr = anr;
+    }
+
+    public String getVerkBez() {
+        return verkBez;
+    }
+
+    public void setVerkBez(String verkBez) {
+        this.verkBez = verkBez;
+    }
 
 }

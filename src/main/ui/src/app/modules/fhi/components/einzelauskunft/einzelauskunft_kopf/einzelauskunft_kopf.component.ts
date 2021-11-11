@@ -9,7 +9,7 @@ import { Auftrag } from '../../../models/auftrag';
 export class EinzelauskunftKopfComponent implements OnInit {
   constructor() {}
 
-  einzelauskunft: Auftrag = { pnr: '124', lfdNrGes: 100, lfdNrLmt: 99, lfdNrFhi: 77 };
+  einzelauskunft: Auftrag = null;
 
   @Input()
   set daten(data: Auftrag) {

@@ -13,6 +13,13 @@ public class FhiDtoFactory {
         neu.lfdNrGes = auftraege.getLfdNrGes();
         neu.lfdNrFhi = auftraege.getLfdNrFhi();
         neu.lfdNrLmt = auftraege.getLfdNrLmt();
+        neu.bandNr = auftraege.getBandNr();
+        neu.fzgArt = auftraege.getFzgArt();
+        neu.fhsBaumuster = auftraege.getFhsBaumuster();
+        neu.fzgbaumuster = auftraege.getFzgbaumuster();
+        neu.anr = auftraege.getAnr();
+        neu.verkBez = auftraege.getVerkBez();
+
         return neu;
     }
 }

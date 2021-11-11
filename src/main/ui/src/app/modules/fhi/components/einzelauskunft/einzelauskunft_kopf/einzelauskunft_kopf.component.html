@@ -1,9 +1,106 @@
 <div class="content">
   <div fxLayout="row">
-    <mat-form-field class="selectItem">
-      <mat-label>PNR</mat-label>
-      <input matInput type="text" [readonly]="true" [(ngModel)]="einzelauskunft.pnr" />
-    </mat-form-field>
+    <div fxLayout="column" fxFlex="16">
+      <mat-form-field class="selectItem">
+        <mat-label>PNR</mat-label>
+        <input matInput type="text" [readonly]="true" [(ngModel)]="einzelauskunft.pnr" />
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxFlex="4">
+      <div fxLayout="row">
+        <mat-form-field class="selectItemShort">
+          <mat-label>Band</mat-label>
+          <input matInput type="number" [readonly]="true" [(ngModel)]="einzelauskunft.bandNr" />
+        </mat-form-field>
+      </div>
+      <div fxLayout="row">
+        <mat-form-field class="selectItemShort">
+          <mat-label>RT5</mat-label>
+          <input matInput type="number" [readonly]="true" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="column" fxFlex="4">
+      <div fxLayout="row">
+        <mat-form-field class="selectItemShort">
+          <mat-label>Fzg Art</mat-label>
+          <input matInput type="text" [readonly]="true" [(ngModel)]="einzelauskunft.fzgArt" />
+        </mat-form-field>
+      </div>
+      <div fxLayout="row">
+        <mat-form-field class="selectItemShort">
+          <mat-label>RT2</mat-label>
+          <input matInput type="number" [readonly]="true" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="column" fxFlex="8">
+      <div fxLayout="row">
+        <mat-form-field class="selectItem">
+          <mat-label>Fzg Bm</mat-label>
+          <input matInput type="text" [readonly]="true" [(ngModel)]="einzelauskunft.fzgbaumuster" />
+        </mat-form-field>
+      </div>
+      <div fxLayout="row">
+        <mat-form-field class="selectItem">
+          <mat-label>Fzg Taktkl</mat-label>
+          <input matInput type="text" [readonly]="true" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="column" fxFlex="8">
+      <div fxLayout="row">
+        <mat-form-field class="selectItem">
+          <mat-label>Fhs Bm</mat-label>
+          <input matInput type="text" [readonly]="true" [(ngModel)]="einzelauskunft.fhsBaumuster" />
+        </mat-form-field>
+      </div>
+      <div fxLayout="row">
+        <mat-form-field class="selectItem">
+          <mat-label>Fhs Taktkl</mat-label>
+          <input matInput type="text" [readonly]="true" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="column" fxFlex="8">
+      <mat-form-field class="selectItem">
+        <mat-label>ANR</mat-label>
+        <input matInput type="text" [readonly]="true" [(ngModel)]="einzelauskunft.anr" />
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxFlex="8">
+      <mat-form-field class="selectItem">
+        <mat-label>Land</mat-label>
+        <input matInput type="text" [readonly]="true" />
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxFlex="16">
+      <mat-form-field class="selectItemLong">
+        <mat-label>Verkaufsbezeichnung</mat-label>
+        <input matInput type="text" [readonly]="true" [(ngModel)]="einzelauskunft.verkBez" />
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxFlex="8">
+      <div fxLayout="row">
+        <mat-form-field class="selectItem">
+          <mat-label>Radstand</mat-label>
+          <input matInput type="text" [readonly]="true" />
+        </mat-form-field>
+      </div>
+      <div fxLayout="row">
+        <mat-form-field class="selectItem">
+          <mat-label>Gesamtlänge</mat-label>
+          <input matInput type="text" [readonly]="true" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="column" fxFlex="20"></div>
     <br />
     <br />
     <br />

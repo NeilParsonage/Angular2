@@ -9,7 +9,7 @@ import { AuftragService } from '../../services/auftrag.service';
   styleUrls: ['./einzelauskunft.component.scss'],
 })
 export class EinzelauskunftComponent implements OnInit {
-  auftrag: Auftrag = { pnr: '12223', lfdNrGes: 101, lfdNrLmt: 999, lfdNrFhi: 777 };
+  auftrag: Auftrag = null;
   dataSource$: any;
   constructor(private auftragService: AuftragService) {
     this.loadData();

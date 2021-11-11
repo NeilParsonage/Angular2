@@ -13,6 +13,18 @@ public class AuftraegeDTO {
     public Long lfdNrLmt;
 
     public Long lfdNrUbm;
+
+    public String fzgArt;
+
+    public Long bandNr;
+
+    public String fhsBaumuster;
+
+    public String fzgbaumuster;
+
+    public String anr;
+
+    public String verkBez;
 }
 
 
