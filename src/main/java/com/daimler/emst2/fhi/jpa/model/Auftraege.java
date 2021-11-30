@@ -17,9 +17,9 @@ import javax.persistence.Table;
 @Table(name = "Auftrag")
 @NamedQuery(name = "Auftraege.findAll", query = "SELECT a FROM Auftraege a")
 public class Auftraege implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
+    @Id
     @Column(name = "PNR")
     private String pnr;
 

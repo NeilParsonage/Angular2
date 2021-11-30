@@ -10,6 +10,14 @@ import { AuftragService } from '../../services/auftrag.service';
 })
 export class EinzelauskunftComponent implements OnInit {
   auftrag: Auftrag = null;
+
+  bandNr: number;
+  fzgArt: string;
+  fhsBaumuster: string;
+  fzgbaumuster: string;
+  anr: string;
+  verkBez: string;
+
   dataSource$: any;
   constructor(private auftragService: AuftragService) {
     this.loadData();
