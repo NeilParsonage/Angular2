@@ -1,0 +1,42 @@
+<div class="content">
+  <h4>Termine</h4>
+  <div fxLayout="row">
+    <div fxLayout="column" fxFlex="32">
+      <div fxLayout="row">
+        <mat-form-field class="dateItem">
+          <mat-label>Ibsperre</mat-label>
+          <input matInput [readonly]="true" value="{{ termine?.ibSperre | date: 'dd.MM.yyyy hh:mm' }} " />
+        </mat-form-field>
+      </div>
+      <div fxLayout="row">
+        <div fxLayout="column" fxFlex="16">
+          <mat-form-field class="selectItemShort">
+            <mat-label>PAT</mat-label>
+            <input matInput [readonly]="true" value="{{ termine?.patJul }} " />
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="16">
+          <mat-form-field class="selectItem">
+            <mat-label>Datum</mat-label>
+            <input matInput [readonly]="true" value="{{ termine.pat | date: 'dd.MM.yyyy' }} " />
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <div fxLayout="column" fxFlex="16">
+          <mat-form-field class="selectItemShort">
+            <mat-label>SAT</mat-label>
+            <input matInput [readonly]="true" value="{{ termine?.satJul }} " />
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="16">
+          <mat-form-field class="selectItem">
+            <mat-label>Datum</mat-label>
+            <input matInput [readonly]="true" value="{{ termine?.sat | date: 'dd.MM.yyyy' }} " />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="column" fxFlex="68"></div>
+  </div>
+</div>
