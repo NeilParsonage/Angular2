@@ -13,6 +13,9 @@ export class EinzelauskunftRFComponent implements OnInit {
 
   @Input()
   set daten(data: Auftrag) {
+    if (!data) {
+      return;
+    }
     this.einzelauskunft = data;
   }
 

@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { EinzelauskunftComponent } from './modules/fhi/components/einzelauskunft/einzelauskunft.component';
 import { WelcomeComponent } from './modules/fhi/components/welcome/welcome.component';
 
+const wikibase = 'https://wiki.dewoe.corpintra.net/wikiemst/index.php/';
+
 export const routes: Routes = [
   {
     path: '',
@@ -18,6 +20,7 @@ export const routes: Routes = [
     component: WelcomeComponent,
     data: {
       title: 'Welcome',
+      wikilink: wikibase + 'W060.FHI',
       roles: [],
       displaySidemenu: true,
       displayText: 'Welcome to FHI',
@@ -30,6 +33,7 @@ export const routes: Routes = [
     component: EinzelauskunftComponent,
     data: {
       title: 'Einzelauskunft',
+      wikilink: wikibase + 'W060.FHI.F.Frontend.Einzelauskunft',
       roles: [],
       displaySidemenu: true,
       displayText: 'Einzelauskunft',

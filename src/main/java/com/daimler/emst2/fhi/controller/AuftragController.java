@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.daimler.emst2.fhi.dto.AuftraegeDTO;
+import com.daimler.emst2.fhi.dto.AuftragTermineDTO;
 import com.daimler.emst2.fhi.services.AuftraegeService;
 
 @RestController
@@ -20,6 +21,11 @@ public class AuftragController {
     @GetMapping("/info")
     public AuftraegeDTO getAuftragbyPnr(@RequestParam String pnr) {
         return auftraegeService.getAuftragByPnr(pnr);
+    }
+
+    @GetMapping("/termine")
+    public AuftragTermineDTO getAuftragTerminebyPnr(@RequestParam String pnr) {
+        return auftraegeService.getAuftragTermineByPnr(pnr);
     }
 
 }

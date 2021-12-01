@@ -13,11 +13,14 @@ export class EinzelauskunftKopfComponent implements OnInit {
 
   @Input()
   set daten(data: Auftrag) {
+    if (!data) {
+      return;
+    }
     this.einzelauskunft = data;
   }
 
   ngOnInit(): void {
-    console.log('on init' || this.einzelauskunft.pnr);
+    console.log('on init');
     // hello my friend
   }
 }
