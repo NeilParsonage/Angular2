@@ -18,6 +18,9 @@ public class AuftragTermineDetails implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+    @Column(name = "ID")
+    private String id;
+
     @Column(name = "PNR")
     private String pnr;
 
@@ -43,8 +46,6 @@ public class AuftragTermineDetails implements Serializable {
     @Column(name = "TEILSENDUNG_TERMIN")
     private Date teilsendungTermin;
 
-    @Column(name = "TEILSENDUNG_TYP")
-    private String teilsendungTyp;
 
     @Column(name = "STORNO_TERMIN")
     private Date stornoTermin;
@@ -109,13 +110,6 @@ public class AuftragTermineDetails implements Serializable {
         this.teilsendungTermin = teilsendungTermin;
     }
 
-    public String getTeilsendungTyp() {
-        return teilsendungTyp;
-    }
-
-    public void setTeilsendungTyp(String teilsendungTyp) {
-        this.teilsendungTyp = teilsendungTyp;
-    }
 
     public Date getStornoTermin() {
         return stornoTermin;

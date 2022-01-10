@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { forkJoin, Observable } from 'rxjs';
 import { Auftrag } from '../../../models/auftrag';
 import { AuftragTermine } from '../../../models/auftragTermine';
+import { AuftragTermineDetails } from '../../../models/auftragTermineDetails';
 import { AuftragService } from '../../../services/auftrag.service';
 
 @Component({
@@ -11,10 +13,16 @@ import { AuftragService } from '../../../services/auftrag.service';
 })
 export class EinzelauskunftTermineComponent implements OnInit {
   termine: AuftragTermine;
+  terminDetails: AuftragTermineDetails[];
   constructor(private auftragService: AuftragService) {}
 
   einzelauskunft: Auftrag = null;
   dataSource$: Observable<any>;
+
+  //displayedColumns: string[] = [];
+
+  displayedColumns: string[] = ['Gewerk', 'BeginnTermin', 'BeginnTyp', 'IstSequenzTermin', 'IstSequenzTyp', 'TeilsendungTermin', 'StornoTermin'];
+  matDataSource: MatTableDataSource<AuftragTermineDetails> = new MatTableDataSource<AuftragTermineDetails>();
 
   @Input()
   set daten(data: Auftrag) {
@@ -33,7 +41,8 @@ export class EinzelauskunftTermineComponent implements OnInit {
   private loadData(auftrag: Auftrag) {
     console.log('load Data ' + auftrag.pnr);
     const termineData = this.auftragService.getAuftragTermineByPnr(auftrag.pnr);
-    const loadSources: any = [termineData];
+    const termineDetailsData = this.auftragService.getAuftragTermineDetailsByPnr(auftrag.pnr);
+    const loadSources: any = [termineData, termineDetailsData];
 
     let srcIdx = 0;
 
@@ -44,7 +53,11 @@ export class EinzelauskunftTermineComponent implements OnInit {
       //console.log(results[srcIdx++]);
       // let termresult: AuftragTermine = results[srcIdx++] as AuftragTermine;
       this.termine = results[srcIdx++] as AuftragTermine;
-      //console.log(this.termine);
+      this.terminDetails = results[srcIdx++] as AuftragTermineDetails[];
+
+      this.matDataSource = new MatTableDataSource<AuftragTermineDetails>(this.terminDetails);
+      console.log(this.termine);
+      console.log(this.terminDetails);
     });
   }
 }

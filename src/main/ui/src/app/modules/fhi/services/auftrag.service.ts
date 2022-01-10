@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Auftrag } from '../models/auftrag';
 import { AuftragTermine } from '../models/auftragTermine';
+import { AuftragTermineDetails } from '../models/auftragTermineDetails';
 
 @Injectable({
   providedIn: 'root',
@@ -29,5 +30,11 @@ export class AuftragService {
       params: new HttpParams().set('pnr', pnr),
     };
     return this.http.get<AuftragTermine>(`${this.endpoint}/termine`, options);
+  }
+  public getAuftragTermineDetailsByPnr(pnr: string): Observable<AuftragTermineDetails[]> {
+    const options = {
+      params: new HttpParams().set('pnr', pnr),
+    };
+    return this.http.get<AuftragTermineDetails[]>(`${this.endpoint}/termineDetails`, options);
   }
 }
