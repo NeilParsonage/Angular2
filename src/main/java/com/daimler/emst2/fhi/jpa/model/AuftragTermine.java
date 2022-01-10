@@ -10,13 +10,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 
-/**
- * The persistent class for the WERTELISTEN database table.
- * 
- */
+
 @Entity
 @Table(name = "V_AUFTRAG_TERMINE")
-@NamedQuery(name = "AuftragTermine.findAll", query = "SELECT t FROM AuftragTermine t")
+@NamedQuery(name = "AuftragTermin.findAll", query = "SELECT t FROM AuftragTermine t")
 public class AuftragTermine implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermine;
+import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
 
 @Component
 public class FhiDtoFactory {
@@ -33,6 +34,20 @@ public class FhiDtoFactory {
         neu.patJul = auftragTermine.getPatJul();
         neu.satJul = auftragTermine.getSatJul();
         neu.ibSperre = auftragTermine.getIbsperre();
+        return neu;
+    }
+
+    public AuftragTermineDetailsDTO createAuftragTermineDetailsDTO(AuftragTermineDetails auftragTermineDetails) {
+        AuftragTermineDetailsDTO neu = new AuftragTermineDetailsDTO();
+        neu.pnr = auftragTermineDetails.getPnr();
+        neu.reihenfolge = auftragTermineDetails.getReihenfolge();
+        neu.gewerk = auftragTermineDetails.getGewerk();
+        neu.beginnTermin = auftragTermineDetails.getBeginnTermin();
+        neu.beginnTyp = auftragTermineDetails.getBeginnTyp();
+        neu.istSequenzTermin = auftragTermineDetails.getIstSequenzTermin();
+        neu.istSequenzTyp = auftragTermineDetails.getIstSequenzTyp();
+        neu.teilsendungTermin = auftragTermineDetails.getTeilsendungTermin();
+        neu.stornoTermin = auftragTermineDetails.getStornoTermin();
         return neu;
     }
 
