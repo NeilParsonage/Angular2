@@ -6,14 +6,17 @@ spring:
     # remove me - driver-class-name: oracle.jdbc.driver.OracleDriver
     validationQuery: 'SELECT 1 FROM DUAL'
     url: jdbc:oracle:thin:@dbvm1.emst.opitz-consulting.int:1521/ORDERFUL
-    username: fhi_entw
-    password: fhi_entw
+    username: fhi_ci
+    password: fhi_ci
 keycloak:
     realm: "060"
-    auth-server-url:  https://vsdlgm198.opitz-consulting.int/auth/
+    auth-server-url:  https://auth.emst.opitz-consulting.int/auth/
     ssl-required: none
     resource: emst2-fhi
     disable-trust-manager: true
+    
+    public-client: true
+    principal-attribute: preferred_username
 
 logging:
   level:

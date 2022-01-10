@@ -13,7 +13,7 @@
     <name>FHI</name>
     <properties>
         <java.version>1.8</java.version>
-	<log4j2.version>2.16.0</log4j2.version>
+        <log4j2.version>2.17.1</log4j2.version>
         <version.oracle.ojdbc>12.1.0.2</version.oracle.ojdbc>
         <maven-resource-plugin-version>3.0.2</maven-resource-plugin-version>
         <maven-war-plugin-version>3.1.0</maven-war-plugin-version>
