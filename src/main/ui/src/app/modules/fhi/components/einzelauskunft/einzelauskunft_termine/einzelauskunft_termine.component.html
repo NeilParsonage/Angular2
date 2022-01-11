@@ -1,7 +1,7 @@
 <div class="content">
   <h4>Termine</h4>
   <div fxLayout="row">
-    <div fxLayout="column" fxFlex="32">
+    <div fxLayout="column" style="width: 250px">
       <div fxLayout="row">
         <mat-form-field class="dateItem">
           <mat-label>Ibsperre</mat-label>
@@ -9,27 +9,27 @@
         </mat-form-field>
       </div>
       <div fxLayout="row">
-        <div fxLayout="column" fxFlex="16">
+        <div fxLayout="column" fxFlex="50">
           <mat-form-field class="selectItemShort">
             <mat-label>PAT</mat-label>
             <input matInput [readonly]="true" value="{{ termine?.patJul }} " />
           </mat-form-field>
         </div>
-        <div fxLayout="column" fxFlex="16">
+        <div fxLayout="column" fxFlex="50">
           <mat-form-field class="selectItem">
             <mat-label>Datum</mat-label>
-            <input matInput [readonly]="true" value="{{ termine.pat | date: 'dd.MM.yyyy' }} " />
+            <input matInput [readonly]="true" value="{{ termine?.pat | date: 'dd.MM.yyyy' }} " />
           </mat-form-field>
         </div>
       </div>
       <div fxLayout="row">
-        <div fxLayout="column" fxFlex="16">
+        <div fxLayout="column" fxFlex="50">
           <mat-form-field class="selectItemShort">
             <mat-label>SAT</mat-label>
             <input matInput [readonly]="true" value="{{ termine?.satJul }} " />
           </mat-form-field>
         </div>
-        <div fxLayout="column" fxFlex="16">
+        <div fxLayout="column" fxFlex="50">
           <mat-form-field class="selectItem">
             <mat-label>Datum</mat-label>
             <input matInput [readonly]="true" value="{{ termine?.sat | date: 'dd.MM.yyyy' }} " />
@@ -37,6 +37,51 @@
         </div>
       </div>
     </div>
-    <div fxLayout="column" fxFlex="68"></div>
+    <div fxFlex="5px" fx class="content">
+      <mat-divider [vertical]="true" style="height: 100%"></mat-divider>
+    </div>
+    <div fxLayout="column" fxFlex="68" style="position: relative; top: -10px">
+      <table mat-table [dataSource]="matDataSource">
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+        <ng-container matColumnDef="Gewerk">
+          <th mat-header-cell *matHeaderCellDef>Gewerk</th>
+          <td mat-cell *matCellDef="let element">{{ element.gewerk }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="BeginnTermin">
+          <th mat-header-cell *matHeaderCellDef>Beginn</th>
+          <td mat-cell *matCellDef="let element">{{ element.beginnTermin | date: 'dd.MM.yyyy hh:mm' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="BeginnTyp">
+          <th mat-header-cell *matHeaderCellDef>Typ</th>
+          <td mat-cell *matCellDef="let element">{{ element.beginnTyp }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="IstSequenzTermin">
+          <th mat-header-cell *matHeaderCellDef>Istsequenz</th>
+          <td mat-cell *matCellDef="let element">{{ element.istSequenzTermin | date: 'dd.MM.yyyy hh:mm' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="IstSequenzTyp">
+          <th mat-header-cell *matHeaderCellDef>Typ</th>
+          <td mat-cell *matCellDef="let element">{{ element.istSequenzTyp }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="TeilsendungTermin">
+          <th mat-header-cell *matHeaderCellDef>Teilsendung</th>
+          <td mat-cell *matCellDef="let element">{{ element.teilsendungTermin | date: 'dd.MM.yyyy hh:mm' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="StornoTermin">
+          <th mat-header-cell *matHeaderCellDef>Storno</th>
+          <td mat-cell *matCellDef="let element">{{ element.stornoTermin }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
   </div>
 </div>
