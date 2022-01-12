@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { forkJoin, Observable } from 'rxjs';
@@ -5,24 +6,29 @@ import { Auftrag } from '../../../models/auftrag';
 import { AuftragTermine } from '../../../models/auftragTermine';
 import { AuftragTermineDetails } from '../../../models/auftragTermineDetails';
 import { AuftragService } from '../../../services/auftrag.service';
-
 @Component({
   selector: 'app-einzelauskunft-termine',
   templateUrl: './einzelauskunft_termine.component.html',
   styleUrls: ['./einzelauskunft_termine.component.scss'],
 })
 export class EinzelauskunftTermineComponent implements OnInit {
+  typs: { [key: string]: string } = {
+    I: 'Ist',
+    P: 'Plan',
+    S: 'Soll',
+  };
   termine: AuftragTermine;
   terminDetails: AuftragTermineDetails[];
-  constructor(private auftragService: AuftragService) {}
+  constructor(private auftragService: AuftragService, public datepipe: DatePipe) {}
 
   einzelauskunft: Auftrag = null;
   dataSource$: Observable<any>;
 
   //displayedColumns: string[] = [];
 
-  displayedColumns: string[] = ['Gewerk', 'BeginnTermin', 'BeginnTyp', 'IstSequenzTermin', 'IstSequenzTyp', 'TeilsendungTermin', 'StornoTermin'];
+  displayedColumns: string[] = ['Gewerk', 'BeginnTermin', 'IstSequenzTermin', 'TeilsendungTermin', 'StornoTermin'];
   matDataSource: MatTableDataSource<AuftragTermineDetails> = new MatTableDataSource<AuftragTermineDetails>();
+  divider = '          ';
 
   @Input()
   set daten(data: Auftrag) {
@@ -59,5 +65,10 @@ export class EinzelauskunftTermineComponent implements OnInit {
       console.log(this.termine);
       console.log(this.terminDetails);
     });
+  }
+
+  setTermin(termin: Date, typ: string): string {
+    const latest_date = this.datepipe.transform(termin, 'dd.MM.yyyy hh:mm');
+    return latest_date + '     ' + this.typs[typ];
   }
 }

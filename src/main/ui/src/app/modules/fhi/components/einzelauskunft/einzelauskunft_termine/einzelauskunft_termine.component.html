@@ -4,7 +4,7 @@
     <div fxLayout="column" style="width: 250px">
       <div fxLayout="row">
         <mat-form-field class="dateItem">
-          <mat-label>Ibsperre</mat-label>
+          <mat-label>IB-Sperre</mat-label>
           <input matInput [readonly]="true" value="{{ termine?.ibSperre | date: 'dd.MM.yyyy hh:mm' }} " />
         </mat-form-field>
       </div>
@@ -51,22 +51,16 @@
 
         <ng-container matColumnDef="BeginnTermin">
           <th mat-header-cell *matHeaderCellDef>Beginn</th>
-          <td mat-cell *matCellDef="let element">{{ element.beginnTermin | date: 'dd.MM.yyyy hh:mm' }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="BeginnTyp">
-          <th mat-header-cell *matHeaderCellDef>Typ</th>
-          <td mat-cell *matCellDef="let element">{{ element.beginnTyp }}</td>
+          <td mat-cell *matCellDef="let element">
+            <span style="white-space: pre">{{ setTermin(element.beginnTermin, element.beginnTyp) }}</span>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="IstSequenzTermin">
-          <th mat-header-cell *matHeaderCellDef>Istsequenz</th>
-          <td mat-cell *matCellDef="let element">{{ element.istSequenzTermin | date: 'dd.MM.yyyy hh:mm' }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="IstSequenzTyp">
-          <th mat-header-cell *matHeaderCellDef>Typ</th>
-          <td mat-cell *matCellDef="let element">{{ element.istSequenzTyp }}</td>
+          <th mat-header-cell *matHeaderCellDef>Ist-Sequenz</th>
+          <td mat-cell *matCellDef="let element">
+            <span style="white-space: pre">{{ setTermin(element.istSequenzTermin, element.istSequenzTyp) }}</span>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="TeilsendungTermin">
@@ -76,7 +70,7 @@
 
         <ng-container matColumnDef="StornoTermin">
           <th mat-header-cell *matHeaderCellDef>Storno</th>
-          <td mat-cell *matCellDef="let element">{{ element.stornoTermin }}</td>
+          <td mat-cell *matCellDef="let element">{{ element.stornoTermin | date: 'dd.MM.yyyy hh:mm' }}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
