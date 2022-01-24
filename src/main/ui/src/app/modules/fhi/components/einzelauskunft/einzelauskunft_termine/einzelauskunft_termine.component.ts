@@ -68,7 +68,7 @@ export class EinzelauskunftTermineComponent implements OnInit {
   }
 
   setTermin(termin: Date, typ: string): string {
-    const latest_date = this.datepipe.transform(termin, 'dd.MM.yyyy hh:mm');
+    const latest_date = this.datepipe.transform(termin, 'dd.MM.yyyy HH:mm');
     return latest_date + '     ' + this.typs[typ];
   }
 }
