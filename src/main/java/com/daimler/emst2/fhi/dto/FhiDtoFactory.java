@@ -19,9 +19,13 @@ public class FhiDtoFactory {
         neu.bandNr = auftraege.getBandNr();
         neu.fzgArt = auftraege.getFzgArt();
         neu.fhsBaumuster = auftraege.getFhsBaumuster();
-        neu.fzgbaumuster = auftraege.getFzgbaumuster();
+        neu.fzgBaumuster = auftraege.getFzgBaumuster();
+        neu.fzgTaktklasse = auftraege.getFzgTaktklasse();
+        neu.fhsTaktklasse = auftraege.getFhsTaktklasse();
         neu.anr = auftraege.getAnr();
         neu.verkBez = auftraege.getVerkBez();
+        neu.bandNrRt2 = auftraege.getBandNrRt2();
+        neu.bandNrRt5 = auftraege.getBandNrRt5();
 
         return neu;
     }

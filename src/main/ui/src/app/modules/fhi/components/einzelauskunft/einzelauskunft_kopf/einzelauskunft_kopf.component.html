@@ -18,7 +18,7 @@
       <div fxLayout="row">
         <mat-form-field class="selectItemShort">
           <mat-label>RT5</mat-label>
-          <input matInput type="number" [readonly]="true" />
+          <input matInput type="number" [readonly]="true" value="{{ einzelauskunft?.bandNrRt5 }}" />
         </mat-form-field>
       </div>
     </div>
@@ -33,7 +33,7 @@
       <div fxLayout="row">
         <mat-form-field class="selectItemShort">
           <mat-label>RT2</mat-label>
-          <input matInput type="number" [readonly]="true" />
+          <input matInput type="number" [readonly]="true" value="{{ einzelauskunft?.bandNrRt2 }}" />
         </mat-form-field>
       </div>
     </div>
@@ -42,13 +42,13 @@
       <div fxLayout="row">
         <mat-form-field class="selectItem">
           <mat-label>Fzg Baumuster</mat-label>
-          <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.fzgbaumuster }}" />
+          <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.fzgBaumuster }}" />
         </mat-form-field>
       </div>
       <div fxLayout="row">
         <mat-form-field class="selectItem">
           <mat-label>Fzg Taktklasse</mat-label>
-          <input matInput type="text" [readonly]="true" />
+          <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.fzgTaktklasse }}" />
         </mat-form-field>
       </div>
     </div>
@@ -63,7 +63,7 @@
       <div fxLayout="row">
         <mat-form-field class="selectItem">
           <mat-label>Fhs Taktklasse</mat-label>
-          <input matInput type="text" [readonly]="true" />
+          <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.fhsTaktklasse }}" />
         </mat-form-field>
       </div>
     </div>
