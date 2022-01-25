@@ -14,9 +14,11 @@ import com.daimler.emst2.fhi.dto.AuftragTermineDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDetailsDTO;
 import com.daimler.emst2.fhi.dto.FhiDtoFactory;
 import com.daimler.emst2.fhi.jpa.dao.AuftraegeDao;
+import com.daimler.emst2.fhi.jpa.dao.AuftragDetailsDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDetailsDao;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermine;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
 
@@ -30,6 +32,9 @@ public class AuftraegeService {
     AuftraegeDao auftraegeDao;
 
     @Autowired
+    AuftragDetailsDao auftragDetailsDao;
+
+    @Autowired
     AuftragTermineDao auftragTermineDao;
 
     @Autowired
@@ -41,8 +46,10 @@ public class AuftraegeService {
 
             throw new RuntimeException(String.format("Auftrag %s nicht gefunden!", pnr));
         }
+
+        Optional<AuftragDetails> resultDetails = auftragDetailsDao.findById(pnr);
       
-        return dtoFactory.createAuftragDTO(result.get());
+        return dtoFactory.createAuftragDTO(result.get(), resultDetails.get());
     }
 
     public AuftragTermineDTO getAuftragTermineByPnr(String pnr) {

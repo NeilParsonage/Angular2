@@ -74,12 +74,13 @@
         <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.anr }}" />
       </mat-form-field>
     </div>
-    <div fxLayout="column" fxFlex="8">
+    <div fxLayout="column" fxFlex="16">
       <mat-form-field class="selectItem">
         <mat-label>Land</mat-label>
-        <input matInput type="text" [readonly]="true" />
+        <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.landesCode }}: {{ einzelauskunft?.land }}" />
       </mat-form-field>
     </div>
+
     <div fxLayout="column" fxFlex="16">
       <mat-form-field class="selectItemLong">
         <mat-label>Verkaufsbezeichnung</mat-label>
@@ -91,13 +92,13 @@
       <div fxLayout="row">
         <mat-form-field class="selectItem">
           <mat-label>Radstand</mat-label>
-          <input matInput type="text" [readonly]="true" />
+          <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.radStand }}" />
         </mat-form-field>
       </div>
       <div fxLayout="row">
         <mat-form-field class="selectItem">
           <mat-label>Gesamtlänge</mat-label>
-          <input matInput type="text" [readonly]="true" />
+          <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.gesamtLaenge }}" />
         </mat-form-field>
       </div>
     </div>

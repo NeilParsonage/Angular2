@@ -3,13 +3,14 @@ package com.daimler.emst2.fhi.dto;
 import org.springframework.stereotype.Component;
 
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermine;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
 
 @Component
 public class FhiDtoFactory {
 
-    public AuftraegeDTO createAuftragDTO(Auftraege auftraege) {
+    public AuftraegeDTO createAuftragDTO(Auftraege auftraege, AuftragDetails details) {
         AuftraegeDTO neu = new AuftraegeDTO();
         neu.pnr = auftraege.getPnr();
         neu.lfdNrGes = auftraege.getLfdNrGes();
@@ -26,6 +27,13 @@ public class FhiDtoFactory {
         neu.verkBez = auftraege.getVerkBez();
         neu.bandNrRt2 = auftraege.getBandNrRt2();
         neu.bandNrRt5 = auftraege.getBandNrRt5();
+        neu.aufaenText = details.getAufaenText();
+        neu.bemerkung = details.getBemerkung();
+        neu.bemerkungAlt = details.getBemerkungAlt();
+        neu.landesCode = details.getLandesCode();
+        neu.land = details.getLand();
+        neu.gesamtLaenge = details.getGesamtLaenge();
+        neu.radStand = details.getRadStand();
 
         return neu;
     }

@@ -34,6 +34,20 @@ public class AuftraegeDTO {
 
     public String verkBez;
 
+    public String aufaenText;
+
+    public String bemerkung;
+
+    public String bemerkungAlt;
+
+    public String landesCode;
+
+    public String land;
+
+    public String gesamtLaenge;
+
+    public String radStand;
+
 }
 
 

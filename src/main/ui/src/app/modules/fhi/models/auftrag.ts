@@ -14,4 +14,11 @@ export interface Auftrag {
   fzgTaktklasse: string;
   anr: string;
   verkBez: string;
+  aufaenText?: string;
+  bemerkung?: string;
+  bemerkungAlt?: string;
+  landesCode: string;
+  land: string;
+  gesamtLaenge: string;
+  radStand: string;
 }
