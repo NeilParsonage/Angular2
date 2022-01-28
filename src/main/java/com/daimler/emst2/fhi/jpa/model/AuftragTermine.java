@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "V_AUFTRAG_TERMINE")
+@Table(name = "V_E2_TERMINE")
 @NamedQuery(name = "AuftragTermin.findAll", query = "SELECT t FROM AuftragTermine t")
 public class AuftragTermine implements Serializable {
 	private static final long serialVersionUID = 1L;

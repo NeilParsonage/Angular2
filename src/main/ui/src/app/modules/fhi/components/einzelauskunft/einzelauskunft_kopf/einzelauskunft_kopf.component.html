@@ -110,4 +110,21 @@
     <br />
     <br />
   </div>
+
+  <div fxLayout="row">
+    <div fxLayout="column">
+      <mat-form-field class="selectItemExtraLong">
+        <mat-label>Kommentar</mat-label>
+        <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.aufaenText }}" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row">
+    <div fxLayout="column">
+      <mat-form-field class="selectItemExtraLong">
+        <mat-label>Bemerkung</mat-label>
+        <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.bemerkung }}" />
+      </mat-form-field>
+    </div>
+  </div>
 </div>
