@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { Auftrag } from '../../models/auftrag';
 import { AuftragService } from '../../services/auftrag.service';
@@ -10,26 +11,33 @@ import { AuftragService } from '../../services/auftrag.service';
 })
 export class EinzelauskunftComponent implements OnInit {
   auftrag: Auftrag = null;
+  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
+  searchpnr: string = ''; //11177780
 
-  bandNr: number;
-  fzgArt: string;
-  fhsBaumuster: string;
-  fzgbaumuster: string;
-  anr: string;
-  verkBez: string;
+  form = new FormGroup({
+    pnr: new FormControl(),
+  });
 
   dataSource$: any;
   constructor(private auftragService: AuftragService) {
-    this.loadData();
+    if (this.searchpnr !== '') {
+      this.loadData(this.searchpnr);
+    }
   }
   ngOnInit(): void {
     console.log('on init');
     // hello my friend
   }
+  searchForm(searchInfo) {
+    this.searchpnr = this.form.value.pnr;
+    if (this.searchpnr !== '') {
+      this.loadData(this.searchpnr);
+    }
+  }
 
-  private loadData() {
+  private loadData(pnr: string) {
     this.auftragService
-      .getAuftragByPnr('11177780')
+      .getAuftragByPnr(pnr)
       .pipe(first())
       .subscribe(data => {
         this.auftrag = data;
