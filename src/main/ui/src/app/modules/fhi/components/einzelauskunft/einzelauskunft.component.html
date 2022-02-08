@@ -1,4 +1,22 @@
 <div class="container mat-elevation-z8">
+  <div class="content">
+    <div class="row">
+      <form [formGroup]="form" #searchInfo (ngSubmit)="searchForm(searchInfo)">
+        <table>
+          <tr>
+            <td>
+              <mat-form-field>
+                <mat-label>PNR</mat-label>
+                <input matInput type="text" formControlName="pnr" />
+              </mat-form-field>
+            </td>
+            <td><button mat-raised-button color="primary">Suche</button></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+
   <app-einzelauskunft-kopf [daten]="auftrag"></app-einzelauskunft-kopf>
   <div class="divider">
     <mat-divider></mat-divider>

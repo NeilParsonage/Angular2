@@ -18,13 +18,36 @@ public class AuftraegeDTO {
 
     public Long bandNr;
 
+    public Long bandNrRt2;
+
+    public Long bandNrRt5;
+
     public String fhsBaumuster;
 
-    public String fzgbaumuster;
+    public String fzgBaumuster;
+
+    public String fhsTaktklasse;
+
+    public String fzgTaktklasse;
 
     public String anr;
 
     public String verkBez;
+
+    public String aufaenText;
+
+    public String bemerkung;
+
+    public String bemerkungAlt;
+
+    public String landesCode;
+
+    public String land;
+
+    public String gesamtLaenge;
+
+    public String radStand;
+
 }
 
 

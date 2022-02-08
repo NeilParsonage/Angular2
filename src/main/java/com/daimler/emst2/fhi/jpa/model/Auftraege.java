@@ -45,13 +45,25 @@ public class Auftraege implements Serializable {
     private String fhsBaumuster;
 
     @Column(name = "Fzgbm")
-    private String fzgbaumuster;
+    private String fzgBaumuster;
+
+    @Column(name = "Taktkl")
+    private String fzgTaktklasse;
+
+    @Column(name = "Fhsmap")
+    private String fhsTaktklasse;
 
     @Column(name = "Aufnr")
     private String anr;
 
     @Column(name = "Verkbez")
     private String verkBez;
+
+    @Column(name = "Bandnr_Alt_Rt2")
+    private Long bandNrRt2;
+    
+    @Column(name = "Bandnr_Alt_Rt5")
+    private Long bandNrRt5;
 
     public String getFzgArt() {
         return fzgArt;
@@ -117,13 +129,7 @@ public class Auftraege implements Serializable {
         this.fhsBaumuster = fhsBaumuster;
     }
 
-    public String getFzgbaumuster() {
-        return fzgbaumuster;
-    }
 
-    public void setFzgbaumuster(String fzgbaumuster) {
-        this.fzgbaumuster = fzgbaumuster;
-    }
 
     public String getAnr() {
         return anr;
@@ -139,6 +145,46 @@ public class Auftraege implements Serializable {
 
     public void setVerkBez(String verkBez) {
         this.verkBez = verkBez;
+    }
+
+    public Long getBandNrRt2() {
+        return bandNrRt2;
+    }
+
+    public void setBandNrRt2(Long bandNrRt2) {
+        this.bandNrRt2 = bandNrRt2;
+    }
+
+    public Long getBandNrRt5() {
+        return bandNrRt5;
+    }
+
+    public void setBandNrRt5(Long bandNrRt5) {
+        this.bandNrRt5 = bandNrRt5;
+    }
+
+    public String getFzgTaktklasse() {
+        return fzgTaktklasse;
+    }
+
+    public void setFzgTaktklasse(String fzgTaktklasse) {
+        this.fzgTaktklasse = fzgTaktklasse;
+    }
+
+    public String getFhsTaktklasse() {
+        return fhsTaktklasse;
+    }
+
+    public void setFhsTaktklasse(String fhsTaktklasse) {
+        this.fhsTaktklasse = fhsTaktklasse;
+    }
+
+    public String getFzgBaumuster() {
+        return fzgBaumuster;
+    }
+
+    public void setFzgBaumuster(String fzgBaumuster) {
+        this.fzgBaumuster = fzgBaumuster;
     }
 
 }

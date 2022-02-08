@@ -5,9 +5,20 @@ export interface Auftrag {
   lfdNrLmt: number;
   lfdNrUbm?: number;
   bandNr: number;
+  bandNrRt2: number;
+  bandNrRt5: number;
   fzgArt: string;
   fhsBaumuster: string;
-  fzgbaumuster: string;
+  fzgBaumuster: string;
+  fhsTaktklasse: string;
+  fzgTaktklasse: string;
   anr: string;
   verkBez: string;
+  aufaenText?: string;
+  bemerkung?: string;
+  bemerkungAlt?: string;
+  landesCode: string;
+  land: string;
+  gesamtLaenge: string;
+  radStand: string;
 }
