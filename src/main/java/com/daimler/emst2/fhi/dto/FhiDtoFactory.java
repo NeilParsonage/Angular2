@@ -3,8 +3,10 @@ package com.daimler.emst2.fhi.dto;
 import org.springframework.stereotype.Component;
 
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
 import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
 import com.daimler.emst2.fhi.jpa.model.AuftragFhsLacke;
+import com.daimler.emst2.fhi.jpa.model.AuftragKabelsaetze;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermine;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
 
@@ -87,6 +89,20 @@ public class FhiDtoFactory {
         neu.lackschl = auftragFhsLack.getLackschl();
         neu.lackLangText = auftragFhsLack.getLackLangText();
 
+        return neu;
+    }
+
+    public AuftragAggregateDTO createAuftragAggregateDTO(AuftragAggregate auftragAggregat) {
+        AuftragAggregateDTO neu = new AuftragAggregateDTO();
+        neu.aggregat = auftragAggregat.getAggregat();
+        neu.pnr = auftragAggregat.getPnr();
+        return neu;
+    }
+
+    public AuftragKabelsaetzeDTO createAuftragKabelsaetzeDTO(AuftragKabelsaetze auftragKabelsatz) {
+        AuftragKabelsaetzeDTO neu = new AuftragKabelsaetzeDTO();
+        neu.kabelsatz = auftragKabelsatz.getKabelsatz();
+        neu.pnr = auftragKabelsatz.getPnr();
         return neu;
     }
 

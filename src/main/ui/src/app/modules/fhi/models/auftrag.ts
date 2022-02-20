@@ -30,6 +30,6 @@ export interface Auftrag {
   bandRelKrits: string;
   /*Sendestatus */
   /* Audit*/
-  hrkAudit: number;
-  fhiAudit: number;
+  hrkAudit?: number;
+  fhiAudit?: number;
 }

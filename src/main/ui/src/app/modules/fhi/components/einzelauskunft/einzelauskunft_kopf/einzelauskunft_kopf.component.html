@@ -78,7 +78,7 @@
       <div fxLayout="row">
         <mat-form-field class="selectItem">
           <mat-label>Fhs Lacke</mat-label>
-          <input matInput type="text" [readonly]="true" />
+          <input matInput type="text" [readonly]="true" value="{{ fhsLack?.lackschl }}" />
         </mat-form-field>
         <button mat-icon-button color="accent" aria-label="Zeige Liste">
           <mat-icon>info</mat-icon>
@@ -102,7 +102,7 @@
       <div fxLayout="row">
         <mat-form-field class="selectItemLong">
           <mat-label>Aggregate</mat-label>
-          <input matInput type="text" [readonly]="true" />
+          <input matInput type="text" [readonly]="true" value="{{ aggregat?.aggregat }}" />
         </mat-form-field>
         <button mat-icon-button color="accent" aria-label="Zeige Liste">
           <mat-icon>info</mat-icon>
@@ -121,7 +121,7 @@
       <div fxLayout="row">
         <mat-form-field class="selectItemLong">
           <mat-label>Kabelsätze</mat-label>
-          <input matInput type="text" [readonly]="true" />
+          <input matInput type="text" [readonly]="true" value="{{ kabelsatz?.kabelsatz }}" />
         </mat-form-field>
         <button mat-icon-button color="accent" aria-label="Zeige Liste">
           <mat-icon>info</mat-icon>

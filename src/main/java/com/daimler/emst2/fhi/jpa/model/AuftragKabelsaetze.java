@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "V_E2_DETAILS")
+@Table(name = "V_E2_KABELSATZ")
 @NamedQuery(name = "AuftragKabelsaetze.findAll", query = "SELECT t FROM AuftragKabelsaetze t")
 public class AuftragKabelsaetze implements Serializable {
 	private static final long serialVersionUID = 1L;
