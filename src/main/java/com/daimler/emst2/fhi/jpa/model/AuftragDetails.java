@@ -44,6 +44,80 @@ public class AuftragDetails implements Serializable {
     @Column(name = "Radstand")
     private String radStand;
 
+    @Column(name = "Alle_Codes")
+    private String alleCodes;
+
+    @Column(name = "Fhi_Rel_Codes")
+    private String fhiRelCodes;
+
+    @Column(name = "Band_Rel_Codes")
+    private String bandRelCodes;
+
+    @Column(name = "Alle_Krits")
+    private String alleKrits;
+
+    @Column(name = "Fhi_Rel_Krits")
+    private String fhiRelKrits;
+
+    @Column(name = "Band_Rel_Krits")
+    private String bandRelKrits;
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public String getAlleCodes() {
+        return alleCodes;
+    }
+
+    public void setAlleCodes(String alleCodes) {
+        this.alleCodes = alleCodes;
+    }
+
+    public String getFhiRelCodes() {
+        return fhiRelCodes;
+    }
+
+    public void setFhiRelCodes(String fhiRelCodes) {
+        this.fhiRelCodes = fhiRelCodes;
+    }
+
+    public String getBandRelCodes() {
+        return bandRelCodes;
+    }
+
+    public void setBandRelCodes(String bandRelCodes) {
+        this.bandRelCodes = bandRelCodes;
+    }
+
+    public String getAlleKrits() {
+        return alleKrits;
+    }
+
+    public void setAlleKrits(String alleKrits) {
+        this.alleKrits = alleKrits;
+    }
+
+    public String getFhiRelKrits() {
+        return fhiRelKrits;
+    }
+
+    public void setFhiRelKrits(String fhiRelKrits) {
+        this.fhiRelKrits = fhiRelKrits;
+    }
+
+    public String getBandRelKrits() {
+        return bandRelKrits;
+    }
+
+    public void setBandRelKrits(String bandRelKrits) {
+        this.bandRelKrits = bandRelKrits;
+    }
+
     public String getPnr() {
         return pnr;
     }

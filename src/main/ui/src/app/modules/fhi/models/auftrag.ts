@@ -16,9 +16,20 @@ export interface Auftrag {
   verkBez: string;
   aufaenText?: string;
   bemerkung?: string;
+  autor?: string;
   bemerkungAlt?: string;
   landesCode: string;
   land: string;
   gesamtLaenge: string;
   radStand: string;
+  alleCodes: string;
+  fhiRelCodes: string;
+  bandRelCodes: string;
+  alleKrits: string;
+  fhiRelKrits: string;
+  bandRelKrits: string;
+  /*Sendestatus */
+  /* Audit*/
+  hrkAudit: number;
+  fhiAudit: number;
 }

@@ -38,6 +38,8 @@ public class AuftraegeDTO {
 
     public String bemerkung;
 
+    public String autor;
+
     public String bemerkungAlt;
 
     public String landesCode;
@@ -47,6 +49,22 @@ public class AuftraegeDTO {
     public String gesamtLaenge;
 
     public String radStand;
+
+    public String alleCodes;
+
+    public String fhiRelCodes;
+
+    public String bandRelCodes;
+
+    public String alleKrits;
+
+    public String fhiRelKrits;
+
+    public String bandRelKrits;
+
+    public Long hrkAudit;
+
+    public Long fhiAudit;
 
 }
 

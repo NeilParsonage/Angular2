@@ -155,8 +155,8 @@
   <div fxLayout="row">
     <div fxLayout="column">
       <mat-form-field class="selectItemExtraLong">
-        <mat-label>Code</mat-label>
-        <input matInput type="text" [readonly]="true" />
+        <mat-label>Codes</mat-label>
+        <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.alleCodes }}" />
       </mat-form-field>
     </div>
   </div>
@@ -164,21 +164,21 @@
     <div fxLayout="column">
       <mat-form-field class="selectItemExtraLong">
         <mat-label>Kriterien</mat-label>
-        <input matInput type="text" [readonly]="true" />
+        <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.alleKrits }}" />
       </mat-form-field>
     </div>
   </div>
   <div fxLayout="row">
-    <div fxLayout="column">
+    <div fxLayout="column" fxFlex="50">
       <mat-form-field class="selectItemExtraLong">
         <mat-label>Bemerkung</mat-label>
         <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.bemerkung }}" />
       </mat-form-field>
     </div>
     <div fxLayout="column">
-      <mat-form-field class="selectItem">
+      <mat-form-field class="selectItemLong">
         <mat-label>Autor</mat-label>
-        <input matInput type="text" [readonly]="true" />
+        <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.autor }}" />
       </mat-form-field>
     </div>
   </div>

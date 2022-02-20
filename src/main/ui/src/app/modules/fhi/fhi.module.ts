@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LibEmstTableModule } from 'emst-table';
 import { MaterialModule } from 'src/app/shared/modules/material.module';
 import { EinzelauskunftComponent } from './components/einzelauskunft/einzelauskunft.component';
+import { EinzelauskunftAuditComponent } from './components/einzelauskunft/einzelauskunft_audit/einzelauskunft_audit.component';
 import { EinzelauskunftKopfComponent } from './components/einzelauskunft/einzelauskunft_kopf/einzelauskunft_kopf.component';
 import { EinzelauskunftRFComponent } from './components/einzelauskunft/einzelauskunft_rf/einzelauskunft_rf.component';
 import { EinzelauskunftSendestatusComponent } from './components/einzelauskunft/einzelauskunft_sendestatus/einzelauskunft_sendestatus.component';
@@ -19,6 +20,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     EinzelauskunftKopfComponent,
     EinzelauskunftTermineComponent,
     EinzelauskunftSendestatusComponent,
+    EinzelauskunftAuditComponent,
   ],
   providers: [],
   imports: [CommonModule, FlexLayoutModule, FormsModule, LibEmstTableModule, MaterialModule, ReactiveFormsModule],

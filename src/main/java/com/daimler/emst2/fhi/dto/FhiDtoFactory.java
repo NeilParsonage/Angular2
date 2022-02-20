@@ -30,12 +30,29 @@ public class FhiDtoFactory {
         neu.bandNrRt5 = auftraege.getBandNrRt5();
         neu.aufaenText = details.getAufaenText();
         neu.bemerkung = details.getBemerkung();
+        neu.autor = details.getAutor();
         neu.bemerkungAlt = details.getBemerkungAlt();
         neu.landesCode = details.getLandesCode();
         neu.land = details.getLand();
         neu.gesamtLaenge = details.getGesamtLaenge();
         neu.radStand = details.getRadStand();
 
+        neu.alleCodes = details.getAlleCodes();
+        neu.fhiRelCodes = details.getFhiRelCodes();
+        neu.bandRelCodes = details.getBandRelCodes();
+        neu.alleKrits = details.getAlleKrits();
+        neu.fhiRelKrits = details.getFhiRelKrits();
+        neu.bandRelKrits = details.getBandRelKrits();
+
+        /*
+         * Sendestatus
+         */
+
+        /*
+         * Audit
+         */
+        neu.fhiAudit = auftraege.getFhiAudit();
+        neu.hrkAudit = auftraege.getHrkAudit();
         return neu;
     }
 

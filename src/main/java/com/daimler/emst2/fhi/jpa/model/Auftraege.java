@@ -65,6 +65,33 @@ public class Auftraege implements Serializable {
     @Column(name = "Bandnr_Alt_Rt5")
     private Long bandNrRt5;
 
+    /* Sendestatus    */
+    
+    /* Audit */
+
+    @Column(name = "Hrk_Audit")
+    private Long hrkAudit;
+
+    @Column(name = "Fhi_Audit")
+    private Long fhiAudit;
+
+    public Long getHrkAudit() {
+        return hrkAudit;
+    }
+
+    public void setHrkAudit(Long hrkAudit) {
+        this.hrkAudit = hrkAudit;
+    }
+
+    public Long getFhiAudit() {
+        return fhiAudit;
+    }
+
+    public void setFhiAudit(Long fhiAudit) {
+        this.fhiAudit = fhiAudit;
+    }
+
+
     public String getFzgArt() {
         return fzgArt;
     }
