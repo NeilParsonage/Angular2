@@ -41,7 +41,6 @@ export class EinzelauskunftTermineComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('on init' + this.einzelauskunft?.pnr);
-    // hello my friend
   }
 
   private loadData(auftrag: Auftrag) {

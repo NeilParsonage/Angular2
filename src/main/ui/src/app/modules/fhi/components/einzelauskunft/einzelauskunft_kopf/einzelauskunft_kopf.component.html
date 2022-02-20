@@ -51,6 +51,15 @@
           <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.fzgTaktklasse }}" />
         </mat-form-field>
       </div>
+      <div fxLayout="row">
+        <mat-form-field class="selectItem">
+          <mat-label>Fzg Lacke</mat-label>
+          <input matInput type="text" [readonly]="true" />
+        </mat-form-field>
+        <button mat-icon-button color="accent" aria-label="Zeige Liste">
+          <mat-icon>info</mat-icon>
+        </button>
+      </div>
     </div>
 
     <div fxLayout="column" fxFlex="8">
@@ -66,6 +75,15 @@
           <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.fhsTaktklasse }}" />
         </mat-form-field>
       </div>
+      <div fxLayout="row">
+        <mat-form-field class="selectItem">
+          <mat-label>Fhs Lacke</mat-label>
+          <input matInput type="text" [readonly]="true" />
+        </mat-form-field>
+        <button mat-icon-button color="accent" aria-label="Zeige Liste">
+          <mat-icon>info</mat-icon>
+        </button>
+      </div>
     </div>
 
     <div fxLayout="column" fxFlex="8">
@@ -75,17 +93,40 @@
       </mat-form-field>
     </div>
     <div fxLayout="column" fxFlex="16">
-      <mat-form-field class="selectItem">
-        <mat-label>Land</mat-label>
-        <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.landesCode }}: {{ einzelauskunft?.land }}" />
-      </mat-form-field>
+      <div fxLayout="row">
+        <mat-form-field class="selectItemLong">
+          <mat-label>Land</mat-label>
+          <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.landesCode }}: {{ einzelauskunft?.land }}" />
+        </mat-form-field>
+      </div>
+      <div fxLayout="row">
+        <mat-form-field class="selectItemLong">
+          <mat-label>Aggregate</mat-label>
+          <input matInput type="text" [readonly]="true" />
+        </mat-form-field>
+        <button mat-icon-button color="accent" aria-label="Zeige Liste">
+          <mat-icon>info</mat-icon>
+        </button>
+      </div>
     </div>
 
     <div fxLayout="column" fxFlex="16">
-      <mat-form-field class="selectItemLong">
-        <mat-label>Verkaufsbezeichnung</mat-label>
-        <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.verkBez }}" />
-      </mat-form-field>
+      <div fxLayout="row">
+        <mat-form-field class="selectItemLong">
+          <mat-label>Verkaufsbezeichnung</mat-label>
+          <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.verkBez }}" />
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row">
+        <mat-form-field class="selectItemLong">
+          <mat-label>Kabelsätze</mat-label>
+          <input matInput type="text" [readonly]="true" />
+        </mat-form-field>
+        <button mat-icon-button color="accent" aria-label="Zeige Liste">
+          <mat-icon>info</mat-icon>
+        </button>
+      </div>
     </div>
 
     <div fxLayout="column" fxFlex="8">
@@ -114,8 +155,16 @@
   <div fxLayout="row">
     <div fxLayout="column">
       <mat-form-field class="selectItemExtraLong">
-        <mat-label>Auftragsänderungstext</mat-label>
-        <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.aufaenText }}" />
+        <mat-label>Code</mat-label>
+        <input matInput type="text" [readonly]="true" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row">
+    <div fxLayout="column">
+      <mat-form-field class="selectItemExtraLong">
+        <mat-label>Kriterien</mat-label>
+        <input matInput type="text" [readonly]="true" />
       </mat-form-field>
     </div>
   </div>
@@ -124,6 +173,20 @@
       <mat-form-field class="selectItemExtraLong">
         <mat-label>Bemerkung</mat-label>
         <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.bemerkung }}" />
+      </mat-form-field>
+    </div>
+    <div fxLayout="column">
+      <mat-form-field class="selectItem">
+        <mat-label>Autor</mat-label>
+        <input matInput type="text" [readonly]="true" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row">
+    <div fxLayout="column">
+      <mat-form-field class="selectItemExtraLong">
+        <mat-label>Auftragsänderungstext</mat-label>
+        <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.aufaenText }}" />
       </mat-form-field>
     </div>
   </div>

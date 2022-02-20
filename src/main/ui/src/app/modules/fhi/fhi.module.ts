@@ -7,11 +7,19 @@ import { MaterialModule } from 'src/app/shared/modules/material.module';
 import { EinzelauskunftComponent } from './components/einzelauskunft/einzelauskunft.component';
 import { EinzelauskunftKopfComponent } from './components/einzelauskunft/einzelauskunft_kopf/einzelauskunft_kopf.component';
 import { EinzelauskunftRFComponent } from './components/einzelauskunft/einzelauskunft_rf/einzelauskunft_rf.component';
+import { EinzelauskunftSendestatusComponent } from './components/einzelauskunft/einzelauskunft_sendestatus/einzelauskunft_sendestatus.component';
 import { EinzelauskunftTermineComponent } from './components/einzelauskunft/einzelauskunft_termine/einzelauskunft_termine.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 
 @NgModule({
-  declarations: [WelcomeComponent, EinzelauskunftComponent, EinzelauskunftRFComponent, EinzelauskunftKopfComponent, EinzelauskunftTermineComponent],
+  declarations: [
+    WelcomeComponent,
+    EinzelauskunftComponent,
+    EinzelauskunftRFComponent,
+    EinzelauskunftKopfComponent,
+    EinzelauskunftTermineComponent,
+    EinzelauskunftSendestatusComponent,
+  ],
   providers: [],
   imports: [CommonModule, FlexLayoutModule, FormsModule, LibEmstTableModule, MaterialModule, ReactiveFormsModule],
 })

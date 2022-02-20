@@ -1,18 +1,16 @@
 <div class="container mat-elevation-z8">
   <div class="content">
-    <div class="row">
+    <div fxLayout="row">
       <form [formGroup]="form" #searchInfo (ngSubmit)="searchForm(searchInfo)">
-        <table>
-          <tr>
-            <td>
-              <mat-form-field>
-                <mat-label>PNR</mat-label>
-                <input matInput type="text" formControlName="pnr" />
-              </mat-form-field>
-            </td>
-            <td><button mat-raised-button color="primary">Suche</button></td>
-          </tr>
-        </table>
+        <div fxLayout="column" fxFlex="100">
+          <mat-form-field>
+            <mat-label>PNR</mat-label>
+            <input matInput type="text" formControlName="pnr" />
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="30">
+          <button mat-raised-button color="primary">Suche</button>
+        </div>
       </form>
     </div>
   </div>
@@ -37,15 +35,5 @@
   <div class="divider">
     <mat-divider></mat-divider>
   </div>
-  <div fxLayout="row">
-    <div class="content">
-      <h4>Sendestatus</h4>
-    </div>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-  </div>
+  <app-einzelauskunft-sendestatus [daten]="auftrag"></app-einzelauskunft-sendestatus>
 </div>
