@@ -23,6 +23,9 @@ public class AuftragDetails implements Serializable {
     @Column(name = "Aufaentext")
     private String aufaenText;
 
+    @Column(name = "Autor")
+    private String autor;
+
     @Column(name = "Bemerkung")
     private String bemerkung;
 

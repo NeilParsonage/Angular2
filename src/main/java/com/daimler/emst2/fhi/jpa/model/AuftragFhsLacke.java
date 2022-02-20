@@ -20,7 +20,6 @@ public class AuftragFhsLacke implements Serializable {
     @Column(name = "LACK_ID")
     private String id;
 
-
     @Column(name = "PNR")
     private String pnr;
 
@@ -38,5 +37,61 @@ public class AuftragFhsLacke implements Serializable {
 
     @Column(name = "LACKZUS")
     private String lackzus;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPnr() {
+        return pnr;
+    }
+
+    public void setPnr(String pnr) {
+        this.pnr = pnr;
+    }
+
+    public String getLackschl() {
+        return lackschl;
+    }
+
+    public void setLackschl(String lackschl) {
+        this.lackschl = lackschl;
+    }
+
+    public Long getLackSchlNr() {
+        return lackSchlNr;
+    }
+
+    public void setLackSchlNr(Long lackSchlNr) {
+        this.lackSchlNr = lackSchlNr;
+    }
+
+    public String getLackLangText() {
+        return lackLangText;
+    }
+
+    public void setLackLangText(String lackLangText) {
+        this.lackLangText = lackLangText;
+    }
+
+    public String getLackzLangText() {
+        return lackzLangText;
+    }
+
+    public void setLackzLangText(String lackzLangText) {
+        this.lackzLangText = lackzLangText;
+    }
+
+    public String getLackzus() {
+        return lackzus;
+    }
+
+    public void setLackzus(String lackzus) {
+        this.lackzus = lackzus;
+    }
 
 }

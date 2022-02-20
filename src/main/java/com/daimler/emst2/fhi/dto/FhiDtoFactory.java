@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
+import com.daimler.emst2.fhi.jpa.model.AuftragFhsLacke;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermine;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
 
@@ -60,6 +61,15 @@ public class FhiDtoFactory {
         neu.istSequenzTyp = auftragTermineDetails.getIstSequenzTyp();
         neu.teilsendungTermin = auftragTermineDetails.getTeilsendungTermin();
         neu.stornoTermin = auftragTermineDetails.getStornoTermin();
+        return neu;
+    }
+
+    public AuftragFhsLackeDTO createAuftragFhsLackeDTO(AuftragFhsLacke auftragFhsLack) {
+        AuftragFhsLackeDTO neu = new AuftragFhsLackeDTO();
+        neu.pnr = auftragFhsLack.getPnr();
+        neu.lackschl = auftragFhsLack.getLackschl();
+        neu.lackLangText = auftragFhsLack.getLackLangText();
+
         return neu;
     }
 
