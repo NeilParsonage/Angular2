@@ -34,6 +34,8 @@ public class AuftraegeDTO {
 
     public String verkBez;
 
+    /* Details*/
+
     public String aufaenText;
 
     public String bemerkung;
@@ -61,6 +63,62 @@ public class AuftraegeDTO {
     public String fhiRelKrits;
 
     public String bandRelKrits;
+    /* Sendestatus*/
+    public String zielLapu;
+
+    public String zielSepu;
+
+    public Number skidNr;
+
+    public String ort;
+
+    public String hrknr;
+    
+    public String fhiSendStatus;
+    
+    public String fhisendung;
+    
+    public String rhmSendStatus;
+    
+    public String rhmsendung;
+    
+    public String lmtSendStatus;
+    
+    public String lmtsendung;
+    
+    public String ubmSendStatus;
+    
+    public String ubmsendung;
+    
+    public Number inWarteschlange01;
+    
+    public String inWarteschlangeTyp;
+    
+    public Number inWarteschlangePos;
+    
+    public Number anzahlAnkuendigungen;
+    
+    public Number anzahlSperren;
+    
+    public String fpLmt;
+
+    /*Fp_Lmt_Datum   */
+    public String fpLmtBenennung;
+    
+    public String fpFhs;
+
+    /*Fp_Fhs_Datum  */
+    public String fpfhsBenennung;
+    
+    public String fpRhm;
+
+    /*Fp_Rhm_Datum  */
+    public String fpRhmBenennung;
+    
+    public String sendbar;
+    
+    public String zugebunden;
+    /* Audit*/
 
     public Long hrkAudit;
 

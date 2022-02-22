@@ -21,6 +21,7 @@ import com.daimler.emst2.fhi.jpa.dao.AuftragAggregateDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragDetailsDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragFhsLackeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragKabelsaetzeDao;
+import com.daimler.emst2.fhi.jpa.dao.AuftragSendestatusDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDetailsDao;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
@@ -28,6 +29,7 @@ import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
 import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
 import com.daimler.emst2.fhi.jpa.model.AuftragFhsLacke;
 import com.daimler.emst2.fhi.jpa.model.AuftragKabelsaetze;
+import com.daimler.emst2.fhi.jpa.model.AuftragSendestatus;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermine;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
 
@@ -58,6 +60,9 @@ public class AuftraegeService {
     @Autowired
     AuftragAggregateDao auftragAggregateDao;
 
+    @Autowired
+    AuftragSendestatusDao auftragSendestatusDao;
+
     public AuftraegeDTO getAuftragByPnr(String pnr) {
         Optional<Auftraege> result = auftraegeDao.findById(pnr);
         if (ObjectUtils.isEmpty(result)) {
@@ -66,8 +71,10 @@ public class AuftraegeService {
         }
 
         Optional<AuftragDetails> resultDetails = auftragDetailsDao.findById(pnr);
+
+        Optional<AuftragSendestatus> resultSendestatus = auftragSendestatusDao.findById(pnr);
       
-        return dtoFactory.createAuftragDTO(result.get(), resultDetails.get());
+        return dtoFactory.createAuftragDTO(result.get(), resultDetails.get(), resultSendestatus.get());
     }
 
     public AuftragTermineDTO getAuftragTermineByPnr(String pnr) {

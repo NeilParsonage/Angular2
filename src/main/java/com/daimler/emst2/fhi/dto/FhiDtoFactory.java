@@ -7,13 +7,14 @@ import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
 import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
 import com.daimler.emst2.fhi.jpa.model.AuftragFhsLacke;
 import com.daimler.emst2.fhi.jpa.model.AuftragKabelsaetze;
+import com.daimler.emst2.fhi.jpa.model.AuftragSendestatus;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermine;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
 
 @Component
 public class FhiDtoFactory {
 
-    public AuftraegeDTO createAuftragDTO(Auftraege auftraege, AuftragDetails details) {
+    public AuftraegeDTO createAuftragDTO(Auftraege auftraege, AuftragDetails details, AuftragSendestatus sendestatus) {
         AuftraegeDTO neu = new AuftraegeDTO();
         neu.pnr = auftraege.getPnr();
         neu.lfdNrGes = auftraege.getLfdNrGes();
@@ -30,6 +31,9 @@ public class FhiDtoFactory {
         neu.verkBez = auftraege.getVerkBez();
         neu.bandNrRt2 = auftraege.getBandNrRt2();
         neu.bandNrRt5 = auftraege.getBandNrRt5();
+        /*
+         * Details
+         */
         neu.aufaenText = details.getAufaenText();
         neu.bemerkung = details.getBemerkung();
         neu.autor = details.getAutor();
@@ -38,7 +42,6 @@ public class FhiDtoFactory {
         neu.land = details.getLand();
         neu.gesamtLaenge = details.getGesamtLaenge();
         neu.radStand = details.getRadStand();
-
         neu.alleCodes = details.getAlleCodes();
         neu.fhiRelCodes = details.getFhiRelCodes();
         neu.bandRelCodes = details.getBandRelCodes();
@@ -49,9 +52,63 @@ public class FhiDtoFactory {
         /*
          * Sendestatus
          */
+        neu.zielLapu = sendestatus.getZielLapu();
 
+        neu.zielSepu= sendestatus.getZielSepu();
+
+        neu.skidNr = sendestatus.getSkidNr();
+
+        neu.ort = sendestatus.getOrt();
+
+        neu.hrknr = sendestatus.getHrknr();
+        
+        neu.fhiSendStatus= sendestatus.getFhiSendStatus();
+        
+        neu.fhisendung= sendestatus.getFhisendung();
+        
+        neu.rhmSendStatus= sendestatus.getRhmSendStatus();
+        
+        neu.rhmsendung= sendestatus.getFhisendung();
+        
+        neu.lmtSendStatus= sendestatus.getLmtSendStatus();
+        
+        neu.lmtsendung= sendestatus.getLmtsendung();
+        
+        neu.ubmSendStatus= sendestatus.getUbmSendStatus();
+        
+        neu.ubmsendung = sendestatus.getUbmSendStatus();
+        
+        /*    neu.inWarteschlange01 = sendestatus.getInWarteschlange01();
+        
+        neu.inWarteschlangeTyp = sendestatus.getInWarteschlangeTyp();
+        
+        neu.inWarteschlangePos= sendestatus.getInWarteschlangePos();
+         
+        
+        neu.anzahlAnkuendigungen= sendestatus.getAnzahlAnkuendigungen();
+        
+        neu.anzahlSperren= sendestatus.getAnzahlSperren();
+        
+        neu.fpLmt = sendestatus.getFpLmt();*/
+
+        /*Fp_Lmt_Datum   */
+        /*  neu.fpLmtBenennung= sendestatus.getFpLmtBenennung();
+        
+        neu.fpFhs= sendestatus.getFpFhs();*/
+
+        /*Fp_Fhs_Datum  */
+        /*   neu.fpfhsBenennung= sendestatus.getFpfhsBenennung();
+        
+        neu.fpRhm = sendestatus.getFpRhm();*/
+
+        /*Fp_Rhm_Datum  */
+        /*   neu.fpRhmBenennung = sendestatus.getFpRhmBenennung();
+        
+        neu.sendbar = sendestatus.getSendbar();
+        
+        neu.zugebunden = sendestatus.getZugebunden();*/
         /*
-         * Audit
+         * Audit 
          */
         neu.fhiAudit = auftraege.getFhiAudit();
         neu.hrkAudit = auftraege.getHrkAudit();
