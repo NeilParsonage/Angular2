@@ -15,6 +15,8 @@ export class EinzelauskunftKopfComponent implements OnInit {
   constructor(private auftragService: AuftragService) {}
 
   einzelauskunft: Auftrag = null;
+  codesView: string = null;
+  kriterienView: string = null;
   kabelsaetzeliste: AuftragKabelsaetze[];
   fhsLackeliste: AuftragFhsLacke[];
   aggregateliste: AuftragAggregate[];
@@ -58,7 +60,8 @@ export class EinzelauskunftKopfComponent implements OnInit {
       this.kabelsatz = this.kabelsaetzeliste[0];
       this.fhsLack = this.fhsLackeliste[0];
       this.aggregat = this.aggregateliste[0];
-
+      this.codesView = this.einzelauskunft.fhiRelCodes + ' - ' + this.einzelauskunft.bandRelCodes;
+      this.kriterienView = this.einzelauskunft.fhiRelKrits + ' - ' + this.einzelauskunft.bandRelKrits;
       console.log(this.kabelsaetzeliste);
     });
   }

@@ -59,6 +59,48 @@ public class AuftragSendestatus implements Serializable {
     @Column(name = "Ubmsendung")
     private String ubmsendung;
 
+    @Column(name = "In_Warteschlange_01")
+    private String inWarteschlange01;
+
+    @Column(name = "In_Warteschlange_Typ")
+    private String inWarteschlangeTyp;
+
+    @Column(name = "In_Warteschlange_Pos")
+    private String inWarteschlangePos;
+
+    @Column(name = "Anzahl_Ankuendigungen")
+    private String anzahlAnkuendigungen;
+
+    @Column(name = "Anzahl_Sperren")
+    private String anzahlSperren;
+
+    @Column(name = "Fp_Lmt")
+    private String fpLmt;
+
+    /*Fp_Lmt_Datum   */
+    @Column(name = "Fp_Lmt_Benennung")
+    private String fpLmtBenennung;
+    
+    @Column(name = "Fp_Fhs")
+    private String fpFhs;
+
+    /*Fp_Fhs_Datum  */
+    @Column(name = "Fp_Fhs_Benennung")
+    private String fpfhsBenennung;
+    
+    @Column(name = "Fp_Rhm")
+    private String fpRhm;
+
+    /*Fp_Rhm_Datum  */
+    @Column(name = "Fp_Rhm_Benennung")
+    private String fpRhmBenennung;
+    
+    @Column(name = "Sendbar")
+    private String sendbar;
+    
+    @Column(name = "Zugebunden")
+    private String zugebunden;
+
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
@@ -118,50 +160,58 @@ public class AuftragSendestatus implements Serializable {
     public String getUbmsendung() {
         return ubmsendung;
     }
-    /* 
-    @Column(name = "In_Warteschlange_01")
-    private Number inWarteschlange01;
-    
-    @Column(name = "In_Warteschlange_Typ")
-    private String inWarteschlangeTyp;
-    
-    @Column(name = "In_Warteschlange_Pos")
-    private Number inWarteschlangePos;    
-    
-    @Column(name = "Anzahl_Ankuendigungen")
-    private Number anzahlAnkuendigungen;
-    
-    @Column(name = "Anzahl_Sperren")
-    private Number anzahlSperren;*/
 
-    @Column(name = "Fp_Lmt")
-    private String fpLmt;
+    public String getInWarteschlange01() {
+        return inWarteschlange01;
+    }
 
-    /*Fp_Lmt_Datum   */
-    @Column(name = "Fp_Lmt_Benennung")
-    private String fpLmtBenennung;
-    
-    @Column(name = "Fp_Fhs")
-    private String fpFhs;
+    public String getInWarteschlangeTyp() {
+        return inWarteschlangeTyp;
+    }
 
-    /*Fp_Fhs_Datum  */
-    @Column(name = "Fp_Fhs_Benennung")
-    private String fpfhsBenennung;
-    
-    @Column(name = "Fp_Rhm")
-    private String fpRhm;
+    public String getInWarteschlangePos() {
+        return inWarteschlangePos;
+    }
 
-    /*Fp_Rhm_Datum  */
-    @Column(name = "Fp_Rhm_Benennung")
-    private String fpRhmBenennung;
-    
-    @Column(name = "Sendbar")
-    private String sendbar;
-    
-    @Column(name = "Zugebunden")
-    private String zugebunden;
+    public String getAnzahlAnkuendigungen() {
+        return anzahlAnkuendigungen;
+    }
 
+    public String getAnzahlSperren() {
+        return anzahlSperren;
+    }
 
+    public String getFpLmt() {
+        return fpLmt;
+    }
+
+    public String getFpLmtBenennung() {
+        return fpLmtBenennung;
+    }
+
+    public String getFpFhs() {
+        return fpFhs;
+    }
+
+    public String getFpfhsBenennung() {
+        return fpfhsBenennung;
+    }
+
+    public String getFpRhm() {
+        return fpRhm;
+    }
+
+    public String getFpRhmBenennung() {
+        return fpRhmBenennung;
+    }
+
+    public String getSendbar() {
+        return sendbar;
+    }
+
+    public String getZugebunden() {
+        return zugebunden;
+    }
 
 
 }

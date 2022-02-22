@@ -1,16 +1,11 @@
 <div class="content">
   <h4>Audit</h4>
-  <br />
+
   <div fxLayout="row">
-    <mat-form-field class="selectItem">
-      <mat-label>FHI-Audit</mat-label>
-      <input matInput [readonly]="true" value="{{ einzelauskunft?.fhiAudit }} " />
-    </mat-form-field>
+    <mat-checkbox checked="{{ einzelauskunft?.fhiAudit }} " disabled="1">FHI-Audit</mat-checkbox>
   </div>
+
   <div fxLayout="row">
-    <mat-form-field class="selectItem">
-      <mat-label>HRK-Audit</mat-label>
-      <input matInput [readonly]="true" value="{{ einzelauskunft?.hrkAudit }} " />
-    </mat-form-field>
+    <mat-checkbox checked="{{ einzelauskunft?.hrkAudit }}" disabled="1">HRK-Audit</mat-checkbox>
   </div>
 </div>

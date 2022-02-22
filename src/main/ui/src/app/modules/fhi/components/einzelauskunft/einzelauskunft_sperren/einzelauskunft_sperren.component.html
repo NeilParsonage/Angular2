@@ -1,0 +1,29 @@
+<div class="content">
+  <h4>Sperren und Ankündigungen</h4>
+
+  <div fxLayout="row">
+    <div fxLayout="column" fxFlex="30">
+      <mat-form-field class="selectItemShort">
+        <mat-label>Sperren</mat-label>
+        <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.anzahlSperren }}" />
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxFlex="20">
+      <button mat-icon-button color="accent" aria-label="Zeige Liste">
+        <mat-icon>info</mat-icon>
+      </button>
+    </div>
+
+    <div fxLayout="column" fxFlex="30">
+      <mat-form-field class="selectItemShort">
+        <mat-label>Ankündigungen</mat-label>
+        <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.anzahlAnkuendigungen }}" />
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxFlex="20">
+      <button mat-icon-button color="accent" aria-label="Zeige Liste">
+        <mat-icon>info</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

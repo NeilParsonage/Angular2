@@ -53,60 +53,41 @@ public class FhiDtoFactory {
          * Sendestatus
          */
         neu.zielLapu = sendestatus.getZielLapu();
-
         neu.zielSepu= sendestatus.getZielSepu();
-
         neu.skidNr = sendestatus.getSkidNr();
-
         neu.ort = sendestatus.getOrt();
-
         neu.hrknr = sendestatus.getHrknr();
-        
-        neu.fhiSendStatus= sendestatus.getFhiSendStatus();
-        
-        neu.fhisendung= sendestatus.getFhisendung();
-        
-        neu.rhmSendStatus= sendestatus.getRhmSendStatus();
-        
-        neu.rhmsendung= sendestatus.getFhisendung();
-        
-        neu.lmtSendStatus= sendestatus.getLmtSendStatus();
-        
-        neu.lmtsendung= sendestatus.getLmtsendung();
-        
-        neu.ubmSendStatus= sendestatus.getUbmSendStatus();
-        
+        neu.fhiSendStatus = sendestatus.getFhiSendStatus();
+        neu.fhisendung = sendestatus.getFhisendung();
+        neu.rhmSendStatus = sendestatus.getRhmSendStatus();
+        neu.rhmsendung = sendestatus.getFhisendung();
+        neu.lmtSendStatus = sendestatus.getLmtSendStatus();
+        neu.lmtsendung = sendestatus.getLmtsendung();
+        neu.ubmSendStatus = sendestatus.getUbmSendStatus();
         neu.ubmsendung = sendestatus.getUbmSendStatus();
-        
-        /*    neu.inWarteschlange01 = sendestatus.getInWarteschlange01();
+        /*   
+         neu.inWarteschlange01 = sendestatus.getInWarteschlange01();
         
         neu.inWarteschlangeTyp = sendestatus.getInWarteschlangeTyp();
         
         neu.inWarteschlangePos= sendestatus.getInWarteschlangePos();
-         
         
-        neu.anzahlAnkuendigungen= sendestatus.getAnzahlAnkuendigungen();
+        */
+        neu.anzahlAnkuendigungen = Integer.parseInt(sendestatus.getAnzahlAnkuendigungen());
         
-        neu.anzahlSperren= sendestatus.getAnzahlSperren();
+        neu.anzahlSperren = Integer.parseInt(sendestatus.getAnzahlSperren());
         
-        neu.fpLmt = sendestatus.getFpLmt();*/
-
+        neu.fpLmt = sendestatus.getFpLmt();
         /*Fp_Lmt_Datum   */
-        /*  neu.fpLmtBenennung= sendestatus.getFpLmtBenennung();
-        
-        neu.fpFhs= sendestatus.getFpFhs();*/
-
+        neu.fpLmtBenennung = sendestatus.getFpLmtBenennung();
+        neu.fpFhs = sendestatus.getFpFhs();
         /*Fp_Fhs_Datum  */
-        /*   neu.fpfhsBenennung= sendestatus.getFpfhsBenennung();
-        
-        neu.fpRhm = sendestatus.getFpRhm();*/
-
+        neu.fpfhsBenennung = sendestatus.getFpfhsBenennung();
+        neu.fpRhm = sendestatus.getFpRhm();
         /*Fp_Rhm_Datum  */
-        /*   neu.fpRhmBenennung = sendestatus.getFpRhmBenennung();
-        
+        neu.fpRhmBenennung = sendestatus.getFpRhmBenennung();
         neu.sendbar = sendestatus.getSendbar();
-        
-        neu.zugebunden = sendestatus.getZugebunden();*/
+        neu.zugebunden = sendestatus.getZugebunden();
         /*
          * Audit 
          */
