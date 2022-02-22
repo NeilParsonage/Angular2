@@ -1,10 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { forkJoin } from 'rxjs';
 import { Auftrag } from '../../../models/auftrag';
 import { AuftragAggregate } from '../../../models/auftragAggregate';
 import { AuftragFhsLacke } from '../../../models/auftragFhsLacke';
 import { AuftragKabelsaetze } from '../../../models/auftragKabelsatz';
 import { AuftragService } from '../../../services/auftrag.service';
+import { DialogShowlistComponent } from '../dialog-showlist/dialog-showlist.component';
 
 @Component({
   selector: 'app-einzelauskunft-kopf',
@@ -12,7 +14,7 @@ import { AuftragService } from '../../../services/auftrag.service';
   styleUrls: ['./einzelauskunft_kopf.component.scss'],
 })
 export class EinzelauskunftKopfComponent implements OnInit {
-  constructor(private auftragService: AuftragService) {}
+  constructor(private auftragService: AuftragService, public dialog: MatDialog) {}
 
   einzelauskunft: Auftrag = null;
   codesView: string = null;
@@ -64,5 +66,52 @@ export class EinzelauskunftKopfComponent implements OnInit {
       this.kriterienView = this.einzelauskunft.fhiRelKrits + ' - ' + this.einzelauskunft.bandRelKrits;
       console.log(this.kabelsaetzeliste);
     });
+  }
+  showListe(listeElements: string[], titel: string) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '500px';
+    dialogConfig.height = 'auto';
+    dialogConfig.disableClose = true;
+    dialogConfig.data = {
+      liste: listeElements,
+      titel: titel + ' von PNR ' + this.einzelauskunft.pnr,
+    };
+    const dialogRef = this.dialog.open(DialogShowlistComponent, dialogConfig);
+  }
+
+  showListAggregate() {
+    let listeElements: string[] = [];
+    this.aggregateliste.forEach((e, i) => {
+      listeElements[i] = e.aggregat;
+    });
+
+    this.showListe(listeElements, 'Aggregate');
+  }
+
+  showListKabelsaetzeOld() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.width = '500px';
+    dialogConfig.height = 'auto';
+    dialogConfig.disableClose = true;
+    let listeElements: string[] = [];
+    this.kabelsaetzeliste.forEach((e, i) => {
+      listeElements[i] = e.kabelsatz;
+    });
+
+    dialogConfig.data = {
+      liste: listeElements,
+      titel: 'Kabelsätze',
+    };
+    const dialogRef = this.dialog.open(DialogShowlistComponent, dialogConfig);
+  }
+
+  showListKabelsaetze() {
+    let listeElements: string[] = [];
+    this.kabelsaetzeliste.forEach((e, i) => {
+      listeElements[i] = e.kabelsatz;
+    });
+
+    this.showListe(listeElements, 'Kabelsätze');
   }
 }
