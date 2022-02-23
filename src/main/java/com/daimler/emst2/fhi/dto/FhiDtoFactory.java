@@ -71,18 +71,20 @@ public class FhiDtoFactory {
         neu.inWarteschlangeTyp = sendestatus.getInWarteschlangeTyp();
         
         neu.inWarteschlangePos= sendestatus.getInWarteschlangePos();
-        
         */
-        neu.anzahlAnkuendigungen = Integer.parseInt(sendestatus.getAnzahlAnkuendigungen());
         
-        neu.anzahlSperren = Integer.parseInt(sendestatus.getAnzahlSperren());
+        neu.anzahlAnkuendigungen = sendestatus.getAnzahlAnkuendigungen();
         
+        neu.anzahlSperren = sendestatus.getAnzahlSperren();
+        
+        
+
         neu.fpLmt = sendestatus.getFpLmt();
         /*Fp_Lmt_Datum   */
         neu.fpLmtBenennung = sendestatus.getFpLmtBenennung();
         neu.fpFhs = sendestatus.getFpFhs();
         /*Fp_Fhs_Datum  */
-        neu.fpfhsBenennung = sendestatus.getFpfhsBenennung();
+        neu.fpfhsBenennung = sendestatus.getFpFhsBenennung();
         neu.fpRhm = sendestatus.getFpRhm();
         /*Fp_Rhm_Datum  */
         neu.fpRhmBenennung = sendestatus.getFpRhmBenennung();
