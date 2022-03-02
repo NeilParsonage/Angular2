@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.daimler.emst2.fhi.dto.AuftraegeDTO;
+import com.daimler.emst2.fhi.dto.AuftragAggregateDTO;
+import com.daimler.emst2.fhi.dto.AuftragFhsLackeDTO;
+import com.daimler.emst2.fhi.dto.AuftragKabelsaetzeDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDetailsDTO;
 import com.daimler.emst2.fhi.services.AuftraegeService;
@@ -34,6 +37,21 @@ public class AuftragController {
     @GetMapping("/termineDetails")
     public List<AuftragTermineDetailsDTO> getAuftragTermineDetailsbyPnr(@RequestParam String pnr) {
         return auftraegeService.getAuftragTermineDetailsByPnr(pnr);
+    }
+
+    @GetMapping("/kabelsaetze")
+    public List<AuftragKabelsaetzeDTO> getAuftragKabelsaetzebyPnr(@RequestParam String pnr) {
+        return auftraegeService.getAuftragKabelsaetzeByPnr(pnr);
+    }
+
+    @GetMapping("/aggregate")
+    public List<AuftragAggregateDTO> getAuftragAggregatebyPnr(@RequestParam String pnr) {
+        return auftraegeService.getAuftragAggregateByPnr(pnr);
+    }
+
+    @GetMapping("/fhsLacke")
+    public List<AuftragFhsLackeDTO> getAuftragFhsLackebyPnr(@RequestParam String pnr) {
+        return auftraegeService.getAuftragFhsLackeByPnr(pnr);
     }
 
 }

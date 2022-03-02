@@ -41,6 +41,7 @@ export class EinzelauskunftComponent implements OnInit {
       .pipe(first())
       .subscribe(data => {
         this.auftrag = data;
+        console.log(this.auftrag);
       });
   }
 }
