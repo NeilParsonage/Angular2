@@ -11,3 +11,14 @@
   margin: -13px 0px 0px 16px;
   padding: 16px;
 }
+.mat-tab-label-active {
+  opacity: 1 !important;
+}
+
+.mat-tab-label:selected {
+  min-width: 25px !important;
+  padding: 5px;
+  background-color: red;
+  color: rgb(160, 36, 36);
+  font-weight: 700;
+}

@@ -1,17 +1,44 @@
 <div class="container mat-elevation-z8">
   <div class="content">
     <div fxLayout="row">
-      <form [formGroup]="form" #searchInfo (ngSubmit)="searchForm(searchInfo)">
-        <div fxLayout="column" fxFlex="100">
-          <mat-form-field>
-            <mat-label>PNR</mat-label>
-            <input matInput type="text" formControlName="pnr" />
-          </mat-form-field>
-        </div>
-        <div fxLayout="column" fxFlex="30">
-          <button mat-raised-button color="primary">Suche</button>
-        </div>
-      </form>
+      <div fxLayout="column" fxFlex="50">
+        <form [formGroup]="form" #searchInfo (ngSubmit)="searchForm(searchInfo)">
+          <div fxLayout="column" fxFlex="30">
+            <mat-form-field>
+              <mat-label>PNR</mat-label>
+              <input matInput type="text" formControlName="pnr" />
+            </mat-form-field>
+          </div>
+          <div fxLayout="column" fxFlex="20">
+            <button mat-raised-button color="primary">Suche</button>
+          </div>
+        </form>
+      </div>
+      <div fxLayout="column" fxFlex="50"></div>
+    </div>
+    <div fxLayout="row">
+      <mat-tab-group *ngIf="auftragList" [selectedIndex]="tabind">
+        <mat-tab *ngFor="let auftrag of auftragList; let index = index">
+          <ng-template mat-tab-label>
+            <table>
+              <td>
+                <tr>
+                  PNR
+                  {{
+                    auftrag.pnr
+                  }}
+                </tr>
+                <tr>
+                  Lfd Nummer
+                  {{
+                    auftrag.lfdNrGes
+                  }}
+                </tr>
+              </td>
+            </table>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   </div>
 

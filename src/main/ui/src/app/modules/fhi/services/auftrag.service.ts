@@ -58,4 +58,10 @@ export class AuftragService {
     };
     return this.http.get<AuftragFhsLacke[]>(`${this.endpoint}/fhsLacke`, options);
   }
+  public getListAuftraegebyLfdNrGes(lfdNrGes: number): Observable<Auftrag[]> {
+    const options = {
+      params: new HttpParams().set('lfdNrGes', lfdNrGes),
+    };
+    return this.http.get<Auftrag[]>(`${this.endpoint}/listAuftraegebyGeLfdNr`, options);
+  }
 }
