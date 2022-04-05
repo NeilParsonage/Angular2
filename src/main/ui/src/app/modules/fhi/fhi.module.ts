@@ -14,6 +14,7 @@ import { EinzelauskunftRFComponent } from './components/einzelauskunft/einzelaus
 import { EinzelauskunftSendestatusComponent } from './components/einzelauskunft/einzelauskunft_sendestatus/einzelauskunft_sendestatus.component';
 import { EinzelauskunftSperrenComponent } from './components/einzelauskunft/einzelauskunft_sperren/einzelauskunft_sperren.component';
 import { EinzelauskunftTermineComponent } from './components/einzelauskunft/einzelauskunft_termine/einzelauskunft_termine.component';
+import { PnrChooserComponent } from './components/pnr-chooser/pnr-chooser.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 
 @NgModule({
@@ -29,6 +30,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     EinzelauskunftOrtComponent,
     EinzelauskunftSperrenComponent,
     DialogShowlistComponent,
+    PnrChooserComponent,
   ],
   providers: [],
   imports: [CommonModule, FlexLayoutModule, FormsModule, LibEmstTableModule, MaterialModule, ReactiveFormsModule],

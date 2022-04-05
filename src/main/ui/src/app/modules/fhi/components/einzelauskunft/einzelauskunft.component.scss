@@ -1,3 +1,5 @@
+@import '../../../../app.component.scss';
+
 .content {
   padding: 16px;
 }
@@ -13,12 +15,22 @@
 }
 .mat-tab-label-active {
   opacity: 1 !important;
+  background-color: $primary-default;
+  color: white;
 }
 
-.mat-tab-label:selected {
-  min-width: 25px !important;
-  padding: 5px;
-  background-color: red;
-  color: rgb(160, 36, 36);
-  font-weight: 700;
+.selectItem {
+  width: 100px;
+}
+
+.selectItemLong {
+  width: 180px;
+}
+
+.selectItemExtraLong {
+  width: 800px;
+}
+
+.selectItemShort {
+  width: 40px;
 }

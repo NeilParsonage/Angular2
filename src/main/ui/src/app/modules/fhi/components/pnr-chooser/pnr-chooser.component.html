@@ -1,0 +1,27 @@
+<mat-tab-group [(selectedIndex)]="tabIndex" (selectedTabChange)="actionChangePnr($event)">
+  <mat-tab *ngFor="let auftrag of auftragList; let idx = index">
+    <ng-template mat-tab-label>
+      <div>
+        <mat-list>
+          <mat-list-item class="tab-title">
+            <table>
+              <tr>
+                <td rowspan="2">
+                  <span class="material-icons" *ngIf="isAufsetzpunkt(auftrag)"> local_shipping </span>
+                </td>
+                <td>{{ auftrag.pnr }}</td>
+              </tr>
+              <tr>
+                <div>
+                  <td>{{ auftrag.lfdNrGes }}</td>
+                  <td>{{ auftrag.lfdNrFhi }}</td>
+                  <td>{{ auftrag.lfdNrLmt }}</td>
+                </div>
+              </tr>
+            </table>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

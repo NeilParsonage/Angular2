@@ -1,10 +1,21 @@
 <div class="container mat-elevation-z8">
   <div class="content">
     <div fxLayout="row">
-      <div fxLayout="column" fxFlex="50">
+      <div fxLayout="column" fxFlex="30">
         <form [formGroup]="form" #searchInfo (ngSubmit)="searchForm(searchInfo)">
-          <div fxLayout="column" fxFlex="30">
-            <mat-form-field>
+          <div fxLayout="column" fxFlex="40">
+            <mat-form-field class="selectItemLong">
+              <mat-label>Suchoption</mat-label>
+              <mat-select>
+                <mat-option value="two">PNR</mat-option>
+                <mat-option value="one">Gesamt lfd. Nr.</mat-option>
+                <mat-option value="two">Ist lfd. FHI </mat-option>
+                <mat-option value="two">Ist lfd. LMT</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxLayout="column" fxFlex="40">
+            <mat-form-field class="selectItemLong">
               <mat-label>PNR</mat-label>
               <input matInput type="text" formControlName="pnr" />
             </mat-form-field>
@@ -14,34 +25,18 @@
           </div>
         </form>
       </div>
-      <div fxLayout="column" fxFlex="50"></div>
-    </div>
-    <div fxLayout="row">
-      <mat-tab-group *ngIf="auftragList" [selectedIndex]="tabind">
-        <mat-tab *ngFor="let auftrag of auftragList; let index = index">
-          <ng-template mat-tab-label>
-            <table>
-              <td>
-                <tr>
-                  PNR
-                  {{
-                    auftrag.pnr
-                  }}
-                </tr>
-                <tr>
-                  Lfd Nummer
-                  {{
-                    auftrag.lfdNrGes
-                  }}
-                </tr>
-              </td>
-            </table>
-          </ng-template>
-        </mat-tab>
-      </mat-tab-group>
+      <div fxLayout="column" fxFlex="5"></div>
+      <div fxLayout="column" fxFlex="65">
+        <div *ngIf="auftragList && auftragSearch">
+          <app-pnr-chooser [auftragList]="auftragList" [currentAuftrag]="auftragSearch" (auftragChanged)="onAuftragChanged($event)"> </app-pnr-chooser>
+        </div>
+      </div>
     </div>
   </div>
 
+  <div class="divider">
+    <mat-divider></mat-divider>
+  </div>
   <app-einzelauskunft-kopf [daten]="auftrag"></app-einzelauskunft-kopf>
   <div class="divider">
     <mat-divider></mat-divider>
@@ -55,7 +50,7 @@
       <mat-divider [vertical]="true" style="height: 100%"></mat-divider>
     </div>
 
-    <div fxLayout="column" fxFlex="90">
+    <div fxLayout="column" fxFlex="85">
       <app-einzelauskunft-termine [daten]="auftrag"></app-einzelauskunft-termine>
     </div>
   </div>
