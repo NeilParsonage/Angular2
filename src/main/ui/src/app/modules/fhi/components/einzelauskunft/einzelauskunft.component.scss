@@ -1,3 +1,5 @@
+@import '../../../../app.component.scss';
+
 .content {
   padding: 16px;
 }
@@ -10,4 +12,25 @@
 .termin-content {
   margin: -13px 0px 0px 16px;
   padding: 16px;
+}
+.mat-tab-label-active {
+  opacity: 1 !important;
+  background-color: $primary-default;
+  color: white;
+}
+
+.selectItem {
+  width: 100px;
+}
+
+.selectItemLong {
+  width: 180px;
+}
+
+.selectItemExtraLong {
+  width: 800px;
+}
+
+.selectItemShort {
+  width: 40px;
 }

@@ -14,6 +14,26 @@ import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
 @Component
 public class FhiDtoFactory {
 
+    public AuftraegeDTO createAuftragDTO(Auftraege auftraege) {
+        AuftraegeDTO neu = new AuftraegeDTO();
+        neu.pnr = auftraege.getPnr();
+        neu.lfdNrGes = auftraege.getLfdNrGes();
+        neu.lfdNrFhi = auftraege.getLfdNrFhi();
+        neu.lfdNrLmt = auftraege.getLfdNrLmt();
+        neu.lfdNrUbm = auftraege.getLfdNrUbm();
+        neu.bandNr = auftraege.getBandNr();
+        neu.fzgArt = auftraege.getFzgArt();
+        neu.fhsBaumuster = auftraege.getFhsBaumuster();
+        neu.fzgBaumuster = auftraege.getFzgBaumuster();
+        neu.fzgTaktklasse = auftraege.getFzgTaktklasse();
+        neu.fhsTaktklasse = auftraege.getFhsTaktklasse();
+        neu.anr = auftraege.getAnr();
+        neu.verkBez = auftraege.getVerkBez();
+        neu.bandNrRt2 = auftraege.getBandNrRt2();
+        neu.bandNrRt5 = auftraege.getBandNrRt5();
+        return neu;
+    }
+
     public AuftraegeDTO createAuftragDTO(Auftraege auftraege, AuftragDetails details, AuftragSendestatus sendestatus) {
         AuftraegeDTO neu = new AuftraegeDTO();
         neu.pnr = auftraege.getPnr();

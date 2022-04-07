@@ -119,4 +119,12 @@ public class AuftraegeService {
                 : Collections.emptyList();
     }
 
+    public List<AuftraegeDTO> getAuftraegebyLfdNrGes(int lfdNrGes) {
+        List<Auftraege> result = auftraegeDao.findListAuftraegebyLfdNrGes(lfdNrGes);
+
+        return result instanceof List
+                ? result.stream().map(x -> dtoFactory.createAuftragDTO(x)).collect(Collectors.toList())
+                : Collections.emptyList();
+    }
+
 }
