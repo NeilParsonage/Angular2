@@ -31,6 +31,8 @@ public class FhiDtoFactory {
         neu.verkBez = auftraege.getVerkBez();
         neu.bandNrRt2 = auftraege.getBandNrRt2();
         neu.bandNrRt5 = auftraege.getBandNrRt5();
+        neu.fin = auftraege.getFin();
+        neu.vin = auftraege.getVin();
         return neu;
     }
 

@@ -34,6 +34,10 @@ public class AuftraegeDTO {
 
     public String verkBez;
 
+    public String fin;
+
+    public String vin;
+
     /* Details*/
 
     public String aufaenText;

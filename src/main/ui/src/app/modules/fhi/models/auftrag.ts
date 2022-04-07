@@ -14,6 +14,8 @@ export interface Auftrag {
   fzgTaktklasse: string;
   anr: string;
   verkBez: string;
+  fin: string;
+  vin: string;
   /* Details*/
   aufaenText?: string;
   bemerkung?: string;

@@ -65,9 +65,31 @@ public class Auftraege implements Serializable {
     @Column(name = "Bandnr_Alt_Rt5")
     private Long bandNrRt5;
 
+    @Column(name = "Fin")
+    private String fin;
+
+    @Column(name = "Vin")
+    private String vin;
+
     /* Sendestatus    */
     
     /* Audit */
+
+    public String getFin() {
+        return fin;
+    }
+
+    public void setFin(String fin) {
+        this.fin = fin;
+    }
+
+    public String getVin() {
+        return vin;
+    }
+
+    public void setVin(String vin) {
+        this.vin = vin;
+    }
 
     @Column(name = "Hrk_Audit")
     private Long hrkAudit;

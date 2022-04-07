@@ -85,13 +85,13 @@
       <div fxLayout="row">
         <mat-form-field class="selectItem">
           <mat-label>FIN</mat-label>
-          <input matInput type="text" [readonly]="true" value="" />
+          <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.fin }}" />
         </mat-form-field>
       </div>
       <div fxLayout="row">
         <mat-form-field class="selectItem">
           <mat-label>VIN</mat-label>
-          <input matInput type="text" [readonly]="true" value="" />
+          <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.vin }}" />
         </mat-form-field>
       </div>
     </div>
