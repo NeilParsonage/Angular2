@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { LibEmstTableModule } from 'emst-table';
 import { MaterialModule } from 'src/app/shared/modules/material.module';
 import { DialogShowlistComponent } from './components/einzelauskunft/dialog-showlist/dialog-showlist.component';
@@ -33,6 +34,6 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     PnrChooserComponent,
   ],
   providers: [],
-  imports: [CommonModule, FlexLayoutModule, FormsModule, LibEmstTableModule, MaterialModule, ReactiveFormsModule],
+  imports: [CommonModule, FlexLayoutModule, FormsModule, LibEmstTableModule, MaterialModule, ReactiveFormsModule, TranslateModule.forRoot()],
 })
 export class FhiModule {}

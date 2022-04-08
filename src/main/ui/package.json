@@ -27,6 +27,7 @@
     "@angular/platform-browser": "^12.1.4",
     "@angular/platform-browser-dynamic": "^12.1.4",
     "@angular/router": "^12.1.4",
+    "@ngx-translate/core": "14.0.0",
     "app-root-path": "^3.0.0",
     "emst-table": "0.8.0",
     "emst-ui-frame": "1.16.0",
