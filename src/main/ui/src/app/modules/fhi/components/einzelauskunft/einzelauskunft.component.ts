@@ -20,8 +20,18 @@ export class EinzelauskunftComponent implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   searchpnr: string = '';
 
+  options = [
+    { value: 'pnr', label: 'PNR', key: 'PNR', filter: '' },
+    { value: 'gesamt', label: 'Gesamt lfd. Nr.', key: 'Gesamt lfd. Nr.', filter: '' },
+    { value: 'fhi', label: 'Ist lfd. FHI', key: 'Ist lfd. FHI', filter: '' },
+    { value: 'lmt', label: 'Ist lfd. LMT', key: 'Ist lfd. LMT', filter: '' },
+  ];
+
+  selected = this.options[0];
+
   form = new FormGroup({
     pnr: new FormControl(),
+    art: new FormControl(),
   });
 
   dataSource$: any;
@@ -43,7 +53,9 @@ export class EinzelauskunftComponent implements OnInit {
   }
 
   searchForm(searchInfo): void {
-    this.searchpnr = this.form.value.pnr;
+    console.log('Suche ' + this.selected.value + ' ' + this.selected.filter);
+    console.log('Suche2 ' || this.form.value);
+    this.searchpnr = this.selected.filter;
     this.reset();
     if (this.searchpnr !== '') {
       this.loadData(this.searchpnr, true);

@@ -5,23 +5,22 @@
         <form [formGroup]="form" #searchInfo (ngSubmit)="searchForm(searchInfo)">
           <div fxLayout="column" fxFlex="40">
             <mat-form-field class="selectItemLong">
-              <mat-label>Suchoption</mat-label>
-              <mat-select>
-                <mat-option value="two">PNR</mat-option>
-                <mat-option value="one">Gesamt lfd. Nr.</mat-option>
-                <mat-option value="two">Ist lfd. FHI </mat-option>
-                <mat-option value="two">Ist lfd. LMT</mat-option>
+              <mat-label>{{ 'label.einzelauskunft.suchoption' | translate }}</mat-label>
+              <mat-select [(value)]="selected">
+                <mat-option *ngFor="let option of options" [value]="option"> {{ option.label }}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
+
           <div fxLayout="column" fxFlex="40">
             <mat-form-field class="selectItemLong">
-              <mat-label>PNR</mat-label>
-              <input matInput type="text" formControlName="pnr" />
+              <mat-label>{{ selected.key }}</mat-label>
+              <input matInput placeholder="" [(ngModel)]="selected.filter" formControlName="pnr" />
             </mat-form-field>
           </div>
+          <p>You selected: {{ selected.key }} {{ selected.filter }}</p>
           <div fxLayout="column" fxFlex="20">
-            <button mat-raised-button color="primary">Suche</button>
+            <button mat-raised-button color="primary">{{ 'action.einzelauskunft.suche' | translate }}</button>
           </div>
         </form>
       </div>

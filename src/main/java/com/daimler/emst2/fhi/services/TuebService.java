@@ -25,7 +25,7 @@ public class TuebService {
 
         Map<String, String> map = new HashMap<String, String>();
 
-        for (Tueb tueb : tuebDao.findAllBySystemAndPrognameAndTsprache("FHI", "ALLE", sprache)) {
+        for (Tueb tueb : tuebDao.findAllBySystemAndPrognameAndTsprache("FHI", "E2", sprache)) {
             map.put(tueb.getTname(), tueb.getTtext());
         }
 

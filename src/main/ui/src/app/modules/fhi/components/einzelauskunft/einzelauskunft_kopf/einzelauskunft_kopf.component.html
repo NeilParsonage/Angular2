@@ -3,13 +3,13 @@
     <div fxLayout="column" fxFlex="4">
       <div fxLayout="row">
         <mat-form-field class="selectItemShort">
-          <mat-label>Band</mat-label>
+          <mat-label>{{ 'label.einzelauskunft.band' | translate }}</mat-label>
           <input matInput type="number" [readonly]="true" value="{{ einzelauskunft?.bandNr }}" />
         </mat-form-field>
       </div>
       <div fxLayout="row">
         <mat-form-field class="selectItemShort">
-          <mat-label>RT5</mat-label>
+          <mat-label>{{ 'label.einzelauskunft.rt5' | translate }}</mat-label>
           <input matInput type="number" [readonly]="true" value="{{ einzelauskunft?.bandNrRt5 }}" />
         </mat-form-field>
       </div>
@@ -18,7 +18,7 @@
     <div fxLayout="column" fxFlex="4">
       <div fxLayout="row">
         <mat-form-field class="selectItemShort">
-          <mat-label>Fzg Art</mat-label>
+          <mat-label>{{ 'label.einzelauskunft.fzgart' | translate }}</mat-label>
           <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.fzgArt }}" />
         </mat-form-field>
       </div>
