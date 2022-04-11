@@ -63,11 +63,12 @@ public class AuftraegeService {
     @Autowired
     AuftragSendestatusDao auftragSendestatusDao;
 
+
     public AuftraegeDTO getAuftragByPnr(String pnr) {
         Optional<Auftraege> result = auftraegeDao.findById(pnr);
         if (ObjectUtils.isEmpty(result)) {
 
-            throw new RuntimeException(String.format("Auftrag %s nicht gefunden!", pnr));
+            throw new RuntimeException(String.format("Auftrag mit PNR %s nicht gefunden!", pnr));
         }
 
         Optional<AuftragDetails> resultDetails = auftragDetailsDao.findById(pnr);
@@ -76,6 +77,70 @@ public class AuftraegeService {
       
         return dtoFactory.createAuftragDTO(result.get(), resultDetails.get(), resultSendestatus.get());
     }
+
+    public AuftraegeDTO getAuftragByGesamtLfdNummer(String lfdNummer) {
+
+        Auftraege result = auftraegeDao.findbyLfdNrGes(Integer.parseInt(lfdNummer));
+        if (ObjectUtils.isEmpty(result)) {
+    
+            throw new RuntimeException(String.format("Auftrag mit Gesamt Lfd Nummer %s nicht gefunden!", lfdNummer));
+        }
+    
+        Optional<AuftragDetails> resultDetails = auftragDetailsDao.findById(result.getPnr());
+    
+        Optional<AuftragSendestatus> resultSendestatus = auftragSendestatusDao.findById(result.getPnr());
+    
+           return dtoFactory.createAuftragDTO(result, resultDetails.get(), resultSendestatus.get());
+    }
+
+    public AuftraegeDTO getAuftragByLfdNrLmt(String lfdNummer) {
+
+        Auftraege result = auftraegeDao.findbyLfdNrLmt(Integer.parseInt(lfdNummer));
+        if (ObjectUtils.isEmpty(result)) {
+
+            throw new RuntimeException(String.format("Auftrag mit Lfd Nummer Lmt %s nicht gefunden!", lfdNummer));
+        }
+
+        Optional<AuftragDetails> resultDetails = auftragDetailsDao.findById(result.getPnr());
+
+        Optional<AuftragSendestatus> resultSendestatus = auftragSendestatusDao.findById(result.getPnr());
+
+        return dtoFactory.createAuftragDTO(result, resultDetails.get(), resultSendestatus.get());
+    }
+
+    public AuftraegeDTO getAuftragByLfdNrFhi(String lfdNummer) {
+
+        Auftraege result = auftraegeDao.findbyLfdNrFhi(Integer.parseInt(lfdNummer));
+        if (ObjectUtils.isEmpty(result)) {
+
+            throw new RuntimeException(String.format("Auftrag mit Lfd Nummer Fhi %s nicht gefunden!", lfdNummer));
+        }
+
+        Optional<AuftragDetails> resultDetails = auftragDetailsDao.findById(result.getPnr());
+
+        Optional<AuftragSendestatus> resultSendestatus = auftragSendestatusDao.findById(result.getPnr());
+
+        return dtoFactory.createAuftragDTO(result, resultDetails.get(), resultSendestatus.get());
+    }
+
+    public AuftraegeDTO getAuftrag(String option, String key) {
+        AuftraegeDTO auftrag = new AuftraegeDTO();
+
+        switch (option) {
+            case "pnr":
+                return getAuftragByPnr(key);
+            case "gesamt":
+                return getAuftragByGesamtLfdNummer(key);
+            case "fhi":
+                return getAuftragByLfdNrFhi(key);
+            case "lmt":
+                return getAuftragByLfdNrLmt(key);
+            default:
+                return auftrag;
+        }
+
+    }
+
 
     public AuftragTermineDTO getAuftragTermineByPnr(String pnr) {
         Optional<AuftragTermine> result = auftragTermineDao.findById(pnr);
@@ -86,6 +151,7 @@ public class AuftraegeService {
 
         return dtoFactory.createAuftragTermineDTO(result.get());
     }
+
 
     public List<AuftragTermineDetailsDTO> getAuftragTermineDetailsByPnr(String pnr) {
         List<AuftragTermineDetails> result = auftragTermineDetailsDao.findAuftragTermineDetailsByPnr(pnr);

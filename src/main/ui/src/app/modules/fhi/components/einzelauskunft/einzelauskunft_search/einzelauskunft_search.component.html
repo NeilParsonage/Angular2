@@ -1,0 +1,37 @@
+<div class="container mat-elevation-z8">
+  <div class="content">
+    <div fxLayout="row">
+      <div fxLayout="column" fxFlex="30">
+        <div fxLayout="row">
+          <div fxLayout="column" fxFlex="40">
+            <mat-form-field class="selectItemLong">
+              <mat-label>{{ 'label.einzelauskunft.suchoption' | translate }}</mat-label>
+              <mat-select [(value)]="selected">
+                <mat-option *ngFor="let option of options" [value]="option"> {{ option.label }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="column" fxFlex="40">
+            <mat-form-field class="selectItemLong">
+              <mat-label>{{ selected.key }}</mat-label>
+              <input matInput placeholder="" [(ngModel)]="selected.filter" />
+            </mat-form-field>
+          </div>
+          <!-- <p>You selected: {{ selected.key }} {{ selected.filter }}</p>-->
+          <div fxLayout="column" fxFlex="20">
+            <button mat-raised-button color="primary" (click)="search()">{{ 'action.einzelauskunft.suche' | translate }}</button>
+          </div>
+        </div>
+      </div>
+
+      <div fxLayout="column" fxFlex="5"></div>
+
+      <div fxLayout="column" fxFlex="65">
+        <div *ngIf="auftragList && auftragSearch">
+          <app-pnr-chooser [auftragList]="auftragList" [currentAuftrag]="auftragSearch" (auftragChanged)="onAuftragChanged($event)"> </app-pnr-chooser>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

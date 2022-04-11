@@ -29,6 +29,11 @@ public class AuftragController {
         return auftraegeService.getAuftragByPnr(pnr);
     }
 
+    @GetMapping("/search")
+    public AuftraegeDTO getAuftrag(@RequestParam String option, @RequestParam String key) {
+        return auftraegeService.getAuftrag(option, key);
+    }
+
     @GetMapping("/termine")
     public AuftragTermineDTO getAuftragTerminebyPnr(@RequestParam String pnr) {
         return auftraegeService.getAuftragTermineByPnr(pnr);

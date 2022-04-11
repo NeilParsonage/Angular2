@@ -28,6 +28,13 @@ export class AuftragService {
     return this.http.get<Auftrag>(`${this.endpoint}/info`, options);
   }
 
+  public getAuftragBy(option: string, filter?: string): Observable<Auftrag> {
+    const options = {
+      params: new HttpParams().set('option', option).append('key', filter),
+    };
+    return this.http.get<Auftrag>(`${this.endpoint}/search`, options);
+  }
+
   public getAuftragTermineByPnr(pnr: string): Observable<AuftragTermine> {
     const options = {
       params: new HttpParams().set('pnr', pnr),

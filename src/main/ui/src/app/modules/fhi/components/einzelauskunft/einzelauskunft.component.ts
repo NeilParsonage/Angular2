@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { first } from 'rxjs/operators';
 import { Auftrag } from '../../models/auftrag';
@@ -12,7 +11,6 @@ import { AuftragService } from '../../services/auftrag.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class EinzelauskunftComponent implements OnInit {
-  tabIndex = -1;
   auftrag: Auftrag = null;
   auftragSearch: Auftrag = null;
   auftragChoosen: Auftrag = null;
@@ -29,17 +27,8 @@ export class EinzelauskunftComponent implements OnInit {
 
   selected = this.options[0];
 
-  form = new FormGroup({
-    pnr: new FormControl(),
-    art: new FormControl(),
-  });
-
   dataSource$: any;
-  constructor(private auftragService: AuftragService) {
-    if (this.searchpnr !== '') {
-      this.loadData(this.searchpnr);
-    }
-  }
+  constructor(private auftragService: AuftragService) {}
   ngOnInit(): void {
     console.log('on init');
     // hello my friend
@@ -52,31 +41,29 @@ export class EinzelauskunftComponent implements OnInit {
     this.auftragList = null;
   }
 
-  searchForm(searchInfo): void {
+  search(): void {
     console.log('Suche ' + this.selected.value + ' ' + this.selected.filter);
-    console.log('Suche2 ' || this.form.value);
-    this.searchpnr = this.selected.filter;
+
     this.reset();
-    if (this.searchpnr !== '') {
-      this.loadData(this.searchpnr, true);
+    if (this.selected.value !== '' && this.selected.filter !== '') {
+      this.loadDataFromSearch();
     }
   }
 
-  private loadData(pnr: string, blist?: boolean) {
+  private loadDataFromSearch() {
     this.auftragService
-      .getAuftragByPnr(pnr)
+      .getAuftragBy(this.selected.value, this.selected.filter)
       .pipe(first())
       .subscribe(data => {
         this.auftrag = data;
         this.auftragSearch = this.auftrag;
+        this.searchpnr = this.auftrag.pnr;
         console.log(this.auftrag);
-        if (blist) {
-          this.loadList(this.auftragSearch.lfdNrGes);
-        }
+        this.loadList(this.auftragSearch.lfdNrGes);
       });
   }
 
-  private loadData2(pnr: string) {
+  private loadDataFromTab(pnr: string) {
     this.auftragService
       .getAuftragByPnr(pnr)
       .pipe(first())
@@ -93,20 +80,8 @@ export class EinzelauskunftComponent implements OnInit {
         .subscribe(data => {
           this.auftragList = data;
           console.log(this.auftragList);
-          this.getIndex();
-          console.log(this.tabIndex);
         });
     }
-  }
-  getIndex() {
-    let ind: number = 0;
-    this.auftragList.forEach(e => {
-      if (this.searchpnr === e.pnr) {
-        this.tabIndex = ind;
-        return;
-      }
-      ind = ind + 1;
-    });
   }
 
   onAuftragChanged($event) {
@@ -114,7 +89,7 @@ export class EinzelauskunftComponent implements OnInit {
     console.log('onAuftragChanged');
     console.log(this.auftragChoosen);
     if (this.auftragChoosen) {
-      this.loadData2(this.auftragChoosen.pnr);
+      this.loadDataFromTab(this.auftragChoosen.pnr);
     }
   }
   actionChangePnr($event: MatTabChangeEvent) {
@@ -122,7 +97,7 @@ export class EinzelauskunftComponent implements OnInit {
     console.log('actionChangePnr              Test');
     console.log(this.auftragChoosen);
     if (this.auftragChoosen) {
-      this.loadData2(this.auftragChoosen.pnr);
+      this.loadDataFromTab(this.auftragChoosen.pnr);
     }
   }
 }

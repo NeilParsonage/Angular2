@@ -16,4 +16,13 @@ public interface AuftraegeDao extends CrudRepository<Auftraege, String> {
     @Query("SELECT a from Auftraege a WHERE a.lfdNrGes between (:lfdNrGes-10) and (:lfdNrGes+10) order by a.lfdNrGes")
     public List<Auftraege> findListAuftraegebyLfdNrGes(@Param("lfdNrGes") int lfdNrGes);
 
+    @Query("SELECT a from Auftraege a WHERE a.lfdNrGes = :lfdNrGes")
+    public Auftraege findbyLfdNrGes(@Param("lfdNrGes") long lfdNrGes);
+    
+    @Query("SELECT a from Auftraege a WHERE a.lfdNrLmt = :lfdNrLmt")
+    public Auftraege findbyLfdNrLmt(@Param("lfdNrLmt") long lfdNrLmt);
+
+    @Query("SELECT a from Auftraege a WHERE a.lfdNrFhi = :lfdNrFhi")
+    public Auftraege findbyLfdNrFhi(@Param("lfdNrFhi") long lfdNrFhi);
+
 }
