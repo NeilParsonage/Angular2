@@ -17,7 +17,7 @@ public class FhiDtoFactory {
         neu.lfdNrFhi = auftraege.getLfdNrFhi();
         neu.lfdNrLmt = auftraege.getLfdNrLmt();
         neu.lfdNrUbm = auftraege.getLfdNrUbm();
-        neu.bandNr = auftraege.getBandNr();
+        neu.bandNr = Long.valueOf(auftraege.getBandNr());
         neu.fzgArt = auftraege.getFzgArt();
         neu.fhsBaumuster = auftraege.getFhsBaumuster();
         neu.fzgBaumuster = auftraege.getFzgBaumuster();

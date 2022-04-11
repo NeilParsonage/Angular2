@@ -3,143 +3,222 @@ package com.daimler.emst2.fhi.jpa.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.daimler.emst2.frw.model.BaseAuditEntity;
 
 /**
  * The persistent class for the SYSTEMWERTE database table.
  * 
  */
 @Entity
-@NamedQuery(name = "Systemwerte.findAll", query = "SELECT s FROM Systemwerte s")
-public class Systemwerte extends BaseAuditEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+@NamedQuery(name="Systemwerte.findAll", query="SELECT s FROM Systemwerte s")
+public class Systemwerte implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(name = "WERT_ID")
-    private long wertId;
+	@Id
+	@Column(name="WERT_ID")
+	private long wertId;
 
-    @Column(name = "HIST_AUTOR")
-    private String histAutor;
+	@Column(name="HIST_AUTOR")
+	private String histAutor;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "HIST_DATUM")
-    private Date histDatum;
+	@Temporal(TemporalType.DATE)
+	@Column(name="HIST_DATUM")
+	private Date histDatum;
 
-    @Column(name = "KNZ_SYSTEM_01")
-    private BigDecimal knzSystem01;
+	@Temporal(TemporalType.DATE)
+	@Column(name="INS_DATE")
+	private Date insDate;
 
-    private String kommentar;
+	@Column(name="INS_USER")
+	private String insUser;
 
-    @Column(name = "WERT_CHAR")
-    private String wertChar;
+	@Column(name="KNZ_SYSTEM_01")
+	private BigDecimal knzSystem01;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "WERT_DATUM")
-    private Date wertDatum;
+	private String kommentar;
 
-    @Column(name = "WERT_DOUBLE")
-    private BigDecimal wertDouble;
+	@Temporal(TemporalType.DATE)
+	@Column(name="UPD_DATE")
+	private Date updDate;
 
-    @Column(name = "WERT_NAME")
-    private String wertName;
+	@Column(name="UPD_USER")
+	private String updUser;
 
-    @Column(name = "WERT_NUM")
-    private BigDecimal wertNum;
+	@Column(name="\"VERSION\"")
+	private BigDecimal version;
 
-    public Systemwerte() {
-    }
+	@Column(name="WERT_CHAR")
+	private String wertChar;
 
-    public long getWertId() {
-        return this.wertId;
-    }
+	@Temporal(TemporalType.DATE)
+	@Column(name="WERT_DATUM")
+	private Date wertDatum;
 
-    public void setWertId(long wertId) {
-        this.wertId = wertId;
-    }
+	@Column(name="WERT_DOUBLE")
+	private BigDecimal wertDouble;
 
-    public String getHistAutor() {
-        return this.histAutor;
-    }
+	@Column(name="WERT_NAME")
+	private String wertName;
 
-    public void setHistAutor(String histAutor) {
-        this.histAutor = histAutor;
-    }
+	@Column(name="WERT_NUM")
+    private Long wertNum;
 
-    public Date getHistDatum() {
-        return this.histDatum;
-    }
+	//bi-directional many-to-one association to Systemgruppenzuo
+	@OneToMany(mappedBy="systemwerte")
+	private List<Systemgruppenzuo> systemgruppenzuos;
 
-    public void setHistDatum(Date histDatum) {
-        this.histDatum = histDatum;
-    }
+	public Systemwerte() {
+	}
 
-    public BigDecimal getKnzSystem01() {
-        return this.knzSystem01;
-    }
+	public long getWertId() {
+		return this.wertId;
+	}
 
-    public void setKnzSystem01(BigDecimal knzSystem01) {
-        this.knzSystem01 = knzSystem01;
-    }
+	public void setWertId(long wertId) {
+		this.wertId = wertId;
+	}
 
-    public String getKommentar() {
-        return this.kommentar;
-    }
+	public String getHistAutor() {
+		return this.histAutor;
+	}
 
-    public void setKommentar(String kommentar) {
-        this.kommentar = kommentar;
-    }
+	public void setHistAutor(String histAutor) {
+		this.histAutor = histAutor;
+	}
 
-    public String getWertChar() {
-        return this.wertChar;
-    }
+	public Date getHistDatum() {
+		return this.histDatum;
+	}
 
-    public void setWertChar(String wertChar) {
-        this.wertChar = wertChar;
-    }
+	public void setHistDatum(Date histDatum) {
+		this.histDatum = histDatum;
+	}
 
-    public Date getWertDatum() {
-        return this.wertDatum;
-    }
+	public Date getInsDate() {
+		return this.insDate;
+	}
 
-    public void setWertDatum(Date wertDatum) {
-        this.wertDatum = wertDatum;
-    }
+	public void setInsDate(Date insDate) {
+		this.insDate = insDate;
+	}
 
-    public BigDecimal getWertDouble() {
-        return this.wertDouble;
-    }
+	public String getInsUser() {
+		return this.insUser;
+	}
 
-    public void setWertDouble(BigDecimal wertDouble) {
-        this.wertDouble = wertDouble;
-    }
+	public void setInsUser(String insUser) {
+		this.insUser = insUser;
+	}
 
-    public String getWertName() {
-        return this.wertName;
-    }
+	public BigDecimal getKnzSystem01() {
+		return this.knzSystem01;
+	}
 
-    public void setWertName(String wertName) {
-        this.wertName = wertName;
-    }
+	public void setKnzSystem01(BigDecimal knzSystem01) {
+		this.knzSystem01 = knzSystem01;
+	}
 
-    public BigDecimal getWertNum() {
-        return this.wertNum;
-    }
+	public String getKommentar() {
+		return this.kommentar;
+	}
 
-    public void setWertNum(BigDecimal wertNum) {
-        this.wertNum = wertNum;
-    }
+	public void setKommentar(String kommentar) {
+		this.kommentar = kommentar;
+	}
 
-    @Override
-    public Long getId() {
-        return this.wertId;
-    }
+	public Date getUpdDate() {
+		return this.updDate;
+	}
+
+	public void setUpdDate(Date updDate) {
+		this.updDate = updDate;
+	}
+
+	public String getUpdUser() {
+		return this.updUser;
+	}
+
+	public void setUpdUser(String updUser) {
+		this.updUser = updUser;
+	}
+
+	public BigDecimal getVersion() {
+		return this.version;
+	}
+
+	public void setVersion(BigDecimal version) {
+		this.version = version;
+	}
+
+	public String getWertChar() {
+		return this.wertChar;
+	}
+
+	public void setWertChar(String wertChar) {
+		this.wertChar = wertChar;
+	}
+
+	public Date getWertDatum() {
+		return this.wertDatum;
+	}
+
+	public void setWertDatum(Date wertDatum) {
+		this.wertDatum = wertDatum;
+	}
+
+	public BigDecimal getWertDouble() {
+		return this.wertDouble;
+	}
+
+	public void setWertDouble(BigDecimal wertDouble) {
+		this.wertDouble = wertDouble;
+	}
+
+	public String getWertName() {
+		return this.wertName;
+	}
+
+	public void setWertName(String wertName) {
+		this.wertName = wertName;
+	}
+
+    public Long getWertNum() {
+		return this.wertNum;
+	}
+
+    public void setWertNum(Long wertNum) {
+		this.wertNum = wertNum;
+	}
+
+	public List<Systemgruppenzuo> getSystemgruppenzuos() {
+		return this.systemgruppenzuos;
+	}
+
+	public void setSystemgruppenzuos(List<Systemgruppenzuo> systemgruppenzuos) {
+		this.systemgruppenzuos = systemgruppenzuos;
+	}
+
+	public Systemgruppenzuo addSystemgruppenzuo(Systemgruppenzuo systemgruppenzuo) {
+		getSystemgruppenzuos().add(systemgruppenzuo);
+		systemgruppenzuo.setSystemwerte(this);
+
+		return systemgruppenzuo;
+	}
+
+	public Systemgruppenzuo removeSystemgruppenzuo(Systemgruppenzuo systemgruppenzuo) {
+		getSystemgruppenzuos().remove(systemgruppenzuo);
+		systemgruppenzuo.setSystemwerte(null);
+
+		return systemgruppenzuo;
+	}
 
 }
