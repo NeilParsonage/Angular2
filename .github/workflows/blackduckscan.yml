@@ -1,0 +1,32 @@
+name: Black duck scan
+
+on:
+  workflow_dispatch:
+  pull_request:
+  workflow_run:
+    workflows: ["Build master and create release"]
+    types:
+      - completed
+
+jobs:
+  scan:
+    runs-on:
+      - self-hosted
+      - builder
+      - daidev
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: detect version
+        id: version-gen
+        run: |
+          export VERSION=$(git describe --abbrev=0 --tags)
+          echo "::set-output name=version::$(echo $VERSION)"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+      - name: Synopsys Detect
+        uses: eMST-actions/blackduck-scan-action@main
+        with:
+          blackduck_api_token: ${{ secrets.BLACKDUCK_API_TOKEN }}
+          args: '--detect.project.name="${{ github.event.repository.name }}" --detect.project.version.name="$VERSION" --detect.detector.search.depth=5'
