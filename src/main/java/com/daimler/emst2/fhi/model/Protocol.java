@@ -5,22 +5,19 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import com.daimler.emst2.fhi.services.LoggingService;
 import com.daimler.emst2.fhi.services.UebersetzungService;
 
-@Component
 public class Protocol {
 
     /**
      * attribute to remember the called action (e.g. "fhi-sendung")
      */
-    private final IProcessId actionId;
+    private IProcessId actionId;
 
     private final String logAusloeserDetails;
 
@@ -29,10 +26,8 @@ public class Protocol {
      */
     private final List<ProtocolEntry> entryList;
 
-    @Autowired
     private final LoggingService loggingService;
 
-    @Autowired
     private final UebersetzungService uebersetzungService;
 
     // LOGGING: for using the same transactionId
@@ -40,10 +35,10 @@ public class Protocol {
 
     public Protocol(IProcessId pActionId, String pLogAusloeserDetails, LoggingService pLoggingService,
             UebersetzungService pUebersetzungService) {
+        actionId = pActionId;
         uebersetzungService = pUebersetzungService;
         loggingService = pLoggingService;
         entryList = new ArrayList<ProtocolEntry>();
-        actionId = pActionId;
         logAusloeserDetails = pLogAusloeserDetails;
 
     }
@@ -177,6 +172,10 @@ public class Protocol {
         }
 
         return sb.toString();
+    }
+
+    public void setActionId(IProcessId pActionId) {
+        this.actionId = pActionId;
     }
 
 }

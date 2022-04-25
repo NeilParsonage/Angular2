@@ -38,7 +38,7 @@ public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext
     private Map<OrtCheckEnum, Map<OrtTypEnum, Set<String>>> ortChecksMap =
             new HashMap<OrtCheckEnum, Map<OrtTypEnum, Set<String>>>();
 
-    private final IProtocol protocol = null;
+    public IProtocol protocol = null;
 
     private Map<String, Systemwerte> lfdNrMap;
 

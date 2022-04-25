@@ -1,16 +1,14 @@
 package com.daimler.emst2.fhi.jpa.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import com.daimler.emst2.frw.model.BaseAuditEntity;
 
 
 /**
@@ -20,7 +18,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="AKTIVE_CODES_HIST")
 @NamedQuery(name="AktiveCodesHist.findAll", query="SELECT a FROM AktiveCodesHist a")
-public class AktiveCodesHist implements Serializable {
+public class AktiveCodesHist extends BaseAuditEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -32,26 +30,9 @@ public class AktiveCodesHist implements Serializable {
 
 	private String codes;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="INS_DATE")
-	private Date insDate;
-
-	@Column(name="INS_USER")
-	private String insUser;
-
 	private String typ;
 
 	private String typpnr;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="UPD_DATE")
-	private Date updDate;
-
-	@Column(name="UPD_USER")
-	private String updUser;
-
-	@Column(name="\"VERSION\"")
-	private BigDecimal version;
 
 	public AktiveCodesHist() {
 	}
@@ -80,22 +61,6 @@ public class AktiveCodesHist implements Serializable {
 		this.codes = codes;
 	}
 
-	public Date getInsDate() {
-		return this.insDate;
-	}
-
-	public void setInsDate(Date insDate) {
-		this.insDate = insDate;
-	}
-
-	public String getInsUser() {
-		return this.insUser;
-	}
-
-	public void setInsUser(String insUser) {
-		this.insUser = insUser;
-	}
-
 	public String getTyp() {
 		return this.typ;
 	}
@@ -112,28 +77,9 @@ public class AktiveCodesHist implements Serializable {
 		this.typpnr = typpnr;
 	}
 
-	public Date getUpdDate() {
-		return this.updDate;
-	}
-
-	public void setUpdDate(Date updDate) {
-		this.updDate = updDate;
-	}
-
-	public String getUpdUser() {
-		return this.updUser;
-	}
-
-	public void setUpdUser(String updUser) {
-		this.updUser = updUser;
-	}
-
-	public BigDecimal getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(BigDecimal version) {
-		this.version = version;
-	}
+    @Override
+    public Long getId() {
+        return cohiId;
+    }
 
 }

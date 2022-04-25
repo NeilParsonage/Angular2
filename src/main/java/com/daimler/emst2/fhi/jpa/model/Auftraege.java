@@ -33,9 +33,6 @@ public class Auftraege extends BaseAuditEntity implements Serializable {
     @Column(name = "PNR")
     private String pnr;
 
-    @Column(name = "BANDNR")
-    private Integer bandnr;
-
     @Column(name = "Lfd_Nr_Ges")
     private Long lfdNrGes;
 
@@ -152,6 +149,7 @@ public class Auftraege extends BaseAuditEntity implements Serializable {
 
     private AuftragDetailsSendeVorschlag transSendeVorschlagDetails;
 
+    @Transient
     public final AuftragMeta meta;
 
     public Auftraege() {
@@ -480,11 +478,11 @@ public class Auftraege extends BaseAuditEntity implements Serializable {
     }
 
     public Integer getBandnr() {
-        return bandnr;
+        return bandNr;
     }
 
     public void setBandnr(Integer bandnr) {
-        this.bandnr = bandnr;
+        this.bandNr = bandnr;
     }
 
     public List<AuftragSperrInformation> getSperrInformationen() {

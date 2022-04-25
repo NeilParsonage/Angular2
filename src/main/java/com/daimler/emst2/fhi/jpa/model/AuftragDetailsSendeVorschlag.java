@@ -6,6 +6,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
@@ -34,7 +36,12 @@ public class AuftragDetailsSendeVorschlag implements Serializable {
 	@Column(name="NULLINIEN_RF")
 	private BigDecimal nullinienRf;
 
+    @Id
+    @Column(name = "PNR")
 	private String pnr;
+
+    @Column(name = "PNR", updatable = false, insertable = false)
+    private String pnr2;
 
 	@Column(name="SOLLABS_FHI")
     private Integer sollabsFhi;
@@ -53,8 +60,8 @@ public class AuftragDetailsSendeVorschlag implements Serializable {
 	private BigDecimal version;
 
     // bi-directional many-to-one association to Auftrag
-    @ManyToOne
-    @JoinColumn(name = "PNR")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pnr2")
     private Auftraege auftrag;
 
 	public AuftragDetailsSendeVorschlag() {

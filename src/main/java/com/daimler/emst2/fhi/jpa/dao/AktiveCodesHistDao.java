@@ -10,7 +10,7 @@ import com.daimler.emst2.fhi.jpa.model.AktiveCodesHist;
 public interface AktiveCodesHistDao extends PagingAndSortingRepository<AktiveCodesHist, Long> {
 
     @Modifying
-    @Query("delete from AktiveCodesHist a where a.auf_pnr = :pnr and a.typ like :bereichLikePattern")
+    @Query("delete from AktiveCodesHist a where a.aufPnr = :pnr and a.typ like :bereichLikePattern")
     int deleteOldCodesForBereich(@Param("pnr") String pnr, @Param("bereichLikePattern") String bereichLikePattern);
 
 }

@@ -30,7 +30,7 @@ public class PreconditionRestriktionenUpToDate extends AbstractSendPrecondition 
 		}
 
         // 1. hole den juengsten Aktualisierungswert fuer "aktiveRestriktionen" aus der DB
-        boolean existsUnknownChange = aktiveRestriktionDao.checkUpdDateGreaterThan(letzteBekannteAenderung) > 0;
+        boolean existsUnknownChange = aktiveRestriktionDao.updDateGreaterThan(letzteBekannteAenderung) > 0;
         boolean isOk = !existsUnknownChange;
 
         // 2. Ist der Wert in der DB neuer, so ist ein ERROR zu erzeugen und false zu liefern

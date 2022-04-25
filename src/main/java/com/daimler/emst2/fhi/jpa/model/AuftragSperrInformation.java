@@ -6,6 +6,10 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -66,7 +70,11 @@ public class AuftragSperrInformation implements Serializable {
 	@Column(name="ORDER_GROUP")
     private Integer orderGroup;
 
+    @Column(name = "pnr")
 	private String pnr;
+
+    @Column(name = "pnr", insertable = false, updatable = false)
+    private String pnr2;
 
 	@Column(name="PNR_VORAUSFAHRZEUG")
 	private String pnrVorausfahrzeug;
@@ -97,6 +105,7 @@ public class AuftragSperrInformation implements Serializable {
 	@Column(name="UPD_USER")
 	private String updUser;
 
+    @Id
 	@Column(name="VASP_ID")
 	private String vaspId;
 
@@ -104,6 +113,11 @@ public class AuftragSperrInformation implements Serializable {
 	private BigDecimal version;
 
 	private String vf;
+
+    // bi-directional many-to-one association to Auftrag
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pnr2")
+    private Auftraege auftrag;
 
 	public AuftragSperrInformation() {
 	}
@@ -379,6 +393,14 @@ public class AuftragSperrInformation implements Serializable {
         }
 
         return !(getPnr().equalsIgnoreCase(getPnrVorausfahrzeug()));
+    }
+
+    public Auftraege getAuftrag() {
+        return auftrag;
+    }
+
+    public void setAuftrag(Auftraege auftrag) {
+        this.auftrag = auftrag;
     }
 
 }

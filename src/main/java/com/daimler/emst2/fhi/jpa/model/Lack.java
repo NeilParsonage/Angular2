@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "V_AUFT_LACK")
-@NamedQuery(name = "VAuftLack.findAll", query = "SELECT v FROM VAuftLack v")
+@NamedQuery(name = "Lack.findAll", query = "SELECT v FROM Lack v")
 public class Lack implements Serializable {
     private static final long serialVersionUID = 1L;
 

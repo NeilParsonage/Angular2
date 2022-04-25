@@ -1,7 +1,5 @@
 package com.daimler.emst2.fhi.sendung.action;
 
-import org.springframework.stereotype.Component;
-
 import com.daimler.emst2.fhi.jpa.dao.W73rimpoDao;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.model.IProtocol;
@@ -12,7 +10,6 @@ import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 import com.daimler.emst2.fhi.util.TaktTelegramDaoHelper;
 import com.daimler.emst2.fhi.util.TaktTelegramUtil;
 
-@Component
 public class ActionTaktTelegramm extends AbstractSendAction {
 
     private final W73rimpoDao taktTelegramDao;

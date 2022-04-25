@@ -16,7 +16,7 @@ import com.daimler.emst2.frw.model.BaseAuditEntity;
  */
 @Entity
 @Table(name = "V_AUFT_KRIT")
-@NamedQuery(name = "AuftragKriterien.findAll", query = "SELECT v FROM AuftragKriterien v")
+@NamedQuery(name = "KriteriumRelevant.findAll", query = "SELECT v FROM KriteriumRelevant v")
 public class KriteriumRelevant extends BaseAuditEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 

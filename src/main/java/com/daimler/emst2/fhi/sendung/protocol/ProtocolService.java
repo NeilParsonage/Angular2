@@ -41,7 +41,11 @@ public class ProtocolService {
      * @see com.dcx.server.fhi.frw.util.IProtocolService#
      */
     public Protocol create(IProcessId pActionId, String pLogAusloeserDetails) {
-        return new Protocol(pActionId, pLogAusloeserDetails, this.loggingService, this.uebersetzungService);
+        Protocol newProtocol =
+                new Protocol(pActionId, pLogAusloeserDetails, this.loggingService, this.uebersetzungService);
+        newProtocol.setActionId(pActionId);
+
+        return newProtocol;
     }
 
     /* (non-Javadoc)

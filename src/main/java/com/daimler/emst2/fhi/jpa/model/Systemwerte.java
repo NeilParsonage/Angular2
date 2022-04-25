@@ -34,27 +34,10 @@ public class Systemwerte implements Serializable {
 	@Column(name="HIST_DATUM")
 	private Date histDatum;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="INS_DATE")
-	private Date insDate;
-
-	@Column(name="INS_USER")
-	private String insUser;
-
 	@Column(name="KNZ_SYSTEM_01")
 	private BigDecimal knzSystem01;
 
 	private String kommentar;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="UPD_DATE")
-	private Date updDate;
-
-	@Column(name="UPD_USER")
-	private String updUser;
-
-	@Column(name="\"VERSION\"")
-	private BigDecimal version;
 
 	@Column(name="WERT_CHAR")
 	private String wertChar;
@@ -103,21 +86,6 @@ public class Systemwerte implements Serializable {
 		this.histDatum = histDatum;
 	}
 
-	public Date getInsDate() {
-		return this.insDate;
-	}
-
-	public void setInsDate(Date insDate) {
-		this.insDate = insDate;
-	}
-
-	public String getInsUser() {
-		return this.insUser;
-	}
-
-	public void setInsUser(String insUser) {
-		this.insUser = insUser;
-	}
 
 	public BigDecimal getKnzSystem01() {
 		return this.knzSystem01;
@@ -133,30 +101,6 @@ public class Systemwerte implements Serializable {
 
 	public void setKommentar(String kommentar) {
 		this.kommentar = kommentar;
-	}
-
-	public Date getUpdDate() {
-		return this.updDate;
-	}
-
-	public void setUpdDate(Date updDate) {
-		this.updDate = updDate;
-	}
-
-	public String getUpdUser() {
-		return this.updUser;
-	}
-
-	public void setUpdUser(String updUser) {
-		this.updUser = updUser;
-	}
-
-	public BigDecimal getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(BigDecimal version) {
-		this.version = version;
 	}
 
 	public String getWertChar() {

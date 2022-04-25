@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="MAN_RF")
-@NamedQuery(name="ManRf.findAll", query="SELECT m FROM ManRf m")
+@NamedQuery(name = "ManuellePnrReihenfolge.findAll", query = "SELECT m FROM ManuellePnrReihenfolge m")
 public class ManuellePnrReihenfolge implements Serializable {
 	private static final long serialVersionUID = 1L;
 

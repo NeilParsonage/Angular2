@@ -34,6 +34,9 @@ public class OrtCheck implements Serializable {
     @Column(name = "ORT", length = 4)
     private String ort;
 
+    @Column(name = "ORT", length = 4, updatable = false, insertable = false)
+    private String ort2;
+
     @Temporal(TemporalType.DATE)
     @Column(name = "INS_DATE")
     private Date insDate;
@@ -56,7 +59,7 @@ public class OrtCheck implements Serializable {
 
     //bi-directional many-to-one association to OrtReihenfolge
     @ManyToOne
-    @JoinColumn(name = "ORT")
+    @JoinColumn(name = "ORT2")
     private OrtReihenfolge ortReihenfolge;
 
     public OrtCheck() {
