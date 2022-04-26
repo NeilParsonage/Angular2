@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 import { Auftrag } from '../../models/auftrag';
 import { AuftragService } from '../../services/auftrag.service';
@@ -28,7 +29,7 @@ export class EinzelauskunftComponent implements OnInit {
   selected = this.options[0];
 
   dataSource$: any;
-  constructor(private auftragService: AuftragService) {}
+  constructor(private auftragService: AuftragService, private translateService: TranslateService) {}
   ngOnInit(): void {
     console.log('on init');
     // hello my friend

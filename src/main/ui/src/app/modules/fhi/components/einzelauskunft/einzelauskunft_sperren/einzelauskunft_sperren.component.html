@@ -1,10 +1,10 @@
 <div class="content">
-  <h4>Sperren und Ankündigungen</h4>
+  <h4>{{ 'text.einzelauskunft.sperruank' | translate }}</h4>
 
   <div fxLayout="row">
     <div fxLayout="column" fxFlex="30">
       <mat-form-field class="selectItemShort">
-        <mat-label>Sperren</mat-label>
+        <mat-label>{{ 'label.einzelauskunft.sperren' | translate }}</mat-label>
         <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.anzahlSperren }}" />
       </mat-form-field>
     </div>
@@ -16,7 +16,7 @@
 
     <div fxLayout="column" fxFlex="30">
       <mat-form-field class="selectItemShort">
-        <mat-label>Ankündigungen</mat-label>
+        <mat-label>{{ 'label.einzelauskunft.ankuendigungen' | translate }}</mat-label>
         <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.anzahlAnkuendigungen }}" />
       </mat-form-field>
     </div>

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
 import { Auftrag } from '../../../models/auftrag';
 import { AuftragAggregate } from '../../../models/auftragAggregate';
@@ -14,7 +15,7 @@ import { DialogShowlistComponent } from '../dialog-showlist/dialog-showlist.comp
   styleUrls: ['./einzelauskunft_kopf.component.scss'],
 })
 export class EinzelauskunftKopfComponent implements OnInit {
-  constructor(private auftragService: AuftragService, public dialog: MatDialog) {}
+  constructor(private auftragService: AuftragService, public dialog: MatDialog, private translateService: TranslateService) {}
 
   einzelauskunft: Auftrag = null;
   codesView: string = null;
@@ -74,7 +75,7 @@ export class EinzelauskunftKopfComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.data = {
       liste: listeElements,
-      titel: titel + ' von PNR ' + this.einzelauskunft.pnr,
+      titel: titel + ' ' + this.translateService.instant('text.einzelauskunft.vonPnr') + ' ' + this.einzelauskunft.pnr,
     };
     const dialogRef = this.dialog.open(DialogShowlistComponent, dialogConfig);
   }
