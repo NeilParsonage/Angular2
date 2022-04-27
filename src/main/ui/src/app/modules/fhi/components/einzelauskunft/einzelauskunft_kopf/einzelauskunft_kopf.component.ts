@@ -75,7 +75,7 @@ export class EinzelauskunftKopfComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.data = {
       liste: listeElements,
-      titel: titel + ' ' + this.translateService.instant('text.einzelauskunft.vonPnr') + ' ' + this.einzelauskunft.pnr,
+      titel: titel + ' ' + this.translateService.instant('text.einzelauskunft.vonpnr') + ' ' + this.einzelauskunft.pnr,
     };
     const dialogRef = this.dialog.open(DialogShowlistComponent, dialogConfig);
   }
@@ -86,7 +86,7 @@ export class EinzelauskunftKopfComponent implements OnInit {
       listeElements[i] = e.aggregat;
     });
 
-    this.showListe(listeElements, 'Aggregate');
+    this.showListe(listeElements, this.translateService.instant('text.einzelauskunft.aggregate'));
   }
 
   showListKabelsaetzeOld() {
@@ -113,6 +113,6 @@ export class EinzelauskunftKopfComponent implements OnInit {
       listeElements[i] = e.kabelsatz;
     });
 
-    this.showListe(listeElements, 'Kabelsätze');
+    this.showListe(listeElements, this.translateService.instant('text.einzelauskunft.kabelsaetze'));
   }
 }
