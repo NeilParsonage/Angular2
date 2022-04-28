@@ -119,7 +119,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
 	protected ResponseEntity<Object> handleExceptionLoggingDelegate(Exception ex, @Nullable Object body,
 			HttpHeaders headers, HttpStatus status, WebRequest request, Level logLevel) {
-		LOG.log(logLevel, ex.getMessage() + ex.fillInStackTrace(), ex);
+		LOG.log(logLevel, ex.getMessage() + ExceptionUtils.getStackTrace(ex), ex);
         return handleExceptionInternal(ex, body, headers, status, request);
 	}
 

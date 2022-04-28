@@ -4,6 +4,7 @@ import com.daimler.emst2.fhi.model.IDbResultWithProtocol;
 import com.daimler.emst2.fhi.model.IProcessId;
 import com.daimler.emst2.fhi.model.IProtocol;
 import com.daimler.emst2.fhi.model.IProtocolEntry;
+import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.SeverityEnum;
 import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
 
@@ -21,7 +22,7 @@ public interface IProtocolService {
     /**
      * Legt einen ProtocolEntry zu den uebergebenen Parametern an und fuegt diesen dem uebergebenen Protocol hinzu.
      */
-    void addProtocolEntry(IProtocol pProtocol,
+    void addProtocolEntry(Protocol pProtocol,
             ProtocolMessageEnum pMessageEnum, IProcessId pTaskId,
             SeverityEnum pSeverityEnum);
 

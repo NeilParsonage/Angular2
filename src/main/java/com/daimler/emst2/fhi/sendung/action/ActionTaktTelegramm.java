@@ -2,7 +2,7 @@ package com.daimler.emst2.fhi.sendung.action;
 
 import com.daimler.emst2.fhi.jpa.dao.W73rimpoDao;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
-import com.daimler.emst2.fhi.model.IProtocol;
+import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.TaktTelegram;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
@@ -28,7 +28,7 @@ public class ActionTaktTelegramm extends AbstractSendAction {
 
     @Override
     protected boolean doExecuteImpl(SendContext pContext) {
-        IProtocol protocol = pContext.getProtocol();
+        Protocol protocol = pContext.getProtocol();
         Auftraege auftrag = pContext.getAuftrag();
 
         TaktTelegramUtil util = new TaktTelegramUtil();

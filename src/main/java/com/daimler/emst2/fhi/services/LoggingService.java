@@ -1,5 +1,7 @@
 package com.daimler.emst2.fhi.services;
 
+import java.math.BigDecimal;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -73,8 +75,8 @@ public class LoggingService {
 
     private Long getNextLoggingTrxNumber() {
         Query nativeQuery = em.createNativeQuery(QUERY_NEXT_TRANSACTION_SEQUENCE);
-        Long result = (Long)nativeQuery.getSingleResult();
-        return result;
+        BigDecimal result = (BigDecimal)nativeQuery.getSingleResult();
+        return result.longValue();
     }
 
     protected Long insertDebugLogsatz(String ausloeser, String text, LogsatzEnum logsatzEnum) {

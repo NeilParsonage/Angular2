@@ -1,6 +1,6 @@
 package com.daimler.emst2.fhi.sendung.check;
 
-import com.daimler.emst2.fhi.model.IProtocol;
+import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.SeverityEnum;
 import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
@@ -32,7 +32,7 @@ public abstract class AbstractCheckImpliziteTeilsendung extends AbstractSendChec
         boolean noWarning = mySendType.equals(sendTypeEnum);
         noWarning |= SendTypeEnum.KOMPLETT.equals(sendTypeEnum);
 
-        IProtocol protocol = pContext.getProtocol();
+        Protocol protocol = pContext.getProtocol();
         if (!noWarning) {
             // ProtocolEntry erzeugen
             getProtocolService().addProtocolEntry(protocol, ProtocolMessageEnum.TEILSEND_IMPLICIT, getIdentifier(),

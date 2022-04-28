@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
-import com.daimler.emst2.fhi.model.IProtocol;
+import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.sendung.constants.OrtCheckEnum;
 import com.daimler.emst2.fhi.sendung.constants.OrtTypEnum;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
@@ -51,7 +51,7 @@ public abstract class AbstractCheckOrtError extends AbstractSendCheck {
     @Override
     public boolean doExecuteImpl(SendContext pContext) {
         // auf ortsdaten pruefen und evtl. Meldung erzeugen
-        IProtocol protocol = pContext.getProtocol();
+        Protocol protocol = pContext.getProtocol();
 
         boolean isSendbar = isOrtSendAllowed(pContext);
         if (!isSendbar) {

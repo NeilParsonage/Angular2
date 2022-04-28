@@ -17,6 +17,7 @@ import javax.persistence.TemporalType;
 
 import com.daimler.emst2.fhi.sendung.constants.SperrHerkunftEnum;
 import com.daimler.emst2.fhi.sendung.constants.SperrtypEnum;
+import com.daimler.emst2.frw.model.BaseAuditEntity;
 
 
 /**
@@ -26,7 +27,7 @@ import com.daimler.emst2.fhi.sendung.constants.SperrtypEnum;
 @Entity
 @Table(name="V_AUF_SPERRE")
 @NamedQuery(name = "AuftragSperrInformation.findAll", query = "SELECT v FROM AuftragSperrInformation v")
-public class AuftragSperrInformation implements Serializable {
+public class AuftragSperrInformation extends BaseAuditEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="AUSGR_WT")
@@ -57,24 +58,14 @@ public class AuftragSperrInformation implements Serializable {
 
 	private String herkunft;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="INS_DATE")
-	private Date insDate;
-
-	@Column(name="INS_USER")
-	private String insUser;
-
 	@Column(name="MATERIAL_SPERRE_01")
 	private BigDecimal materialSperre01;
 
 	@Column(name="ORDER_GROUP")
     private Integer orderGroup;
 
-    @Column(name = "pnr")
-	private String pnr;
-
     @Column(name = "pnr", insertable = false, updatable = false)
-    private String pnr2;
+	private String pnr;
 
 	@Column(name="PNR_VORAUSFAHRZEUG")
 	private String pnrVorausfahrzeug;
@@ -98,25 +89,15 @@ public class AuftragSperrInformation implements Serializable {
 
 	private String sperrtyp;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="UPD_DATE")
-	private Date updDate;
-
-	@Column(name="UPD_USER")
-	private String updUser;
-
     @Id
 	@Column(name="VASP_ID")
 	private String vaspId;
-
-	@Column(name="\"VERSION\"")
-	private BigDecimal version;
 
 	private String vf;
 
     // bi-directional many-to-one association to Auftrag
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pnr2")
+    @JoinColumn(name = "pnr")
     private Auftraege auftrag;
 
 	public AuftragSperrInformation() {
@@ -208,22 +189,6 @@ public class AuftragSperrInformation implements Serializable {
 
 	public void setHerkunft(String herkunft) {
 		this.herkunft = herkunft;
-	}
-
-	public Date getInsDate() {
-		return this.insDate;
-	}
-
-	public void setInsDate(Date insDate) {
-		this.insDate = insDate;
-	}
-
-	public String getInsUser() {
-		return this.insUser;
-	}
-
-	public void setInsUser(String insUser) {
-		this.insUser = insUser;
 	}
 
     public BigDecimal getKnzMaterialSperre() {
@@ -322,36 +287,12 @@ public class AuftragSperrInformation implements Serializable {
 		this.sperrtyp = sperrtyp;
 	}
 
-	public Date getUpdDate() {
-		return this.updDate;
-	}
-
-	public void setUpdDate(Date updDate) {
-		this.updDate = updDate;
-	}
-
-	public String getUpdUser() {
-		return this.updUser;
-	}
-
-	public void setUpdUser(String updUser) {
-		this.updUser = updUser;
-	}
-
 	public String getVaspId() {
 		return this.vaspId;
 	}
 
 	public void setVaspId(String vaspId) {
 		this.vaspId = vaspId;
-	}
-
-	public BigDecimal getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(BigDecimal version) {
-		this.version = version;
 	}
 
 	public String getVf() {
@@ -401,6 +342,12 @@ public class AuftragSperrInformation implements Serializable {
 
     public void setAuftrag(Auftraege auftrag) {
         this.auftrag = auftrag;
+    }
+
+    @Override
+    public Long getId() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

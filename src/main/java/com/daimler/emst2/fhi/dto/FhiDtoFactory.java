@@ -1,11 +1,14 @@
 package com.daimler.emst2.fhi.dto;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermine;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
+import com.daimler.emst2.fhi.model.Protocol;
 
 @Component
 public class FhiDtoFactory {
@@ -60,6 +63,15 @@ public class FhiDtoFactory {
         neu.istSequenzTyp = auftragTermineDetails.getIstSequenzTyp();
         neu.teilsendungTermin = auftragTermineDetails.getTeilsendungTermin();
         neu.stornoTermin = auftragTermineDetails.getStornoTermin();
+        return neu;
+    }
+
+    public SendResponseDTO createSendResponseDTO(SendungDTO sendung,
+            List<String> errorMsgs, Protocol protocol) {
+        SendResponseDTO neu = new SendResponseDTO();
+        neu.sendung = sendung;
+        neu.errorMsgs = errorMsgs;
+        neu.protocol = protocol;
         return neu;
     }
 

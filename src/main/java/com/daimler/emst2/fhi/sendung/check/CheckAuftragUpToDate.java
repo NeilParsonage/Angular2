@@ -1,6 +1,6 @@
 package com.daimler.emst2.fhi.sendung.check;
 
-import com.daimler.emst2.fhi.model.IProtocol;
+import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.precondition.SendPreconditionEnum;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
@@ -22,7 +22,7 @@ public class CheckAuftragUpToDate extends AbstractSendCheck {
      */
     @Override
     public boolean doExecuteImpl(SendContext pContext) {
-        IProtocol protocol = pContext.getProtocol();
+        Protocol protocol = pContext.getProtocol();
         // ProtocolEntry erzeugen
         getProtocolService().addDebugProtocolEntry(protocol, getIdentifier());
         // check is empty - if auftrag is not up to date Precondition will fail earlier

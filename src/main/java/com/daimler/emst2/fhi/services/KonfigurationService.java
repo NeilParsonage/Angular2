@@ -26,7 +26,7 @@ public class KonfigurationService {
 
     private static final String SYSTEMWERT_LOCALE = "LOCALE";
 
-    private static final String SYSTEMWERT_WERKSID = "WERKS_ID";
+    private static final String SYSTEMWERT_WERKSID = "FHI_WERK";
     
     private static final String SYSTEMWERT_UMGEBUNG = "SYSTEM.ENV";
 

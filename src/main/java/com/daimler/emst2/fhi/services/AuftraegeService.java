@@ -18,6 +18,7 @@ import com.daimler.emst2.fhi.dto.AuftraegeDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDetailsDTO;
 import com.daimler.emst2.fhi.dto.FhiDtoFactory;
+import com.daimler.emst2.fhi.dto.SendResponseDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.jpa.dao.AuftraegeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragDetailsDao;
@@ -31,14 +32,13 @@ import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragAnkuendigungenComparator;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragSperrenComparator;
 import com.daimler.emst2.fhi.sendung.constants.SperrtypEnum;
+import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.model.SperrenPredicate;
 import com.daimler.emst2.fhi.sendung.model.SperrtypPredicate;
 
 
 @Service
 public class AuftraegeService {
-
-    private final FhiDtoFactory dtoFactory = new FhiDtoFactory();
 
     private static final String MATERIALBEREICH_LMT = "RHM";
     private static final String MATERIALBEREICH_FHI = "FHI";
@@ -57,6 +57,9 @@ public class AuftraegeService {
 
     @Autowired
     SendungService sendungService;
+
+    @Autowired
+    FhiDtoFactory dtoFactory;
 
     public AuftraegeDTO getAuftragByPnr(String pnr) {
         Optional<Auftraege> result = auftraegeDao.findById(pnr);
@@ -88,12 +91,15 @@ public class AuftraegeService {
                 : Collections.emptyList();
     }
 
-    public SendungDTO sendeAuftrag(SendungDTO sendung) {
+    public SendResponseDTO sendeAuftrag(SendungDTO sendung) {
         if (StringUtils.isBlank(sendung.pnr)) {
             throw new RuntimeException("PNR kann nicht leer sein");
         }
 
-        return this.sendungService.senden(sendung);
+        
+        SendContext ctx =  this.sendungService.senden(sendung);
+        
+        return dtoFactory.createSendResponseDTO(sendung, ctx.getErrorMessages(), ctx.getProtocol());
     }
 
     public void initializeTransientSperrenUndAnkuendigungen(Auftraege pAuftrag) {

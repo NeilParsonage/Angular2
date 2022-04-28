@@ -90,14 +90,15 @@ public class Auftraege extends BaseAuditEntity implements Serializable {
     @Column(name = "WKZ")
     private String wkz;
 
-    @Column(name = "ORT_ORGINAL")
+    @Column(name = "ORT")
     private String ortOrginal;
 
     @Column(name = "ORT_RHM")
     private String ortRhm;
 
-    @Column(name = "CODES_BAND", length = 2000)
-    private String codesBand;
+    // Mv_Alle_Rel_Codes
+    //@Column(name = "CODES_BAND", length = 2000)
+    //private String codesBand;
 
     @Column(name = "FHISENDUNG", length = 1)
     private String fhiSendung;
@@ -147,6 +148,10 @@ public class Auftraege extends BaseAuditEntity implements Serializable {
     @OneToMany(mappedBy = "auftrag", fetch = FetchType.LAZY)
     private List<AuftragSperrInformation> sperrInformationen;
 
+    @OneToMany(mappedBy = "auftrag", fetch = FetchType.LAZY)
+    private List<MvAlleRelCode> alleRelCode;
+
+    @Transient
     private AuftragDetailsSendeVorschlag transSendeVorschlagDetails;
 
     @Transient
@@ -334,13 +339,13 @@ public class Auftraege extends BaseAuditEntity implements Serializable {
         this.ortRhm = ortRhm;
     }
 
-    public String getCodesBand() {
-        return codesBand;
-    }
-
-    public void setCodesBand(String codesBand) {
-        this.codesBand = codesBand;
-    }
+    //    public String getCodesBand() {
+    //        return codesBand;
+    //    }
+    //
+    //    public void setCodesBand(String codesBand) {
+    //        this.codesBand = codesBand;
+    //    }
 
     public String getFhiSendung() {
         return fhiSendung;
@@ -491,6 +496,14 @@ public class Auftraege extends BaseAuditEntity implements Serializable {
 
     public void setSperrInformationen(List<AuftragSperrInformation> sperrInformationen) {
         this.sperrInformationen = sperrInformationen;
+    }
+
+    public List<MvAlleRelCode> getAlleRelCode() {
+        return alleRelCode;
+    }
+
+    public void setAlleRelCode(List<MvAlleRelCode> alleRelCode) {
+        this.alleRelCode = alleRelCode;
     }
 
     @Override

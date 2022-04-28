@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.daimler.emst2.fhi.model.IDbResultWithProtocol;
 import com.daimler.emst2.fhi.model.IProcessId;
 import com.daimler.emst2.fhi.model.IProtocol;
-import com.daimler.emst2.fhi.model.IProtocolEntry;
 import com.daimler.emst2.fhi.model.IProtocolMessage;
 import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.ProtocolEntry;
@@ -51,7 +50,7 @@ public class ProtocolService {
     /* (non-Javadoc)
      * @see com.dcx.server.fhi.frw.util.IProtocolService#addProtocolEntry(com.dcx.common.fhi.frw.model.IProtocol, com.dcx.common.fhi.frw.constants.ProtocolMessageEnum, com.dcx.common.fhi.frw.model.IProcessId, com.dcx.common.basis.frw.constants.SeverityEnum)
      */
-    public void addProtocolEntry(IProtocol pProtocol, ProtocolMessageEnum pMessageEnum, IProcessId pTaskId,
+    public void addProtocolEntry(Protocol pProtocol, ProtocolMessageEnum pMessageEnum, IProcessId pTaskId,
             SeverityEnum pSeverityEnum) {
         addProtocolEntry(pProtocol, pMessageEnum, StringUtils.EMPTY, pTaskId, pSeverityEnum);
     }
@@ -59,9 +58,9 @@ public class ProtocolService {
     /* (non-Javadoc)
      * @see com.dcx.server.fhi.frw.util.IProtocolService#addProtocolEntry(com.dcx.common.fhi.frw.model.IProtocol, com.dcx.common.fhi.frw.constants.ProtocolMessageEnum, java.lang.String, com.dcx.common.fhi.frw.model.IProcessId, com.dcx.common.basis.frw.constants.SeverityEnum)
      */
-    public void addProtocolEntry(IProtocol pProtocol, ProtocolMessageEnum pMessageEnum, String pMessageParam,
+    public void addProtocolEntry(Protocol pProtocol, ProtocolMessageEnum pMessageEnum, String pMessageParam,
             IProcessId pTaskId, SeverityEnum pSeverityEnum) {
-        IProtocolEntry newProtocolEntry = createProtocolEntry(pMessageEnum, pMessageParam, pTaskId,
+        ProtocolEntry newProtocolEntry = createProtocolEntry(pMessageEnum, pMessageParam, pTaskId,
                 pSeverityEnum);
         pProtocol.addEntry(newProtocolEntry);
     }
@@ -69,15 +68,16 @@ public class ProtocolService {
     /* (non-Javadoc)
      * @see com.dcx.server.fhi.frw.util.IProtocolService#addProtocolEntry(com.dcx.common.fhi.frw.model.IProtocol, com.dcx.common.fhi.frw.constants.ProtocolMessageEnum, java.lang.String[], com.dcx.common.fhi.frw.model.IProcessId, com.dcx.common.basis.frw.constants.SeverityEnum)
      */
-    public void addProtocolEntry(IProtocol pProtocol, ProtocolMessageEnum pMessageEnum, String[] pMessageParamArray, IProcessId pTaskId, SeverityEnum pSeverityEnum) {
-        IProtocolEntry newProtocolEntry = createProtocolEntry(pMessageEnum, pMessageParamArray, pTaskId, pSeverityEnum);
+    public void addProtocolEntry(Protocol pProtocol, ProtocolMessageEnum pMessageEnum, String[] pMessageParamArray,
+            IProcessId pTaskId, SeverityEnum pSeverityEnum) {
+        ProtocolEntry newProtocolEntry = createProtocolEntry(pMessageEnum, pMessageParamArray, pTaskId, pSeverityEnum);
         pProtocol.addEntry(newProtocolEntry);
     }
 
     /* (non-Javadoc)
      * @see com.dcx.server.fhi.frw.util.IProtocolService#createProtocolEntry(com.dcx.common.fhi.frw.constants.ProtocolMessageEnum, java.lang.String, com.dcx.common.fhi.frw.model.IProcessId, com.dcx.common.basis.frw.constants.SeverityEnum)
      */
-    public IProtocolEntry createProtocolEntry(ProtocolMessageEnum pMessageEnum, String pMessageParam,
+    public ProtocolEntry createProtocolEntry(ProtocolMessageEnum pMessageEnum, String pMessageParam,
             IProcessId pTaskId, SeverityEnum pSeverityEnum) {
         IProtocolMessage message = new ProtocolMessage(pMessageEnum, new String[] { pMessageParam });
         ProtocolEntry entry = new ProtocolEntry(pTaskId, message, pSeverityEnum);
@@ -87,7 +87,8 @@ public class ProtocolService {
     /* (non-Javadoc)
      * @see com.dcx.server.fhi.frw.util.IProtocolService#createProtocolEntry(com.dcx.common.fhi.frw.constants.ProtocolMessageEnum, java.lang.String[], com.dcx.common.fhi.frw.model.IProcessId, com.dcx.common.basis.frw.constants.SeverityEnum)
      */
-    public IProtocolEntry createProtocolEntry(ProtocolMessageEnum pMessageEnum, String[] pMessageParamArray, IProcessId pTaskId, SeverityEnum pSeverityEnum) {
+    public ProtocolEntry createProtocolEntry(ProtocolMessageEnum pMessageEnum, String[] pMessageParamArray,
+            IProcessId pTaskId, SeverityEnum pSeverityEnum) {
         IProtocolMessage message = new ProtocolMessage(pMessageEnum, pMessageParamArray);
         ProtocolEntry entry = new ProtocolEntry(pTaskId, message, pSeverityEnum);
         return entry;
@@ -96,7 +97,7 @@ public class ProtocolService {
     /* (non-Javadoc)
      * @see com.dcx.server.fhi.frw.util.IProtocolService#addDebugProtocolEntry(com.dcx.common.fhi.frw.model.IProtocol, com.dcx.common.fhi.frw.model.IProcessId)
      */
-    public void addDebugProtocolEntry(IProtocol protocol, IProcessId processId) {
+    public void addDebugProtocolEntry(Protocol protocol, IProcessId processId) {
         addProtocolEntry(protocol, ProtocolMessageEnum.PROCESSSTEP_INFO_OK, processId, SeverityEnum.DEBUG);
     }
 

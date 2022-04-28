@@ -5,7 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Hibernate;
+
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.MvAlleRelCode;
 import com.daimler.emst2.fhi.sendung.constants.OrtTypEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendStatusEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
@@ -149,6 +152,15 @@ public class AuftragUtil {
                                            + pSendTypeEnum.name()
                                            + " ist am Auftrag nicht definiert.");
         }
+    }
+
+    public static String getCodesBand(Auftraege auftrag) {
+        Hibernate.initialize(auftrag.getAlleRelCode());
+        List<MvAlleRelCode> alleRelCode = auftrag.getAlleRelCode();
+        if (alleRelCode.size() > 0) {
+            return auftrag.getAlleRelCode().get(0).getCodesBand();
+        }
+        return null;
     }
 
 }

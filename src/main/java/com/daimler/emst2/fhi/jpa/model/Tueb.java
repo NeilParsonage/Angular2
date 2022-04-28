@@ -1,7 +1,6 @@
 package com.daimler.emst2.fhi.jpa.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,6 +10,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.daimler.emst2.frw.model.BaseAuditEntity;
 
 /**
  * The persistent class for the TUEB database table.
@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @NamedQuery(name="Tueb.findAll", query="SELECT t FROM Tueb t")
-public class Tueb implements Serializable {
+public class Tueb extends BaseAuditEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -31,16 +31,9 @@ public class Tueb implements Serializable {
 	@Column(name="HIST_DATUM")
 	private Date histDatum;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="INS_DATE")
-	private Date insDate;
-
-	@Column(name="INS_USER")
-	private String insUser;
-
 	private String progname;
 
-	@Column(name="\"SYSTEM\"")
+    @Column(name = "SYSTEM")
 	private String system;
 
 	private String tlae;
@@ -51,26 +44,18 @@ public class Tueb implements Serializable {
 
 	private String ttext;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="UPD_DATE")
-	private Date updDate;
-
-	@Column(name="UPD_USER")
-	private String updUser;
-
-	@Column(name="\"VERSION\"")
-	private BigDecimal version;
 
 	public Tueb() {
 	}
 
-	public long getId() {
-		return this.id;
+	@Override
+    public Long getId() {
+        return id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 	public String getHistAutor() {
 		return this.histAutor;
@@ -86,22 +71,6 @@ public class Tueb implements Serializable {
 
 	public void setHistDatum(Date histDatum) {
 		this.histDatum = histDatum;
-	}
-
-	public Date getInsDate() {
-		return this.insDate;
-	}
-
-	public void setInsDate(Date insDate) {
-		this.insDate = insDate;
-	}
-
-	public String getInsUser() {
-		return this.insUser;
-	}
-
-	public void setInsUser(String insUser) {
-		this.insUser = insUser;
 	}
 
 	public String getProgname() {
@@ -150,30 +119,6 @@ public class Tueb implements Serializable {
 
 	public void setTtext(String ttext) {
 		this.ttext = ttext;
-	}
-
-	public Date getUpdDate() {
-		return this.updDate;
-	}
-
-	public void setUpdDate(Date updDate) {
-		this.updDate = updDate;
-	}
-
-	public String getUpdUser() {
-		return this.updUser;
-	}
-
-	public void setUpdUser(String updUser) {
-		this.updUser = updUser;
-	}
-
-	public BigDecimal getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(BigDecimal version) {
-		this.version = version;
 	}
 
 }

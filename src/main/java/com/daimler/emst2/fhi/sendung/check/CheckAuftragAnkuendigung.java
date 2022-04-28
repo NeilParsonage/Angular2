@@ -6,7 +6,7 @@ import org.springframework.util.Assert;
 
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.jpa.model.AuftragSperrInformation;
-import com.daimler.emst2.fhi.model.IProtocol;
+import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.SeverityEnum;
 import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
@@ -28,7 +28,7 @@ public class CheckAuftragAnkuendigung extends AbstractSendCheck{
     @Override
     protected boolean doExecuteImpl(SendContext pContext) {
         Auftraege auftrag = pContext.getAuftrag();
-        IProtocol protocol = pContext.getProtocol();
+        Protocol protocol = pContext.getProtocol();
 
         List<AuftragSperrInformation> ankuendigungen = auftrag.meta.getAnkuendigungInfos();
         Assert.notNull(ankuendigungen, "transiente AnkuendigungenInfos am Auftrag nicht versorgt");

@@ -6,7 +6,7 @@ import org.springframework.util.Assert;
 
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.jpa.model.AuftragSperrInformation;
-import com.daimler.emst2.fhi.model.IProtocol;
+import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.SeverityEnum;
 import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
@@ -27,7 +27,7 @@ public class CheckAuftragSperren extends AbstractSendCheck {
 
     @Override
     protected boolean doExecuteImpl(SendContext pContext) {
-        IProtocol protocol = pContext.getProtocol();
+        Protocol protocol = pContext.getProtocol();
         Auftraege auftrag = pContext.getAuftrag();
 
         List<AuftragSperrInformation> sperren = auftrag.meta.getSperrInfos();

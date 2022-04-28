@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,18 +18,26 @@ import com.daimler.emst2.fhi.jpa.model.AktiveRestriktion;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.jpa.model.KriteriumRelevant;
 import com.daimler.emst2.fhi.model.FhiMandantEnum;
+import com.daimler.emst2.fhi.model.Protocol;
+import com.daimler.emst2.fhi.sendung.action.SendActionEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
 import com.daimler.emst2.fhi.sendung.model.ISendService;
 import com.daimler.emst2.fhi.sendung.model.MetaList;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
-import com.daimler.emst2.fhi.sendung.werk060.Sendung060;
+import com.daimler.emst2.fhi.sendung.precondition.SendPreconditionEnum;
+import com.daimler.emst2.fhi.sendung.process.action.IActionFactory;
+import com.daimler.emst2.fhi.sendung.process.precondition.IPreconditionFactory;
+import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 import com.daimler.emst2.fhi.util.BasisCollectionUtils;
 import com.daimler.emst2.fhi.werk152.Sendung152;
+import com.daimler.emst2.fhi.werk152.sendung.SendCheckFactory;
 import com.daimler.emst2.frw.context.AuthenticationContext;
 
 @Transactional
 @Service
 public class SendungService {
+
+    private static final Logger LOG = Logger.getLogger(SendungService.class.getName());
 
     @Autowired
     AuthenticationContext authContext;
@@ -39,12 +49,21 @@ public class SendungService {
     RestriktionenService restriktionenService;
 
     @Autowired
+    ProtocolService protocolService;
+
+    @Autowired
     KriterienService kriterienService;
+
+    @Autowired
+    IActionFactory<SendActionEnum> sendActionFactory152;
+
+    @Autowired
+    IPreconditionFactory<SendPreconditionEnum> preconditionFactory;
 
     @Autowired
     AuftraegeDao auftragDao;
 
-    public SendungDTO senden(SendungDTO sendung) {
+    public SendContext senden(SendungDTO sendung) {
 
         SendTypeEnum sendType = SendTypeEnum.valueOf(sendung.sendeTyp);
         Optional<Auftraege> auftrag = getAuftragByPnr(sendung.pnr);
@@ -54,13 +73,13 @@ public class SendungService {
 
         SendContext sendContext = SendContext.create();
         sendContext.mandant = this.configService.getWerksId(true);
-        sendContext.mandantEnum = FhiMandantEnum.valueOf(sendContext.mandant);
-        sendContext.sendTypeEnum = sendType;
+        sendContext.mandantEnum = FhiMandantEnum.getMandant(sendContext.mandant);
+        sendContext.sendTypeEnum = SendTypeEnum.valueOf(sendung.sendeTyp);
         sendContext.auftrag = auftrag.get();
         sendContext.user = authContext.getAuthentication().getName();
 
         this.auftragSendungStart(sendContext);
-        return null;
+        return sendContext;
     }
 
     private Optional<Auftraege> getAuftragByPnr(String pnr) {
@@ -104,6 +123,7 @@ public class SendungService {
 
         MetaList<AktiveRestriktion> aktiveRestriktionenMetaList = restriktionenService.getAllAktiveRestriktionenList();
         ctx.aktiveRestriktionenMetaList = aktiveRestriktionenMetaList;
+
         //Date letzteAktualisierungRestriktionen = aktiveRestriktionenMetaList.updatedOn;
         //        Date letzteAktualisierungRestriktionen = getUseCaseContext()
         //                .getLetzteAktualisierungAktiveRestriktionenList();
@@ -183,6 +203,7 @@ public class SendungService {
         //IProtocol protocol = getUseCaseSendemaskeService()
         //        .createProtocolForNewMessage(pProcessId,
         //                facesMessageTextForException);
+        LOG.severe(ExceptionUtils.getStackTrace(e));
         sendContext.addErrorMessage(e.getMessage());
         ///return protocol;
     }
@@ -190,18 +211,25 @@ public class SendungService {
     //    private IProtocol doSendung(SendungContext sendungContext, Auftraege pAuftrag, SendTypeEnum sendType,
     //            FhiMandantEnum mandantEnum,
     //            Date letzteAktualisierungRestriktionen, String user) {
-    private void doSendung(SendContext sendContext) {
+    private Protocol doSendung(SendContext sendContext) {
         ISendService sendungService = getSendService(sendContext);
         //sendungService.sendeAuftrag(pAuftrag, pLetzteAktualisierungRestriktionen, pKnownProtocol, pUser);
+        Protocol protocol =
+                protocolService.create(sendContext.getSendTypeEnum(), "Sendung " + sendContext.auftrag.getPnr());
+        sendContext.protocol = protocol;
+        // doSendung(pAuftrag, protocol, pMandant, pLetzteAktualisierungRestriktionen, pUser);
         sendungService.sendeAuftrag(sendContext);
+        return sendContext.getProtocol();
     }
 
     private ISendService getSendService(SendContext sendContext) {
         switch (sendContext.mandantEnum) {
             case WERK_060:
-                return new Sendung060();
+                throw new RuntimeException("SendService Werk060 not implemented!");
+            //return Sendung060.create(protocolService, sendActionFactory152);
             case WERK_152:
-                return new Sendung152();
+                return Sendung152.create(protocolService, sendActionFactory152,
+                        SendCheckFactory.create(protocolService), preconditionFactory);
             default:
                 throw new RuntimeException("invalid mandant" + sendContext.mandant);
         }

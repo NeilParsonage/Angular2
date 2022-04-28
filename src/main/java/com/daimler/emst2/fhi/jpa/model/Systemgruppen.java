@@ -1,8 +1,6 @@
 package com.daimler.emst2.fhi.jpa.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,9 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
+import com.daimler.emst2.frw.model.BaseAuditEntity;
 
 /**
  * The persistent class for the SYSTEMGRUPPEN database table.
@@ -20,7 +17,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @NamedQuery(name="Systemgruppen.findAll", query="SELECT s FROM Systemgruppen s")
-public class Systemgruppen implements Serializable {
+public class Systemgruppen extends BaseAuditEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -29,23 +26,6 @@ public class Systemgruppen implements Serializable {
 
 	@Column(name="GRUPPE_NAME")
 	private String gruppeName;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="INS_DATE")
-	private Date insDate;
-
-	@Column(name="INS_USER")
-	private String insUser;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="UPD_DATE")
-	private Date updDate;
-
-	@Column(name="UPD_USER")
-	private String updUser;
-
-	@Column(name="\"VERSION\"")
-	private BigDecimal version;
 
 	//bi-directional many-to-one association to Systemgruppenzuo
 	@OneToMany(mappedBy="systemgruppen")
@@ -70,46 +50,6 @@ public class Systemgruppen implements Serializable {
 		this.gruppeName = gruppeName;
 	}
 
-	public Date getInsDate() {
-		return this.insDate;
-	}
-
-	public void setInsDate(Date insDate) {
-		this.insDate = insDate;
-	}
-
-	public String getInsUser() {
-		return this.insUser;
-	}
-
-	public void setInsUser(String insUser) {
-		this.insUser = insUser;
-	}
-
-	public Date getUpdDate() {
-		return this.updDate;
-	}
-
-	public void setUpdDate(Date updDate) {
-		this.updDate = updDate;
-	}
-
-	public String getUpdUser() {
-		return this.updUser;
-	}
-
-	public void setUpdUser(String updUser) {
-		this.updUser = updUser;
-	}
-
-	public BigDecimal getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(BigDecimal version) {
-		this.version = version;
-	}
-
 	public List<Systemgruppenzuo> getSystemgruppenzuos() {
 		return this.systemgruppenzuos;
 	}
@@ -131,5 +71,10 @@ public class Systemgruppen implements Serializable {
 
 		return systemgruppenzuo;
 	}
+
+    @Override
+    public Long getId() {
+        return gruppeId;
+    }
 
 }

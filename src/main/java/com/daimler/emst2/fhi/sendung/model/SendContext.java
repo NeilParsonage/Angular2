@@ -13,7 +13,7 @@ import com.daimler.emst2.fhi.jpa.model.AktiveRestriktion;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.jpa.model.Systemwerte;
 import com.daimler.emst2.fhi.model.FhiMandantEnum;
-import com.daimler.emst2.fhi.model.IProtocol;
+import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.sendung.constants.OrtCheckEnum;
 import com.daimler.emst2.fhi.sendung.constants.OrtTypEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
@@ -38,7 +38,7 @@ public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext
     private Map<OrtCheckEnum, Map<OrtTypEnum, Set<String>>> ortChecksMap =
             new HashMap<OrtCheckEnum, Map<OrtTypEnum, Set<String>>>();
 
-    public IProtocol protocol = null;
+    public Protocol protocol = null;
 
     private Map<String, Systemwerte> lfdNrMap;
 
@@ -83,7 +83,7 @@ public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext
     }
 
     @Override
-    public IProtocol getProtocol() {
+    public Protocol getProtocol() {
         return protocol;
     }
 

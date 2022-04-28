@@ -9,7 +9,7 @@ import java.util.Set;
 import org.springframework.util.Assert;
 
 import com.daimler.emst2.fhi.model.IProcessId;
-import com.daimler.emst2.fhi.model.IProtocol;
+import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.SeverityEnum;
 import com.daimler.emst2.fhi.sendung.process.action.IAction;
 import com.daimler.emst2.fhi.sendung.process.action.IActionFactory;
@@ -25,11 +25,11 @@ import com.daimler.emst2.fhi.sendung.protocol.IProtocolService;
 @SuppressWarnings("rawtypes")
 public abstract class AbstractProcessService<GenPreconditionEnum extends IProcessId, GenCheckEnum extends IProcessId, GenActionEnum extends IProcessId, GenContext extends IProcessContext, GenProcess extends IProcess> {
 
-	private IPreconditionFactory<GenPreconditionEnum> preconditionFactory;
+    protected IPreconditionFactory<GenPreconditionEnum> preconditionFactory;
 
-	private ICheckFactory<GenCheckEnum> checkFactory;
+    protected ICheckFactory<GenCheckEnum> checkFactory;
 
-	private IActionFactory<GenActionEnum> actionFactory;
+    protected IActionFactory<GenActionEnum> actionFactory;
 
 	/**
 	 * Muss im jeweiligen Service implementiert werden. Für die Sendung findet hier die Hierarchie Auswertung
@@ -40,7 +40,7 @@ public abstract class AbstractProcessService<GenPreconditionEnum extends IProces
 	 */
 	protected abstract List<GenProcess> getSubProcessList(GenContext pContext);
 
-	public abstract void setProtocolService(IProtocolService protocolService);
+    public abstract void setProtocolService(IProtocolService protocolService);
 
 	/**
 	 * Diese Service Methode implementiert die Logik fuer die Durchfuehrung von komplexen Geschaeftsfunktionen wie z.B. Sendungen,
@@ -79,7 +79,7 @@ public abstract class AbstractProcessService<GenPreconditionEnum extends IProces
 	public boolean execute(GenContext pContext) {
 		Assert.isTrue(pContext != null,
 		"Der Prozesscontext muss zum Start des Prozesses bereits angelegt sein - ist aber null.");
-		IProtocol protocol = pContext.getProtocol();
+        Protocol protocol = pContext.getProtocol();
 		Assert.isTrue(protocol != null,
 		"Das Protocol des Prozesscontexts muss zum Start des Prozesses bereits angelegt sein - ist aber null.");
 
@@ -215,7 +215,7 @@ public abstract class AbstractProcessService<GenPreconditionEnum extends IProces
 			GenContext pContext) {
 		List<IPrecondition> orderedList = new ArrayList<IPrecondition>(pAllPreconditionSet);
 		Collections.sort(orderedList, new ProcessPreconditionComparator<IPrecondition>());
-		for (IPrecondition iPrecondition : orderedList) {
+        for (IPrecondition iPrecondition : orderedList) {
 			iPrecondition.doPrepareContext(pContext);
 		}
 	}

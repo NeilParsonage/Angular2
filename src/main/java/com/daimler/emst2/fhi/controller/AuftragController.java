@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.daimler.emst2.fhi.dto.AuftraegeDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDetailsDTO;
+import com.daimler.emst2.fhi.dto.SendResponseDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.services.AuftraegeService;
 import com.daimler.emst2.fhi.services.SendungService;
@@ -44,7 +45,7 @@ public class AuftragController {
     }
 
     @PostMapping("/sendung")
-    public SendungDTO sendeAuftrag(@RequestBody SendungDTO sendung) {
+    public SendResponseDTO sendeAuftrag(@RequestBody SendungDTO sendung) {
         return auftraegeService.sendeAuftrag(sendung);
     }
 

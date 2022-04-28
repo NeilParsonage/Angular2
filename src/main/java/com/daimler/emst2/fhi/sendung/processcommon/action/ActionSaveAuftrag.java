@@ -3,7 +3,7 @@ package com.daimler.emst2.fhi.sendung.processcommon.action;
 import com.daimler.emst2.fhi.jpa.dao.AuftraegeDao;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.model.IProcessId;
-import com.daimler.emst2.fhi.model.IProtocol;
+import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.sendung.process.AbstractProcessStep;
 import com.daimler.emst2.fhi.sendung.process.action.IAction;
 import com.daimler.emst2.fhi.sendung.processcommon.IAuftragProcessContext;
@@ -29,7 +29,7 @@ IAction<IProcessId, GenActionEnum, IAuftragProcessContext> {
 
     @Override
     protected boolean doExecuteImpl(IAuftragProcessContext pContext) {
-        IProtocol protocol = pContext.getProtocol();
+        Protocol protocol = pContext.getProtocol();
 
         Auftraege auftrag = pContext.getAuftrag();
         auftragDao.save(auftrag);

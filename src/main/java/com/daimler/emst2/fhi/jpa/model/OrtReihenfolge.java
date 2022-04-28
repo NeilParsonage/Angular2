@@ -2,7 +2,6 @@ package com.daimler.emst2.fhi.jpa.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,9 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
+import com.daimler.emst2.frw.model.BaseAuditEntity;
 
 /**
  * The persistent class for the ORT_REIHENFOLGE database table.
@@ -22,7 +20,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="ORT_REIHENFOLGE")
 @NamedQuery(name="OrtReihenfolge.findAll", query="SELECT o FROM OrtReihenfolge o")
-public class OrtReihenfolge implements Serializable {
+public class OrtReihenfolge extends BaseAuditEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -31,28 +29,11 @@ public class OrtReihenfolge implements Serializable {
 	@Column(name="GRUPPE_SENDUNG_ORT")
 	private BigDecimal gruppeSendungOrt;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="INS_DATE")
-	private Date insDate;
-
-	@Column(name="INS_USER")
-	private String insUser;
-
 	@Column(name="ORT_RF_FABRIK")
 	private BigDecimal ortRfFabrik;
 
 	@Column(name="REPORT_ORT_GRUPPE")
 	private String reportOrtGruppe;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="UPD_DATE")
-	private Date updDate;
-
-	@Column(name="UPD_USER")
-	private String updUser;
-
-	@Column(name="\"VERSION\"")
-	private BigDecimal version;
 
 	@Column(name="WEGEZEIT_BEI_VORSENDUNG")
 	private BigDecimal wegezeitBeiVorsendung;
@@ -84,22 +65,6 @@ public class OrtReihenfolge implements Serializable {
 		this.gruppeSendungOrt = gruppeSendungOrt;
 	}
 
-	public Date getInsDate() {
-		return this.insDate;
-	}
-
-	public void setInsDate(Date insDate) {
-		this.insDate = insDate;
-	}
-
-	public String getInsUser() {
-		return this.insUser;
-	}
-
-	public void setInsUser(String insUser) {
-		this.insUser = insUser;
-	}
-
 	public BigDecimal getOrtRfFabrik() {
 		return this.ortRfFabrik;
 	}
@@ -114,30 +79,6 @@ public class OrtReihenfolge implements Serializable {
 
 	public void setReportOrtGruppe(String reportOrtGruppe) {
 		this.reportOrtGruppe = reportOrtGruppe;
-	}
-
-	public Date getUpdDate() {
-		return this.updDate;
-	}
-
-	public void setUpdDate(Date updDate) {
-		this.updDate = updDate;
-	}
-
-	public String getUpdUser() {
-		return this.updUser;
-	}
-
-	public void setUpdUser(String updUser) {
-		this.updUser = updUser;
-	}
-
-	public BigDecimal getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(BigDecimal version) {
-		this.version = version;
 	}
 
 	public BigDecimal getWegezeitBeiVorsendung() {
@@ -191,5 +132,11 @@ public class OrtReihenfolge implements Serializable {
 
 		return ortFpMap;
 	}
+
+    @Override
+    public Long getId() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

@@ -16,9 +16,13 @@ public class SendDefinitionFactory implements ISendDefinitionFactory {
 
     private ISend root;
 
-    public SendDefinitionFactory() {
+    private SendDefinitionFactory() {
         super();
         init();
+    }
+
+    public static SendDefinitionFactory create() {
+        return new SendDefinitionFactory();
     }
 
     private void init() {
@@ -97,4 +101,6 @@ public class SendDefinitionFactory implements ISendDefinitionFactory {
     private ISend getRootNode() {
         return root;
     }
+
+
 }

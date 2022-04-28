@@ -3,7 +3,7 @@ package com.daimler.emst2.fhi.sendung.processcommon.precondition;
 import java.util.Date;
 
 import com.daimler.emst2.fhi.jpa.dao.AktiveRestriktionDao;
-import com.daimler.emst2.fhi.model.IProtocol;
+import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.SeverityEnum;
 import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
@@ -35,7 +35,7 @@ public class PreconditionRestriktionenUpToDate extends AbstractSendPrecondition 
 
         // 2. Ist der Wert in der DB neuer, so ist ein ERROR zu erzeugen und false zu liefern
         if (!isOk) {
-            IProtocol protocol = pSendContext.getProtocol();
+            Protocol protocol = pSendContext.getProtocol();
             getProtocolService().addProtocolEntry(protocol, ProtocolMessageEnum.RESTRIKTIONEN_OUTDATED,
                     getIdentifier(), SeverityEnum.FATAL);
         }

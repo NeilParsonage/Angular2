@@ -6,11 +6,16 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.daimler.emst2.frw.model.BaseAuditEntity;
 
 
 /**
@@ -20,11 +25,14 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="DEBUG_LOGSAETZE")
 @NamedQuery(name="DebugLogsaetze.findAll", query="SELECT d FROM DebugLogsaetze d")
-public class DebugLogsaetze implements Serializable {
+public class DebugLogsaetze extends BaseAuditEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+    // TODO insert Oracle Sequence Stuff
 	@Id
 	@Column(name="LOG_SEQ")
+    @SequenceGenerator(name = "LOGSATZ_SEQ_GENERATOR", sequenceName = "LOGSATZ_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LOGSATZ_SEQ_GENERATOR")
 	private long logSeq;
 
 	private String ausloeser;
@@ -36,13 +44,6 @@ public class DebugLogsaetze implements Serializable {
 	@Column(name="HIST_DATUM")
 	private Date histDatum;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="INS_DATE")
-	private Date insDate;
-
-	@Column(name="INS_USER")
-	private String insUser;
-
 	@Column(name="NACHRICHT_ID")
 	private String nachrichtId;
 
@@ -50,16 +51,6 @@ public class DebugLogsaetze implements Serializable {
 
 	@Column(name="TRANSAKTION_SEQ")
     private Long transaktionSeq;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="UPD_DATE")
-	private Date updDate;
-
-	@Column(name="UPD_USER")
-	private String updUser;
-
-	@Column(name="\"VERSION\"")
-	private BigDecimal version;
 
 	@Column(name="VORGANGS_ID")
 	private BigDecimal vorgangsId;
@@ -102,22 +93,6 @@ public class DebugLogsaetze implements Serializable {
 		this.histDatum = histDatum;
 	}
 
-	public Date getInsDate() {
-		return this.insDate;
-	}
-
-	public void setInsDate(Date insDate) {
-		this.insDate = insDate;
-	}
-
-	public String getInsUser() {
-		return this.insUser;
-	}
-
-	public void setInsUser(String insUser) {
-		this.insUser = insUser;
-	}
-
 	public String getNachrichtId() {
 		return this.nachrichtId;
 	}
@@ -142,31 +117,7 @@ public class DebugLogsaetze implements Serializable {
 		this.transaktionSeq = transaktionSeq;
 	}
 
-	public Date getUpdDate() {
-		return this.updDate;
-	}
-
-	public void setUpdDate(Date updDate) {
-		this.updDate = updDate;
-	}
-
-	public String getUpdUser() {
-		return this.updUser;
-	}
-
-	public void setUpdUser(String updUser) {
-		this.updUser = updUser;
-	}
-
-	public BigDecimal getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(BigDecimal version) {
-		this.version = version;
-	}
-
-	public BigDecimal getVorgangsId() {
+    public BigDecimal getVorgangsId() {
 		return this.vorgangsId;
 	}
 
@@ -181,5 +132,11 @@ public class DebugLogsaetze implements Serializable {
 	public void setZeitstempel(Date zeitstempel) {
 		this.zeitstempel = zeitstempel;
 	}
+
+    @Override
+    public Long getId() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

@@ -21,7 +21,15 @@ import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 
 public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
 
-    private ProtocolService protocolService;
+    private final ProtocolService protocolService;
+
+    private SendCheckFactory(ProtocolService protocolService) {
+        this.protocolService = protocolService;
+    }
+
+    public static ICheckFactory<SendCheckEnum> create(ProtocolService protocolService) {
+        return new SendCheckFactory(protocolService);
+    }
 
 	@Override
     @SuppressWarnings("rawtypes")
@@ -65,6 +73,6 @@ public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
 	}
 
     public void setProtocolService(ProtocolService protocolService) {
-		this.protocolService = protocolService;
+        // deprecated - new implementation
 	}
 }

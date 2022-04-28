@@ -16,6 +16,6 @@ public interface AuftraegeDao extends CrudRepository<Auftraege, String> {
 
     @Query(nativeQuery = true,
             value = "select PNR from AUFTRAG where PNR = :pnr and VERSION = :version for update nowait")
-    public boolean lockAuftragForUpdate(@Param("pnr") String pnr, @Param("version") Long version);
+    public String lockAuftragForUpdate(@Param("pnr") String pnr, @Param("version") Long version);
 
 }

@@ -1,7 +1,7 @@
 package com.daimler.emst2.fhi.sendung.check;
 
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
-import com.daimler.emst2.fhi.model.IProtocol;
+import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.SeverityEnum;
 import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
@@ -43,7 +43,7 @@ public abstract class AbstractCheckSollabstand extends AbstractSendCheck {
         Integer sollabstandsVerletzung = getSollabstandsVerletzung(auftrag);
         boolean isVerletzt = isSollabstandVerletzt(sollabstandsVerletzung);
 
-        IProtocol protocol = pContext.getProtocol();
+        Protocol protocol = pContext.getProtocol();
         if (isVerletzt) {
             // ProtocolEntry erzeugen
             getProtocolService().addProtocolEntry(protocol, ProtocolMessageEnum.SOLLABSTAND_VERLETZT_WARN, getIdentifier(),
