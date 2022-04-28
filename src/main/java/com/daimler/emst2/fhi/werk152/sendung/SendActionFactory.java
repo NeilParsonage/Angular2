@@ -77,6 +77,7 @@ public class SendActionFactory implements IActionFactory<SendActionEnum> {
 
 	private ActionLmtHistSternenhimmel actionlmtHistSternenhimmel;
 
+    @Autowired
     private ProtocolService protocolService;
 
 	public SendActionFactory() {

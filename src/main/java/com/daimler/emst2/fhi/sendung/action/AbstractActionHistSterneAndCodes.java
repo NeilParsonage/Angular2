@@ -84,7 +84,7 @@ public abstract class AbstractActionHistSterneAndCodes extends AbstractSendActio
                     AuftragUtil.getCodesBand(auftrag));
         }
 
-        getProtocolService().addDebugProtocolEntry(protocol, getIdentifier());
+        getProtocolService().addDebugProtocolEntry(protocol, getIdentifier()); // CHECK
         return true;
     }
 

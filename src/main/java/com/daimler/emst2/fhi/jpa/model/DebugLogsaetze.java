@@ -28,7 +28,6 @@ import com.daimler.emst2.frw.model.BaseAuditEntity;
 public class DebugLogsaetze extends BaseAuditEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-    // TODO insert Oracle Sequence Stuff
 	@Id
 	@Column(name="LOG_SEQ")
     @SequenceGenerator(name = "LOGSATZ_SEQ_GENERATOR", sequenceName = "LOGSATZ_SEQ", allocationSize = 1)

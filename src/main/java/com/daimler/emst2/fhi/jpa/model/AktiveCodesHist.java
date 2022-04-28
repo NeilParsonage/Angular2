@@ -4,8 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.daimler.emst2.frw.model.BaseAuditEntity;
@@ -23,6 +26,8 @@ public class AktiveCodesHist extends BaseAuditEntity implements Serializable {
 
 	@Id
 	@Column(name="COHI_ID")
+    @SequenceGenerator(name = "LOGSATZ_SEQ_GENERATOR", sequenceName = "SEQ_GLOBAL_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LOGSATZ_SEQ_GENERATOR")
 	private long cohiId;
 
 	@Column(name="AUF_PNR")

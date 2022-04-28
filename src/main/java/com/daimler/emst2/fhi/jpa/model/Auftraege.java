@@ -225,8 +225,6 @@ public class Auftraege extends BaseAuditEntity implements Serializable {
         this.fhsBaumuster = fhsBaumuster;
     }
 
-
-
     public String getAnr() {
         return anr;
     }
