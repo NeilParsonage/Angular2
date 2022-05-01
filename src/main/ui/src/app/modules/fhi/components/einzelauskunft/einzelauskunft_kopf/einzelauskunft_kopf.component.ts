@@ -4,8 +4,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
 import { Auftrag } from '../../../models/auftrag';
 import { AuftragAggregate } from '../../../models/auftragAggregate';
-import { AuftragFhsLacke } from '../../../models/auftragFhsLacke';
 import { AuftragKabelsaetze } from '../../../models/auftragKabelsatz';
+import { AuftragLacke } from '../../../models/auftragLacke';
 import { AuftragService } from '../../../services/auftrag.service';
 import { DialogShowlistComponent } from '../dialog-showlist/dialog-showlist.component';
 
@@ -21,10 +21,11 @@ export class EinzelauskunftKopfComponent implements OnInit {
   codesView: string = null;
   kriterienView: string = null;
   kabelsaetzeliste: AuftragKabelsaetze[];
-  fhsLackeliste: AuftragFhsLacke[];
+  fhsLackeliste: AuftragLacke[];
+  fzgLack: AuftragLacke;
   aggregateliste: AuftragAggregate[];
   kabelsatz: AuftragKabelsaetze = null;
-  fhsLack: AuftragFhsLacke = null;
+  fhsLack: AuftragLacke = null;
   aggregat: AuftragAggregate = null;
 
   @Input()
@@ -45,8 +46,9 @@ export class EinzelauskunftKopfComponent implements OnInit {
     console.log('load Data ' + auftrag.pnr);
     const kabelsatzData = this.auftragService.getAuftragKabelsaetzeByPnr(auftrag.pnr);
     const fhsLackeData = this.auftragService.getAuftragFhsLackeByPnr(auftrag.pnr);
+    const fzgLackeData = this.auftragService.getAuftragFzgLackByPnr(auftrag.pnr);
     const aggregateData = this.auftragService.getAuftragAggregateByPnr(auftrag.pnr);
-    const loadSources: any = [kabelsatzData, fhsLackeData, aggregateData];
+    const loadSources: any = [kabelsatzData, fhsLackeData, fzgLackeData, aggregateData];
 
     let srcIdx = 0;
 
@@ -58,8 +60,11 @@ export class EinzelauskunftKopfComponent implements OnInit {
       // let termresult: AuftragTermine = results[srcIdx++] as AuftragTermine;
 
       this.kabelsaetzeliste = results[srcIdx++] as AuftragKabelsaetze[];
-      this.fhsLackeliste = results[srcIdx++] as AuftragFhsLacke[];
+      this.fhsLackeliste = results[srcIdx++] as AuftragLacke[];
+      this.fzgLack = results[srcIdx++] as AuftragLacke;
       this.aggregateliste = results[srcIdx++] as AuftragAggregate[];
+      console.log('fzglack' + this.fzgLack);
+      console.log(this.fzgLack);
       this.kabelsatz = this.kabelsaetzeliste[0];
       this.fhsLack = this.fhsLackeliste[0];
       this.aggregat = this.aggregateliste[0];
@@ -114,5 +119,22 @@ export class EinzelauskunftKopfComponent implements OnInit {
     });
 
     this.showListe(listeElements, this.translateService.instant('text.einzelauskunft.kabelsaetze'));
+  }
+
+  showListFhsLacke() {
+    let listeElements: string[] = [];
+    this.fhsLackeliste.forEach((e, i) => {
+      listeElements[i] = e.lackschl + '  ' + e.lackLangText + '  ' + e.lackzus + '  ' + e.lackzLangText;
+    });
+
+    this.showListe(listeElements, 'Fhs Lacke');
+  }
+
+  showListFzgLack() {
+    let listeElements: string[] = [];
+
+    listeElements[0] = this.fzgLack.lackschl + '  ' + this.fzgLack.lackLangText;
+
+    this.showListe(listeElements, 'Fzg Lack');
   }
 }

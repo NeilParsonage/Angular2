@@ -11,24 +11,24 @@ import org.springframework.util.ObjectUtils;
 
 import com.daimler.emst2.fhi.dto.AuftraegeDTO;
 import com.daimler.emst2.fhi.dto.AuftragAggregateDTO;
-import com.daimler.emst2.fhi.dto.AuftragFhsLackeDTO;
 import com.daimler.emst2.fhi.dto.AuftragKabelsaetzeDTO;
+import com.daimler.emst2.fhi.dto.AuftragLackeDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDetailsDTO;
 import com.daimler.emst2.fhi.dto.FhiDtoFactory;
 import com.daimler.emst2.fhi.jpa.dao.AuftraegeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragAggregateDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragDetailsDao;
-import com.daimler.emst2.fhi.jpa.dao.AuftragFhsLackeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragKabelsaetzeDao;
+import com.daimler.emst2.fhi.jpa.dao.AuftragLackeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragSendestatusDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDetailsDao;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
 import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
-import com.daimler.emst2.fhi.jpa.model.AuftragFhsLacke;
 import com.daimler.emst2.fhi.jpa.model.AuftragKabelsaetze;
+import com.daimler.emst2.fhi.jpa.model.AuftragLacke;
 import com.daimler.emst2.fhi.jpa.model.AuftragSendestatus;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermine;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
@@ -55,7 +55,7 @@ public class AuftraegeService {
     AuftragKabelsaetzeDao auftragKabelsaetzeDao;
 
     @Autowired
-    AuftragFhsLackeDao auftragFhsLackeDao;
+    AuftragLackeDao auftragLackeDao;
 
     @Autowired
     AuftragAggregateDao auftragAggregateDao;
@@ -169,12 +169,27 @@ public class AuftraegeService {
                 : Collections.emptyList();
     }
 
-    public List<AuftragFhsLackeDTO> getAuftragFhsLackeByPnr(String pnr) {
-        List<AuftragFhsLacke> result = auftragFhsLackeDao.findAuftragFhsLackeByPnr(pnr);
+    public List<AuftragLackeDTO> getAuftragFhsLackeByPnr(String pnr) {
+        List<AuftragLacke> result = auftragLackeDao.findFhsLackeByPnr(pnr);
 
         return result instanceof List
-                ? result.stream().map(x -> dtoFactory.createAuftragFhsLackeDTO(x)).collect(Collectors.toList())
+                ? result.stream().map(x -> dtoFactory.createAuftragLackeDTO(x)).collect(Collectors.toList())
                 : Collections.emptyList();
+    }
+
+    public AuftragLackeDTO getAuftragRhmLackByPnr(String pnr) {
+        AuftragLackeDTO rhmLack;
+        Optional<AuftragLacke> result = auftragLackeDao.findRhmLackeByPnr(pnr);
+
+        if (ObjectUtils.isEmpty(result)) {
+
+            rhmLack = dtoFactory.createRhmDefaultLackeDTO(pnr);
+        }
+        else {
+            rhmLack = dtoFactory.createAuftragLackeDTO(result.get());
+        }
+
+        return rhmLack;
     }
 
     public List<AuftragAggregateDTO> getAuftragAggregateByPnr(String pnr) {

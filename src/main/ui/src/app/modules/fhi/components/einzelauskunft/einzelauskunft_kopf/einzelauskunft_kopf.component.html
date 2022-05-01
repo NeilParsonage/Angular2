@@ -64,9 +64,9 @@
       <div fxLayout="row">
         <mat-form-field class="selectItem">
           <mat-label>{{ 'label.einzelauskunft.fzglacke' | translate }}</mat-label>
-          <input matInput type="text" [readonly]="true" />
+          <input matInput type="text" [readonly]="true" value="{{ fzgLack?.lackschl }}" />
         </mat-form-field>
-        <button mat-icon-button color="accent" aria-label="Zeige Liste">
+        <button mat-icon-button color="accent" aria-label="Zeige Liste" (click)="showListFzgLack()">
           <mat-icon>info</mat-icon>
         </button>
       </div>
@@ -75,7 +75,7 @@
           <mat-label>{{ 'label.einzelauskunft.fhslacke' | translate }}</mat-label>
           <input matInput type="text" [readonly]="true" value="{{ fhsLack?.lackschl }}" />
         </mat-form-field>
-        <button mat-icon-button color="accent" aria-label="Zeige Liste">
+        <button mat-icon-button color="accent" aria-label="Zeige Liste" (click)="showListFhsLacke()">
           <mat-icon>info</mat-icon>
         </button>
       </div>

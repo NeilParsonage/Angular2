@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
 import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
-import com.daimler.emst2.fhi.jpa.model.AuftragFhsLacke;
 import com.daimler.emst2.fhi.jpa.model.AuftragKabelsaetze;
+import com.daimler.emst2.fhi.jpa.model.AuftragLacke;
 import com.daimler.emst2.fhi.jpa.model.AuftragSendestatus;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermine;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
@@ -145,11 +145,24 @@ public class FhiDtoFactory {
         return neu;
     }
 
-    public AuftragFhsLackeDTO createAuftragFhsLackeDTO(AuftragFhsLacke auftragFhsLack) {
-        AuftragFhsLackeDTO neu = new AuftragFhsLackeDTO();
+    public AuftragLackeDTO createAuftragLackeDTO(AuftragLacke auftragFhsLack) {
+        AuftragLackeDTO neu = new AuftragLackeDTO();
         neu.pnr = auftragFhsLack.getPnr();
         neu.lackschl = auftragFhsLack.getLackschl();
         neu.lackLangText = auftragFhsLack.getLackLangText();
+        neu.lackSchlNr = auftragFhsLack.getLackSchlNr();
+        neu.lackLangText = auftragFhsLack.getLackLangText();
+        neu.lackzLangText = auftragFhsLack.getLackzLangText();
+        neu.lackzus = auftragFhsLack.getLackzus();
+
+        return neu;
+    }
+
+    public AuftragLackeDTO createRhmDefaultLackeDTO(String pnr) {
+        AuftragLackeDTO neu = new AuftragLackeDTO();
+        neu.pnr = pnr;
+        neu.lackschl = "07350";
+        neu.lackLangText = "novagrau";
 
         return neu;
     }

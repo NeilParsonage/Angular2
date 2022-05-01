@@ -1,4 +1,4 @@
-export interface AuftragFhsLacke {
+export interface AuftragLacke {
   pnr: string;
   lackschl: string;
   lackSchlNr: number;

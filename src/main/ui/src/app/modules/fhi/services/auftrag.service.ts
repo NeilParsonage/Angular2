@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Auftrag } from '../models/auftrag';
 import { AuftragAggregate } from '../models/auftragAggregate';
-import { AuftragFhsLacke } from '../models/auftragFhsLacke';
 import { AuftragKabelsaetze } from '../models/auftragKabelsatz';
+import { AuftragLacke } from '../models/auftragLacke';
 import { AuftragTermine } from '../models/auftragTermine';
 import { AuftragTermineDetails } from '../models/auftragTermineDetails';
 
@@ -59,11 +59,17 @@ export class AuftragService {
     };
     return this.http.get<AuftragAggregate[]>(`${this.endpoint}/aggregate`, options);
   }
-  public getAuftragFhsLackeByPnr(pnr: string): Observable<AuftragFhsLacke[]> {
+  public getAuftragFhsLackeByPnr(pnr: string): Observable<AuftragLacke[]> {
     const options = {
       params: new HttpParams().set('pnr', pnr),
     };
-    return this.http.get<AuftragFhsLacke[]>(`${this.endpoint}/fhsLacke`, options);
+    return this.http.get<AuftragLacke[]>(`${this.endpoint}/fhsLacke`, options);
+  }
+  public getAuftragFzgLackByPnr(pnr: string): Observable<AuftragLacke> {
+    const options = {
+      params: new HttpParams().set('pnr', pnr),
+    };
+    return this.http.get<AuftragLacke>(`${this.endpoint}/fzgLack`, options);
   }
   public getListAuftraegebyLfdNrGes(lfdNrGes: number): Observable<Auftrag[]> {
     const options = {

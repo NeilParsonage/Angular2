@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.daimler.emst2.fhi.dto.AuftraegeDTO;
 import com.daimler.emst2.fhi.dto.AuftragAggregateDTO;
-import com.daimler.emst2.fhi.dto.AuftragFhsLackeDTO;
 import com.daimler.emst2.fhi.dto.AuftragKabelsaetzeDTO;
+import com.daimler.emst2.fhi.dto.AuftragLackeDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDetailsDTO;
 import com.daimler.emst2.fhi.services.AuftraegeService;
@@ -55,8 +55,13 @@ public class AuftragController {
     }
 
     @GetMapping("/fhsLacke")
-    public List<AuftragFhsLackeDTO> getAuftragFhsLackebyPnr(@RequestParam String pnr) {
+    public List<AuftragLackeDTO> getAuftragFhsLackebyPnr(@RequestParam String pnr) {
         return auftraegeService.getAuftragFhsLackeByPnr(pnr);
+    }
+
+    @GetMapping("/fzgLack")
+    public AuftragLackeDTO getAuftragRhmLackbyPnr(@RequestParam String pnr) {
+        return auftraegeService.getAuftragRhmLackByPnr(pnr);
     }
 
     @GetMapping("/listAuftraegebyGeLfdNr")
