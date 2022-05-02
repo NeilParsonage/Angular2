@@ -1,22 +1,22 @@
 <div class="content">
-  <h4>Ort</h4>
+  <h4>{{ 'text.einzelauskunft.ort' | translate }}</h4>
   <div fxLayout="row">
     <div fxLayout="column" fxFlex="50">
       <div fxLayout="row">
         <mat-form-field class="selectItem">
-          <mat-label>Ort</mat-label>
+          <mat-label>{{ 'label.einzelauskunft.ort' | translate }}</mat-label>
           <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.ort }}" />
         </mat-form-field>
       </div>
       <div fxLayout="row">
         <mat-form-field class="selectItem">
-          <mat-label>Ziel-LAPU</mat-label>
+          <mat-label>{{ 'label.einzelauskunft.ziellapu' | translate }}</mat-label>
           <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.zielLapu }}" />
         </mat-form-field>
       </div>
       <div fxLayout="row">
         <mat-form-field class="selectItem">
-          <mat-label>Skid-Nr.</mat-label>
+          <mat-label>{{ 'label.einzelauskunft.skidnr' | translate }}</mat-label>
           <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.skidNr }}" />
         </mat-form-field>
       </div>
@@ -25,13 +25,13 @@
       <div fxLayout="row">&nbsp;<br />&nbsp;<br />&nbsp;</div>
       <div fxLayout="row">
         <mat-form-field class="selectItem">
-          <mat-label>Ziel-SEPU</mat-label>
+          <mat-label>{{ 'label.einzelauskunft.zielsepu' | translate }}</mat-label>
           <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.zielSepu }}" />
         </mat-form-field>
       </div>
       <div fxLayout="row">
         <mat-form-field class="selectItem">
-          <mat-label>HRK-Nr.</mat-label>
+          <mat-label>{{ 'label.einzelauskunft.hrknr' | translate }}</mat-label>
           <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.hrknr }}" />
         </mat-form-field>
       </div>

@@ -2,89 +2,90 @@
   <div class="content">
     <div fxLayout="row">
       <div fxLayout="column" fxFlex="30">
-        <form [formGroup]="form" #searchInfo (ngSubmit)="searchForm(searchInfo)">
+        <div fxLayout="row">
           <div fxLayout="column" fxFlex="40">
             <mat-form-field class="selectItemLong">
-              <mat-label>Suchoption</mat-label>
-              <mat-select>
-                <mat-option value="two">PNR</mat-option>
-                <mat-option value="one">Gesamt lfd. Nr.</mat-option>
-                <mat-option value="two">Ist lfd. FHI </mat-option>
-                <mat-option value="two">Ist lfd. LMT</mat-option>
+              <mat-label>{{ 'label.einzelauskunft.suchoption' | translate }}</mat-label>
+              <mat-select [(value)]="selected">
+                <mat-option *ngFor="let option of options" [value]="option"> {{ option.label }}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
+
           <div fxLayout="column" fxFlex="40">
             <mat-form-field class="selectItemLong">
-              <mat-label>PNR</mat-label>
-              <input matInput type="text" formControlName="pnr" />
+              <mat-label>{{ selected.key }}</mat-label>
+              <input matInput placeholder="" [(ngModel)]="selected.filter" />
             </mat-form-field>
           </div>
+          <!-- <p>You selected: {{ selected.key }} {{ selected.filter }}</p>-->
           <div fxLayout="column" fxFlex="20">
-            <button mat-raised-button color="primary">Suche</button>
+            <button mat-raised-button color="primary" (click)="search()">{{ 'action.einzelauskunft.suche' | translate }}</button>
           </div>
-        </form>
+        </div>
       </div>
+
       <div fxLayout="column" fxFlex="5"></div>
+
       <div fxLayout="column" fxFlex="65">
         <div *ngIf="auftragList && auftragSearch">
           <app-pnr-chooser [auftragList]="auftragList" [currentAuftrag]="auftragSearch" (auftragChanged)="onAuftragChanged($event)"> </app-pnr-chooser>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="divider">
-    <mat-divider></mat-divider>
-  </div>
-  <app-einzelauskunft-kopf [daten]="auftrag"></app-einzelauskunft-kopf>
-  <div class="divider">
-    <mat-divider></mat-divider>
-  </div>
-
-  <div fxLayout="row">
-    <div fxLayout="column" fxFlex="20">
-      <app-einzelauskunft-rf [daten]="auftrag"></app-einzelauskunft-rf>
+    <div class="divider">
+      <mat-divider></mat-divider>
     </div>
-    <div fxFlex="5px" fx class="content">
-      <mat-divider [vertical]="true" style="height: 100%"></mat-divider>
+    <app-einzelauskunft-kopf [daten]="auftrag"></app-einzelauskunft-kopf>
+    <div class="divider">
+      <mat-divider></mat-divider>
     </div>
 
-    <div fxLayout="column" fxFlex="80">
-      <app-einzelauskunft-termine [daten]="auftrag"></app-einzelauskunft-termine>
-    </div>
-  </div>
-  <div class="divider">
-    <mat-divider></mat-divider>
-  </div>
-  <div fxLayout="row">
-    <div fxLayout="column" fxFlex="20">
-      <app-einzelauskunft-ort [daten]="auftrag"></app-einzelauskunft-ort>
-    </div>
-    <div fxFlex="5px" fx class="content">
-      <mat-divider [vertical]="true" style="height: 100%"></mat-divider>
-    </div>
-    <div fxLayout="column" fxFlex="25">
-      <app-einzelauskunft-aktuelleFP [daten]="auftrag"></app-einzelauskunft-aktuelleFP>
-    </div>
-    <div fxFlex="5px" fx class="content">
-      <mat-divider [vertical]="true" style="height: 100%"></mat-divider>
-    </div>
-    <div fxLayout="column" fxFlex="25">
-      <app-einzelauskunft-sendestatus [daten]="auftrag"></app-einzelauskunft-sendestatus>
-    </div>
-    <div fxFlex="5px" fx class="content">
-      <mat-divider [vertical]="true" style="height: 100%"></mat-divider>
-    </div>
-    <div fxLayout="column" fxFlex="15">
-      <app-einzelauskunft-sperren [daten]="auftrag"></app-einzelauskunft-sperren>
-    </div>
-    <div fxFlex="5px" fx class="content">
-      <mat-divider [vertical]="true" style="height: 100%"></mat-divider>
-    </div>
+    <div fxLayout="row">
+      <div fxLayout="column" fxFlex="20">
+        <app-einzelauskunft-rf [daten]="auftrag"></app-einzelauskunft-rf>
+      </div>
+      <div fxFlex="5px" fx class="content">
+        <mat-divider [vertical]="true" style="height: 100%"></mat-divider>
+      </div>
 
-    <div fxLayout="column" fxFlex="15">
-      <app-einzelauskunft-audit [daten]="auftrag"></app-einzelauskunft-audit>
+      <div fxLayout="column" fxFlex="80">
+        <app-einzelauskunft-termine [daten]="auftrag"></app-einzelauskunft-termine>
+      </div>
+    </div>
+    <div class="divider">
+      <mat-divider></mat-divider>
+    </div>
+    <div fxLayout="row">
+      <div fxLayout="column" fxFlex="20">
+        <app-einzelauskunft-ort [daten]="auftrag"></app-einzelauskunft-ort>
+      </div>
+      <div fxFlex="5px" fx class="content">
+        <mat-divider [vertical]="true" style="height: 100%"></mat-divider>
+      </div>
+      <div fxLayout="column" fxFlex="25">
+        <app-einzelauskunft-aktuelleFP [daten]="auftrag"></app-einzelauskunft-aktuelleFP>
+      </div>
+      <div fxFlex="5px" fx class="content">
+        <mat-divider [vertical]="true" style="height: 100%"></mat-divider>
+      </div>
+      <div fxLayout="column" fxFlex="25">
+        <app-einzelauskunft-sendestatus [daten]="auftrag"></app-einzelauskunft-sendestatus>
+      </div>
+      <div fxFlex="5px" fx class="content">
+        <mat-divider [vertical]="true" style="height: 100%"></mat-divider>
+      </div>
+      <div fxLayout="column" fxFlex="15">
+        <app-einzelauskunft-sperren [daten]="auftrag"></app-einzelauskunft-sperren>
+      </div>
+      <div fxFlex="5px" fx class="content">
+        <mat-divider [vertical]="true" style="height: 100%"></mat-divider>
+      </div>
+
+      <div fxLayout="column" fxFlex="15">
+        <app-einzelauskunft-audit [daten]="auftrag"></app-einzelauskunft-audit>
+      </div>
     </div>
   </div>
 </div>

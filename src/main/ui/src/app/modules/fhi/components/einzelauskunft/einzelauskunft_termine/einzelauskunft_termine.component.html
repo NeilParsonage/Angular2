@@ -1,23 +1,23 @@
 <div class="content">
-  <h4>Termine</h4>
+  <h4>{{ 'text.einzelauskunft.termine' | translate }}</h4>
   <div fxLayout="row">
     <div fxLayout="column" style="width: 250px">
       <div fxLayout="row">
         <mat-form-field class="dateItem">
-          <mat-label>IB-Sperre</mat-label>
+          <mat-label>{{ 'label.einzelauskunft.ibsperre' | translate }}</mat-label>
           <input matInput [readonly]="true" value="{{ termine?.ibSperre | date: 'dd.MM.yyyy HH:mm' }} " />
         </mat-form-field>
       </div>
       <div fxLayout="row">
         <div fxLayout="column" fxFlex="50">
           <mat-form-field class="selectItem">
-            <mat-label>PAT</mat-label>
+            <mat-label>{{ 'label.einzelauskunft.pat' | translate }}</mat-label>
             <input matInput [readonly]="true" value="{{ termine?.patJul }} " />
           </mat-form-field>
         </div>
         <div fxLayout="column" fxFlex="50">
           <mat-form-field class="selectItem">
-            <mat-label>Datum</mat-label>
+            <mat-label>{{ 'label.einzelauskunft.patdatum' | translate }}</mat-label>
             <input matInput [readonly]="true" value="{{ termine?.pat | date: 'dd.MM.yyyy' }} " />
           </mat-form-field>
         </div>
@@ -25,13 +25,13 @@
       <div fxLayout="row">
         <div fxLayout="column" fxFlex="50">
           <mat-form-field class="selectItemShort">
-            <mat-label>SAT</mat-label>
+            <mat-label>{{ 'label.einzelauskunft.sat' | translate }}</mat-label>
             <input matInput [readonly]="true" value="{{ termine?.satJul }} " />
           </mat-form-field>
         </div>
         <div fxLayout="column" fxFlex="50">
           <mat-form-field class="selectItem">
-            <mat-label>Datum</mat-label>
+            <mat-label>{{ 'label.einzelauskunft.satdatum' | translate }}</mat-label>
             <input matInput [readonly]="true" value="{{ termine?.sat | date: 'dd.MM.yyyy' }} " />
           </mat-form-field>
         </div>
@@ -45,31 +45,31 @@
         <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
         <ng-container matColumnDef="Gewerk">
-          <th mat-header-cell *matHeaderCellDef>Gewerk</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'label.einzelauskunft.terminegewerk' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.gewerk }}</td>
         </ng-container>
 
         <ng-container matColumnDef="BeginnTermin">
-          <th mat-header-cell *matHeaderCellDef>Beginn</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'label.einzelauskunft.terminebeginn' | translate }}</th>
           <td mat-cell *matCellDef="let element">
             <span style="white-space: pre">{{ setTermin(element.beginnTermin, element.beginnTyp) }}</span>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="IstSequenzTermin">
-          <th mat-header-cell *matHeaderCellDef>Ist-Sequenz</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'label.einzelauskunft.termineistseq' | translate }}</th>
           <td mat-cell *matCellDef="let element">
             <span style="white-space: pre">{{ setTermin(element.istSequenzTermin, element.istSequenzTyp) }}</span>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="TeilsendungTermin">
-          <th mat-header-cell *matHeaderCellDef>Teilsendung</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'label.einzelauskunft.termineteilsendung' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.teilsendungTermin | date: 'dd.MM.yyyy HH:mm' }}</td>
         </ng-container>
 
         <ng-container matColumnDef="StornoTermin">
-          <th mat-header-cell *matHeaderCellDef>Storno</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'label.einzelauskunft.terminestorno' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.stornoTermin | date: 'dd.MM.yyyy HH:mm' }}</td>
         </ng-container>
 

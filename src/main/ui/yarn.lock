@@ -1344,6 +1344,13 @@
   resolved "https://nexus-emst-ci.dwoeacp.dewoe.corpintra.net/repository/npm-group/@ngtools/webpack/-/webpack-12.2.10.tgz#38d4a5ee9cc39012e9ba2f987f6c1c07b132b19e"
   integrity sha512-8ptz2WqEeqFLOMbiYJ6x6XARjzWIrCHzRzpGwvKS28L5iMWeYuvX2EB48uKkMFy/8RJ0SkwyAJkFClPNJvDfrQ==
 
+"@ngx-translate/core@14.0.0":
+  version "14.0.0"
+  resolved "https://nexus-emst-ci.dwoeacp.dewoe.corpintra.net/repository/npm-group/@ngx-translate/core/-/core-14.0.0.tgz#af421d0e1a28376843f0fed375cd2fae7630a5ff"
+  integrity sha512-UevdwNCXMRCdJv//0kC8h2eSfmi02r29xeE8E9gJ1Al4D4jEJ7eiLPdjslTMc21oJNGguqqWeEVjf64SFtvw2w==
+  dependencies:
+    tslib "^2.3.0"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://nexus-emst-ci.dwoeacp.dewoe.corpintra.net/repository/npm-group/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"

@@ -5,6 +5,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LibEmstTableModule } from 'emst-table';
 import { DaiUiFrameModule } from 'emst-ui-frame';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
@@ -18,6 +19,7 @@ import { FhiModule } from './modules/fhi/fhi.module';
 import { ConfirmationPopupComponent } from './shared/components/confirmation-popup/confirmation-popup.component';
 import { MessageCardStapleComponent } from './shared/components/message-card-staple/message-card-staple.component';
 import { MaterialModule } from './shared/modules/material.module';
+import { TuebService } from './shared/services/tueb.service';
 
 @NgModule({
   declarations: [AppComponent, ConfirmationPopupComponent, MessageCardStapleComponent],
@@ -34,6 +36,7 @@ import { MaterialModule } from './shared/modules/material.module';
     LibEmstTableModule,
     MaterialModule,
     ReactiveFormsModule,
+    TranslateModule.forRoot(),
   ],
   providers: [
     PrivilegeRouteGuard,
@@ -41,7 +44,7 @@ import { MaterialModule } from './shared/modules/material.module';
       provide: APP_INITIALIZER,
       useFactory: initializer,
       multi: true,
-      deps: [KeycloakService],
+      deps: [KeycloakService, TranslateService, TuebService],
     },
     {
       provide: HTTP_INTERCEPTORS,

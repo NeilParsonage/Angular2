@@ -11,9 +11,9 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "V_E2_FHS_Lacke")
-@NamedQuery(name = "AuftragFhsLacke.findAll", query = "SELECT t FROM AuftragFhsLacke t")
-public class AuftragFhsLacke implements Serializable {
+@Table(name = "V_E2_Lacke")
+@NamedQuery(name = "AuftragLacke.findAll", query = "SELECT t FROM AuftragLacke t")
+public class AuftragLacke implements Serializable {
 	private static final long serialVersionUID = 1L;
 
     @Id
@@ -37,6 +37,12 @@ public class AuftragFhsLacke implements Serializable {
 
     @Column(name = "LACKZUS")
     private String lackzus;
+
+    @Column(name = "LACK_VERWENDUNG")
+    private String lackVerwendung;
+
+    @Column(name = "FHS_REIHENFOLGE")
+    private Long fhsReihenfolge;
 
     public String getId() {
         return id;

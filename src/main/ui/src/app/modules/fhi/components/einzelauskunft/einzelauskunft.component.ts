@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 import { Auftrag } from '../../models/auftrag';
 import { AuftragService } from '../../services/auftrag.service';
@@ -12,7 +12,6 @@ import { AuftragService } from '../../services/auftrag.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class EinzelauskunftComponent implements OnInit {
-  tabIndex = -1;
   auftrag: Auftrag = null;
   auftragSearch: Auftrag = null;
   auftragChoosen: Auftrag = null;
@@ -20,16 +19,17 @@ export class EinzelauskunftComponent implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   searchpnr: string = '';
 
-  form = new FormGroup({
-    pnr: new FormControl(),
-  });
+  options = [
+    { value: 'pnr', label: 'PNR', key: 'PNR', filter: '' },
+    { value: 'gesamt', label: 'Gesamt lfd. Nr.', key: 'Gesamt lfd. Nr.', filter: '' },
+    { value: 'fhi', label: 'Ist lfd. FHI', key: 'Ist lfd. FHI', filter: '' },
+    { value: 'lmt', label: 'Ist lfd. LMT', key: 'Ist lfd. LMT', filter: '' },
+  ];
+
+  selected = this.options[0];
 
   dataSource$: any;
-  constructor(private auftragService: AuftragService) {
-    if (this.searchpnr !== '') {
-      this.loadData(this.searchpnr);
-    }
-  }
+  constructor(private auftragService: AuftragService, private translateService: TranslateService) {}
   ngOnInit(): void {
     console.log('on init');
     // hello my friend
@@ -42,29 +42,29 @@ export class EinzelauskunftComponent implements OnInit {
     this.auftragList = null;
   }
 
-  searchForm(searchInfo): void {
-    this.searchpnr = this.form.value.pnr;
+  search(): void {
+    console.log('Suche ' + this.selected.value + ' ' + this.selected.filter);
+
     this.reset();
-    if (this.searchpnr !== '') {
-      this.loadData(this.searchpnr, true);
+    if (this.selected.value !== '' && this.selected.filter !== '') {
+      this.loadDataFromSearch();
     }
   }
 
-  private loadData(pnr: string, blist?: boolean) {
+  private loadDataFromSearch() {
     this.auftragService
-      .getAuftragByPnr(pnr)
+      .getAuftragBy(this.selected.value, this.selected.filter)
       .pipe(first())
       .subscribe(data => {
         this.auftrag = data;
         this.auftragSearch = this.auftrag;
+        this.searchpnr = this.auftrag.pnr;
         console.log(this.auftrag);
-        if (blist) {
-          this.loadList(this.auftragSearch.lfdNrGes);
-        }
+        this.loadList(this.auftragSearch.lfdNrGes);
       });
   }
 
-  private loadData2(pnr: string) {
+  private loadDataFromTab(pnr: string) {
     this.auftragService
       .getAuftragByPnr(pnr)
       .pipe(first())
@@ -81,20 +81,8 @@ export class EinzelauskunftComponent implements OnInit {
         .subscribe(data => {
           this.auftragList = data;
           console.log(this.auftragList);
-          this.getIndex();
-          console.log(this.tabIndex);
         });
     }
-  }
-  getIndex() {
-    let ind: number = 0;
-    this.auftragList.forEach(e => {
-      if (this.searchpnr === e.pnr) {
-        this.tabIndex = ind;
-        return;
-      }
-      ind = ind + 1;
-    });
   }
 
   onAuftragChanged($event) {
@@ -102,7 +90,7 @@ export class EinzelauskunftComponent implements OnInit {
     console.log('onAuftragChanged');
     console.log(this.auftragChoosen);
     if (this.auftragChoosen) {
-      this.loadData2(this.auftragChoosen.pnr);
+      this.loadDataFromTab(this.auftragChoosen.pnr);
     }
   }
   actionChangePnr($event: MatTabChangeEvent) {
@@ -110,7 +98,7 @@ export class EinzelauskunftComponent implements OnInit {
     console.log('actionChangePnr              Test');
     console.log(this.auftragChoosen);
     if (this.auftragChoosen) {
-      this.loadData2(this.auftragChoosen.pnr);
+      this.loadDataFromTab(this.auftragChoosen.pnr);
     }
   }
 }

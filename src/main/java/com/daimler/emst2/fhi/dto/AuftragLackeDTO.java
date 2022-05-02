@@ -1,6 +1,6 @@
 package com.daimler.emst2.fhi.dto;
 
-public class AuftragFhsLackeDTO {
+public class AuftragLackeDTO {
     public String pnr;
 
     public String lackschl;
