@@ -40,6 +40,7 @@ public class SendLmtConfiguration implements IProcessConfiguration<SendTypeEnum,
 
         pActionList.add(SendActionEnum.ALL_HISTORIE_SCHREIBEN);
         pActionList.add(SendActionEnum.ALL_SAVE_AUFTRAG);
-        pActionList.add(SendActionEnum.FHI_LMT_SOLLABSTAND_VORBERECHNEN);
+        // TODO Implementation: Sollabstand-Vorberechnen PL/SQL migration
+        // pActionList.add(SendActionEnum.FHI_LMT_SOLLABSTAND_VORBERECHNEN);
     }
 }

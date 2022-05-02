@@ -10,6 +10,7 @@ import com.daimler.emst2.fhi.sendung.model.DbStandardResult;
 @Service
 public class SendemaskeService {
 
+    // TODO Stored Procedure Dialogmasken_interface.Fuelle_sollabst
     public IDbStandardResult sollabstaendeNeuBerechnen(String user) {
         // TODO Auto-generated method stub
         return null;

@@ -1,5 +1,6 @@
 package com.daimler.emst2.fhi.sendung.action;
 
+import com.daimler.emst2.fhi.jpa.dao.SequenceDao;
 import com.daimler.emst2.fhi.jpa.dao.W73rimpoDao;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.model.Protocol;
@@ -14,12 +15,15 @@ public class ActionTaktTelegramm extends AbstractSendAction {
 
     private final W73rimpoDao taktTelegramDao;
     private final TaktTelegramUtil util;
+    private final SequenceDao seqDao;
 
     public ActionTaktTelegramm(SendTypeEnum pSendTypeEnum, SendActionEnum pActionEnum,
-            ProtocolService pProtocolService, W73rimpoDao pTaktTelegramDao, TaktTelegramUtil util) {
+            ProtocolService pProtocolService, W73rimpoDao pTaktTelegramDao, TaktTelegramUtil util, SequenceDao seqDao) {
         super(pSendTypeEnum, pActionEnum, pProtocolService);
         this.taktTelegramDao = pTaktTelegramDao;
+        this.seqDao = seqDao;
         this.util = util;
+
     }
 
     @Override
@@ -36,7 +40,7 @@ public class ActionTaktTelegramm extends AbstractSendAction {
         //TaktTelegramUtil util = new TaktTelegramUtil();
         TaktTelegram newTaktTelegram = util.createSendTelegram(getSendTypeEnum(), auftrag);
 
-        TaktTelegramDaoHelper.create().saveTelegram(taktTelegramDao, newTaktTelegram);
+        TaktTelegramDaoHelper.create().saveTelegram(taktTelegramDao, newTaktTelegram, seqDao);
         // taktTelegramDao.saveTelegram(newTaktTelegram);
 
         getProtocolService().addDebugProtocolEntry(protocol, getIdentifier());

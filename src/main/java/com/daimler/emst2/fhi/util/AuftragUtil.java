@@ -64,16 +64,16 @@ public class AuftragUtil {
     public static void setSendStatusIst(Auftraege auftrag, SendTypeEnum pSendTypeEnum, SendStatusEnum pSendStatus) {
         switch (pSendTypeEnum) {
             case LMT:
-                auftrag.setLmtSendStatus(pSendStatus.getStringValue());
+                auftrag.setLmtSendStatus(pSendStatus.getDBValue());
                 break;
             case FHI:
-                auftrag.setFhiSendStatus(pSendStatus.getStringValue());
+                auftrag.setFhiSendStatus(pSendStatus.getDBValue());
                 break;
             case RHM:
-                auftrag.setRhmSendStatus(pSendStatus.getStringValue());
+                auftrag.setRhmSendStatus(pSendStatus.getDBValue());
                 break;
             case UBM:
-                auftrag.setUbmSendStatus(pSendStatus.getStringValue());
+                auftrag.setUbmSendStatus(pSendStatus.getDBValue());
                 break;
             default:
                 break;

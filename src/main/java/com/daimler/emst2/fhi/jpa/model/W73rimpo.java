@@ -1,7 +1,6 @@
 package com.daimler.emst2.fhi.jpa.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -35,7 +34,7 @@ public class W73rimpo extends BaseAuditEntity implements Serializable {
 	private String impoEingangsimpulsId;
 
 	@Column(name="IMPO_ID")
-	private BigDecimal impoId;
+    private Long impoId;
 
 	@Column(name="IMPO_PNR")
 	private String impoPnr;
@@ -75,11 +74,11 @@ public class W73rimpo extends BaseAuditEntity implements Serializable {
 		this.impoEingangsimpulsId = impoEingangsimpulsId;
 	}
 
-	public BigDecimal getImpoId() {
+    public Long getImpoId() {
 		return this.impoId;
 	}
 
-	public void setImpoId(BigDecimal impoId) {
+    public void setImpoId(Long impoId) {
 		this.impoId = impoId;
 	}
 

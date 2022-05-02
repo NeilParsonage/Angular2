@@ -8,6 +8,8 @@ public class AuftragMeta {
 
     private final Auftraege auftrag;
 
+    private boolean isSendbar;
+
     private List<AuftragSperrInformation> ankuendigungInfos;
     private List<AuftragSperrInformation> sperrInfos;
     private List<AuftragSperrInformation> sperrInfosFHI;
@@ -82,6 +84,14 @@ public class AuftragMeta {
 
     public void setSperrInfosSonst(List<AuftragSperrInformation> sperrInfosSonst) {
         this.sperrInfosSonst = sperrInfosSonst;
+    }
+
+    public boolean isSendbar() {
+        return isSendbar;
+    }
+
+    public void setSendbar(boolean isSendbar) {
+        this.isSendbar = isSendbar;
     }
 
 }

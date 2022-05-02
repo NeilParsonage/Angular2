@@ -6,8 +6,11 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,6 +33,8 @@ public class AuftragHistorie extends BaseAuditEntity implements Serializable {
 
     @Id
 	@Column(name="AUF_HIST_ID")
+    @SequenceGenerator(name = "SEQ_AUF_HIST_ID_GENERATOR", sequenceName = "SEQ_AUF_HIST_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_AUF_HIST_ID_GENERATOR")
     private Long aufHistId;
 
 	@Column(name="AUF_PNR")

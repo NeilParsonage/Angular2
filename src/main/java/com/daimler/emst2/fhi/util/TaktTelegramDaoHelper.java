@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.daimler.emst2.fhi.aspects.dao.BenutzerverwaltungDao;
+import com.daimler.emst2.fhi.jpa.dao.SequenceDao;
 import com.daimler.emst2.fhi.jpa.dao.W73rimpoDao;
 import com.daimler.emst2.fhi.jpa.model.W73rimpo;
 import com.daimler.emst2.fhi.model.TaktTelegram;
@@ -35,7 +36,7 @@ public class TaktTelegramDaoHelper {
             .concat("?").concat(")"); // Impo_Variable_Daten :: Pi_Variable_Daten
     */
 
-    public void saveTelegram(W73rimpoDao taktTelegramDao, TaktTelegram pTelegram) {
+    public void saveTelegram(W73rimpoDao taktTelegramDao, TaktTelegram pTelegram, SequenceDao seqDao) {
         if (LOG.isLoggable(Level.FINE)) {
             LOG.fine(MessageFormat
                     .format("Takt-Telegramm Nachricht: '{0}' vor Bearbeitung - Länge {1} Zeichen.",
@@ -43,7 +44,10 @@ public class TaktTelegramDaoHelper {
                                     .length()));
         }
 
+        Long newImpoId = seqDao.nextSequenceImpoId();
+
         W73rimpo telegram = new W73rimpo();
+        telegram.setImpoId(newImpoId);
         telegram.setImpoStatus("O");
         telegram.setImpoQuelleSystem("FHI");
         telegram.setImpoSystemId("FHIN");
