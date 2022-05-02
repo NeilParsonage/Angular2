@@ -33,7 +33,7 @@ public class Tueb extends BaseAuditEntity implements Serializable {
 
 	private String progname;
 
-    @Column(name = "SYSTEM")
+  @Column(name = "SYSTEM")
 	private String system;
 
 	private String tlae;
@@ -49,13 +49,13 @@ public class Tueb extends BaseAuditEntity implements Serializable {
 	}
 
 	@Override
-    public Long getId() {
+  public Long getId() {
         return id;
 	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public void setId(Long id) {
+     this.id = id;
+  }
 
 	public String getHistAutor() {
 		return this.histAutor;

@@ -1,27 +1,33 @@
 <div class="content">
-  <h4>Reihenfolge</h4>
+  <h4>{{ 'text.einzelauskunft.reihenfolge' | translate }}</h4>
   <div fxLayout="row">
-    <mat-form-field class="selectItem">
-      <mat-label>Gesamt lfd. Nr.</mat-label>
-      <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.lfdNrGes }} " />
-    </mat-form-field>
-  </div>
-  <div fxLayout="row">
-    <mat-form-field class="selectItem">
-      <mat-label>Ist lfd. FHI</mat-label>
-      <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.lfdNrFhi }} " />
-    </mat-form-field>
-  </div>
-  <div fxLayout="row">
-    <mat-form-field class="selectItem">
-      <mat-label>Ist lfd. LMT</mat-label>
-      <input matInput type=" text" [readonly]="true" value="{{ einzelauskunft?.lfdNrLmt }} " />
-    </mat-form-field>
-  </div>
-  <div fxLayout="row">
-    <mat-form-field class="selectItem">
-      <mat-label>Ist lfd. UBM</mat-label>
-      <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.lfdNrUbm }} " />
-    </mat-form-field>
+    <div fxLayout="column" fxFlex="50">
+      <div fxLayout="row">
+        <mat-form-field class="selectItem">
+          <mat-label>{{ 'label.einzelauskunft.geslfdnr' | translate }}</mat-label>
+          <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.lfdNrGes }} " />
+        </mat-form-field>
+      </div>
+      <div fxLayout="row">
+        <mat-form-field class="selectItem">
+          <mat-label>{{ 'label.einzelauskunft.fhilfdnr' | translate }}</mat-label>
+          <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.lfdNrFhi }} " />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="column" fxFlex="50">
+      <div fxLayout="row">
+        <mat-form-field class="selectItem">
+          <mat-label>{{ 'label.einzelauskunft.lmtlfdnr' | translate }}</mat-label>
+          <input matInput type=" text" [readonly]="true" value="{{ einzelauskunft?.lfdNrLmt }} " />
+        </mat-form-field>
+      </div>
+      <div fxLayout="row">
+        <mat-form-field class="selectItem">
+          <mat-label>{{ 'label.einzelauskunft.ubmlfdnr' | translate }}</mat-label>
+          <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.lfdNrUbm }} " />
+        </mat-form-field>
+      </div>
+    </div>
   </div>
 </div>

@@ -161,6 +161,54 @@ public class Auftraege extends BaseAuditEntity implements Serializable {
         this.meta = AuftragMeta.create(this);
     }
 
+    @Column(name = "Fin")
+    private String fin;
+
+    @Column(name = "Vin")
+    private String vin;
+
+    /* Sendestatus    */
+    
+    /* Audit */
+
+    public String getFin() {
+        return fin;
+    }
+
+    public void setFin(String fin) {
+        this.fin = fin;
+    }
+
+    public String getVin() {
+        return vin;
+    }
+
+    public void setVin(String vin) {
+        this.vin = vin;
+    }
+
+    @Column(name = "Hrk_Audit")
+    private Long hrkAudit;
+
+    @Column(name = "Fhi_Audit")
+    private Long fhiAudit;
+
+    public Long getHrkAudit() {
+        return hrkAudit;
+    }
+
+    public void setHrkAudit(Long hrkAudit) {
+        this.hrkAudit = hrkAudit;
+    }
+
+    public Long getFhiAudit() {
+        return fhiAudit;
+    }
+
+    public void setFhiAudit(Long fhiAudit) {
+        this.fhiAudit = fhiAudit;
+    }
+
     public String getFzgArt() {
         return fzgArt;
     }

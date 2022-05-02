@@ -18,7 +18,7 @@ public class AuftragTermineDetails implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @Column(name = "ID")
+    @Column(name = "TERMIN_ID")
     private String id;
 
     @Column(name = "PNR")

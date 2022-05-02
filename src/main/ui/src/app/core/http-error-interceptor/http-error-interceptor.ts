@@ -2,6 +2,7 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { MessageUtil } from 'src/app/shared/utils/message-util';
 import { ErrorDto } from '../models/error-dto';
 import { ContextService } from '../services/context.service';
 
@@ -42,6 +43,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       }),
       catchError(err => {
         this.updateConnectionStatus(err);
+        const uiMessage = MessageUtil.createErrorMsg(err.error.exception);
+
+        this.contextService.addUserMessage(uiMessage);
+        /*
 
         let myError = err;
         try {
@@ -54,7 +59,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         if (!isCustomErrorHandling) {
           // create usermessages
           this.contextService.addHttpError(myError);
-        }
+        }*/
 
         return new Promise<undefined>((resolve, reject) => {
           try {

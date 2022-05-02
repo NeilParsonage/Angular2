@@ -1,0 +1,11 @@
+<div class="content">
+  <h4>{{ 'text.einzelauskunft.audit' | translate }}</h4>
+
+  <div fxLayout="row">
+    <mat-checkbox checked="{{ einzelauskunft?.fhiAudit }} " disabled="1">{{ 'label.einzelauskunft.fhiaudit' | translate }}</mat-checkbox>
+  </div>
+
+  <div fxLayout="row">
+    <mat-checkbox checked="{{ einzelauskunft?.hrkAudit }}" disabled="1">{{ 'label.einzelauskunft.hrkaudit' | translate }}</mat-checkbox>
+  </div>
+</div>
