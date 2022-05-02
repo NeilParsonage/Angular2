@@ -73,9 +73,9 @@ export class EinzelauskunftKopfComponent implements OnInit {
       console.log(this.kabelsaetzeliste);
     });
   }
-  showListe(listeElements: string[], titel: string) {
+  showListe(listeElements: string[], titel: string, dialogWidth: string = '500px') {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = '500px';
+    dialogConfig.width = dialogWidth;
     dialogConfig.height = 'auto';
     dialogConfig.disableClose = true;
     dialogConfig.data = {
@@ -124,10 +124,10 @@ export class EinzelauskunftKopfComponent implements OnInit {
   showListFhsLacke() {
     let listeElements: string[] = [];
     this.fhsLackeliste.forEach((e, i) => {
-      listeElements[i] = e.lackschl + '  ' + e.lackLangText + '  ' + e.lackzus + '  ' + e.lackzLangText;
+      listeElements[i] = e.lackschl + '  ' + e.lackLangText + '  ' + this.to_blank(e.lackzus) + '  ' + this.to_blank(e.lackzLangText);
     });
 
-    this.showListe(listeElements, 'Fhs Lacke');
+    this.showListe(listeElements, 'Fhs Lacke', '600px');
   }
 
   showListFzgLack() {
@@ -136,5 +136,12 @@ export class EinzelauskunftKopfComponent implements OnInit {
     listeElements[0] = this.fzgLack.lackschl + '  ' + this.fzgLack.lackLangText;
 
     this.showListe(listeElements, 'Fzg Lack');
+  }
+
+  to_blank(text: string): string {
+    if (text !== 'undefined' && text !== null) {
+      return text;
+    }
+    return '';
   }
 }
