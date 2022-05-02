@@ -9,8 +9,8 @@ import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 import com.daimler.emst2.fhi.services.SendemaskeService;
 
 public class ActionSollabstandNeuVorberechnen<GenActionEnum extends IProcessId> extends
-AbstractProcessStep<IProcessId, GenActionEnum, IProcessContext> implements
-IAction<IProcessId, GenActionEnum, IProcessContext> {
+        AbstractProcessStep<IProcessId, GenActionEnum, IProcessContext> implements
+        IAction<IProcessId, GenActionEnum, IProcessContext> {
 
     private final SendemaskeService sendemaskeService;
 

@@ -1,28 +1,31 @@
 package com.daimler.emst2.fhi.services;
 
-import java.math.BigDecimal;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.daimler.emst2.fhi.jpa.dao.sp.SollabstaendeVorberechnen;
 import com.daimler.emst2.fhi.model.vorgang.IDbStandardResult;
-import com.daimler.emst2.fhi.sendung.model.DbStandardResult;
 
 @Service
 public class SendemaskeService {
 
-    // TODO Stored Procedure Dialogmasken_interface.Fuelle_sollabst
+    @PersistenceContext
+    EntityManager em;
+
     public IDbStandardResult sollabstaendeNeuBerechnen(String user) {
-        // TODO Auto-generated method stub
-        return null;
+        return SollabstaendeVorberechnen.create(em).execute(getUsername());
     }
 
-    protected IDbStandardResult createDbStandardResult(BigDecimal vorgangId, BigDecimal status) {
-
-        IDbStandardResult result = new DbStandardResult(vorgangId, status);
-
-        if (result.isNok() || result.isCheckFailed()) {
-            // refreshVorgang(result);
+    private static String getUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            return "ANONYMOUS";
         }
-        return result;
+        return authentication.getName();
     }
+
 }
