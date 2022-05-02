@@ -70,7 +70,7 @@ public class Auftraege extends BaseAuditEntity implements Serializable {
     private String verkBez;
 
     @Column(name = "BANDNR")
-    private Integer bandNr;
+    private Long bandNr;
 
     @Column(name = "Bandnr_Alt_Rt2")
     private Long bandNrRt2;
@@ -217,11 +217,11 @@ public class Auftraege extends BaseAuditEntity implements Serializable {
         this.fzgArt = fzgArt;
     }
 
-    public Integer getBandNr() {
+    public Long getBandNr() {
         return bandNr;
     }
 
-    public void setBandNr(Integer bandNr) {
+    public void setBandNr(Long bandNr) {
         this.bandNr = bandNr;
     }
 
@@ -528,11 +528,11 @@ public class Auftraege extends BaseAuditEntity implements Serializable {
         this.zugebunden = zugebunden;
     }
 
-    public Integer getBandnr() {
+    public Long getBandnr() {
         return bandNr;
     }
 
-    public void setBandnr(Integer bandnr) {
+    public void setBandnr(Long bandnr) {
         this.bandNr = bandnr;
     }
 

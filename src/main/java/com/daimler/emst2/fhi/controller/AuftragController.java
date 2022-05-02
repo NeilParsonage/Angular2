@@ -55,6 +55,7 @@ public class AuftragController {
     @PostMapping("/sendung")
     public SendResponseDTO sendeAuftrag(@RequestBody SendungDTO sendung) {
         return auftraegeService.sendeAuftrag(sendung);
+    }
 
     @GetMapping("/kabelsaetze")
     public List<AuftragKabelsaetzeDTO> getAuftragKabelsaetzebyPnr(@RequestParam String pnr) {

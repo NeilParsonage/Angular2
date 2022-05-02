@@ -53,7 +53,7 @@ implements IAction<GenPreconditionEnum, GenActionEnum, CTX> {
     @Override
     protected boolean doExecuteImpl(CTX pContext) {
         Auftraege auftrag = pContext.getAuftrag();
-        int bandnr = auftrag.getBandnr();
+        int bandnr = auftrag.getBandnr().intValue();
         Map<String, Systemwerte> currentLfdNrMap = pContext.getCurrentLfdNrMap();
         FhiSystemwertKeyEnum systemwertKey = FhiSystemwertKeyEnum.getLfdNrKeyFor(getSendTypeEnum(), bandnr);
         String key = systemwertKey.getKey();

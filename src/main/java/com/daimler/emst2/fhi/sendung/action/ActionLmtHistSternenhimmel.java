@@ -15,8 +15,8 @@ public class ActionLmtHistSternenhimmel extends AbstractActionHistSterneAndCodes
 
     @Override
     protected BandAuswahl getHistBandAuswahl(Auftraege pAuftrag) {
-        Integer bandnr = pAuftrag.getBandNr();
+        Long bandnr = pAuftrag.getBandNr();
         Assert.notNull(bandnr);
-        return BandAuswahl.getBandAuswahlFromBandNr(bandnr);
+        return BandAuswahl.getBandAuswahlFromBandNr(bandnr.intValue());
     }
 }

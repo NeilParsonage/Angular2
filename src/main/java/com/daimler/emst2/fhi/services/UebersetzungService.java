@@ -143,7 +143,8 @@ public class UebersetzungService {
 //        ((ISearchBaseServerFacade)filter).setPagesize(PAGESIZE_TO_LOAD_ALL_ENTRIES);
 //
 //        ISearchResult<IUebersetzung> res = getUebersetzungDao().findByFilter(filter);
-        List<Tueb> tuebList = this.tuebDao.findTuebsBySystemAndSprache(SYSTEM_FHI, LANGUAGE_DEUTSCH);
+// List<Tueb> tuebList = this.tuebDao.findTuebsBySystemAndSprache(SYSTEM_FHI, LANGUAGE_DEUTSCH);
+        List<Tueb> tuebList = this.tuebDao.findAllBySystemAndPrognameAndTsprache(SYSTEM_FHI, "ALLE", LANGUAGE_DEUTSCH);
 
         //   List<IUebersetzung> list = res.getEntities();
         tuebList.forEach(ueb -> {
