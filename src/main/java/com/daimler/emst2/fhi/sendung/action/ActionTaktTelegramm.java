@@ -13,11 +13,13 @@ import com.daimler.emst2.fhi.util.TaktTelegramUtil;
 public class ActionTaktTelegramm extends AbstractSendAction {
 
     private final W73rimpoDao taktTelegramDao;
+    private final TaktTelegramUtil util;
 
     public ActionTaktTelegramm(SendTypeEnum pSendTypeEnum, SendActionEnum pActionEnum,
-            ProtocolService pProtocolService, W73rimpoDao pTaktTelegramDao) {
+            ProtocolService pProtocolService, W73rimpoDao pTaktTelegramDao, TaktTelegramUtil util) {
         super(pSendTypeEnum, pActionEnum, pProtocolService);
-        taktTelegramDao = pTaktTelegramDao;
+        this.taktTelegramDao = pTaktTelegramDao;
+        this.util = util;
     }
 
     @Override
@@ -31,7 +33,7 @@ public class ActionTaktTelegramm extends AbstractSendAction {
         Protocol protocol = pContext.getProtocol();
         Auftraege auftrag = pContext.getAuftrag();
 
-        TaktTelegramUtil util = new TaktTelegramUtil();
+        //TaktTelegramUtil util = new TaktTelegramUtil();
         TaktTelegram newTaktTelegram = util.createSendTelegram(getSendTypeEnum(), auftrag);
 
         TaktTelegramDaoHelper.create().saveTelegram(taktTelegramDao, newTaktTelegram);

@@ -1,16 +1,14 @@
 package com.daimler.emst2.fhi.jpa.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import com.daimler.emst2.frw.model.BaseAuditEntity;
 
 /**
  * The persistent class for the V_AUFT_LACK database table.
@@ -19,7 +17,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "V_AUFT_LACK")
 @NamedQuery(name = "Lack.findAll", query = "SELECT v FROM Lack v")
-public class Lack implements Serializable {
+public class Lack extends BaseAuditEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column(name = "AUF_PNR")
@@ -28,13 +26,6 @@ public class Lack implements Serializable {
     @Id
     @Column(name = "AUFT_LACK_PK")
     private String auftLackPk;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "INS_DATE")
-    private Date insDate;
-
-    @Column(name = "INS_USER")
-    private String insUser;
 
     @Column(name = "LACK_LANGTEXT")
     private String lackLangtext;
@@ -47,16 +38,6 @@ public class Lack implements Serializable {
     private String lackzLangtext;
 
     private String lackzus;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "UPD_DATE")
-    private Date updDate;
-
-    @Column(name = "UPD_USER")
-    private String updUser;
-
-    @Column(name = "\"VERSION\"")
-    private BigDecimal version;
 
     public Lack() {
     }
@@ -75,22 +56,6 @@ public class Lack implements Serializable {
 
     public void setAuftLackPk(String auftLackPk) {
         this.auftLackPk = auftLackPk;
-    }
-
-    public Date getInsDate() {
-        return this.insDate;
-    }
-
-    public void setInsDate(Date insDate) {
-        this.insDate = insDate;
-    }
-
-    public String getInsUser() {
-        return this.insUser;
-    }
-
-    public void setInsUser(String insUser) {
-        this.insUser = insUser;
     }
 
     public String getLackLangtext() {
@@ -133,28 +98,10 @@ public class Lack implements Serializable {
         this.lackzus = lackzus;
     }
 
-    public Date getUpdDate() {
-        return this.updDate;
-    }
-
-    public void setUpdDate(Date updDate) {
-        this.updDate = updDate;
-    }
-
-    public String getUpdUser() {
-        return this.updUser;
-    }
-
-    public void setUpdUser(String updUser) {
-        this.updUser = updUser;
-    }
-
-    public BigDecimal getVersion() {
-        return this.version;
-    }
-
-    public void setVersion(BigDecimal version) {
-        this.version = version;
+    @Override
+    public Long getId() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

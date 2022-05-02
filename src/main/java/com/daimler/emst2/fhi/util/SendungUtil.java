@@ -15,7 +15,6 @@ public class SendungUtil {
         return isOffen;
     }
 
-    // TODO JHE CHECK isSendungOffen - Evtl. ein Fehler drin durch DEV-Tests entdeckt
     public static boolean isSendungOffen(Auftraege auftrag, SendTypeEnum pSendTypeEnum) {
         BooleanEnum soll = getSendStatusSoll(auftrag, pSendTypeEnum);
         SendStatusEnum ist = SendungUtil.getSendStatusIst(auftrag, pSendTypeEnum);

@@ -13,6 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.daimler.emst2.frw.model.BaseAuditEntity;
 
 /**
  * The persistent class for the V_AUFT_HIST database table.
@@ -21,7 +22,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name="V_AUFT_HIST")
 @NamedQuery(name = "AuftragHistorie.findAll", query = "SELECT v FROM AuftragHistorie v")
-public class AuftragHistorie implements Serializable {
+public class AuftragHistorie extends BaseAuditEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
     @Transient
@@ -29,20 +30,13 @@ public class AuftragHistorie implements Serializable {
 
     @Id
 	@Column(name="AUF_HIST_ID")
-	private BigDecimal aufHistId;
+    private Long aufHistId;
 
 	@Column(name="AUF_PNR")
 	private String aufPnr;
 
 	@Column(name="AUFH_ID")
 	private BigDecimal aufhId;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="INS_DATE")
-	private Date insDate;
-
-	@Column(name="INS_USER")
-	private String insUser;
 
 	private String melder;
 
@@ -54,26 +48,16 @@ public class AuftragHistorie implements Serializable {
 	private Date sendetermin;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="UPD_DATE")
-	private Date updDate;
-
-	@Column(name="UPD_USER")
-	private String updUser;
-
-	@Column(name="\"VERSION\"")
-	private BigDecimal version;
-
-	@Temporal(TemporalType.DATE)
 	private Date zeit;
 
 	public AuftragHistorie() {
 	}
 
-	public BigDecimal getAufHistId() {
+    public Long getAufHistId() {
 		return this.aufHistId;
 	}
 
-	public void setAufHistId(BigDecimal aufHistId) {
+    public void setAufHistId(Long aufHistId) {
 		this.aufHistId = aufHistId;
 	}
 
@@ -91,22 +75,6 @@ public class AuftragHistorie implements Serializable {
 
 	public void setAufhId(BigDecimal aufhId) {
 		this.aufhId = aufhId;
-	}
-
-	public Date getInsDate() {
-		return this.insDate;
-	}
-
-	public void setInsDate(Date insDate) {
-		this.insDate = insDate;
-	}
-
-	public String getInsUser() {
-		return this.insUser;
-	}
-
-	public void setInsUser(String insUser) {
-		this.insUser = insUser;
 	}
 
 	public String getMelder() {
@@ -141,29 +109,6 @@ public class AuftragHistorie implements Serializable {
 		this.sendetermin = sendetermin;
 	}
 
-	public Date getUpdDate() {
-		return this.updDate;
-	}
-
-	public void setUpdDate(Date updDate) {
-		this.updDate = updDate;
-	}
-
-	public String getUpdUser() {
-		return this.updUser;
-	}
-
-	public void setUpdUser(String updUser) {
-		this.updUser = updUser;
-	}
-
-	public BigDecimal getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(BigDecimal version) {
-		this.version = version;
-	}
 
 	public Date getZeit() {
 		return this.zeit;
@@ -172,5 +117,10 @@ public class AuftragHistorie implements Serializable {
 	public void setZeit(Date zeit) {
 		this.zeit = zeit;
 	}
+
+    @Override
+    public Long getId() {
+        return aufHistId;
+    }
 
 }

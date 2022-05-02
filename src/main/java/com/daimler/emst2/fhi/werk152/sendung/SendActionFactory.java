@@ -28,6 +28,7 @@ import com.daimler.emst2.fhi.sendung.processcommon.action.ActionSollabstandNeuVo
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 import com.daimler.emst2.fhi.services.AuftragHistorienService;
 import com.daimler.emst2.fhi.services.SendemaskeService;
+import com.daimler.emst2.fhi.util.TaktTelegramUtil;
 
 
 /**
@@ -69,6 +70,9 @@ public class SendActionFactory implements IActionFactory<SendActionEnum> {
 
     @Autowired
     private AuftragHistorienService auftragHistorienService;
+
+    @Autowired
+    TaktTelegramUtil taktTelegramUtil;
 
 	/**
 	 * helper actions
@@ -124,7 +128,7 @@ public class SendActionFactory implements IActionFactory<SendActionEnum> {
 					getProtocolService());
 		case FHI_TAKT_TELEGRAMM:
 			return new ActionTaktTelegramm(SendTypeEnum.FHI, pActionEnum,
-					getProtocolService(), taktTelegramDao);
+                    getProtocolService(), taktTelegramDao, taktTelegramUtil);
 		case LMT_HISTORISIERUNG_STERNENHIMMEL:
 			actionlmtHistSternenhimmel = new ActionLmtHistSternenhimmel(
 					pActionEnum, getProtocolService());
@@ -140,7 +144,7 @@ public class SendActionFactory implements IActionFactory<SendActionEnum> {
 					getProtocolService());
 		case LMT_TAKT_TELEGRAMM:
 			return new ActionTaktTelegramm(SendTypeEnum.LMT, pActionEnum,
-					getProtocolService(), taktTelegramDao);
+                    getProtocolService(), taktTelegramDao, taktTelegramUtil);
 		case RHM_LAUFENDE_NUMMER_AKTUALISIEREN:
 			return new ActionIncLaufendeNummer<SendPreconditionEnum, SendActionEnum, SendContext>(SendTypeEnum.RHM,
 					SendPreconditionEnum.AUFTRAG_LFD_NR_FETCHED, pActionEnum,
@@ -150,7 +154,7 @@ public class SendActionFactory implements IActionFactory<SendActionEnum> {
 					getProtocolService());
 		case RHM_TAKT_TELEGRAMM:
 			return new ActionTaktTelegramm(SendTypeEnum.RHM, pActionEnum,
-					getProtocolService(), taktTelegramDao);
+                    getProtocolService(), taktTelegramDao, taktTelegramUtil);
 		case UBM_LAUFENDE_NUMMER_AKTUALISIEREN:
 			return new ActionIncLaufendeNummer<SendPreconditionEnum, SendActionEnum, SendContext>(SendTypeEnum.UBM,
 					SendPreconditionEnum.AUFTRAG_LFD_NR_FETCHED, pActionEnum,
@@ -160,7 +164,7 @@ public class SendActionFactory implements IActionFactory<SendActionEnum> {
 					getProtocolService());
 		case UBM_TAKT_TELEGRAMM:
 			return new ActionTaktTelegramm(SendTypeEnum.UBM, pActionEnum,
-					getProtocolService(), taktTelegramDao);
+                    getProtocolService(), taktTelegramDao, taktTelegramUtil);
 		case ALL_SAVE_AUFTRAG:
 			return new ActionSaveAuftrag<SendActionEnum>(pActionEnum,
 					getProtocolService(), auftragDao);

@@ -1,16 +1,14 @@
 package com.daimler.emst2.fhi.jpa.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import com.daimler.emst2.frw.model.BaseAuditEntity;
 
 /**
  * The persistent class for the AKTIVE_RESTRIKTION_HIST database table.
@@ -19,7 +17,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "AKTIVE_RESTRIKTION_HIST")
 @NamedQuery(name = "AktiveRestriktionHist.findAll", query = "SELECT a FROM AktiveRestriktionHist a")
-public class AktiveRestriktionHist implements Serializable { // old name : HistRestriktion
+public class AktiveRestriktionHist extends BaseAuditEntity implements Serializable { // old name : HistRestriktion
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -42,13 +40,6 @@ public class AktiveRestriktionHist implements Serializable { // old name : HistR
 
     @Column(name = "HINTERGUND_FARBE")
     private String hintergundFarbe;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "INS_DATE")
-    private Date insDate;
-
-    @Column(name = "INS_USER")
-    private String insUser;
 
     @Column(name = "KRIT_REL_CODE1")
     private String code1;
@@ -81,16 +72,6 @@ public class AktiveRestriktionHist implements Serializable { // old name : HistR
 
     @Column(name = "TAB_ANZEIGE_01")
     private Integer knzCodeAnzeige;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "UPD_DATE")
-    private Date updDate;
-
-    @Column(name = "UPD_USER")
-    private String updUser;
-
-    @Column(name = "\"VERSION\"")
-    private BigDecimal version;
 
     @Column(name = "VORABS")
     private Long abstand;
@@ -154,22 +135,6 @@ public class AktiveRestriktionHist implements Serializable { // old name : HistR
         this.hintergundFarbe = hintergundFarbe;
     }
 
-    public Date getInsDate() {
-        return this.insDate;
-    }
-
-    public void setInsDate(Date insDate) {
-        this.insDate = insDate;
-    }
-
-    public String getInsUser() {
-        return this.insUser;
-    }
-
-    public void setInsUser(String insUser) {
-        this.insUser = insUser;
-    }
-
     public String getKriterium() {
         return this.kriterium;
     }
@@ -208,30 +173,6 @@ public class AktiveRestriktionHist implements Serializable { // old name : HistR
 
     public void setSternPos(Long sternPos) {
         this.sternPos = sternPos;
-    }
-
-    public Date getUpdDate() {
-        return this.updDate;
-    }
-
-    public void setUpdDate(Date updDate) {
-        this.updDate = updDate;
-    }
-
-    public String getUpdUser() {
-        return this.updUser;
-    }
-
-    public void setUpdUser(String updUser) {
-        this.updUser = updUser;
-    }
-
-    public BigDecimal getVersion() {
-        return this.version;
-    }
-
-    public void setVersion(BigDecimal version) {
-        this.version = version;
     }
 
     public Long getAbstand() {
@@ -288,6 +229,11 @@ public class AktiveRestriktionHist implements Serializable { // old name : HistR
 
     public void setKnzSternMarkierung(Integer knzSternMarkierung) {
         this.knzSternMarkierung = knzSternMarkierung;
+    }
+
+    @Override
+    public Long getId() {
+        return arhiId;
     }
 
 }

@@ -6,11 +6,15 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.daimler.emst2.frw.model.BaseAuditEntity;
 
 /**
  * The persistent class for the W73RIMPO database table.
@@ -18,11 +22,13 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @NamedQuery(name="W73rimpo.findAll", query="SELECT w FROM W73rimpo w")
-public class W73rimpo implements Serializable {
+public class W73rimpo extends BaseAuditEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="IMPO_PK")
+    @SequenceGenerator(name = "W73RIMPO_SEQ_GENERATOR", sequenceName = "W73RIMPO_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "W73RIMPO_SEQ_GENERATOR")
 	private long impoPk;
 
 	@Column(name="IMPO_EINGANGSIMPULS_ID")
@@ -49,23 +55,6 @@ public class W73rimpo implements Serializable {
 
 	@Column(name="IMPO_VARIABLE_DATEN")
 	private String impoVariableDaten;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="INS_DATE")
-	private Date insDate;
-
-	@Column(name="INS_USER")
-	private String insUser;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="UPD_DATE")
-	private Date updDate;
-
-	@Column(name="UPD_USER")
-	private String updUser;
-
-	@Column(name="\"VERSION\"")
-	private BigDecimal version;
 
 	public W73rimpo() {
 	}
@@ -142,44 +131,9 @@ public class W73rimpo implements Serializable {
 		this.impoVariableDaten = impoVariableDaten;
 	}
 
-	public Date getInsDate() {
-		return this.insDate;
-	}
-
-	public void setInsDate(Date insDate) {
-		this.insDate = insDate;
-	}
-
-	public String getInsUser() {
-		return this.insUser;
-	}
-
-	public void setInsUser(String insUser) {
-		this.insUser = insUser;
-	}
-
-	public Date getUpdDate() {
-		return this.updDate;
-	}
-
-	public void setUpdDate(Date updDate) {
-		this.updDate = updDate;
-	}
-
-	public String getUpdUser() {
-		return this.updUser;
-	}
-
-	public void setUpdUser(String updUser) {
-		this.updUser = updUser;
-	}
-
-	public BigDecimal getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(BigDecimal version) {
-		this.version = version;
-	}
+    @Override
+    public Long getId() {
+        return impoPk;
+    }
 
 }
