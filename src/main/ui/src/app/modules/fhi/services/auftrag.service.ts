@@ -8,6 +8,7 @@ import { AuftragKabelsaetze } from '../models/auftragKabelsatz';
 import { AuftragLacke } from '../models/auftragLacke';
 import { AuftragTermine } from '../models/auftragTermine';
 import { AuftragTermineDetails } from '../models/auftragTermineDetails';
+import { Sendung } from '../models/sendung';
 
 @Injectable({
   providedIn: 'root',
@@ -76,5 +77,9 @@ export class AuftragService {
       params: new HttpParams().set('lfdNrGes', lfdNrGes),
     };
     return this.http.get<Auftrag[]>(`${this.endpoint}/listAuftraegebyGeLfdNr`, options);
+  }
+
+  public sendung(sendung: Sendung) {
+    return this.http.post<string>(`${this.endpoint}/sendung`, sendung);
   }
 }

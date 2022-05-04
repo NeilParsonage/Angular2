@@ -16,13 +16,14 @@ import { PrivilegeRouteGuard } from './core/guards/privilegeRouteGuard';
 import { BlobErrorHttpInterceptor } from './core/http-error-interceptor/blob-error-http-interceptor';
 import { HttpErrorInterceptor } from './core/http-error-interceptor/http-error-interceptor';
 import { FhiModule } from './modules/fhi/fhi.module';
+import { ConfirmDialogComponent } from './shared/components/confirm-dialog/confirm-dialog.component';
 import { ConfirmationPopupComponent } from './shared/components/confirmation-popup/confirmation-popup.component';
 import { MessageCardStapleComponent } from './shared/components/message-card-staple/message-card-staple.component';
 import { MaterialModule } from './shared/modules/material.module';
 import { TuebService } from './shared/services/tueb.service';
 
 @NgModule({
-  declarations: [AppComponent, ConfirmationPopupComponent, MessageCardStapleComponent],
+  declarations: [AppComponent, ConfirmDialogComponent, ConfirmationPopupComponent, MessageCardStapleComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,

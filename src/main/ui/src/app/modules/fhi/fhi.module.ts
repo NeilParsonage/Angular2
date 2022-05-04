@@ -17,6 +17,7 @@ import { EinzelauskunftSperrenComponent } from './components/einzelauskunft/einz
 import { EinzelauskunftTermineComponent } from './components/einzelauskunft/einzelauskunft_termine/einzelauskunft_termine.component';
 import { PnrChooserComponent } from './components/pnr-chooser/pnr-chooser.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { SendemaskeComponent } from './components/sendemaske/sendemaske.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     EinzelauskunftSperrenComponent,
     DialogShowlistComponent,
     PnrChooserComponent,
+    SendemaskeComponent,
   ],
   providers: [],
   imports: [CommonModule, FlexLayoutModule, FormsModule, LibEmstTableModule, MaterialModule, ReactiveFormsModule, TranslateModule.forRoot()],
