@@ -34,10 +34,10 @@ import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDetailsDao;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
 import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
-import com.daimler.emst2.fhi.jpa.model.AuftragSperrInformation;
 import com.daimler.emst2.fhi.jpa.model.AuftragKabelsaetze;
 import com.daimler.emst2.fhi.jpa.model.AuftragLacke;
 import com.daimler.emst2.fhi.jpa.model.AuftragSendestatus;
+import com.daimler.emst2.fhi.jpa.model.AuftragSperrInformation;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermine;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragAnkuendigungenComparator;
@@ -67,12 +67,12 @@ public class AuftraegeService {
     AuftragTermineDetailsDao auftragTermineDetailsDao;
 
     @Autowired
-
     SendungService sendungService;
 
     @Autowired
     FhiDtoFactory dtoFactory;
 
+    @Autowired
     AuftragKabelsaetzeDao auftragKabelsaetzeDao;
 
     @Autowired
