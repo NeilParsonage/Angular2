@@ -1,90 +1,124 @@
 package com.daimler.emst2.fhi.jpa.model;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import com.daimler.emst2.frw.model.BaseAuditEntity;
+
+/**
+ * The persistent class for the TUEB database table.
+ * 
+ */
 @Entity
-@Table(name = "TUEB")
-public class Tueb {
+@NamedQuery(name="Tueb.findAll", query="SELECT t FROM Tueb t")
+public class Tueb extends BaseAuditEntity implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(name = "ID")
-    private Long id;
+	@Id
+	private long id;
 
-    @Column(name = "SYSTEM")
-    private String system;
+	@Column(name="HIST_AUTOR")
+	private String histAutor;
 
-    @Column(name = "PROGNAME")
-    private String progname;
+	@Temporal(TemporalType.DATE)
+	@Column(name="HIST_DATUM")
+	private Date histDatum;
 
-    @Column(name = "TSPRACHE")
-    private String tsprache;
+	private String progname;
 
-    @Column(name = "TNAME")
-    private String tname;
+  @Column(name = "SYSTEM")
+	private String system;
 
-    @Column(name = "TLAE")
-    private String tlae;
+	private String tlae;
 
-    @Column(name = "TTEXT")
-    private String ttext;
+	private String tname;
 
-    public Long getId() {
+	private String tsprache;
+
+	private String ttext;
+
+
+	public Tueb() {
+	}
+
+	@Override
+  public Long getId() {
         return id;
-    }
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public void setId(Long id) {
+     this.id = id;
+  }
 
-    public String getSystem() {
-        return system;
-    }
+	public String getHistAutor() {
+		return this.histAutor;
+	}
 
-    public void setSystem(String system) {
-        this.system = system;
-    }
+	public void setHistAutor(String histAutor) {
+		this.histAutor = histAutor;
+	}
 
-    public String getProgname() {
-        return progname;
-    }
+	public Date getHistDatum() {
+		return this.histDatum;
+	}
 
-    public void setProgname(String progname) {
-        this.progname = progname;
-    }
+	public void setHistDatum(Date histDatum) {
+		this.histDatum = histDatum;
+	}
 
-    public String getTsprache() {
-        return tsprache;
-    }
+	public String getProgname() {
+		return this.progname;
+	}
 
-    public void setTsprache(String tsprache) {
-        this.tsprache = tsprache;
-    }
+	public void setProgname(String progname) {
+		this.progname = progname;
+	}
 
-    public String getTname() {
-        return tname;
-    }
+	public String getSystem() {
+		return this.system;
+	}
 
-    public void setTname(String tname) {
-        this.tname = tname;
-    }
+	public void setSystem(String system) {
+		this.system = system;
+	}
 
-    public String getTlae() {
-        return tlae;
-    }
+	public String getTlae() {
+		return this.tlae;
+	}
 
-    public void setTlae(String tlae) {
-        this.tlae = tlae;
-    }
+	public void setTlae(String tlae) {
+		this.tlae = tlae;
+	}
 
-    public String getTtext() {
-        return ttext;
-    }
+	public String getTname() {
+		return this.tname;
+	}
 
-    public void setTtext(String ttext) {
-        this.ttext = ttext;
-    }
+	public void setTname(String tname) {
+		this.tname = tname;
+	}
+
+	public String getTsprache() {
+		return this.tsprache;
+	}
+
+	public void setTsprache(String tsprache) {
+		this.tsprache = tsprache;
+	}
+
+	public String getTtext() {
+		return this.ttext;
+	}
+
+	public void setTtext(String ttext) {
+		this.ttext = ttext;
+	}
 
 }

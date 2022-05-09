@@ -181,7 +181,7 @@
   dependencies:
     tslib "^2.2.0"
 
-"@angular/cdk@^12.1.4":
+"@angular/cdk@12.2.11":
   version "12.2.11"
   resolved "https://nexus-emst-ci.dwoeacp.dewoe.corpintra.net/repository/npm-group/@angular/cdk/-/cdk-12.2.11.tgz#e4f9f45508a0a808eba0b7f6df86e20c86df8306"
   integrity sha512-GgBB3NdVSv6RnDDOMspeLGg3uCbbmWIEIQ9VIqT5TWXWnljd2EANOQWdLu+fkmRzJn66FFdlTtJ6rHYoY/oBkA==
@@ -1560,7 +1560,7 @@
   resolved "https://nexus-emst-ci.dwoeacp.dewoe.corpintra.net/repository/npm-group/@types/node/-/node-16.11.1.tgz#2e50a649a50fc403433a14f829eface1a3443e97"
   integrity sha512-PYGcJHL9mwl1Ek3PLiYgyEKtwTMmkMw4vbiyz/ps3pfdRYLVv+SN7qHVAImrjdAXxgluDEw6Ph4lyv+m9UpRmA==
 
-"@types/node@^12.20.18":
+"@types/node@12.20.33":
   version "12.20.33"
   resolved "https://nexus-emst-ci.dwoeacp.dewoe.corpintra.net/repository/npm-group/@types/node/-/node-12.20.33.tgz#24927446e8b7669d10abacedd16077359678f436"
   integrity sha512-5XmYX2GECSa+CxMYaFsr2mrql71Q4EvHjKS+ox/SiwSdaASMoBIWE6UmZqFO+VX1jIcsYLStI4FFoB6V7FeIYw==

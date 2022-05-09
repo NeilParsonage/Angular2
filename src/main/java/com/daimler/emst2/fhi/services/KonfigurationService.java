@@ -1,11 +1,18 @@
 package com.daimler.emst2.fhi.services;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import com.daimler.emst2.fhi.constants.FhiSystemGruppeKeyEnum;
+import com.daimler.emst2.fhi.jpa.dao.SystemgruppenDao;
 import com.daimler.emst2.fhi.jpa.dao.SystemwerteDao;
+import com.daimler.emst2.fhi.jpa.model.Systemgruppen;
+import com.daimler.emst2.fhi.jpa.model.Systemgruppenzuo;
 import com.daimler.emst2.fhi.jpa.model.Systemwerte;
 
 @Service
@@ -14,9 +21,12 @@ public class KonfigurationService {
     @Autowired
     private SystemwerteDao systemwerteDao;
 
+    @Autowired
+    private SystemgruppenDao systemgruppenDao;
+
     private static final String SYSTEMWERT_LOCALE = "LOCALE";
 
-    private static final String SYSTEMWERT_WERKSID = "WERKS_ID";
+    private static final String SYSTEMWERT_WERKSID = "FHI_WERK";
     
     private static final String SYSTEMWERT_UMGEBUNG = "SYSTEM.ENV";
 
@@ -52,6 +62,25 @@ public class KonfigurationService {
             return StringUtils.EMPTY;
         }
         return locale;
+    }
+
+    public Map<String, Systemwerte> getKonfigurationGruppeWithReload(FhiSystemGruppeKeyEnum auftragLfdNummern) {
+        String systemgruppeName = auftragLfdNummern.getKey();
+        //final ISystemgruppe systemgruppe = getSystemgruppeByName(systemgruppeName);
+
+        Systemgruppen systemgruppe = this.systemgruppenDao.findByGruppeName(systemgruppeName);
+
+        final HashMap<String, Systemwerte> result = new HashMap<String, Systemwerte>();
+        for (Systemgruppenzuo membership : systemgruppe.getSystemgruppenzuos()) {
+            Systemwerte iSystemwert = membership.getSystemwerte();
+            final String key = iSystemwert.getWertName();
+            result.put(key, iSystemwert);
+
+            // und aktualisiere die gecachten Systemwerte - falls bereits initialisiert
+            // addSystemwert(iSystemwert);
+        }
+
+        return result;
     }
 
 }

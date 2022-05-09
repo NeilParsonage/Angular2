@@ -1,0 +1,18 @@
+<h2 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{ options.title }}</h2>
+<mat-dialog-content *ngIf="options.message" class="mat-typography" style="width: 900px">
+  <mat-form-field class="example-full-width" style="width: 900px; height: 800px" appearance="fill">
+    <mat-label>Leave a comment</mat-label>
+    <textarea matInput placeholder="" style="width: 900px; height: 800px">{{ options.message }}</textarea>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button color="primary" (click)="onChoiceAbort()">
+    <mat-icon *ngIf="this.getButtonIconAbort()">{{ this.getButtonIconAbort() }}</mat-icon
+    ><span> {{ getButtonTextAbort() }}</span>
+  </button>
+  <button mat-raised-button color="primary" (click)="onChoiceConfirm()" cdkFocusInitial>
+    <mat-icon *ngIf="this.getButtonIconConfirm()">{{ this.getButtonIconConfirm() }}</mat-icon
+    ><span> {{ getButtonTextConfirm() }}</span>
+  </button>
+</mat-dialog-actions>

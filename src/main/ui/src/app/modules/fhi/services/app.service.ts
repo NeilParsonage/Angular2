@@ -1,6 +1,6 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import { AppInfo } from '../models/app-info';
+import { AppInfo } from 'emst-ui-frame';
 import { Observable } from 'rxjs';
 
 @Injectable({

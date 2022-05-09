@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AppToolbarButton, AppToolbarListener, DaiUiFrameService } from 'emst-ui-frame';
+import { AppInfo, AppToolbarButton, AppToolbarListener, DaiUiFrameService } from 'emst-ui-frame';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakInstance } from 'keycloak-js';
-import { Subscription } from 'rxjs';
+import packageInfo from 'package.json';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { routes } from './app-routing.module';
 import { ContextService } from './core/services/context.service';
-//import { InfoDialogService } from './shared/services/info-dialog/info-dialog.service';
 import { UserMessageService } from './shared/services/user-message.service';
 
 const appToolbarButtons: AppToolbarButton[] = [];
@@ -21,6 +22,9 @@ export class AppComponent implements OnInit, OnDestroy {
   keycloakInstance: KeycloakInstance;
   appToolbarButtons = appToolbarButtons;
   appRoutes = routes;
+  appName: string = packageInfo?.name?.toUpperCase();
+  versionInfo: string = packageInfo?.version;
+  appInfo$ = new BehaviorSubject<Array<AppInfo>>(this.createAppInfo());
 
   private pageUserMessages: Subscription;
 
@@ -36,6 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
   };
 
   constructor(
+    public dialog: MatDialog,
     public keycloakService: KeycloakService,
     public context: ContextService,
     private snackBar: MatSnackBar,
@@ -78,5 +83,23 @@ export class AppComponent implements OnInit, OnDestroy {
 
   actionTestServerConnection(): void {
     this.httpClient.get('/actuator/info').subscribe();
+  }
+
+  private createAppInfo(): Array<AppInfo> {
+    const result = new Array<AppInfo>();
+    let entry: AppInfo;
+    entry = {
+      displayText: 'Name',
+      displayInformation: this.appName,
+    };
+    result.push(entry);
+
+    entry = {
+      displayText: 'Version',
+      displayInformation: this.versionInfo,
+    };
+    result.push(entry);
+
+    return result;
   }
 }
