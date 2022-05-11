@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,9 +30,13 @@ import com.daimler.emst2.fhi.sendung.process.action.IActionFactory;
 import com.daimler.emst2.fhi.sendung.process.precondition.IPreconditionFactory;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 import com.daimler.emst2.fhi.util.BasisCollectionUtils;
+import com.daimler.emst2.fhi.werk060.Sendung060;
 import com.daimler.emst2.fhi.werk152.Sendung152;
 import com.daimler.emst2.fhi.werk152.sendung.SendCheckFactory;
 import com.daimler.emst2.frw.context.AuthenticationContext;
+
+// TODO refactor 2x SendungService :
+// SendungService060 | SendungService152
 
 @Transactional
 @Service
@@ -55,9 +60,15 @@ public class SendungService {
     KriterienService kriterienService;
 
     @Autowired
+    @Qualifier("sendActionFactory152")
     IActionFactory<SendActionEnum> sendActionFactory152;
 
     @Autowired
+    @Qualifier("sendActionFactory060")
+    IActionFactory<SendActionEnum> sendActionFactory060;
+
+    @Autowired
+    @Qualifier("preconditionFactory060")
     IPreconditionFactory<SendPreconditionEnum> preconditionFactory;
 
     @Autowired
@@ -94,7 +105,8 @@ public class SendungService {
         // * in 060: sendung implementation in plsql - information via dbResult, messages in "salamitaktik" - controlled in continueFunctionContainer
         switch (sendContext.mandantEnum) {
             case WERK_060:
-                auftragSendung060Start(sendContext);
+                // auftragSendung060Start(sendContext);
+                auftragSendung521Start(sendContext);
                 return;
             case WERK_152:
                 auftragSendung521Start(sendContext);
@@ -106,7 +118,7 @@ public class SendungService {
 
     private void auftragSendung060Start(SendContext sendContext) {
         // TODO Auto-generated method stub
-
+        throw new RuntimeException("Sendung für Wörth - Not implemented yet!");
     }
 
     private void auftragSendung521Start(SendContext ctx) {
@@ -225,8 +237,9 @@ public class SendungService {
     private ISendService getSendService(SendContext sendContext) {
         switch (sendContext.mandantEnum) {
             case WERK_060:
-                throw new RuntimeException("SendService Werk060 not implemented!");
-            //return Sendung060.create(protocolService, sendActionFactory152);
+                return Sendung060.create(protocolService, sendActionFactory060,
+                        com.daimler.emst2.fhi.werk060.sendung.SendCheckFactory.create(protocolService),
+                        preconditionFactory);
             case WERK_152:
                 return Sendung152.create(protocolService, sendActionFactory152,
                         SendCheckFactory.create(protocolService), preconditionFactory);
@@ -234,7 +247,6 @@ public class SendungService {
                 throw new RuntimeException("invalid mandant" + sendContext.mandant);
         }
     }
-
 
 
 }

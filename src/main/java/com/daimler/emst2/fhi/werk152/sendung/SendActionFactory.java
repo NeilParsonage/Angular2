@@ -39,7 +39,7 @@ import com.daimler.emst2.fhi.util.TaktTelegramUtil;
  * 
  * @author thb
  */
-@Service
+@Service("sendActionFactory152")
 public class SendActionFactory implements IActionFactory<SendActionEnum> {
 
 	/**

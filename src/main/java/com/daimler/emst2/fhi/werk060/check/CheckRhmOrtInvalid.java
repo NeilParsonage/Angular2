@@ -1,5 +1,7 @@
-package com.daimler.emst2.fhi.sendung.check;
+package com.daimler.emst2.fhi.werk060.check;
 
+import com.daimler.emst2.fhi.sendung.check.AbstractCheckOrtError;
+import com.daimler.emst2.fhi.sendung.check.SendCheckEnum;
 import com.daimler.emst2.fhi.sendung.constants.OrtCheckEnum;
 import com.daimler.emst2.fhi.sendung.constants.OrtTypEnum;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
@@ -28,8 +30,7 @@ public class CheckRhmOrtInvalid extends AbstractCheckOrtError {
      */
     @Override
     protected boolean isOrtSendAllowed(SendContext pContext) {
-        boolean isAllowed = isOrtAllowedForParameters(pContext, OrtCheckEnum.RHM_AUSFALL_ERLAUBT_152, OrtTypEnum.RHM);
-        isAllowed &= isOrtAllowedForParameters(pContext, OrtCheckEnum.RHM_AUSFALL_ERLAUBT_152, OrtTypEnum.FHS);
+        boolean isAllowed = isOrtAllowedForParameters(pContext, OrtCheckEnum.RHM_SENDUNG_ERLAUBT_060, OrtTypEnum.RHM);
         return isAllowed;
     }
 }

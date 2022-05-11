@@ -55,10 +55,10 @@ public class SendungenService extends AbstractProcessService<SendPreconditionEnu
     }
 
     public static ISendService create(ProtocolService protocolService,
-            IActionFactory<SendActionEnum> sendActionFactory152,
+            IActionFactory<SendActionEnum> sendActionFactory,
             ICheckFactory<SendCheckEnum> sendCheckFactory,
             IPreconditionFactory<SendPreconditionEnum> preconditionFactory) {
-        return new SendungenService(protocolService, sendActionFactory152, sendCheckFactory, preconditionFactory);
+        return new SendungenService(protocolService, sendActionFactory, sendCheckFactory, preconditionFactory);
     }
 
 	@Override

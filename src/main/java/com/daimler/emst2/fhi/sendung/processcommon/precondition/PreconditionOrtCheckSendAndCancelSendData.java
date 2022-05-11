@@ -11,6 +11,7 @@ import com.daimler.emst2.fhi.jpa.model.OrtCheck;
 import com.daimler.emst2.fhi.model.IProcessId;
 import com.daimler.emst2.fhi.sendung.constants.OrtCheckEnum;
 import com.daimler.emst2.fhi.sendung.constants.OrtTypEnum;
+import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.process.IProcessContext;
 import com.daimler.emst2.fhi.sendung.process.precondition.AbstractPrecondition;
 import com.daimler.emst2.fhi.sendung.processcommon.IOrtsdatenProcessContext;
@@ -30,18 +31,24 @@ extends AbstractPrecondition<GenPreconditionEnum, CTX> {
 
     @Override
     public boolean doPrepareContext(CTX pContext) {
-        List<OrtCheck> ortChecksList = ortCheckCustomDao.getSendAndCancelSendChecks();
+        SendContext sendContext = (SendContext)pContext;
+        String suffixWerk = sendContext.mandantEnum.getMandantString();
+        List<String> sendOrStornoSufixes = OrtCheckEnum.getSendOrStornoSufixes(suffixWerk);
+        List<OrtCheck> ortChecksList = ortCheckCustomDao.getSendAndCancelSendChecks(sendOrStornoSufixes);
         storeCheckInfoInContext(ortChecksList, pContext);
         return true;
     }
 
     private void storeCheckInfoInContext(List<OrtCheck> pOrtCheckList, CTX pContext) {
+        SendContext sendContext = (SendContext)pContext;
+        final String werkSuffix = "_".concat(sendContext.mandantEnum.getMandantString());
+
         Map<OrtCheckEnum, Map<OrtTypEnum, Set<String>>> checkMap = new HashMap<OrtCheckEnum, Map<OrtTypEnum, Set<String>>>();
         for (OrtCheck iOrtCheck : pOrtCheckList) {
             String ort = iOrtCheck.getOrt();
             String ortTyp = iOrtCheck.getAuftragOrtsTyp();
             String ortCheck = iOrtCheck.getOrtCheck();
-            OrtCheckEnum ortCheckEnum = OrtCheckEnum.getOrtCheckEnum(ortCheck);
+            OrtCheckEnum ortCheckEnum = OrtCheckEnum.getOrtCheckEnum(werkSuffix, ortCheck);
             OrtTypEnum ortTypEnum = OrtTypEnum.getOrtTypEnum(ortTyp);
             if (!checkMap.containsKey(ortCheckEnum)) {
                 Map<OrtTypEnum, Set<String>> ortTypeMap = new HashMap<OrtTypEnum, Set<String>>();
