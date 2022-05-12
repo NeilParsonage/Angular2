@@ -69,7 +69,11 @@ public class SendungService {
 
     @Autowired
     @Qualifier("preconditionFactory060")
-    IPreconditionFactory<SendPreconditionEnum> preconditionFactory;
+    IPreconditionFactory<SendPreconditionEnum> preconditionFactory060;
+
+    @Autowired
+    @Qualifier("preconditionFactory152")
+    IPreconditionFactory<SendPreconditionEnum> preconditionFactory152;
 
     @Autowired
     AuftraegeDao auftragDao;
@@ -239,10 +243,10 @@ public class SendungService {
             case WERK_060:
                 return Sendung060.create(protocolService, sendActionFactory060,
                         com.daimler.emst2.fhi.werk060.sendung.SendCheckFactory.create(protocolService),
-                        preconditionFactory);
+                        preconditionFactory060);
             case WERK_152:
                 return Sendung152.create(protocolService, sendActionFactory152,
-                        SendCheckFactory.create(protocolService), preconditionFactory);
+                        SendCheckFactory.create(protocolService), preconditionFactory152);
             default:
                 throw new RuntimeException("invalid mandant" + sendContext.mandant);
         }
