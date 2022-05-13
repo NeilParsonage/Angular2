@@ -8,6 +8,16 @@
         </mat-form-field>
       </div>
       <div fxLayout="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Sendungsart</mat-label>
+          <mat-select [(ngModel)]="selectedSendung">
+            <mat-option *ngFor="let option of options" [value]="option.value">
+              {{ option.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column">
         <button mat-raised-button color="primary" (click)="sendung()">Sendung</button>
       </div>
     </div>

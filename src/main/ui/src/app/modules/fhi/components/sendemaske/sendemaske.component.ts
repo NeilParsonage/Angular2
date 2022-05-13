@@ -14,6 +14,15 @@ import { AuftragService } from '../../services/auftrag.service';
 })
 export class SendemaskeComponent {
   selectedPnr: string;
+  selectedSendung: SendeTyp;
+
+  options = [
+    { value: SendeTyp.Komplett, viewValue: 'Komplettsendung' },
+    { value: SendeTyp.TeilSendung_FHI, viewValue: 'Teilsendung FHI' },
+    { value: SendeTyp.TeilSendung_LMT, viewValue: 'Teilsendung LMT' },
+    { value: SendeTyp.TeilSendung_RHM, viewValue: 'Teilsendung RHM' },
+    { value: SendeTyp.TeilSendung_UBM, viewValue: 'Teilsendung UBM' },
+  ];
 
   constructor(public dialog: MatDialog, private auftragService: AuftragService) {}
 
@@ -21,7 +30,7 @@ export class SendemaskeComponent {
     const sendData: Sendung = {
       pnr: this.selectedPnr,
       version: 0,
-      sendeTyp: SendeTyp.Komplett,
+      sendeTyp: this.selectedSendung,
     };
     const result = await this.doSendung(sendData);
     this.openConfirmDialogSendung(JSON.stringify(result, null, 4));
