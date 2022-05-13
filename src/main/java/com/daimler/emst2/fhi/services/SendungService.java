@@ -243,10 +243,11 @@ public class SendungService {
             case WERK_060:
                 return Sendung060.create(protocolService, sendActionFactory060,
                         com.daimler.emst2.fhi.werk060.sendung.SendCheckFactory.create(protocolService),
-                        preconditionFactory060);
+                        preconditionFactory060, com.daimler.emst2.fhi.werk060.sendung.SendDefinitionFactory.create());
             case WERK_152:
                 return Sendung152.create(protocolService, sendActionFactory152,
-                        SendCheckFactory.create(protocolService), preconditionFactory152);
+                        SendCheckFactory.create(protocolService), preconditionFactory152,
+                        com.daimler.emst2.fhi.werk152.sendung.SendDefinitionFactory.create());
             default:
                 throw new RuntimeException("invalid mandant" + sendContext.mandant);
         }
