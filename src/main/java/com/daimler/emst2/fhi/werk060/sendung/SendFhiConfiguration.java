@@ -20,6 +20,10 @@ public class SendFhiConfiguration implements IProcessConfiguration<SendTypeEnum,
 
     @Override
     public void fillCheckEnumList(List<SendCheckEnum> pCheckList) {
+
+        // @see SendungenService.getSubProcessList Sendekennung und -status 
+        // includes the Sendekennung und Sendestatus check as performed in PL/SQL PROCEDURE Pruefe_Sendekennung
+
         pCheckList.add(SendCheckEnum.AUFTRAG_UPTODATE);
         pCheckList.add(SendCheckEnum.AUFTRAG_ANKUENDIGUNG_VORHANDEN);
         pCheckList.add(SendCheckEnum.AUFTRAG_SPERRE_VORHANDEN);

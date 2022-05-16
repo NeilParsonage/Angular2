@@ -35,6 +35,8 @@ public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
     @SuppressWarnings("rawtypes")
 	public ICheck createCheck(SendCheckEnum pruefungKennung) {
 		switch (pruefungKennung) {
+            //TODO NEP Review the AUFTRAG_UPTODATE implementation currently locks the Auftrag
+            // and therefore MUST appear as the first Step !! 
 		case AUFTRAG_UPTODATE:
 			return new CheckAuftragUpToDate(getProtocolService());
 		case AUFTRAG_ANKUENDIGUNG_VORHANDEN:

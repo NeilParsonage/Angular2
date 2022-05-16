@@ -1,6 +1,7 @@
 package com.daimler.emst2.fhi.werk060.sendung;
 
 
+import com.daimler.emst2.fhi.sendung.check.CheckAuftragUpToDate;
 import com.daimler.emst2.fhi.sendung.check.CheckDummyToImplement;
 import com.daimler.emst2.fhi.sendung.check.CheckLmtOrtInvalid;
 import com.daimler.emst2.fhi.sendung.check.SendCheckEnum;
@@ -26,9 +27,10 @@ public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
     @SuppressWarnings("rawtypes")
 	public ICheck createCheck(SendCheckEnum pruefungKennung) {
 		switch (pruefungKennung) {
+            //TODO NEP Review the AUFTRAG_UPTODATE implementation currently locks the Auftrag
+            // and therefore MUST appear as the first Step !! 
 		case AUFTRAG_UPTODATE:
-            return new CheckDummyToImplement(getProtocolService());
-            // return new CheckAuftragUpToDate(getProtocolService());
+            return new CheckAuftragUpToDate(getProtocolService());
 		case AUFTRAG_ANKUENDIGUNG_VORHANDEN:
             return new CheckDummyToImplement(getProtocolService());
             // return new CheckAuftragAnkuendigung(getProtocolService());
