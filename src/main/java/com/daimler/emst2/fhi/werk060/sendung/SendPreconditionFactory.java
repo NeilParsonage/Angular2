@@ -10,6 +10,7 @@ import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.precondition.SendPreconditionEnum;
 import com.daimler.emst2.fhi.sendung.process.precondition.IPrecondition;
 import com.daimler.emst2.fhi.sendung.process.precondition.IPreconditionFactory;
+import com.daimler.emst2.fhi.sendung.processcommon.precondition.PreconditionAuftragUpToDate;
 import com.daimler.emst2.fhi.sendung.processcommon.precondition.PreconditionDummyToImplement;
 import com.daimler.emst2.fhi.sendung.processcommon.precondition.PreconditionOrtCheckSendAndCancelSendData;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
@@ -46,8 +47,9 @@ public class SendPreconditionFactory implements IPreconditionFactory<SendPrecond
                         getProtocolService(), auftragDao);
 		switch (pCheckPrecondition) {
 		case AUFTRAG_UPTODATE:
-            return dummy;
-        //return new PreconditionAuftragUpToDate<SendPreconditionEnum, SendContext>(pCheckPrecondition, getProtocolService(), auftragDao);
+            //return dummy;
+            return new PreconditionAuftragUpToDate<SendPreconditionEnum, SendContext>(pCheckPrecondition,
+                    getProtocolService(), auftragDao);
 		case AUFTRAG_SPERREN_ANKUENDIGUNGEN_UPTODATE:
             return dummy;
         //return new PreconditionAuftragSperrenundAnkuendigungenUpToDate(pCheckPrecondition, getProtocolService(), auftragService);

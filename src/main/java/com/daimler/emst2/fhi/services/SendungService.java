@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -12,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.jpa.dao.AuftraegeDao;
@@ -81,8 +81,8 @@ public class SendungService {
     public SendContext senden(SendungDTO sendung) {
 
         SendTypeEnum sendType = SendTypeEnum.valueOf(sendung.sendeTyp);
-        Optional<Auftraege> auftrag = getAuftragByPnr(sendung.pnr);
-        if (!auftrag.isPresent()) {
+        Auftraege auftrag = getAuftragByPnrAndVersion(sendung.pnr, sendung.version);
+        if (ObjectUtils.isEmpty(auftrag)) {
             throw new RuntimeException("Could not find PNR");
         }
 
@@ -90,15 +90,15 @@ public class SendungService {
         sendContext.mandant = this.configService.getWerksId(true);
         sendContext.mandantEnum = FhiMandantEnum.getMandant(sendContext.mandant);
         sendContext.sendTypeEnum = SendTypeEnum.valueOf(sendung.sendeTyp);
-        sendContext.auftrag = auftrag.get();
+        sendContext.auftrag = auftrag;
         sendContext.user = authContext.getAuthentication().getName();
 
         this.auftragSendungStart(sendContext);
         return sendContext;
     }
 
-    private Optional<Auftraege> getAuftragByPnr(String pnr) {
-        return auftragDao.findById(pnr);
+    private Auftraege getAuftragByPnrAndVersion(String pnr, Long version) {
+        return auftragDao.findbyPnrAndVersion(pnr, version);
     }
 
     // Auftraege pAuftrag, String mandant, SendTypeEnum sendType
