@@ -9,6 +9,7 @@ import { AuftragLacke } from '../models/auftragLacke';
 import { AuftragTermine } from '../models/auftragTermine';
 import { AuftragTermineDetails } from '../models/auftragTermineDetails';
 import { Sendung } from '../models/sendung';
+import { SendungResponse } from '../models/sendungResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -80,6 +81,6 @@ export class AuftragService {
   }
 
   public sendung(sendung: Sendung) {
-    return this.http.post<string>(`${this.endpoint}/sendung`, sendung);
+    return this.http.post<SendungResponse>(`${this.endpoint}/sendung`, sendung);
   }
 }

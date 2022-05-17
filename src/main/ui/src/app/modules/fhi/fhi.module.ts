@@ -16,8 +16,8 @@ import { EinzelauskunftSendestatusComponent } from './components/einzelauskunft/
 import { EinzelauskunftSperrenComponent } from './components/einzelauskunft/einzelauskunft_sperren/einzelauskunft_sperren.component';
 import { EinzelauskunftTermineComponent } from './components/einzelauskunft/einzelauskunft_termine/einzelauskunft_termine.component';
 import { PnrChooserComponent } from './components/pnr-chooser/pnr-chooser.component';
-import { WelcomeComponent } from './components/welcome/welcome.component';
 import { SendemaskeComponent } from './components/sendemaske/sendemaske.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 @NgModule({
   declarations: [

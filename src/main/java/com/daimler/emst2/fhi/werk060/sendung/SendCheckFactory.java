@@ -1,14 +1,13 @@
 package com.daimler.emst2.fhi.werk060.sendung;
 
-
 import com.daimler.emst2.fhi.sendung.check.CheckAuftragUpToDate;
 import com.daimler.emst2.fhi.sendung.check.CheckDummyToImplement;
-import com.daimler.emst2.fhi.sendung.check.CheckLmtOrtInvalid;
 import com.daimler.emst2.fhi.sendung.check.SendCheckEnum;
 import com.daimler.emst2.fhi.sendung.process.check.ICheck;
 import com.daimler.emst2.fhi.sendung.process.check.ICheckFactory;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 import com.daimler.emst2.fhi.werk060.check.CheckFhiOrtInvalid;
+import com.daimler.emst2.fhi.werk060.check.CheckLmtOrtInvalid;
 import com.daimler.emst2.fhi.werk060.check.CheckRhmOrtInvalid;
 
 public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
@@ -53,7 +52,7 @@ public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
             return new CheckDummyToImplement(getProtocolService());
             // return new CheckFhiSollabstand(getProtocolService());
 		case FHI_ORT_ERR:
-			return new CheckFhiOrtInvalid(getProtocolService());
+            return new CheckFhiOrtInvalid(getProtocolService());
         case LMT_ORT_ERR:
             return new CheckLmtOrtInvalid(getProtocolService());
 		case RHM_ORT_ERR:

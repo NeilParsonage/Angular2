@@ -36,6 +36,7 @@ public class FhiDtoFactory {
         neu.bandNrRt5 = auftraege.getBandNrRt5();
         neu.fin = auftraege.getFin();
         neu.vin = auftraege.getVin();
+        neu.version = auftraege.getVersion();
         return neu;
     }
 
@@ -58,6 +59,7 @@ public class FhiDtoFactory {
         neu.bandNrRt5 = auftraege.getBandNrRt5();
         neu.fin = auftraege.getFin();
         neu.vin = auftraege.getVin();
+        neu.version = auftraege.getVersion();
         /*
          * Details
          */

@@ -227,6 +227,9 @@ public abstract class AbstractProcessService<GenPreconditionEnum extends IProces
 	protected void processChecks(List<ICheck> checkList, GenContext pContext) {
 		for (ICheck iCheck : checkList) {
 			iCheck.doExecute(pContext);
+            if (pContext.getProtocol().existsErrorOrWorse()) {
+                break;
+            }
 		}
 	}
 

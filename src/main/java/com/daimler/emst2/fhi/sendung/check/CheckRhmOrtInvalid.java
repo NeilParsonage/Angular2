@@ -28,8 +28,8 @@ public class CheckRhmOrtInvalid extends AbstractCheckOrtError {
      */
     @Override
     protected boolean isOrtSendAllowed(SendContext pContext) {
-        boolean isAllowed = isOrtAllowedForParameters(pContext, OrtCheckEnum.RHM_AUSFALL_ERLAUBT_152, OrtTypEnum.RHM);
-        isAllowed &= isOrtAllowedForParameters(pContext, OrtCheckEnum.RHM_AUSFALL_ERLAUBT_152, OrtTypEnum.FHS);
+        boolean isAllowed = isOrtAllowedForParameters(pContext, OrtCheckEnum.RHM_AUSFALL_ERLAUBT_ALL, OrtTypEnum.RHM);
+        isAllowed &= isOrtAllowedForParameters(pContext, OrtCheckEnum.RHM_AUSFALL_ERLAUBT_ALL, OrtTypEnum.FHS);
         return isAllowed;
     }
 }

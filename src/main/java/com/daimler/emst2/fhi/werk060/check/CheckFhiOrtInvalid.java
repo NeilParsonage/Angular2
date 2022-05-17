@@ -30,6 +30,6 @@ public class CheckFhiOrtInvalid extends AbstractCheckOrtError {
      */
     @Override
     protected boolean isOrtSendAllowed(SendContext pContext) {
-        return isOrtAllowedForParameters(pContext, OrtCheckEnum.FHI_SENDUNG_ERLAUBT_060, OrtTypEnum.FHS);
+        return isOrtAllowedForParameters(pContext, OrtCheckEnum.FHI_SENDUNG_ERLAUBT_ALL, OrtTypEnum.FHS);
     }
 }
