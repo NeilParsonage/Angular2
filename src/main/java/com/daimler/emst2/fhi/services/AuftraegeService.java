@@ -16,6 +16,7 @@ import org.springframework.util.ObjectUtils;
 
 import com.daimler.emst2.fhi.dto.AuftraegeDTO;
 import com.daimler.emst2.fhi.dto.AuftragAggregateDTO;
+import com.daimler.emst2.fhi.dto.AuftragCodesDTO;
 import com.daimler.emst2.fhi.dto.AuftragKabelsaetzeDTO;
 import com.daimler.emst2.fhi.dto.AuftragLackeDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDTO;
@@ -25,6 +26,7 @@ import com.daimler.emst2.fhi.dto.SendResponseDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.jpa.dao.AuftraegeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragAggregateDao;
+import com.daimler.emst2.fhi.jpa.dao.AuftragCodesDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragDetailsDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragKabelsaetzeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragLackeDao;
@@ -33,6 +35,7 @@ import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDetailsDao;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
+import com.daimler.emst2.fhi.jpa.model.AuftragCodes;
 import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
 import com.daimler.emst2.fhi.jpa.model.AuftragKabelsaetze;
 import com.daimler.emst2.fhi.jpa.model.AuftragLacke;
@@ -83,6 +86,9 @@ public class AuftraegeService {
 
     @Autowired
     AuftragSendestatusDao auftragSendestatusDao;
+
+    @Autowired
+    AuftragCodesDao auftragCodesDao;
 
     public AuftraegeDTO getAuftragByPnr(String pnr) {
         Optional<Auftraege> result = auftraegeDao.findById(pnr);
@@ -301,6 +307,14 @@ public class AuftraegeService {
 
         return result instanceof List
                 ? result.stream().map(x -> dtoFactory.createAuftragDTO(x)).collect(Collectors.toList())
+                : Collections.emptyList();
+    }
+
+    public List<AuftragCodesDTO> getAuftragCodes(String pnr) {
+        List<AuftragCodes> result = auftragCodesDao.findAllCodesByPnr(pnr);
+
+        return result instanceof List
+                ? result.stream().map(x -> dtoFactory.createAuftragCodesDTO(x)).collect(Collectors.toList())
                 : Collections.emptyList();
     }
 

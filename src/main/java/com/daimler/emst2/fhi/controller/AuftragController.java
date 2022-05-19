@@ -77,7 +77,7 @@ public class AuftragController {
         return auftraegeService.getAuftragRhmLackByPnr(pnr);
     }
 
-    @GetMapping("/listAuftraegebyGeLfdNr")
+    @GetMapping("/listAuftraegebyGesLfdNr")
     public List<AuftraegeDTO> getAuftraegby(@RequestParam int lfdNrGes) {
         long lfdNrGesL = lfdNrGes;
         return auftraegeService.getAuftraegebyLfdNrGes(lfdNrGes);
