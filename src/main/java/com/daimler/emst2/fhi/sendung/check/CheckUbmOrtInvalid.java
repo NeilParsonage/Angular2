@@ -28,8 +28,8 @@ public class CheckUbmOrtInvalid extends AbstractCheckOrtError {
      */
     @Override
     protected boolean isOrtSendAllowed(SendContext pContext) {
-        boolean isAllowed = isOrtAllowedForParameters(pContext, OrtCheckEnum.UBM_AUSFALL_ERLAUBT, OrtTypEnum.RHM);
-        isAllowed &= isOrtAllowedForParameters(pContext, OrtCheckEnum.UBM_AUSFALL_ERLAUBT, OrtTypEnum.FHS);
+        boolean isAllowed = isOrtAllowedForParameters(pContext, OrtCheckEnum.UBM_AUSFALL_ERLAUBT_152, OrtTypEnum.RHM);
+        isAllowed &= isOrtAllowedForParameters(pContext, OrtCheckEnum.UBM_AUSFALL_ERLAUBT_152, OrtTypEnum.FHS);
         return isAllowed;
     }
 }

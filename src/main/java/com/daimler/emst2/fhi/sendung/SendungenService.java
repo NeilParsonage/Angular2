@@ -26,7 +26,6 @@ import com.daimler.emst2.fhi.sendung.process.precondition.IPreconditionFactory;
 import com.daimler.emst2.fhi.sendung.protocol.IProtocolService;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 import com.daimler.emst2.fhi.util.SendungUtil;
-import com.daimler.emst2.fhi.werk152.sendung.SendDefinitionFactory;
 
 /**
  * Der Sendungen Service implementiert das IProcess Framework für die Sendungen auf Basis der Sendehierarchie Spezifikation
@@ -40,25 +39,31 @@ public class SendungenService extends AbstractProcessService<SendPreconditionEnu
 	 */
     private static final Logger LOG = Logger.getLogger(SendungenService.class.getName());
 
-    // private SendDefinitionFactory sendDefinitionFactory;
+    private final ISendDefinitionFactory sendDefinitionFactory;
 
     private final ProtocolService protocolService;
+
 
     private SendungenService(ProtocolService protocolService,
             IActionFactory<SendActionEnum> sendActionFactory,
             ICheckFactory<SendCheckEnum> sendCheckFactory,
-            IPreconditionFactory<SendPreconditionEnum> preconditionFactory) {
+            IPreconditionFactory<SendPreconditionEnum> preconditionFactory,
+            ISendDefinitionFactory sendDefinitionFactory
+            ) {
         this.protocolService = protocolService;
         this.actionFactory = sendActionFactory;
         this.checkFactory = sendCheckFactory;
         this.preconditionFactory = preconditionFactory;
+        this.sendDefinitionFactory = sendDefinitionFactory;
     }
 
     public static ISendService create(ProtocolService protocolService,
-            IActionFactory<SendActionEnum> sendActionFactory152,
+            IActionFactory<SendActionEnum> sendActionFactory,
             ICheckFactory<SendCheckEnum> sendCheckFactory,
-            IPreconditionFactory<SendPreconditionEnum> preconditionFactory) {
-        return new SendungenService(protocolService, sendActionFactory152, sendCheckFactory, preconditionFactory);
+            IPreconditionFactory<SendPreconditionEnum> preconditionFactory,
+            ISendDefinitionFactory sendDefinitionFactory
+            ) {
+        return new SendungenService(protocolService, sendActionFactory, sendCheckFactory, preconditionFactory, sendDefinitionFactory);
     }
 
 	@Override
@@ -66,7 +71,7 @@ public class SendungenService extends AbstractProcessService<SendPreconditionEnu
         Auftraege auftrag = pContext.getAuftrag();
 		SendTypeEnum sendTypeEnum = pContext.getSendTypeEnum();
 
-        List<ISend> sendList = SendDefinitionFactory.create().createSendList(auftrag, sendTypeEnum);
+        List<ISend> sendList = this.sendDefinitionFactory.createSendList(auftrag, sendTypeEnum);
 
         //if (sendList.isEmpty() || (!SendTypeEnum.KOMPLETT.equals(sendTypeEnum) && !auftrag.isSendungOffen(sendTypeEnum))) {
         if (sendList.isEmpty()

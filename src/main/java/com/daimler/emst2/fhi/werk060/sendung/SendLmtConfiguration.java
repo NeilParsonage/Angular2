@@ -1,5 +1,4 @@
-package com.daimler.emst2.fhi.werk152.sendung;
-
+package com.daimler.emst2.fhi.werk060.sendung;
 
 import java.util.List;
 
@@ -9,27 +8,24 @@ import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
 import com.daimler.emst2.fhi.sendung.process.IProcessConfiguration;
 
 /**
- * Knoten fuer die FHIsendung.
+ * Knoten fuer die LMT-Sendung.
  */
-public class SendFhiConfiguration implements IProcessConfiguration<SendTypeEnum, SendCheckEnum, SendActionEnum> {
+public class SendLmtConfiguration implements IProcessConfiguration<SendTypeEnum, SendCheckEnum, SendActionEnum> {
 
     @Override
     public SendTypeEnum getType() {
-        return SendTypeEnum.FHI;
+        return SendTypeEnum.LMT;
     }
 
     @Override
     public void fillCheckEnumList(List<SendCheckEnum> pCheckList) {
-
-        // @see SendungenService.getSubProcessList Sendekennung und -status 
-        // includes the Sendekennung und Sendestatus check as performed in PL/SQL PROCEDURE Pruefe_Sendekennung
-
         pCheckList.add(SendCheckEnum.AUFTRAG_UPTODATE);
         pCheckList.add(SendCheckEnum.AUFTRAG_ANKUENDIGUNG_VORHANDEN);
         pCheckList.add(SendCheckEnum.AUFTRAG_SPERRE_VORHANDEN);
-        pCheckList.add(SendCheckEnum.FHI_IMPLIZITE_TEILSENDUNG);
-        pCheckList.add(SendCheckEnum.FHI_SOLLABSTAND);
-        pCheckList.add(SendCheckEnum.FHI_ORT_ERR);
+        pCheckList.add(SendCheckEnum.LMT_SOLLABSTAND);
+        pCheckList.add(SendCheckEnum.LMT_ORT_ERR);
+        //pCheckList.add(SendCheckEnum.FHI_ORT_ERR);
+        //pCheckList.add(SendCheckEnum.RHM_ORT_ERR);
     }
 
     @Override
@@ -39,15 +35,14 @@ public class SendFhiConfiguration implements IProcessConfiguration<SendTypeEnum,
         pActionList.add(SendActionEnum.ALL_MANUELLE_RF_INFO_LOESCHEN);
         pActionList.add(SendActionEnum.ALL_SENDBAR_KNZ_SETZEN);
 
-        pActionList.add(SendActionEnum.FHI_HISTORISIERUNG_STERNENHIMMEL);
-        pActionList.add(SendActionEnum.FHI_LAUFENDE_NUMMER_AKTUALISIEREN);
-        pActionList.add(SendActionEnum.FHI_SENDESTATUS_SETZEN);
-        pActionList.add(SendActionEnum.FHI_TAKT_TELEGRAMM);
+        pActionList.add(SendActionEnum.LMT_HISTORISIERUNG_STERNENHIMMEL);
+        pActionList.add(SendActionEnum.LMT_LAUFENDE_NUMMER_AKTUALISIEREN);
+        pActionList.add(SendActionEnum.LMT_SENDESTATUS_SETZEN);
+        pActionList.add(SendActionEnum.LMT_TAKT_TELEGRAMM);
 
         pActionList.add(SendActionEnum.ALL_HISTORIE_SCHREIBEN);
         pActionList.add(SendActionEnum.ALL_SAVE_AUFTRAG);
 
         pActionList.add(SendActionEnum.FHI_LMT_SOLLABSTAND_VORBERECHNEN);
     }
-
 }

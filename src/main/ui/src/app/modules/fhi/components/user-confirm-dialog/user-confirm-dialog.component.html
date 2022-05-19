@@ -1,0 +1,31 @@
+<h2 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{ options.title }}</h2>
+
+<mat-dialog-content *ngIf="options.errorMode" class="mat-typography" style="width: 900px">
+  <mat-list>
+    <mat-list-item *ngFor="let entry of options.protocolEntries"> {{ entry.protocolMessage.tuebKey }} ({{ entry.taskId }}) </mat-list-item>
+  </mat-list>
+</mat-dialog-content>
+
+<mat-dialog-content *ngIf="!options.errorMode" class="mat-typography" style="width: 900px">
+  <mat-selection-list #acceptList>
+    <mat-list-option *ngFor="let entry of options.protocolEntries"> {{ entry.protocolMessage.tuebKey }} ({{ entry.taskId }}) </mat-list-option>
+  </mat-selection-list>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" *ngIf="!options.errorMode">
+  <button mat-stroked-button color="primary" (click)="onChoiceAbort()">
+    <mat-icon *ngIf="this.getButtonIconAbort()">{{ this.getButtonIconAbort() }}</mat-icon
+    ><span> {{ getButtonTextAbort() }}</span>
+  </button>
+  <button mat-raised-button color="primary" (click)="onChoiceConfirm()" cdkFocusInitial>
+    <mat-icon *ngIf="this.getButtonIconConfirm()">{{ this.getButtonIconConfirm() }}</mat-icon
+    ><span> {{ getButtonTextConfirm() }}</span>
+  </button>
+</mat-dialog-actions>
+
+<mat-dialog-actions align="end" *ngIf="options.errorMode">
+  <button mat-raised-button color="primary" (click)="onChoiceAbort()" cdkFocusInitial>
+    <mat-icon *ngIf="this.getButtonIconAbort()">{{ this.getButtonIconAbort() }}</mat-icon
+    ><span> {{ getButtonTextAbort() }}</span>
+  </button>
+</mat-dialog-actions>

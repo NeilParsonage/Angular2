@@ -1,4 +1,4 @@
-package com.daimler.emst2.fhi.werk152.sendung;
+package com.daimler.emst2.fhi.werk060.sendung;
 
 
 import java.util.List;
