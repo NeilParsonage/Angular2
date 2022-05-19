@@ -77,7 +77,7 @@ export class AuftragService {
     const options = {
       params: new HttpParams().set('lfdNrGes', lfdNrGes),
     };
-    return this.http.get<Auftrag[]>(`${this.endpoint}/listAuftraegebyGeLfdNr`, options);
+    return this.http.get<Auftrag[]>(`${this.endpoint}/listAuftraegebyGesLfdNr`, options);
   }
 
   public sendung(sendung: Sendung) {

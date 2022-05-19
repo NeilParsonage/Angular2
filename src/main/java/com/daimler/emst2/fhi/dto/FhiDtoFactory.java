@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
+import com.daimler.emst2.fhi.jpa.model.AuftragCodes;
 import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
 import com.daimler.emst2.fhi.jpa.model.AuftragKabelsaetze;
 import com.daimler.emst2.fhi.jpa.model.AuftragLacke;
@@ -194,6 +195,19 @@ public class FhiDtoFactory {
         AuftragKabelsaetzeDTO neu = new AuftragKabelsaetzeDTO();
         neu.kabelsatz = auftragKabelsatz.getKabelsatz();
         neu.pnr = auftragKabelsatz.getPnr();
+        return neu;
+    }
+
+    public AuftragCodesDTO createAuftragCodesDTO(AuftragCodes auftragCode) {
+        AuftragCodesDTO neu = new AuftragCodesDTO();
+     
+        neu.pnr = auftragCode.getPnr();
+        neu.code = auftragCode.getCode();
+        neu.text = auftragCode.getText();
+        neu.relevant = auftragCode.getRelevant();
+        
+        
+        
         return neu;
     }
 
