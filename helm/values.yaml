@@ -1,3 +1,58 @@
+### lbry Config ####
+
+# use springJDBCURL to generate jdbc-url parameter instead of url in spring's applcation.yml (used in very old spring applications)
+springJDBCURL: false
+
+# springboot: enable / disable eureka support in config
+eureka:
+  enabled: true
+  defaultZone: https://eureka-emst2.emst.opitz-consulting.int/eureka
+
+# addintional environment variables in container
+env: {}
+
+# active thorntail / springboot profiles
+profiles:
+  active: []
+
+# springboot / thorntail datasource configuration:
+# use "builtin" as default springboot database config or comment out / rename to your required databasename for use in thorntail.
+datasource:
+  builtin:
+    password: 
+    username: 
+    url:
+  # fhiDB:
+  #   password:
+  #   username:
+  #   url:
+
+
+keycloak:
+  realm: "060"
+  auth-server-url: https://auth.emst.opitz-consulting.int/auth
+  resource: emst2-fhi
+  public-client: true
+  credentials:
+    secret: ""
+
+# enable liquibase init container with liquibase.enabled
+# custom liquibase properties may be added to properties.
+# remove comment to override default parameters
+liquibase:
+  enabled: false
+  properties:
+    url:
+    username:
+    password:
+#    driver: oracle.jdbc.OracleDriver
+#    classpath: /liquibase/changelog:/liquibase/classpath
+#    changelogFile: changelog/liquibase-changelog-master.xml
+
+
+#############
+
+
 # Default values for fhi.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
@@ -9,26 +64,6 @@ image:
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
-
-### fhi Config ####
-eureka:
-  defaultZone: https://vsdlgm198.opitz-consulting.int/eureka/eureka
-
-spring:
-  datasource:
-    password: 
-    username: 
-    url: 
-
-profiles: 
-  active: []
-
-keycloak:
-  realm: "060"
-  auth-server-url: https://vsdlgm198.opitz-consulting.int/auth/
-  resource: emst2-fhi
-  public-client: true
-#############
 
 imagePullSecrets: []
 nameOverride: ""

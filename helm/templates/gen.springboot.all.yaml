@@ -1,0 +1,3 @@
+{{ include "lbry.springboot.all" . }}
+{{- define "custom.configmap" -}}
+{{- end -}} 
