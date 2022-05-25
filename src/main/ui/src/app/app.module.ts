@@ -15,6 +15,7 @@ import { AppComponent } from './app.component';
 import { PrivilegeRouteGuard } from './core/guards/privilegeRouteGuard';
 import { BlobErrorHttpInterceptor } from './core/http-error-interceptor/blob-error-http-interceptor';
 import { HttpErrorInterceptor } from './core/http-error-interceptor/http-error-interceptor';
+import { UserConfirmDialogComponent } from './modules/fhi/components/user-confirm-dialog/user-confirm-dialog.component';
 import { FhiModule } from './modules/fhi/fhi.module';
 import { ConfirmDialogComponent } from './shared/components/confirm-dialog/confirm-dialog.component';
 import { ConfirmationPopupComponent } from './shared/components/confirmation-popup/confirmation-popup.component';
@@ -23,7 +24,7 @@ import { MaterialModule } from './shared/modules/material.module';
 import { TuebService } from './shared/services/tueb.service';
 
 @NgModule({
-  declarations: [AppComponent, ConfirmDialogComponent, ConfirmationPopupComponent, MessageCardStapleComponent],
+  declarations: [AppComponent, ConfirmDialogComponent, UserConfirmDialogComponent, ConfirmationPopupComponent, MessageCardStapleComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,

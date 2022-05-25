@@ -14,7 +14,6 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Component;
 
 import com.daimler.emst2.fhi.jpa.model.OrtCheck;
-import com.daimler.emst2.fhi.sendung.constants.OrtCheckEnum;
 
 @Component
 public class OrtCheckCustomDao {
@@ -22,7 +21,7 @@ public class OrtCheckCustomDao {
     @PersistenceContext
     private EntityManager em;
 
-    public List<OrtCheck> getSendAndCancelSendChecks() {
+    public List<OrtCheck> getSendAndCancelSendChecks(List<String> sendOrStornoSufixes) {
         /*
         List<OrtCheck> resultList;
         DetachedCriteria criteria = createQueryCriteria();
@@ -39,7 +38,6 @@ public class OrtCheckCustomDao {
         */
 
         List<OrtCheck> resultList;
-        List<String> sendOrStornoSufixes = OrtCheckEnum.getSendOrStornoSufixes();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         List<Predicate> critList = new ArrayList<>();
         

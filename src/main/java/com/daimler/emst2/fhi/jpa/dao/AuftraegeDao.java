@@ -25,6 +25,9 @@ public interface AuftraegeDao extends CrudRepository<Auftraege, String> {
     @Query("SELECT a from Auftraege a WHERE a.lfdNrFhi = :lfdNrFhi")
     public Auftraege findbyLfdNrFhi(@Param("lfdNrFhi") long lfdNrFhi);
 
+    @Query("SELECT a from Auftraege a WHERE a.pnr like :pnr and a.version = :version")
+    public Auftraege findbyPnrAndVersion(@Param("pnr") String pnr, @Param("version") long version);
+
     @Query(nativeQuery = true,
             value = "select PNR from AUFTRAG where PNR = :pnr and VERSION = :version for update nowait")
     public String lockAuftragForUpdate(@Param("pnr") String pnr, @Param("version") Long version);

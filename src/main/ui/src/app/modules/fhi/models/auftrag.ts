@@ -90,4 +90,6 @@ export interface Auftrag {
   /* Audit*/
   hrkAudit?: number;
   fhiAudit?: number;
+
+  version: number;
 }

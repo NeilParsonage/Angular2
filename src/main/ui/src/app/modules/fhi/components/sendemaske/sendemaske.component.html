@@ -8,11 +8,26 @@
         </mat-form-field>
       </div>
       <div fxLayout="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Sendungsart</mat-label>
+          <mat-select [(ngModel)]="selectedSendung">
+            <mat-option *ngFor="let option of options" [value]="option.value">
+              {{ option.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column">
         <button mat-raised-button color="primary" (click)="sendung()">Sendung</button>
       </div>
     </div>
     <div fxLayout="row" fxLayoutGap="8px">
-      <div fxLayout="column" fxFlex="10"></div>
+      <div fxLayout="column" fxFlex="10">
+        <mat-form-field class="example-full-width" style="width: 1600px; height: 700px" appearance="fill">
+          <mat-label>Request Response</mat-label>
+          <textarea matInput placeholder="" style="width: 1600px; height: 700px">{{ responseMessage }}</textarea>
+        </mat-form-field>
+      </div>
     </div>
   </div>
 </div>
