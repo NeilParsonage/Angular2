@@ -4,9 +4,13 @@ import { TranslateService } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
 import { Auftrag } from '../../../models/auftrag';
 import { AuftragAggregate } from '../../../models/auftragAggregate';
+import { AuftragCodes } from '../../../models/auftragCodes';
 import { AuftragKabelsaetze } from '../../../models/auftragKabelsatz';
+import { AuftragKriterien } from '../../../models/auftragKriterien';
 import { AuftragLacke } from '../../../models/auftragLacke';
 import { AuftragService } from '../../../services/auftrag.service';
+import { DialogShowCodesComponent } from '../dialog-showCodes/dialog-showCodes.component';
+import { DialogShowKriterienComponent } from '../dialog-showKriterien/dialog-showKriterien.component';
 import { DialogShowlistComponent } from '../dialog-showlist/dialog-showlist.component';
 
 @Component({
@@ -24,9 +28,12 @@ export class EinzelauskunftKopfComponent implements OnInit {
   fhsLackeliste: AuftragLacke[];
   fzgLack: AuftragLacke;
   aggregateliste: AuftragAggregate[];
+  codeliste: AuftragCodes[];
+  kriterienliste: AuftragKriterien[];
   kabelsatz: AuftragKabelsaetze = null;
   fhsLack: AuftragLacke = null;
   aggregat: AuftragAggregate = null;
+  buttonBemerkungAltDisabled = true;
 
   @Input()
   set daten(data: Auftrag) {
@@ -48,7 +55,9 @@ export class EinzelauskunftKopfComponent implements OnInit {
     const fhsLackeData = this.auftragService.getAuftragFhsLackeByPnr(auftrag.pnr);
     const fzgLackeData = this.auftragService.getAuftragFzgLackByPnr(auftrag.pnr);
     const aggregateData = this.auftragService.getAuftragAggregateByPnr(auftrag.pnr);
-    const loadSources: any = [kabelsatzData, fhsLackeData, fzgLackeData, aggregateData];
+    const codeData = this.auftragService.getListAuftragCodes(auftrag.pnr);
+    const kriterienData = this.auftragService.getListAuftragKriterien(auftrag.pnr);
+    const loadSources: any = [kabelsatzData, fhsLackeData, fzgLackeData, aggregateData, codeData, kriterienData];
 
     let srcIdx = 0;
 
@@ -63,14 +72,13 @@ export class EinzelauskunftKopfComponent implements OnInit {
       this.fhsLackeliste = results[srcIdx++] as AuftragLacke[];
       this.fzgLack = results[srcIdx++] as AuftragLacke;
       this.aggregateliste = results[srcIdx++] as AuftragAggregate[];
-      console.log('fzglack' + this.fzgLack);
-      console.log(this.fzgLack);
+      this.codeliste = results[srcIdx++] as AuftragCodes[];
+      this.kriterienliste = results[srcIdx++] as AuftragKriterien[];
       this.kabelsatz = this.kabelsaetzeliste[0];
       this.fhsLack = this.fhsLackeliste[0];
       this.aggregat = this.aggregateliste[0];
       this.codesView = this.einzelauskunft.fhiRelCodes + ' - ' + this.einzelauskunft.bandRelCodes;
       this.kriterienView = this.einzelauskunft.fhiRelKrits + ' - ' + this.einzelauskunft.bandRelKrits;
-      console.log(this.kabelsaetzeliste);
     });
   }
   showListe(listeElements: string[], titel: string, dialogWidth: string = '500px') {
@@ -136,6 +144,46 @@ export class EinzelauskunftKopfComponent implements OnInit {
     listeElements[0] = this.fzgLack.lackschl + '  ' + this.fzgLack.lackLangText;
 
     this.showListe(listeElements, 'Fzg Lack');
+  }
+
+  showListBemerkungAlt() {
+    let listeElements: string[] = [];
+
+    listeElements[0] = this.einzelauskunft.bemerkungAlt;
+
+    this.showListe(listeElements, 'Bemerkungstext Alt');
+  }
+
+  checkBemerkungAlt() {
+    return true;
+  }
+
+  showListKriterien() {
+    let titel: string = 'Kriterien';
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '900px';
+    dialogConfig.height = 'auto';
+    dialogConfig.disableClose = true;
+    dialogConfig.data = {
+      listeKriterien: this.kriterienliste,
+      titel: titel + ' ' + this.translateService.instant('text.einzelauskunft.vonpnr') + ' ' + this.einzelauskunft.pnr,
+    };
+    const dialogRef = this.dialog.open(DialogShowKriterienComponent, dialogConfig);
+  }
+
+  showListCodes() {
+    let titel: string = 'Codes';
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '800px';
+    dialogConfig.height = 'auto';
+    dialogConfig.disableClose = true;
+    dialogConfig.data = {
+      listeCodes: this.codeliste,
+      titel: titel + ' ' + this.translateService.instant('text.einzelauskunft.vonpnr') + ' ' + this.einzelauskunft.pnr,
+    };
+    const dialogRef = this.dialog.open(DialogShowCodesComponent, dialogConfig);
   }
 
   to_blank(text: string): string {

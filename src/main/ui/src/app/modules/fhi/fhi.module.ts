@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { LibEmstTableModule } from 'emst-table';
 import { MaterialModule } from 'src/app/shared/modules/material.module';
+import { DialogShowCodesComponent } from './components/einzelauskunft/dialog-showCodes/dialog-showCodes.component';
+import { DialogShowKriterienComponent } from './components/einzelauskunft/dialog-showKriterien/dialog-showKriterien.component';
 import { DialogShowlistComponent } from './components/einzelauskunft/dialog-showlist/dialog-showlist.component';
 import { EinzelauskunftComponent } from './components/einzelauskunft/einzelauskunft.component';
 import { EinzelauskunftAktuelleFPComponent } from './components/einzelauskunft/einzelauskunft_aktuelleFP/einzelauskunft_aktuelleFP.component';
@@ -32,6 +34,8 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     EinzelauskunftOrtComponent,
     EinzelauskunftSperrenComponent,
     DialogShowlistComponent,
+    DialogShowCodesComponent,
+    DialogShowKriterienComponent,
     PnrChooserComponent,
     SendemaskeComponent,
   ],

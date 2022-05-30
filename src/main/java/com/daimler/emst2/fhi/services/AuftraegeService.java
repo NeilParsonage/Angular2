@@ -18,6 +18,7 @@ import com.daimler.emst2.fhi.dto.AuftraegeDTO;
 import com.daimler.emst2.fhi.dto.AuftragAggregateDTO;
 import com.daimler.emst2.fhi.dto.AuftragCodesDTO;
 import com.daimler.emst2.fhi.dto.AuftragKabelsaetzeDTO;
+import com.daimler.emst2.fhi.dto.AuftragKriterienDTO;
 import com.daimler.emst2.fhi.dto.AuftragLackeDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDetailsDTO;
@@ -29,6 +30,7 @@ import com.daimler.emst2.fhi.jpa.dao.AuftragAggregateDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragCodesDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragDetailsDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragKabelsaetzeDao;
+import com.daimler.emst2.fhi.jpa.dao.AuftragKriterienDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragLackeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragSendestatusDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDao;
@@ -38,6 +40,7 @@ import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
 import com.daimler.emst2.fhi.jpa.model.AuftragCodes;
 import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
 import com.daimler.emst2.fhi.jpa.model.AuftragKabelsaetze;
+import com.daimler.emst2.fhi.jpa.model.AuftragKriterien;
 import com.daimler.emst2.fhi.jpa.model.AuftragLacke;
 import com.daimler.emst2.fhi.jpa.model.AuftragSendestatus;
 import com.daimler.emst2.fhi.jpa.model.AuftragSperrInformation;
@@ -89,6 +92,9 @@ public class AuftraegeService {
 
     @Autowired
     AuftragCodesDao auftragCodesDao;
+
+    @Autowired
+    AuftragKriterienDao auftragKriterienDao;
 
     public AuftraegeDTO getAuftragByPnr(String pnr) {
         Optional<Auftraege> result = auftraegeDao.findById(pnr);
@@ -311,10 +317,18 @@ public class AuftraegeService {
     }
 
     public List<AuftragCodesDTO> getAuftragCodes(String pnr) {
-        List<AuftragCodes> result = auftragCodesDao.findAllCodesByPnr(pnr);
+        List<AuftragCodes> result = auftragCodesDao.findCodesByPnr(pnr);
 
         return result instanceof List
                 ? result.stream().map(x -> dtoFactory.createAuftragCodesDTO(x)).collect(Collectors.toList())
+                : Collections.emptyList();
+    }
+
+    public List<AuftragKriterienDTO> getAuftragKriterien(String pnr) {
+        List<AuftragKriterien> result = auftragKriterienDao.findKriterienByPnr(pnr);
+
+        return result instanceof List
+                ? result.stream().map(x -> dtoFactory.createAuftragKriterienDTO(x)).collect(Collectors.toList())
                 : Collections.emptyList();
     }
 

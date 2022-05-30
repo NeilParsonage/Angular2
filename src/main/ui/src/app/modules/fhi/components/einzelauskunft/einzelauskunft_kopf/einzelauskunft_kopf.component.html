@@ -162,12 +162,18 @@
           <mat-label>{{ 'label.einzelauskunft.codes' | translate }}</mat-label>
           <input matInput type="text" [readonly]="true" value="{{ codesView }}" />
         </mat-form-field>
+        <button mat-icon-button color="accent" aria-label="Zeige Liste" (click)="showListCodes()">
+          <mat-icon>info</mat-icon>
+        </button>
       </div>
       <div fxLayout="row">
         <mat-form-field class="selectItemExtraLong">
           <mat-label>{{ 'label.einzelauskunft.kriterien' | translate }}</mat-label>
           <input matInput type="text" [readonly]="true" value="{{ kriterienView }}" />
         </mat-form-field>
+        <button mat-icon-button color="accent" aria-label="Zeige Liste" (click)="showListKriterien()">
+          <mat-icon>info</mat-icon>
+        </button>
       </div>
     </div>
     <div fxLayout="column" fxFlex="50">
@@ -178,11 +184,16 @@
             <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.bemerkung }}" />
           </mat-form-field>
         </div>
-        <div fxLayout="column" fxFlex="30">
-          <mat-form-field class="selectItemLong">
+        <div fxLayout="column" fxFlex="25">
+          <mat-form-field class="selectItem">
             <mat-label>{{ 'label.einzelauskunft.autor' | translate }}</mat-label>
             <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.autor }}" />
           </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="5">
+          <button mat-icon-button color="accent" aria-label="Zeige Bemerkungstext Alt" (click)="showListBemerkungAlt()" [disabled]="checkBemerkungAlt()">
+            <mat-icon>info</mat-icon>
+          </button>
         </div>
       </div>
 

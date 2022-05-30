@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Auftrag } from '../models/auftrag';
 import { AuftragAggregate } from '../models/auftragAggregate';
+import { AuftragCodes } from '../models/auftragCodes';
 import { AuftragKabelsaetze } from '../models/auftragKabelsatz';
+import { AuftragKriterien } from '../models/auftragKriterien';
 import { AuftragLacke } from '../models/auftragLacke';
 import { AuftragTermine } from '../models/auftragTermine';
 import { AuftragTermineDetails } from '../models/auftragTermineDetails';
@@ -82,5 +84,18 @@ export class AuftragService {
 
   public sendung(sendung: Sendung) {
     return this.http.post<SendungResponse>(`${this.endpoint}/sendung`, sendung);
+  }
+  public getListAuftragCodes(pnr: string): Observable<AuftragCodes[]> {
+    const options = {
+      params: new HttpParams().set('pnr', pnr),
+    };
+    return this.http.get<AuftragCodes[]>(`${this.endpoint}/codes`, options);
+  }
+
+  public getListAuftragKriterien(pnr: string): Observable<AuftragKriterien[]> {
+    const options = {
+      params: new HttpParams().set('pnr', pnr),
+    };
+    return this.http.get<AuftragKriterien[]>(`${this.endpoint}/kriterien`, options);
   }
 }

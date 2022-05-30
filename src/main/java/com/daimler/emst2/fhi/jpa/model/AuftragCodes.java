@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "V_E2_CODE")
+@Table(name = "V_E2_CODES")
 public class AuftragCodes implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -32,15 +32,8 @@ public class AuftragCodes implements Serializable {
     private String bereich;
 
     @Column(name = "RELEVANT")
-    private Long relevant;
+    private Boolean relevant;
 
-    public Long getRelevant() {
-        return relevant;
-    }
-
-    public void setRelevant(Long relevant) {
-        this.relevant = relevant;
-    }
 
     public String getId() {
         return id;
@@ -80,6 +73,14 @@ public class AuftragCodes implements Serializable {
 
     public void setBereich(String bereich) {
         bereich = bereich;
+    }
+
+    public Boolean getRelevant() {
+        return relevant;
+    }
+
+    public void setRelevant(Boolean relevant) {
+        this.relevant = relevant;
     }
 
 }

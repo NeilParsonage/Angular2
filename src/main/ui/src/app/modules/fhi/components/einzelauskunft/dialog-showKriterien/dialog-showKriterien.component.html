@@ -1,0 +1,44 @@
+<div class="content">
+  <h1 mat-dialog-title>{{ titel }}</h1>
+  <div mat-dialog-content>
+    <div fxLayout="row">
+      <mat-checkbox [(ngModel)]="relevant" (change)="fillListe()">relevant</mat-checkbox>
+    </div>
+    <!-- <ul style="list-style: none">
+    <li *ngFor="let elem of liste">
+      {{ elem }}
+    </li>
+  </ul>-->
+    <div class="tabelle-container" fxLayout="row">
+      <table mat-table [dataSource]="matDataSource" style="width: 100%">
+        <ng-container matColumnDef="Kriterium">
+          <th mat-header-cell *matHeaderCellDef>Code</th>
+          <td mat-cell *matCellDef="let element">{{ element.kriterium }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Text">
+          <th mat-header-cell *matHeaderCellDef>Beschreibung</th>
+          <td mat-cell *matCellDef="let element">{{ element.text }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Dichte">
+          <th mat-header-cell *matHeaderCellDef>Dichte</th>
+          <td mat-cell *matCellDef="let element">{{ element.dichte }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Intervall">
+          <th mat-header-cell *matHeaderCellDef>Intervall</th>
+          <td mat-cell *matCellDef="let element">{{ element.intervall }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </div>
+  <div fxLayout="row">
+    <mat-dialog-actions style="width: 100%" align="end">
+      <button type="submit" mat-raised-button color="primary" (click)="onClickOk()"><mat-icon>done</mat-icon> Ok</button>
+    </mat-dialog-actions>
+  </div>
+</div>

@@ -14,7 +14,7 @@ import com.daimler.emst2.fhi.jpa.model.AuftragCodes;
 @Repository
 public interface AuftragCodesDao extends CrudRepository<Auftraege, String> {
 
-    @Query("SELECT a from AuftragCodes a WHERE a.pnr = :pnr ")
+    @Query("SELECT a from AuftragCodes a WHERE a.pnr = :pnr order by relevant, code")
     public List<AuftragCodes> findCodesByPnr(@Param("pnr") String pnr);
 
     @Query("SELECT a from AuftragCodes a WHERE a.pnr = :pnr and bereich='ALL'")
