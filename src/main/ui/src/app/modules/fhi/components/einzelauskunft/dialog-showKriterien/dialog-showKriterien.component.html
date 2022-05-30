@@ -12,22 +12,22 @@
     <div class="tabelle-container" fxLayout="row">
       <table mat-table [dataSource]="matDataSource" style="width: 100%">
         <ng-container matColumnDef="Kriterium">
-          <th mat-header-cell *matHeaderCellDef>Code</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'label.einzelauskunft.dialog_kriterien.kriterium' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.kriterium }}</td>
         </ng-container>
 
         <ng-container matColumnDef="Text">
-          <th mat-header-cell *matHeaderCellDef>Beschreibung</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'label.einzelauskunft.dialog_kriterien.beschreibung' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.text }}</td>
         </ng-container>
 
         <ng-container matColumnDef="Dichte">
-          <th mat-header-cell *matHeaderCellDef>Dichte</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'label.einzelauskunft.dialog_kriterien.dichte' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.dichte }}</td>
         </ng-container>
 
         <ng-container matColumnDef="Intervall">
-          <th mat-header-cell *matHeaderCellDef>Intervall</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'label.einzelauskunft.dialog_kriterien.intervall' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.intervall }}</td>
         </ng-container>
 
@@ -37,8 +37,10 @@
     </div>
   </div>
   <div fxLayout="row">
-    <mat-dialog-actions style="width: 100%" align="end">
-      <button type="submit" mat-raised-button color="primary" (click)="onClickOk()"><mat-icon>done</mat-icon> Ok</button>
+    <mat-dialog-actions style="width: 100%" fxLayoutAlign="end">
+      <button type="submit" mat-raised-button color="primary" (click)="onClickOk()">
+        <mat-icon>done</mat-icon> {{ 'button.einzelauskunft.ok' | translate }}
+      </button>
     </mat-dialog-actions>
   </div>
 </div>

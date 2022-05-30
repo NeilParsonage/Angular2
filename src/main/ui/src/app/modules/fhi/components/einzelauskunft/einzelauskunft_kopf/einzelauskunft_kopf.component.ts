@@ -102,24 +102,6 @@ export class EinzelauskunftKopfComponent implements OnInit {
     this.showListe(listeElements, this.translateService.instant('text.einzelauskunft.aggregate'));
   }
 
-  showListKabelsaetzeOld() {
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.width = '500px';
-    dialogConfig.height = 'auto';
-    dialogConfig.disableClose = true;
-    let listeElements: string[] = [];
-    this.kabelsaetzeliste.forEach((e, i) => {
-      listeElements[i] = e.kabelsatz;
-    });
-
-    dialogConfig.data = {
-      liste: listeElements,
-      titel: 'Kabelsätze',
-    };
-    const dialogRef = this.dialog.open(DialogShowlistComponent, dialogConfig);
-  }
-
   showListKabelsaetze() {
     let listeElements: string[] = [];
     this.kabelsaetzeliste.forEach((e, i) => {
@@ -135,7 +117,7 @@ export class EinzelauskunftKopfComponent implements OnInit {
       listeElements[i] = e.lackschl + '  ' + e.lackLangText + '  ' + this.to_blank(e.lackzus) + '  ' + this.to_blank(e.lackzLangText);
     });
 
-    this.showListe(listeElements, 'Fhs Lacke', '600px');
+    this.showListe(listeElements, this.translateService.instant('text.einzelauskunft.fhsLacke'), '600px');
   }
 
   showListFzgLack() {
@@ -143,7 +125,7 @@ export class EinzelauskunftKopfComponent implements OnInit {
 
     listeElements[0] = this.fzgLack.lackschl + '  ' + this.fzgLack.lackLangText;
 
-    this.showListe(listeElements, 'Fzg Lack');
+    this.showListe(listeElements, this.translateService.instant('text.einzelauskunft.fzgLacke'));
   }
 
   showListBemerkungAlt() {
@@ -151,37 +133,47 @@ export class EinzelauskunftKopfComponent implements OnInit {
 
     listeElements[0] = this.einzelauskunft.bemerkungAlt;
 
-    this.showListe(listeElements, 'Bemerkungstext Alt');
+    this.showListe(listeElements, this.translateService.instant('text.einzelauskunft.bemerkungstextalt'));
   }
 
-  checkBemerkungAlt() {
-    return true;
+  checkVisibleBemerkungAlt() {
+    if (this.einzelauskunft?.bemerkungAlt == null || this.einzelauskunft?.bemerkungAlt == '') {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   showListKriterien() {
-    let titel: string = 'Kriterien';
-
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '900px';
     dialogConfig.height = 'auto';
     dialogConfig.disableClose = true;
     dialogConfig.data = {
       listeKriterien: this.kriterienliste,
-      titel: titel + ' ' + this.translateService.instant('text.einzelauskunft.vonpnr') + ' ' + this.einzelauskunft.pnr,
+      titel:
+        this.translateService.instant('text.einzelauskunft.kriterien') +
+        ' ' +
+        this.translateService.instant('text.einzelauskunft.vonpnr') +
+        ' ' +
+        this.einzelauskunft.pnr,
     };
     const dialogRef = this.dialog.open(DialogShowKriterienComponent, dialogConfig);
   }
 
   showListCodes() {
-    let titel: string = 'Codes';
-
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = '800px';
+    dialogConfig.width = '900px';
     dialogConfig.height = 'auto';
     dialogConfig.disableClose = true;
     dialogConfig.data = {
       listeCodes: this.codeliste,
-      titel: titel + ' ' + this.translateService.instant('text.einzelauskunft.vonpnr') + ' ' + this.einzelauskunft.pnr,
+      titel:
+        this.translateService.instant('text.einzelauskunft.codes') +
+        ' ' +
+        this.translateService.instant('text.einzelauskunft.vonpnr') +
+        ' ' +
+        this.einzelauskunft.pnr,
     };
     const dialogRef = this.dialog.open(DialogShowCodesComponent, dialogConfig);
   }

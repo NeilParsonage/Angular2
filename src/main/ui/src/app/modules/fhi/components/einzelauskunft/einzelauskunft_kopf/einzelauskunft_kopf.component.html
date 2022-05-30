@@ -184,16 +184,18 @@
             <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.bemerkung }}" />
           </mat-form-field>
         </div>
-        <div fxLayout="column" fxFlex="25">
+        <div fxLayout="column" fxFlex="15">
           <mat-form-field class="selectItem">
             <mat-label>{{ 'label.einzelauskunft.autor' | translate }}</mat-label>
             <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.autor }}" />
           </mat-form-field>
         </div>
-        <div fxLayout="column" fxFlex="5">
-          <button mat-icon-button color="accent" aria-label="Zeige Bemerkungstext Alt" (click)="showListBemerkungAlt()" [disabled]="checkBemerkungAlt()">
-            <mat-icon>info</mat-icon>
-          </button>
+        <div fxLayout="column" fxFlex="15">
+          <div *ngIf="checkVisibleBemerkungAlt()">
+            <button mat-icon-button color="accent" aria-label="Zeige Bemerkungstext Alt" (click)="showListBemerkungAlt()">
+              <mat-icon>info</mat-icon>
+            </button>
+          </div>
         </div>
       </div>
 
