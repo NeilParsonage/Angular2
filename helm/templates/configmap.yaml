@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Release.Name }}-configmap
-data:
-    application.yml: |
-{{ include "fhi.application.yaml" . | indent 6 }}
