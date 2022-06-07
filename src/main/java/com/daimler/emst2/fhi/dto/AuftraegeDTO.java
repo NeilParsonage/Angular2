@@ -74,6 +74,10 @@ public class AuftraegeDTO {
 
     public Number skidNr;
 
+    public Number seqnrSepu;
+
+    public Number seqnrLapu;
+
     public String ort;
 
     public String hrknr;

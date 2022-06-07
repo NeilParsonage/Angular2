@@ -39,6 +39,7 @@ public class FhiDtoFactory {
         neu.fin = auftraege.getFin();
         neu.vin = auftraege.getVin();
         neu.version = auftraege.getVersion();
+
         return neu;
     }
 
@@ -87,6 +88,8 @@ public class FhiDtoFactory {
         neu.zielSepu= sendestatus.getZielSepu();
         neu.skidNr = sendestatus.getSkidNr();
         neu.ort = sendestatus.getOrt();
+        neu.seqnrSepu = auftraege.getSeqnrSepu();
+        neu.seqnrLapu = auftraege.getSeqnrLapu();
         neu.hrknr = sendestatus.getHrknr();
         neu.fhiSendStatus = sendestatus.getFhiSendStatus();
         neu.fhisendung = sendestatus.getFhisendung();

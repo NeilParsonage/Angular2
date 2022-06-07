@@ -17,8 +17,9 @@ export class EinzelauskunftOrtComponent implements OnInit {
       return;
     }
     this.einzelauskunft = data;
+    console.log(this.einzelauskunft);
   }
   ngOnInit(): void {
-    console.log('on init' || this.einzelauskunft.pnr);
+    console.log('ort on init' || this.einzelauskunft.pnr);
   }
 }
