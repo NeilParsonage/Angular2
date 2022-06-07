@@ -16,6 +16,12 @@
       </div>
       <div fxLayout="row">
         <mat-form-field class="selectItem">
+          <mat-label>{{ 'label.einzelauskunft.seqnrlapu' | translate }}</mat-label>
+          <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.seqnrLapu }}" />
+        </mat-form-field>
+      </div>
+      <div fxLayout="row">
+        <mat-form-field class="selectItem">
           <mat-label>{{ 'label.einzelauskunft.skidnr' | translate }}</mat-label>
           <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.skidNr }}" />
         </mat-form-field>
@@ -27,6 +33,12 @@
         <mat-form-field class="selectItem">
           <mat-label>{{ 'label.einzelauskunft.zielsepu' | translate }}</mat-label>
           <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.zielSepu }}" />
+        </mat-form-field>
+      </div>
+      <div fxLayout="row">
+        <mat-form-field class="selectItem">
+          <mat-label>{{ 'label.einzelauskunft.seqnrsepu' | translate }}</mat-label>
+          <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.seqnrSepu }}" />
         </mat-form-field>
       </div>
       <div fxLayout="row">

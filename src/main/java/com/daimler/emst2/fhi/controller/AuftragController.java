@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.daimler.emst2.fhi.dto.AuftraegeDTO;
 import com.daimler.emst2.fhi.dto.AuftragAggregateDTO;
+import com.daimler.emst2.fhi.dto.AuftragCodesDTO;
 import com.daimler.emst2.fhi.dto.AuftragKabelsaetzeDTO;
+import com.daimler.emst2.fhi.dto.AuftragKriterienDTO;
 import com.daimler.emst2.fhi.dto.AuftragLackeDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDetailsDTO;
@@ -79,8 +81,17 @@ public class AuftragController {
 
     @GetMapping("/listAuftraegebyGesLfdNr")
     public List<AuftraegeDTO> getAuftraegby(@RequestParam int lfdNrGes) {
-        long lfdNrGesL = lfdNrGes;
         return auftraegeService.getAuftraegebyLfdNrGes(lfdNrGes);
+    }
+
+    @GetMapping("/codes")
+    public List<AuftragCodesDTO> getAuftragCodePnr(@RequestParam String pnr) {
+        return auftraegeService.getAuftragCodes(pnr);
+    }
+
+    @GetMapping("/kriterien")
+    public List<AuftragKriterienDTO> getAuftragKriterienPnr(@RequestParam String pnr) {
+        return auftraegeService.getAuftragKriterien(pnr);
     }
 
 }

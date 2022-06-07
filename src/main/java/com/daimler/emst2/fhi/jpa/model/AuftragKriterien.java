@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "V_E2_KRITS")
+@Table(name = "V_E2_KRITERIEN")
 public class AuftragKriterien implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -27,16 +27,19 @@ public class AuftragKriterien implements Serializable {
     private String kriterium;
 
     @Column(name = "KURZTEXT")
-    private String Kurztext;
+    private String kurztext;
 
     @Column(name = "BEREICH")
-    private String Bereich;
+    private String bereich;
 
     @Column(name = "SOLLABS_FENSTER")
-    private Long Dichte;
+    private Long dichte;
 
     @Column(name = "SOLLABS_INTERVALL")
-    private Long Intervall;
+    private Long intervall;
+
+    @Column(name = "RELEVANT")
+    private Boolean relevant;
 
     public String getId() {
         return id;
@@ -71,35 +74,44 @@ public class AuftragKriterien implements Serializable {
     }
 
     public String getKurztext() {
-        return Kurztext;
+        return kurztext;
     }
 
     public void setKurztext(String kurztext) {
-        Kurztext = kurztext;
+        this.kurztext = kurztext;
     }
 
     public String getBereich() {
-        return Bereich;
+        return bereich;
     }
 
     public void setBereich(String bereich) {
-        Bereich = bereich;
+        this.bereich = bereich;
     }
 
     public Long getDichte() {
-        return Dichte;
+        return dichte;
     }
 
     public void setDichte(Long dichte) {
-        Dichte = dichte;
+        this.dichte = dichte;
     }
 
     public Long getIntervall() {
-        return Intervall;
+        return intervall;
     }
 
     public void setIntervall(Long intervall) {
-        Intervall = intervall;
+        this.intervall = intervall;
     }
+
+    public Boolean getRelevant() {
+        return relevant;
+    }
+
+    public void setRelevant(Boolean relevant) {
+        this.relevant = relevant;
+    }
+
 
 }

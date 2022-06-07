@@ -96,9 +96,27 @@ public class Auftraege extends BaseAuditEntity implements Serializable {
     @Column(name = "ORT_RHM")
     private String ortRhm;
 
-    // Mv_Alle_Rel_Codes
-    //@Column(name = "CODES_BAND", length = 2000)
-    //private String codesBand;
+    @Column(name = "SEQNR_LAPU")
+    private Long seqnrLapu;
+
+    @Column(name = "SEQNR_SEPU")
+    private Long seqnrSepu;
+
+    public Long getSeqnrLapu() {
+        return seqnrLapu;
+    }
+
+    public void setSeqnrLapu(Long seqnrLapu) {
+        this.seqnrLapu = seqnrLapu;
+    }
+
+    public Long getSeqnrSepu() {
+        return seqnrSepu;
+    }
+
+    public void setSeqnrSepu(Long seqnrSepu) {
+        this.seqnrSepu = seqnrSepu;
+    }
 
     @Column(name = "FHISENDUNG", length = 1)
     private String fhiSendung;

@@ -23,8 +23,8 @@
         <maven-license-plugin>1.14</maven-license-plugin>
         <keycloakadapter.version>10.0.2</keycloakadapter.version>
         <npmCommand>run build:prod</npmCommand>        
-        <repo-url>https://nexus-emst-ci.dwoeacp.dewoe.corpintra.net</repo-url>
-    </properties>        
+        <repo-url>https://nexus-emst.dwoeacp.tbintra.net</repo-url>
+    </properties>
     <dependencies>
 
         <!-- ********************** -->

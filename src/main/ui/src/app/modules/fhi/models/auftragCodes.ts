@@ -7,5 +7,5 @@ export interface AuftragCodes {
 
   bereich: string;
 
-  relevant: number;
+  relevant: boolean;
 }
