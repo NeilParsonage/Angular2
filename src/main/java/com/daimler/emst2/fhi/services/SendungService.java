@@ -15,6 +15,7 @@ import org.springframework.util.ObjectUtils;
 
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.jpa.dao.AuftraegeDao;
+import com.daimler.emst2.fhi.jpa.dao.AuftragSperrenDao;
 import com.daimler.emst2.fhi.jpa.model.AktiveRestriktion;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.jpa.model.KriteriumRelevant;
@@ -76,6 +77,9 @@ public class SendungService {
     IPreconditionFactory<SendPreconditionEnum> preconditionFactory152;
 
     @Autowired
+    AuftragSperrenDao auftragSperrenDao;
+
+    @Autowired
     AuftraegeDao auftragDao;
 
     public SendContext senden(SendungDTO sendung) {
@@ -92,6 +96,7 @@ public class SendungService {
         sendContext.sendTypeEnum = SendTypeEnum.valueOf(sendung.sendeTyp);
         sendContext.auftrag = auftrag;
         sendContext.user = authContext.getAuthentication().getName();
+        sendContext.auftragSperrenDao = auftragSperrenDao;
 
         this.auftragSendungStart(sendContext);
         return sendContext;

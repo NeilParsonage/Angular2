@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.daimler.emst2.fhi.jpa.dao.AuftragSperrenDao;
 import com.daimler.emst2.fhi.jpa.model.AktiveRestriktion;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.jpa.model.Systemwerte;
@@ -33,6 +34,8 @@ public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext
     public String user;
     public Date processTimestamp;
 
+    public AuftragSperrenDao auftragSperrenDao;
+
     private final Set<SendTypeEnum> performedSendSet = new HashSet<SendTypeEnum>();
 
     private Map<OrtCheckEnum, Map<OrtTypEnum, Set<String>>> ortChecksMap =
@@ -41,6 +44,7 @@ public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext
     public Protocol protocol = null;
 
     private Map<String, Systemwerte> lfdNrMap;
+
 
     private SendContext() {
         this.processTimestamp = DateTimeHelper.getAktuellesDatum();
