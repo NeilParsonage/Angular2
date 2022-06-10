@@ -10,6 +10,7 @@ import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.precondition.SendPreconditionEnum;
 import com.daimler.emst2.fhi.sendung.process.precondition.IPrecondition;
 import com.daimler.emst2.fhi.sendung.process.precondition.IPreconditionFactory;
+import com.daimler.emst2.fhi.sendung.processcommon.precondition.PreconditionAnzahlFreie;
 import com.daimler.emst2.fhi.sendung.processcommon.precondition.PreconditionAuftragUpToDate;
 import com.daimler.emst2.fhi.sendung.processcommon.precondition.PreconditionDummyToImplement;
 import com.daimler.emst2.fhi.sendung.processcommon.precondition.PreconditionOrtCheckSendAndCancelSendData;
@@ -74,7 +75,9 @@ public class SendPreconditionFactory implements IPreconditionFactory<SendPrecond
             //return new PreconditionSendPrepareHierarchyInfosForHistory(pCheckPrecondition, getProtocolService(), SendTypeEnum.RHM);
 		case SEND_HIERARCHY_INFOS_FOR_HISTORY_UBM:
             return dummy;
-            //return new PreconditionSendPrepareHierarchyInfosForHistory(pCheckPrecondition, getProtocolService(), SendTypeEnum.UBM);
+        case ANZAHL_FREIE_FETCHED:
+            return new PreconditionAnzahlFreie<SendPreconditionEnum, SendContext>(pCheckPrecondition,
+                    getProtocolService());
 		default:
 			throw new RuntimeException("Unsupported value of SendPreconditionEnum: " + pCheckPrecondition);
 		}

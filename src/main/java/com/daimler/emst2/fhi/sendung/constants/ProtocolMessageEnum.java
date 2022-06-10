@@ -28,6 +28,7 @@ public enum ProtocolMessageEnum {
     PREPARE_HISTORY_PROBLEM_DEBUG("debug.preparehist.orterr"),
     SENDUNG_DONE_INFO("info.sendung.done"),
     STORNO_DONE_INFO("info.storno.done"),
+    ANZAHL_FREIE_VERLETZT_WARN("warn.anzahlfreie.verletzt"),
     ;
 
     private String tuebKey;

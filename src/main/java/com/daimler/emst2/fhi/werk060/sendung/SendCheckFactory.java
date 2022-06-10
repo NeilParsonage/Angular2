@@ -6,6 +6,7 @@ import com.daimler.emst2.fhi.sendung.check.SendCheckEnum;
 import com.daimler.emst2.fhi.sendung.process.check.ICheck;
 import com.daimler.emst2.fhi.sendung.process.check.ICheckFactory;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
+import com.daimler.emst2.fhi.werk060.check.CheckFhiAnzahlFreie;
 import com.daimler.emst2.fhi.werk060.check.CheckFhiOrtInvalid;
 import com.daimler.emst2.fhi.werk060.check.CheckLmtOrtInvalid;
 import com.daimler.emst2.fhi.werk060.check.CheckRhmOrtInvalid;
@@ -57,6 +58,8 @@ public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
             return new CheckLmtOrtInvalid(getProtocolService());
 		case RHM_ORT_ERR:
 			return new CheckRhmOrtInvalid(getProtocolService());
+        case FHI_ANZAHL_FREIE:
+            return new CheckFhiAnzahlFreie(getProtocolService());
 		default:
 			throw new RuntimeException("Unsupported value of SendCheckEnum: " + pruefungKennung);
 		}

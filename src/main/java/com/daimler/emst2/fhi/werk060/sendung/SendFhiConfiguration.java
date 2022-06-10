@@ -30,6 +30,7 @@ public class SendFhiConfiguration implements IProcessConfiguration<SendTypeEnum,
         pCheckList.add(SendCheckEnum.FHI_IMPLIZITE_TEILSENDUNG);
         pCheckList.add(SendCheckEnum.FHI_SOLLABSTAND);
         pCheckList.add(SendCheckEnum.FHI_ORT_ERR);
+        pCheckList.add(SendCheckEnum.FHI_ANZAHL_FREIE);
     }
 
     @Override

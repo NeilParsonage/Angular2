@@ -16,6 +16,7 @@ import org.springframework.util.ObjectUtils;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.jpa.dao.AuftraegeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragSperrenDao;
+import com.daimler.emst2.fhi.jpa.dao.SystemwerteDao;
 import com.daimler.emst2.fhi.jpa.model.AktiveRestriktion;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.jpa.model.KriteriumRelevant;
@@ -80,6 +81,9 @@ public class SendungService {
     AuftragSperrenDao auftragSperrenDao;
 
     @Autowired
+    public SystemwerteDao systemwerteDao;
+
+    @Autowired
     AuftraegeDao auftragDao;
 
     public SendContext senden(SendungDTO sendung) {
@@ -97,6 +101,7 @@ public class SendungService {
         sendContext.auftrag = auftrag;
         sendContext.user = authContext.getAuthentication().getName();
         sendContext.auftragSperrenDao = auftragSperrenDao;
+        sendContext.systemwerteDao = systemwerteDao;
 
         this.auftragSendungStart(sendContext);
         return sendContext;

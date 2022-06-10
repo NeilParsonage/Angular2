@@ -21,6 +21,9 @@ public enum SendCheckEnum implements IProcessId {
     FHI_ORT_ERR("ort.error.fhi", SendTypeEnum.FHI,400),
     RHM_ORT_ERR("ort.error.rhm", SendTypeEnum.RHM, 400),
     UBM_ORT_ERR("ort.error.ubm", SendTypeEnum.UBM, 400),
+
+    FHI_ANZAHL_FREIE_060("anzahlfreie.warning.fhi", SendTypeEnum.UNDEFINED, 500),
+
     ;
 
     public static final String DEFAULT_TUEB_PREFIX = "send.check.";
