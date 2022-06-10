@@ -20,11 +20,8 @@ public class SendRhmConfiguration implements IProcessConfiguration<SendTypeEnum,
     @Override
     public void fillCheckEnumList(List<SendCheckEnum> pCheckList) {
         pCheckList.add(SendCheckEnum.AUFTRAG_UPTODATE);
-        pCheckList.add(SendCheckEnum.AUFTRAG_ANKUENDIGUNG_VORHANDEN);
-        pCheckList.add(SendCheckEnum.AUFTRAG_SPERRE_VORHANDEN);
-        pCheckList.add(SendCheckEnum.RHM_IMPLIZITE_TEILSENDUNG);
-        pCheckList.add(SendCheckEnum.RHM_SOLLABSTAND);
         pCheckList.add(SendCheckEnum.RHM_ORT_ERR);
+        pCheckList.add(SendCheckEnum.AUFTRAG_ANZAHL_FREIE_060);
     }
 
     @Override

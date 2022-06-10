@@ -23,7 +23,7 @@ public class CheckFhiAnzahlFreie extends AbstractSendCheck {
     @Override
     protected void init() {
         addPrecondition(SendPreconditionEnum.ANZAHL_FREIE_FETCHED);
-        setStepIdentifierEnum(SendCheckEnum.FHI_ANZAHL_FREIE_060);
+        setStepIdentifierEnum(SendCheckEnum.AUFTRAG_ANZAHL_FREIE_060);
     }
 
     /**
