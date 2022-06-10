@@ -52,7 +52,7 @@ public class AuftragSperren implements Serializable {
     private String herkunft;
 
     @Column(name = "RELEVANT_01")
-    private String relevant01;
+    private Boolean relevant;
 
     public String getVaspId() {
         return vaspId;
@@ -134,12 +134,13 @@ public class AuftragSperren implements Serializable {
         this.herkunft = herkunft;
     }
 
-    public String getRelevant01() {
-        return relevant01;
+    public Boolean getRelevant() {
+        return relevant;
     }
 
-    public void setRelevant01(String relevant01) {
-        this.relevant01 = relevant01;
+    public void setRelevant(Boolean relevant) {
+        this.relevant = relevant;
     }
+
 
 }
