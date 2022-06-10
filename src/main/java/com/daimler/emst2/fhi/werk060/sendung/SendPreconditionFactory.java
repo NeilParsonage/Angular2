@@ -10,13 +10,13 @@ import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.precondition.SendPreconditionEnum;
 import com.daimler.emst2.fhi.sendung.process.precondition.IPrecondition;
 import com.daimler.emst2.fhi.sendung.process.precondition.IPreconditionFactory;
-import com.daimler.emst2.fhi.sendung.processcommon.precondition.PreconditionAnzahlFreie;
 import com.daimler.emst2.fhi.sendung.processcommon.precondition.PreconditionAuftragUpToDate;
 import com.daimler.emst2.fhi.sendung.processcommon.precondition.PreconditionDummyToImplement;
 import com.daimler.emst2.fhi.sendung.processcommon.precondition.PreconditionOrtCheckSendAndCancelSendData;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 import com.daimler.emst2.fhi.services.AuftraegeService;
 import com.daimler.emst2.fhi.services.KonfigurationService;
+import com.daimler.emst2.fhi.werk060.precondition.PreconditionAnzahlFreie;
 
 
 @Component("preconditionFactory060")

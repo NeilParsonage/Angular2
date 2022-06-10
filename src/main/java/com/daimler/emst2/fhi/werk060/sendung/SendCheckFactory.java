@@ -58,7 +58,7 @@ public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
             return new CheckLmtOrtInvalid(getProtocolService());
 		case RHM_ORT_ERR:
 			return new CheckRhmOrtInvalid(getProtocolService());
-        case FHI_ANZAHL_FREIE:
+        case FHI_ANZAHL_FREIE_060:
             return new CheckFhiAnzahlFreie(getProtocolService());
 		default:
 			throw new RuntimeException("Unsupported value of SendCheckEnum: " + pruefungKennung);
