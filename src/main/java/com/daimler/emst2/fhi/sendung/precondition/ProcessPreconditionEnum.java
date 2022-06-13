@@ -9,7 +9,8 @@ public enum ProcessPreconditionEnum implements IProcessId {
     AUFTRAG_UPTODATE("auftrag.uptodate", 100),
     ORTSDATEN_FETCHED("ortsdaten.geladen", 200),
     AUFTRAG_LFD_NR_FETCHED("lfd.nr.current.geladen", 300), 
-    HIERARCHY_INFOS_FOR_HISTORY("history.infos.prepared", 400)
+    HIERARCHY_INFOS_FOR_HISTORY("history.infos.prepared", 400),
+    ANZAHL_FREIE_FETCHED("history.infos.prepared", 500),
     ;
 
     public static final String DEFAULT_TUEB_PREFIX = "common.precondition.";

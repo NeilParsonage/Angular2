@@ -3,6 +3,7 @@ package com.daimler.emst2.fhi.sendung.process;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -176,7 +177,7 @@ public abstract class AbstractProcessService<GenPreconditionEnum extends IProces
 
 	@SuppressWarnings("unchecked")
 	protected Set<GenActionEnum> collectActionEnums(List<GenProcess> pProcessList) {
-		Set<GenActionEnum> actionSet = new HashSet<GenActionEnum>();
+        Set<GenActionEnum> actionSet = new LinkedHashSet<GenActionEnum>();
 		for (GenProcess iProcess : pProcessList) {
 			actionSet.addAll(iProcess.getActions());
 		}
@@ -185,7 +186,7 @@ public abstract class AbstractProcessService<GenPreconditionEnum extends IProces
 
 	@SuppressWarnings("unchecked")
 	protected Set<GenCheckEnum> collectCheckEntryEnums(List<GenProcess> pProcessList) {
-		Set<GenCheckEnum> checkSet = new HashSet<GenCheckEnum>();
+        Set<GenCheckEnum> checkSet = new LinkedHashSet<GenCheckEnum>();
 		for (GenProcess iProcess : pProcessList) {
 			checkSet.addAll(iProcess.getChecks());
 		}
@@ -194,7 +195,7 @@ public abstract class AbstractProcessService<GenPreconditionEnum extends IProces
 
 	@SuppressWarnings({ "unchecked" })
 	protected Set<GenPreconditionEnum> collectPreconditionEnums(List<? extends IProcessStep> processStepSet) {
-		Set<GenPreconditionEnum> resultSet = new HashSet<GenPreconditionEnum>();
+        Set<GenPreconditionEnum> resultSet = new LinkedHashSet<GenPreconditionEnum>();
 		for (IProcessStep iProcessStep : processStepSet) {
 			List<GenPreconditionEnum> singlePreconditionList = iProcessStep.getPreconditionIdentifier();
 			resultSet.addAll(singlePreconditionList);

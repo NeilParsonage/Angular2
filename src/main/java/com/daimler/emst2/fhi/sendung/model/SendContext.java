@@ -9,8 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.daimler.emst2.fhi.jpa.dao.AuftragSperrenDao;
+import com.daimler.emst2.fhi.jpa.dao.SystemwerteDao;
 import com.daimler.emst2.fhi.jpa.model.AktiveRestriktion;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.AuftragSperren;
 import com.daimler.emst2.fhi.jpa.model.Systemwerte;
 import com.daimler.emst2.fhi.model.FhiMandantEnum;
 import com.daimler.emst2.fhi.model.Protocol;
@@ -33,6 +36,12 @@ public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext
     public String user;
     public Date processTimestamp;
 
+    public List<AuftragSperren> auftragSperrenList;
+
+    public AuftragSperrenDao auftragSperrenDao;
+
+    public SystemwerteDao systemwerteDao;
+
     private final Set<SendTypeEnum> performedSendSet = new HashSet<SendTypeEnum>();
 
     private Map<OrtCheckEnum, Map<OrtTypEnum, Set<String>>> ortChecksMap =
@@ -49,21 +58,6 @@ public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext
     public final static SendContext create() {
         return new SendContext();
     }
-
-    /*public SendContext(SendTypeEnum pSendTypeEnum, Auftraege pAuftrag, Date pLetzteAenderungRestriktionen,
-            IProtocol pProtocol, String pUser) {
-        this.user = pUser;
-        this.sendTypeEnum = pSendTypeEnum;
-        this.auftrag = pAuftrag;
-        this.processTimestamp = DateTimeHelper.getAktuellesDatum();
-        this.protocol = pProtocol;
-        // IProtocol protocol = protocolService.create(pSendungstyp, "Sendung " + pAuftrag.getPnr());
-    }
-    
-    public final static SendContext create(SendTypeEnum pSendTypeEnum, Auftraege pAuftrag,
-            Date pLetzteAenderungRestriktionen, IProtocol pProtocol, String pUser) {
-        return new SendContext(pSendTypeEnum, pAuftrag, pLetzteAenderungRestriktionen, pProtocol, pUser);
-    }*/
 
     public void addErrorMessage(String message) {
         this.errorMessages.add(message);

@@ -85,7 +85,7 @@ export class SendemaskeComponent {
         errorCases.push(e);
         return;
       }
-      if (e.severity === 'WARN') {
+      if (e.severity === 'WARNING') {
         warnCases.push(e);
       }
     });

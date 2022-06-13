@@ -25,11 +25,8 @@ public class SendFhiConfiguration implements IProcessConfiguration<SendTypeEnum,
         // includes the Sendekennung und Sendestatus check as performed in PL/SQL PROCEDURE Pruefe_Sendekennung
 
         pCheckList.add(SendCheckEnum.AUFTRAG_UPTODATE);
-        pCheckList.add(SendCheckEnum.AUFTRAG_ANKUENDIGUNG_VORHANDEN);
-        pCheckList.add(SendCheckEnum.AUFTRAG_SPERRE_VORHANDEN);
-        pCheckList.add(SendCheckEnum.FHI_IMPLIZITE_TEILSENDUNG);
-        pCheckList.add(SendCheckEnum.FHI_SOLLABSTAND);
         pCheckList.add(SendCheckEnum.FHI_ORT_ERR);
+        pCheckList.add(SendCheckEnum.AUFTRAG_ANZAHL_FREIE_060);
     }
 
     @Override
