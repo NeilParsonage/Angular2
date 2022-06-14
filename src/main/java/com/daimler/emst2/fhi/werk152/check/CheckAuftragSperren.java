@@ -1,4 +1,4 @@
-package com.daimler.emst2.fhi.sendung.check;
+package com.daimler.emst2.fhi.werk152.check;
 
 import java.util.List;
 
@@ -8,6 +8,8 @@ import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.jpa.model.AuftragSperrInformation;
 import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.SeverityEnum;
+import com.daimler.emst2.fhi.sendung.check.AbstractSendCheck;
+import com.daimler.emst2.fhi.sendung.check.SendCheckEnum;
 import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.precondition.SendPreconditionEnum;

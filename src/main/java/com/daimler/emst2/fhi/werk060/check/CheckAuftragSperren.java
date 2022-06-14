@@ -12,6 +12,7 @@ import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.precondition.SendPreconditionEnum;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
+import com.daimler.emst2.fhi.util.BasisCollectionUtils;
 import com.daimler.emst2.fhi.util.BasisStringUtils;
 
 public class CheckAuftragSperren extends AbstractSendCheck {
@@ -48,9 +49,13 @@ public class CheckAuftragSperren extends AbstractSendCheck {
         Protocol protocol = pContext.getProtocol();
 
         StringBuffer bereiche = new StringBuffer();
-        
+
         HashMap<String, Long> anzahlSperrenForBereichMap = new HashMap<String, Long>();
         List<IAuftragSperrenForBereich> anzahlSperrenForBereichList = pContext.anzahlSperrenForBereich;
+        if (BasisCollectionUtils.isEmptyOrNull(anzahlSperrenForBereichList)) {
+            return;
+        }
+
         for (IAuftragSperrenForBereich entry : anzahlSperrenForBereichList) {
 
             // avoid empty or null Bereich being used as key in Hashmap!
@@ -60,9 +65,10 @@ public class CheckAuftragSperren extends AbstractSendCheck {
             else {
                 anzahlSperrenForBereichMap.put(entry.getBereich(), entry.getAnzahlForBereich());
             }
-                    
-            if (bereiche.length() > 0)
+
+            if (bereiche.length() > 0) {
                 bereiche.append(SEPERATOR);
+            }
             bereiche.append(entry.getBereich());
         }
 
@@ -72,8 +78,8 @@ public class CheckAuftragSperren extends AbstractSendCheck {
 
                 // Einzelmeldung - FHI or RHM
                 String bereichWithSperre = anzahlSperrenForBereichList.get(0).getBereich();
-               
-                String[] params = { pContext.auftrag.getPnr(), bereichWithSperre };
+
+                String[] params = { bereichWithSperre, pContext.auftrag.getPnr() };
                 getProtocolService().addProtocolEntry(protocol,
                         ProtocolMessageEnum.AUFTRAG_SPERREN_VERLETZT_SINGULAR_FHI_OR_RHM_WARN,
                         params,
@@ -89,17 +95,16 @@ public class CheckAuftragSperren extends AbstractSendCheck {
                         getIdentifier(),
                         SeverityEnum.WARNING);
             }
+            return;
         }
 
-        else {
-            // Prepare Protocol Warning for several  Sperren
-            String[] params = { pContext.auftrag.getPnr(), bereiche.toString(), };
-            getProtocolService().addProtocolEntry(protocol,
-                    ProtocolMessageEnum.AUFTRAG_SPERREN_VERLETZT_SEVERAL_AREAS_WARN,
-                    params,
-                    getIdentifier(),
-                    SeverityEnum.WARNING);
-        }
+        // Prepare Protocol Warning for several  Sperren
+        String[] params = { pContext.auftrag.getPnr(), bereiche.toString(), };
+        getProtocolService().addProtocolEntry(protocol,
+                ProtocolMessageEnum.AUFTRAG_SPERREN_VERLETZT_SEVERAL_AREAS_WARN,
+                params,
+                getIdentifier(),
+                SeverityEnum.WARNING);
 
     }
 
