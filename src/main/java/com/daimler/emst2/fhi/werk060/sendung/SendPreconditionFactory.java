@@ -17,6 +17,7 @@ import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 import com.daimler.emst2.fhi.services.AuftraegeService;
 import com.daimler.emst2.fhi.services.KonfigurationService;
 import com.daimler.emst2.fhi.werk060.precondition.PreconditionAnzahlFreie;
+import com.daimler.emst2.fhi.werk060.precondition.PreconditionAuftragsSperre;
 
 
 @Component("preconditionFactory060")
@@ -77,6 +78,9 @@ public class SendPreconditionFactory implements IPreconditionFactory<SendPrecond
             return dummy;
         case ANZAHL_FREIE_FETCHED:
             return new PreconditionAnzahlFreie<SendPreconditionEnum, SendContext>(pCheckPrecondition,
+                    getProtocolService());
+        case AUFTRAG_SPERREN_FETCHED:
+            return new PreconditionAuftragsSperre<SendPreconditionEnum, SendContext>(pCheckPrecondition,
                     getProtocolService());
 		default:
 			throw new RuntimeException("Unsupported value of SendPreconditionEnum: " + pCheckPrecondition);

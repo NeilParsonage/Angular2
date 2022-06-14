@@ -16,6 +16,7 @@ public enum SendPreconditionEnum implements IProcessId {
     SEND_HIERARCHY_INFOS_FOR_HISTORY_RHM(ProcessPreconditionEnum.HIERARCHY_INFOS_FOR_HISTORY, 602), 
     SEND_HIERARCHY_INFOS_FOR_HISTORY_UBM(ProcessPreconditionEnum.HIERARCHY_INFOS_FOR_HISTORY, 603),
     ANZAHL_FREIE_FETCHED(ProcessPreconditionEnum.ANZAHL_FREIE_FETCHED, 700),
+    AUFTRAG_SPERREN_FETCHED(ProcessPreconditionEnum.AUFTRAG_SPERREN_FETCHED, 800),
     ;
 
     public static final String DEFAULT_TUEB_PREFIX = "send.precondition.";

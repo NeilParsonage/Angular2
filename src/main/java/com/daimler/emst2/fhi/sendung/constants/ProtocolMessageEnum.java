@@ -29,6 +29,10 @@ public enum ProtocolMessageEnum {
     SENDUNG_DONE_INFO("info.sendung.done"),
     STORNO_DONE_INFO("info.storno.done"),
     ANZAHL_FREIE_VERLETZT_WARN("warn.anzahlfreie.verletzt"),
+
+    AUFTRAG_SPERREN_VERLETZT_SINGULAR_LEER_WARN("warn.anzahlSperrenFuerBereich.verletzt.single.leer"),
+    AUFTRAG_SPERREN_VERLETZT_SINGULAR_FHI_OR_RHM_WARN("warn.anzahlSperrenFuerBereich.verletzt.single.fhi_or_rhm"),
+    AUFTRAG_SPERREN_VERLETZT_SEVERAL_AREAS_WARN("warn.anzahlSperrenFuerBereich.verletzt.multiple.areas"),
     ;
 
     private String tuebKey;
