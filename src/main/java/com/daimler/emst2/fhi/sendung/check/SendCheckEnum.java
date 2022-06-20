@@ -8,7 +8,7 @@ public enum SendCheckEnum implements IProcessId {
     AUFTRAG_SPERRE_VORHANDEN("sperre.auftrag", SendTypeEnum.UNDEFINED, 100),
     AUFTRAG_ANKUENDIGUNG_VORHANDEN("ankuendigung.auftrag", SendTypeEnum.UNDEFINED, 100),
 
-    AUFTRAG_ANZAHL_FREIE_060("anzahlfreie.warning.fhi", SendTypeEnum.UNDEFINED, 500),
+
 
     FHI_IMPLIZITE_TEILSENDUNG("teilsend.implizit.fhi", SendTypeEnum.FHI, 200),
     UBM_IMPLIZITE_TEILSENDUNG("teilsend.implizit.ubm", SendTypeEnum.UBM, 200),
@@ -23,6 +23,9 @@ public enum SendCheckEnum implements IProcessId {
     FHI_ORT_ERR("ort.error.fhi", SendTypeEnum.FHI,400),
     RHM_ORT_ERR("ort.error.rhm", SendTypeEnum.RHM, 400),
     UBM_ORT_ERR("ort.error.ubm", SendTypeEnum.UBM, 400),
+
+    AUFTRAG_ANZAHL_FREIE_060("anzahlfreie.warning.fhi", SendTypeEnum.UNDEFINED, 500),
+    AUFTRAG_SPERREN_FUER_BEREICH_060("auftragSperrenFuerBereich.warning.fhi", SendTypeEnum.UNDEFINED, 600),
 
 
 

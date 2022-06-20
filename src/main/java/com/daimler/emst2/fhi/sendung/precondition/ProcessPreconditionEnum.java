@@ -11,6 +11,7 @@ public enum ProcessPreconditionEnum implements IProcessId {
     AUFTRAG_LFD_NR_FETCHED("lfd.nr.current.geladen", 300), 
     HIERARCHY_INFOS_FOR_HISTORY("history.infos.prepared", 400),
     ANZAHL_FREIE_FETCHED("history.infos.prepared", 500),
+    AUFTRAG_SPERREN_FETCHED("history.infos.prepared", 600),
     ;
 
     public static final String DEFAULT_TUEB_PREFIX = "common.precondition.";

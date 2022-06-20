@@ -54,6 +54,12 @@ public class AuftragSperren implements Serializable {
     @Column(name = "RELEVANT_01")
     private Boolean relevant;
 
+    @Column(name = "VF")
+    private String vf;
+
+    @Column(name = "BEREICH_FHI")
+    private String bereichFHI;
+
     public String getVaspId() {
         return vaspId;
     }
@@ -142,5 +148,20 @@ public class AuftragSperren implements Serializable {
         this.relevant = relevant;
     }
 
+    public String getVf() {
+        return vf;
+    }
+
+    public void setVf(String vf) {
+        this.vf = vf;
+    }
+
+    public String getBereichFHI() {
+        return bereichFHI;
+    }
+
+    public void setBereichFHI(String bereichFHI) {
+        this.bereichFHI = bereichFHI;
+    }
 
 }

@@ -14,6 +14,7 @@ import com.daimler.emst2.fhi.jpa.dao.SystemwerteDao;
 import com.daimler.emst2.fhi.jpa.model.AktiveRestriktion;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.jpa.model.AuftragSperren;
+import com.daimler.emst2.fhi.jpa.model.IAuftragSperrenForBereich;
 import com.daimler.emst2.fhi.jpa.model.Systemwerte;
 import com.daimler.emst2.fhi.model.FhiMandantEnum;
 import com.daimler.emst2.fhi.model.Protocol;
@@ -26,6 +27,13 @@ import com.daimler.emst2.fhi.sendung.processcommon.IOrtsdatenProcessContext;
 import com.daimler.emst2.fhi.util.DateTimeHelper;
 
 public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext, IOrtsdatenProcessContext {
+
+    public static final String FHI = "FHI";
+
+    public static final String RHM = "RHM";
+
+    public static final String LEER = "";
+
     public String mandant;
     public FhiMandantEnum mandantEnum;
     public MetaList<AktiveRestriktion> aktiveRestriktionenMetaList;
@@ -37,6 +45,8 @@ public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext
     public Date processTimestamp;
 
     public List<AuftragSperren> auftragSperrenList;
+
+    public List<IAuftragSperrenForBereich> anzahlSperrenForBereich;
 
     public AuftragSperrenDao auftragSperrenDao;
 

@@ -1,11 +1,13 @@
 package com.daimler.emst2.fhi.werk060.sendung;
 
+// import com.daimler.emst2.fhi.sendung.check.CheckAuftragSperren;
 import com.daimler.emst2.fhi.sendung.check.CheckAuftragUpToDate;
 import com.daimler.emst2.fhi.sendung.check.CheckDummyToImplement;
 import com.daimler.emst2.fhi.sendung.check.SendCheckEnum;
 import com.daimler.emst2.fhi.sendung.process.check.ICheck;
 import com.daimler.emst2.fhi.sendung.process.check.ICheckFactory;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
+import com.daimler.emst2.fhi.werk060.check.CheckAuftragSperren;
 import com.daimler.emst2.fhi.werk060.check.CheckFhiAnzahlFreie;
 import com.daimler.emst2.fhi.werk060.check.CheckFhiOrtInvalid;
 import com.daimler.emst2.fhi.werk060.check.CheckLmtOrtInvalid;
@@ -60,6 +62,8 @@ public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
 			return new CheckRhmOrtInvalid(getProtocolService());
         case AUFTRAG_ANZAHL_FREIE_060:
             return new CheckFhiAnzahlFreie(getProtocolService());
+        case AUFTRAG_SPERREN_FUER_BEREICH_060:
+            return new CheckAuftragSperren(getProtocolService());
 		default:
 			throw new RuntimeException("Unsupported value of SendCheckEnum: " + pruefungKennung);
 		}
