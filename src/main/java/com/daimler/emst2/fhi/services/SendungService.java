@@ -23,6 +23,7 @@ import com.daimler.emst2.fhi.jpa.model.KriteriumRelevant;
 import com.daimler.emst2.fhi.model.FhiMandantEnum;
 import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.sendung.action.SendActionEnum;
+import com.daimler.emst2.fhi.sendung.check.SendCheckEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
 import com.daimler.emst2.fhi.sendung.model.ISendService;
 import com.daimler.emst2.fhi.sendung.model.MetaList;
@@ -87,6 +88,15 @@ public class SendungService {
     AuftraegeDao auftragDao;
 
     public SendContext senden(SendungDTO sendung) {
+        return senden(sendung, null, null);
+    }
+
+    public SendContext senden(SendungDTO sendung, Map<SendCheckEnum, Boolean> userAcklowlegeSendChecks) {
+        return senden(sendung, null, userAcklowlegeSendChecks);
+    }
+
+    public SendContext senden(SendungDTO sendung, Protocol protocol,
+            Map<SendCheckEnum, Boolean> userAcklowlegeSendChecks) {
 
         SendTypeEnum sendType = SendTypeEnum.valueOf(sendung.sendeTyp);
         Auftraege auftrag = getAuftragByPnrAndVersion(sendung.pnr, sendung.version);
@@ -95,6 +105,7 @@ public class SendungService {
         }
 
         SendContext sendContext = SendContext.create();
+        sendContext.userAcklowlegeSendChecks = userAcklowlegeSendChecks;
         sendContext.mandant = this.configService.getWerksId(true);
         sendContext.mandantEnum = FhiMandantEnum.getMandant(sendContext.mandant);
         sendContext.sendTypeEnum = SendTypeEnum.valueOf(sendung.sendeTyp);
@@ -102,6 +113,7 @@ public class SendungService {
         sendContext.user = authContext.getAuthentication().getName();
         sendContext.auftragSperrenDao = auftragSperrenDao;
         sendContext.systemwerteDao = systemwerteDao;
+        sendContext.protocol = protocol;
 
         this.auftragSendungStart(sendContext);
         return sendContext;

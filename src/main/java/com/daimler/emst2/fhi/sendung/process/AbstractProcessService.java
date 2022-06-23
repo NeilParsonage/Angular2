@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 import com.daimler.emst2.fhi.model.IProcessId;
 import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.SeverityEnum;
+import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.process.action.IAction;
 import com.daimler.emst2.fhi.sendung.process.action.IActionFactory;
 import com.daimler.emst2.fhi.sendung.process.check.ICheck;
@@ -21,6 +22,7 @@ import com.daimler.emst2.fhi.sendung.process.comparator.ProcessPreconditionCompa
 import com.daimler.emst2.fhi.sendung.process.precondition.IPrecondition;
 import com.daimler.emst2.fhi.sendung.process.precondition.IPreconditionFactory;
 import com.daimler.emst2.fhi.sendung.protocol.IProtocolService;
+import com.daimler.emst2.fhi.util.BasisObjectUtil;
 
 
 @SuppressWarnings("rawtypes")
@@ -226,21 +228,32 @@ public abstract class AbstractProcessService<GenPreconditionEnum extends IProces
 	 * Der Context wurde vorher durch die CheckPreconditions gefuellt.
 	 */
 	protected void processChecks(List<ICheck> checkList, GenContext pContext) {
+        SendContext ctx = (SendContext)pContext;
 		for (ICheck iCheck : checkList) {
-			iCheck.doExecute(pContext);
+            if (isCheckUserAcknowleged(iCheck, ctx)) {
+                continue;
+            }
+            iCheck.doExecute(pContext);
             if (pContext.getProtocol().existsErrorOrWorse()) {
                 break;
             }
 		}
 	}
 
-	/**
-	 * Führt die Aktionen durch und schreibt das Protokoll fort
-	 * 
-	 * @param pActionList durchzuführende Aktionen
-	 * @param pContext enthaelt auch Protocol Handle für die Fortschreibung
-	 * @return true wenn keine Fehler- oder Fatal- Eintraege geschrieben wurden, ansonsten false
-	 */
+    private boolean isCheckUserAcknowleged(ICheck iCheck, SendContext ctx) {
+        if (BasisObjectUtil.isEmptyOrNull(ctx.userAcklowlegeSendChecks)) {
+            return false;
+        }
+        return Boolean.TRUE.equals(ctx.userAcklowlegeSendChecks.get(iCheck.getIdentifier()));
+    }
+
+    /**
+     * Führt die Aktionen durch und schreibt das Protokoll fort
+     * 
+     * @param pActionList durchzuführende Aktionen
+     * @param pContext enthaelt auch Protocol Handle für die Fortschreibung
+     * @return true wenn keine Fehler- oder Fatal- Eintraege geschrieben wurden, ansonsten false
+     */
 	protected void processActions(List<IAction> pActionList, GenContext pContext) {
 		Collections.sort(pActionList, new ProcessActionComparator());
 		for (IAction iAction : pActionList) {

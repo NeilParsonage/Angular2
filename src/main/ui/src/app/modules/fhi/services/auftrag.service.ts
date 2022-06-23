@@ -85,6 +85,11 @@ export class AuftragService {
   public sendung(sendung: Sendung) {
     return this.http.post<SendungResponse>(`${this.endpoint}/sendung`, sendung);
   }
+
+  public sendungWithProtocol(sendung: Sendung) {
+    return this.http.put<SendungResponse>(`${this.endpoint}/sendung`, sendung);
+  }
+
   public getListAuftragCodes(pnr: string): Observable<AuftragCodes[]> {
     const options = {
       params: new HttpParams().set('pnr', pnr),

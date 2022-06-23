@@ -18,6 +18,7 @@ import com.daimler.emst2.fhi.jpa.model.IAuftragSperrenForBereich;
 import com.daimler.emst2.fhi.jpa.model.Systemwerte;
 import com.daimler.emst2.fhi.model.FhiMandantEnum;
 import com.daimler.emst2.fhi.model.Protocol;
+import com.daimler.emst2.fhi.sendung.check.SendCheckEnum;
 import com.daimler.emst2.fhi.sendung.constants.OrtCheckEnum;
 import com.daimler.emst2.fhi.sendung.constants.OrtTypEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
@@ -34,6 +35,7 @@ public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext
 
     public static final String LEER = "";
 
+    public Map<SendCheckEnum, Boolean> userAcklowlegeSendChecks;
     public String mandant;
     public FhiMandantEnum mandantEnum;
     public MetaList<AktiveRestriktion> aktiveRestriktionenMetaList;
@@ -45,11 +47,8 @@ public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext
     public Date processTimestamp;
 
     public List<AuftragSperren> auftragSperrenList;
-
     public List<IAuftragSperrenForBereich> anzahlSperrenForBereich;
-
     public AuftragSperrenDao auftragSperrenDao;
-
     public SystemwerteDao systemwerteDao;
 
     private final Set<SendTypeEnum> performedSendSet = new HashSet<SendTypeEnum>();
