@@ -9,6 +9,7 @@ import com.daimler.emst2.fhi.model.SeverityEnum;
 import com.daimler.emst2.fhi.sendung.check.AbstractSendCheck;
 import com.daimler.emst2.fhi.sendung.check.SendCheckEnum;
 import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
+import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.precondition.SendPreconditionEnum;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
@@ -17,6 +18,7 @@ import com.daimler.emst2.fhi.util.BasisStringUtils;
 
 public class CheckAuftragSperren extends AbstractSendCheck {
 
+    public static final String LEER = "";
     public static final String SEPERATOR = ", ";
 
     public CheckAuftragSperren(ProtocolService pProtocolService) {
@@ -60,7 +62,7 @@ public class CheckAuftragSperren extends AbstractSendCheck {
 
             // avoid empty or null Bereich being used as key in Hashmap!
             if (BasisStringUtils.isEmptyOrNull(entry.getBereich())) {
-                anzahlSperrenForBereichMap.put(SendContext.LEER, entry.getAnzahlForBereich());
+                anzahlSperrenForBereichMap.put(LEER, entry.getAnzahlForBereich());
             }
             else {
                 anzahlSperrenForBereichMap.put(entry.getBereich(), entry.getAnzahlForBereich());
@@ -73,8 +75,8 @@ public class CheckAuftragSperren extends AbstractSendCheck {
         }
 
         if (anzahlSperrenForBereichList.size() == 1) {
-            if (anzahlSperrenForBereichMap.containsKey(SendContext.FHI)
-                || anzahlSperrenForBereichMap.containsKey(SendContext.RHM)) {
+            if (anzahlSperrenForBereichMap.containsKey(SendTypeEnum.FHI.name())
+                || anzahlSperrenForBereichMap.containsKey(SendTypeEnum.RHM.name())) {
 
                 // Einzelmeldung - FHI or RHM
                 String bereichWithSperre = anzahlSperrenForBereichList.get(0).getBereich();
