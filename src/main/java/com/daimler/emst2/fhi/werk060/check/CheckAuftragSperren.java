@@ -2,6 +2,7 @@ package com.daimler.emst2.fhi.werk060.check;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.StringJoiner;
 
 import com.daimler.emst2.fhi.jpa.model.IAuftragSperrenForBereich;
 import com.daimler.emst2.fhi.model.Protocol;
@@ -50,7 +51,7 @@ public class CheckAuftragSperren extends AbstractSendCheck {
 
         Protocol protocol = pContext.getProtocol();
 
-        StringBuffer bereiche = new StringBuffer();
+        StringJoiner bereiche = new StringJoiner(SEPERATOR);
 
         HashMap<String, Long> anzahlSperrenForBereichMap = new HashMap<String, Long>();
         List<IAuftragSperrenForBereich> anzahlSperrenForBereichList = pContext.anzahlSperrenForBereich;
@@ -68,10 +69,7 @@ public class CheckAuftragSperren extends AbstractSendCheck {
                 anzahlSperrenForBereichMap.put(entry.getBereich(), entry.getAnzahlForBereich());
             }
 
-            if (bereiche.length() > 0) {
-                bereiche.append(SEPERATOR);
-            }
-            bereiche.append(entry.getBereich());
+            bereiche.add(entry.getBereich());
         }
 
         if (anzahlSperrenForBereichList.size() == 1) {
