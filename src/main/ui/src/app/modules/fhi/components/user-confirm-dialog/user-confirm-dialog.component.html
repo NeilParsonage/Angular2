@@ -1,4 +1,4 @@
-<h2 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{ options.title }}</h2>
+<h2 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" [cdkDragConstrainPosition]="constrainPosition" cdkDragHandle>{{ options.title }}</h2>
 
 <mat-dialog-content *ngIf="options.errorMode" class="mat-typography" style="width: 900px">
   <mat-list>
