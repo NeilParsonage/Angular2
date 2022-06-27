@@ -34,7 +34,7 @@ export class UserConfirmDialogComponent implements OnInit {
   }
 
   getButtonIconConfirm(): string {
-    return this.options.buttonIconConfirm ? this.options.buttonIconConfirm : null;
+    return this.options.buttonIconConfirm ? this.options.buttonIconConfirm : UserConfirmDialogChoice.DEFAULT_BUTTON_ICON_CONFIRM;
   }
 
   getButtonTextConfirm(): string {
@@ -42,7 +42,7 @@ export class UserConfirmDialogComponent implements OnInit {
   }
 
   getButtonIconAbort(): string {
-    return this.options.buttonIconAbort ? this.options.buttonIconAbort : null;
+    return this.options.buttonIconAbort ? this.options.buttonIconAbort : UserConfirmDialogChoice.DEFAULT_BUTTON_ICON_ABORT;
   }
 
   getButtonTextAbort(): string {

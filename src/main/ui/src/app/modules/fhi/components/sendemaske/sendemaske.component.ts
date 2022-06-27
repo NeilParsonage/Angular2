@@ -64,7 +64,7 @@ export class SendemaskeComponent {
       title: `Sendung der PNR '${this.selectedPnr}' // ${pProtocol.actionForProtocol} :`,
       protocolEntries: protocolEntries,
       errorMode: this.getErrorMode(protocolEntries),
-      buttonIconConfirm: 'ok',
+      buttonIconConfirm: 'done',
       buttonTextConfirm: 'Ok',
       buttonIconAbort: 'cancel',
       buttonTextAbort: 'Abbrechen',
