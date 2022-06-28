@@ -3,10 +3,12 @@
   <div fxLayout="row">
     <div fxLayout="column" style="width: 250px">
       <div fxLayout="row">
-        <mat-form-field class="dateItem">
-          <mat-label>{{ 'label.einzelauskunft.ibsperre' | translate }}</mat-label>
-          <input matInput [readonly]="true" value="{{ termine?.ibSperre | date: 'dd.MM.yyyy HH:mm' }} " />
-        </mat-form-field>
+        <div [class.basic-container]="ibSperreIsSet()">
+          <mat-form-field class="dateItem">
+            <mat-label>{{ 'label.einzelauskunft.ibsperre' | translate }}</mat-label>
+            <input matInput [readonly]="true" value="{{ termine?.ibSperre | date: 'dd.MM.yyyy HH:mm' }} " />
+          </mat-form-field>
+        </div>
       </div>
       <div fxLayout="row">
         <div fxLayout="column" fxFlex="50">

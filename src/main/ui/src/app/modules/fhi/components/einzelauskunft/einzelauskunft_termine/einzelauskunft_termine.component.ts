@@ -74,4 +74,15 @@ export class EinzelauskunftTermineComponent implements OnInit {
 
     return latest_date + '     ' + this.typs[typ];
   }
+
+  ibSperreIsSet() {
+    if (!this.termine) {
+      return false;
+    }
+    if (!this.termine.ibSperre) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
