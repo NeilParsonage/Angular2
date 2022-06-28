@@ -8,8 +8,6 @@ public enum SendCheckEnum implements IProcessId {
     AUFTRAG_SPERRE_VORHANDEN("sperre.auftrag", SendTypeEnum.UNDEFINED, 100),
     AUFTRAG_ANKUENDIGUNG_VORHANDEN("ankuendigung.auftrag", SendTypeEnum.UNDEFINED, 100),
 
-
-
     FHI_IMPLIZITE_TEILSENDUNG("teilsend.implizit.fhi", SendTypeEnum.FHI, 200),
     UBM_IMPLIZITE_TEILSENDUNG("teilsend.implizit.ubm", SendTypeEnum.UBM, 200),
     RHM_IMPLIZITE_TEILSENDUNG("teilsend.implizit.rhm", SendTypeEnum.RHM, 200),

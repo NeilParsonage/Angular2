@@ -125,6 +125,7 @@ public class Protocol {
         }
 
         entryList.add(pEntry);
+        entryList.sort((e1, e2) -> e1.compareTo(e2));
         logEntryViaService(pEntry);
     }
 
