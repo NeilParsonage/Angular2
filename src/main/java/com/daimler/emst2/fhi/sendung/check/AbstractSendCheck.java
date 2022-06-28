@@ -8,7 +8,15 @@ import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 public abstract class AbstractSendCheck extends
         AbstractProcessStep<SendPreconditionEnum, SendCheckEnum, SendContext> implements ISendCheck {
 
+    protected SendCheckEnum sendCheck;
+
     protected AbstractSendCheck(ProtocolService pProtocolService) {
         super(pProtocolService);
+    }
+
+    protected AbstractSendCheck(ProtocolService pProtocolService, SendCheckEnum sendCheck) {
+        super(pProtocolService);
+        this.sendCheck = sendCheck;
+        setStepIdentifierEnum(sendCheck);
     }
 }

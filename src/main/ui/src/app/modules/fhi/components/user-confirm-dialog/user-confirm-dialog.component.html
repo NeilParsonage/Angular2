@@ -9,7 +9,7 @@
 <mat-dialog-content *ngIf="!options.errorMode" class="mat-typography" style="width: 900px">
   <mat-selection-list #acceptList>
     <mat-list-option *ngFor="let entry of options.protocolEntries">
-      {{ entry.protocolMessage.tuebKey | tuebPipe: entry.protocolMessage.parameter }} ({{ entry.taskId }})
+      {{ entry.protocolMessage.tuebKey | tuebPipe: entry.protocolMessage.parameter }}
     </mat-list-option>
   </mat-selection-list>
 </mat-dialog-content>

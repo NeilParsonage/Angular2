@@ -19,35 +19,33 @@ import com.daimler.emst2.fhi.util.BasisStringUtils;
 
 public class CheckAuftragSperren extends AbstractSendCheck {
 
-    public static final String LEER = "";
+    public static final String OHNE_BEREICH = "Ohne";
+
     public static final String SEPERATOR = ", ";
 
-    public CheckAuftragSperren(ProtocolService pProtocolService) {
-        super(pProtocolService);
+    public CheckAuftragSperren(ProtocolService pProtocolService, SendCheckEnum sendCheckStepIdentifier) {
+        super(pProtocolService, sendCheckStepIdentifier);
     }
 
     @Override
     protected void init() {
         addPrecondition(SendPreconditionEnum.AUFTRAG_SPERREN_FETCHED);
-        setStepIdentifierEnum(SendCheckEnum.AUFTRAG_SPERREN_FUER_BEREICH_060);
+        // setStepIdentifierEnum(this.sendCheck);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean doExecuteImpl(SendContext pContext) {
 
+    @Override
+    protected boolean doExecuteImpl(SendContext pContext) {
         Protocol protocol = pContext.getProtocol();
 
-        checkAuftragSperren(pContext);
+        checkAuftragSperren(pContext, this.sendCheck.getTyp());
 
         // ProtocolEntry erzeugen
         getProtocolService().addDebugProtocolEntry(protocol, getIdentifier());
         return true;
     }
 
-    private void checkAuftragSperren(SendContext pContext) {
+    protected void checkAuftragSperren(SendContext pContext, SendTypeEnum sendTyp) {
 
         Protocol protocol = pContext.getProtocol();
 
@@ -63,7 +61,7 @@ public class CheckAuftragSperren extends AbstractSendCheck {
 
             // avoid empty or null Bereich being used as key in Hashmap!
             if (BasisStringUtils.isEmptyOrNull(entry.getBereich())) {
-                anzahlSperrenForBereichMap.put(LEER, entry.getAnzahlForBereich());
+                anzahlSperrenForBereichMap.put(OHNE_BEREICH, entry.getAnzahlForBereich());
             }
             else {
                 anzahlSperrenForBereichMap.put(entry.getBereich(), entry.getAnzahlForBereich());
@@ -73,8 +71,9 @@ public class CheckAuftragSperren extends AbstractSendCheck {
         }
 
         if (anzahlSperrenForBereichList.size() == 1) {
-            if (anzahlSperrenForBereichMap.containsKey(SendTypeEnum.FHI.name())
-                || anzahlSperrenForBereichMap.containsKey(SendTypeEnum.RHM.name())) {
+            //            if (anzahlSperrenForBereichMap.containsKey(SendTypeEnum.FHI.name())
+            //                || anzahlSperrenForBereichMap.containsKey(SendTypeEnum.RHM.name())) {
+            if (anzahlSperrenForBereichMap.containsKey(sendTyp.name())) {
 
                 // Einzelmeldung - FHI or RHM
                 String bereichWithSperre = anzahlSperrenForBereichList.get(0).getBereich();
@@ -87,7 +86,7 @@ public class CheckAuftragSperren extends AbstractSendCheck {
                         SeverityEnum.WARNING);
 
             }
-            else {
+            else if (anzahlSperrenForBereichMap.containsKey(OHNE_BEREICH)) {
                 // Einzelmeldung - Leer
                 getProtocolService().addProtocolEntry(protocol,
                         ProtocolMessageEnum.AUFTRAG_SPERREN_VERLETZT_SINGULAR_LEER_WARN,

@@ -131,6 +131,7 @@ public class SendActionFactory implements IActionFactory<SendActionEnum> {
             //			return new ActionSendeStatusSetzen(pActionEnum,
             //					getProtocolService());
 		case FHI_TAKT_TELEGRAMM:
+            System.out.println("**** FHI TAKT TELEGRAM - DUMMY");
             return new ActionDummyToImplement<SendPreconditionEnum, SendActionEnum, SendContext>(getProtocolService());
             //			return new ActionTaktTelegramm(SendTypeEnum.FHI, pActionEnum,
             //                    getProtocolService(), taktTelegramDao, taktTelegramUtil, seqDao);
@@ -151,6 +152,7 @@ public class SendActionFactory implements IActionFactory<SendActionEnum> {
             //			return new ActionSendeStatusSetzen(pActionEnum,
             //					getProtocolService());
 		case LMT_TAKT_TELEGRAMM:
+            System.out.println("**** LMT TAKT TELEGRAM - DUMMY");
             return new ActionDummyToImplement<SendPreconditionEnum, SendActionEnum, SendContext>(getProtocolService());
             //			return new ActionTaktTelegramm(SendTypeEnum.LMT, pActionEnum,
             //                    getProtocolService(), taktTelegramDao, taktTelegramUtil, seqDao);
@@ -164,6 +166,7 @@ public class SendActionFactory implements IActionFactory<SendActionEnum> {
             //			return new ActionSendeStatusSetzen(pActionEnum,
             //					getProtocolService());
 		case RHM_TAKT_TELEGRAMM:
+            System.out.println("**** RHM TAKT TELEGRAM - DUMMY");
             return new ActionDummyToImplement<SendPreconditionEnum, SendActionEnum, SendContext>(getProtocolService());
             //			return new ActionTaktTelegramm(SendTypeEnum.RHM, pActionEnum,
             //                    getProtocolService(), taktTelegramDao, taktTelegramUtil, seqDao);
@@ -177,6 +180,7 @@ public class SendActionFactory implements IActionFactory<SendActionEnum> {
             //			return new ActionSendeStatusSetzen(pActionEnum,
             //					getProtocolService());
 		case UBM_TAKT_TELEGRAMM:
+            System.out.println("**** UBM TAKT TELEGRAM - DUMMY");
             return new ActionDummyToImplement<SendPreconditionEnum, SendActionEnum, SendContext>(getProtocolService());
             //			return new ActionTaktTelegramm(SendTypeEnum.UBM, pActionEnum,
             //                    getProtocolService(), taktTelegramDao, taktTelegramUtil, seqDao);
