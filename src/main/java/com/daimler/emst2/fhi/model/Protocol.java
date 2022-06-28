@@ -1,6 +1,7 @@
 package com.daimler.emst2.fhi.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -116,10 +117,25 @@ public class Protocol {
      * @see IProtocol#addEntry(IProtocolEntry)
      */
     public void addEntry(ProtocolEntry pEntry) {
-        if (!entryList.contains(pEntry)) {
-            entryList.add(pEntry);
-            logEntryViaService(pEntry);
+        if (entryList.contains(pEntry)) {
+            return; // add just once
         }
+        if (entryList.stream().filter(e -> isSameMessage(pEntry, e)).count() > 0) {
+            return; // add just once
+        }
+
+        entryList.add(pEntry);
+        logEntryViaService(pEntry);
+    }
+
+    private boolean isSameMessage(ProtocolEntry pEntry, ProtocolEntry e) {
+        IProtocolMessage protocolMessageA = pEntry.getProtocolMessage();
+        IProtocolMessage protocolMessageB = e.getProtocolMessage();
+
+        boolean hasSameMessage = protocolMessageA.getTuebKey().equals(protocolMessageB.getTuebKey());
+        boolean hasSamePlaceholders =
+                Arrays.equals(protocolMessageA.getParameter(), protocolMessageB.getParameter());
+        return hasSameMessage && hasSamePlaceholders;
     }
 
     private void logEntryViaService(IProtocolEntry pEntry) {
