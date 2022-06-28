@@ -28,7 +28,7 @@ public enum ProtocolMessageEnum {
     PREPARE_HISTORY_PROBLEM_DEBUG("protocol.msg.debug.preparehist.orterr"),
     SENDUNG_DONE_INFO("protocol.msg.info.sendung.done"),
     STORNO_DONE_INFO("protocol.msg.info.storno.done"),
-    ANZAHL_FREIE_VERLETZT_WARN("protocol.msg.warn.anzahlfreie.verletzt"),
+    ANZAHL_FREIE_VERLETZT_WARN("warning.sendepruef.anzahlfreie"),
 
     AUFTRAG_SPERREN_VERLETZT_SINGULAR_LEER_WARN("warning.sendepruef.auftragssperren.keinbereich"), // dbmessage.senden.30027
     AUFTRAG_SPERREN_VERLETZT_SINGULAR_FHI_OR_RHM_WARN("warning.sendepruef.auftragssperren.fhioderrhm"), // dbmessage.senden.30030
