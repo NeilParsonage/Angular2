@@ -15,9 +15,9 @@ export class TuebPipe implements PipeTransform {
     let idx: number = -1;
     args.forEach(e => {
       idx++;
-      rawText = rawText.replace(this.createPlaceholderByIndex(idx), e);
+      rawText = rawText.replaceAll(this.createPlaceholderByIndex(idx), e);
     });
-
+    rawText = rawText.replaceAll(' --//-- ', '\n');
     return rawText;
   }
 
