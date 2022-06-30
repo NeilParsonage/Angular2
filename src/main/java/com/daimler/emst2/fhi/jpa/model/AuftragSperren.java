@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "V_AUF_SPERRE")
+@Table(name = "V_E2_Sperren") // alt: V_Auf_Sperre
 @NamedQuery(name = "AuftragSperren.findAll", query = "SELECT s FROM AuftragSperren s")
 public class AuftragSperren implements Serializable {
     private static final long serialVersionUID = 1L;

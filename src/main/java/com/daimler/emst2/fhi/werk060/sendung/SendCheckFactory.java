@@ -62,8 +62,10 @@ public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
 			return new CheckRhmOrtInvalid(getProtocolService());
         case AUFTRAG_ANZAHL_FREIE_060:
             return new CheckFhiAnzahlFreie(getProtocolService());
-        case AUFTRAG_SPERREN_FUER_BEREICH_060:
-            return new CheckAuftragSperren(getProtocolService());
+        case FHI_AUFTRAG_SPERREN_FUER_BEREICH_060:
+            return new CheckAuftragSperren(getProtocolService(), pruefungKennung);
+        case RHM_AUFTRAG_SPERREN_FUER_BEREICH_060:
+            return new CheckAuftragSperren(getProtocolService(), pruefungKennung);
 		default:
 			throw new RuntimeException("Unsupported value of SendCheckEnum: " + pruefungKennung);
 		}
