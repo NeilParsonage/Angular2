@@ -1,15 +1,15 @@
-<h2 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{ options.title }}</h2>
+<h2 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" [cdkDragConstrainPosition]="constrainPosition" cdkDragHandle>{{ options.title }}</h2>
 
-<mat-dialog-content *ngIf="options.errorMode" class="mat-typography" style="width: 900px">
+<mat-dialog-content *ngIf="options.errorMode" class="mat-typography" style="width: 900px; height: auto">
   <mat-list>
     <mat-list-item *ngFor="let entry of options.protocolEntries"> {{ entry.protocolMessage.tuebKey }} ({{ entry.taskId }}) </mat-list-item>
   </mat-list>
 </mat-dialog-content>
 
-<mat-dialog-content *ngIf="!options.errorMode" class="mat-typography" style="width: 900px">
+<mat-dialog-content *ngIf="!options.errorMode" class="mat-typography" style="width: 900px; height: auto">
   <mat-selection-list #acceptList>
-    <mat-list-option *ngFor="let entry of options.protocolEntries" [(ngModel)]="entry.userAcknowledged">
-      {{ entry.protocolMessage.tuebKey }} ({{ entry.taskId }})
+    <mat-list-option *ngFor="let entry of options.protocolEntries" [ngStyle]="{ 'white-space': 'pre-line' }">
+      <div>{{ entry.protocolMessage.tuebKey | tuebPipe: entry.protocolMessage.parameter }}</div>
     </mat-list-option>
   </mat-selection-list>
 </mat-dialog-content>

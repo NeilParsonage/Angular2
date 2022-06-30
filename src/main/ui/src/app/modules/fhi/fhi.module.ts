@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { LibEmstTableModule } from 'emst-table';
 import { MaterialModule } from 'src/app/shared/modules/material.module';
+import { TuebPipe } from 'src/app/shared/pipes/tueb.pipe';
 import { DialogShowCodesComponent } from './components/einzelauskunft/dialog-showCodes/dialog-showCodes.component';
 import { DialogShowKriterienComponent } from './components/einzelauskunft/dialog-showKriterien/dialog-showKriterien.component';
 import { DialogShowlistComponent } from './components/einzelauskunft/dialog-showlist/dialog-showlist.component';
@@ -38,8 +39,10 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     DialogShowKriterienComponent,
     PnrChooserComponent,
     SendemaskeComponent,
+    TuebPipe,
   ],
   providers: [],
   imports: [CommonModule, FlexLayoutModule, FormsModule, LibEmstTableModule, MaterialModule, ReactiveFormsModule, TranslateModule.forRoot()],
+  exports: [TuebPipe],
 })
 export class FhiModule {}

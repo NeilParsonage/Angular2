@@ -22,8 +22,11 @@ public enum SendCheckEnum implements IProcessId {
     RHM_ORT_ERR("ort.error.rhm", SendTypeEnum.RHM, 400),
     UBM_ORT_ERR("ort.error.ubm", SendTypeEnum.UBM, 400),
 
-    AUFTRAG_ANZAHL_FREIE_060("anzahlfreie.warning.fhi", SendTypeEnum.UNDEFINED, 500),
-    AUFTRAG_SPERREN_FUER_BEREICH_060("auftragSperrenFuerBereich.warning.fhi", SendTypeEnum.UNDEFINED, 600),
+    FHI_AUFTRAG_SPERREN_FUER_BEREICH_060("auftragSperrenFuerBereich.warning.fhi", SendTypeEnum.FHI, 500),
+    RHM_AUFTRAG_SPERREN_FUER_BEREICH_060("auftragSperrenFuerBereich.warning.rhm", SendTypeEnum.RHM, 500),
+
+    AUFTRAG_ANZAHL_FREIE_060("anzahlfreie.warning.fhi", SendTypeEnum.UNDEFINED, 600),
+
     ;
 
     public static final String DEFAULT_TUEB_PREFIX = "send.check.";

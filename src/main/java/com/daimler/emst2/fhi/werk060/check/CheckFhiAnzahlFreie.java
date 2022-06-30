@@ -1,5 +1,7 @@
 package com.daimler.emst2.fhi.werk060.check;
 
+import java.util.StringJoiner;
+
 import com.daimler.emst2.fhi.jpa.model.AuftragSperren;
 import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.SeverityEnum;
@@ -12,9 +14,9 @@ import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 
 public class CheckFhiAnzahlFreie extends AbstractSendCheck {
 
-    private static final String SPC_PREFIX = " --//-- SPC:";
+    private static final String TEMPLATE_ENTRY = "SPC: %s - SPG: %s - # Freie: %d";
 
-    private static final String SPG_PREFIX = " --//-- SPG:";
+    private static final String SEPARATOR = " --//-- ";
 
     public CheckFhiAnzahlFreie(ProtocolService pProtocolService) {
         super(pProtocolService);
@@ -45,18 +47,16 @@ public class CheckFhiAnzahlFreie extends AbstractSendCheck {
 
         Protocol protocol = pContext.getProtocol();
 
-        // NEP This check does not throw errors, just warnings!! 
         if (null != pContext && null != pContext.auftragSperrenList && !pContext.auftragSperrenList.isEmpty()) {
-            StringBuffer sperren = new StringBuffer();
+
+            StringJoiner sperren = new StringJoiner(SEPARATOR, SEPARATOR, "");
             for (AuftragSperren auftragSperren : pContext.auftragSperrenList) {
-                sperren.append(SPC_PREFIX
-                               + auftragSperren.getSperrcode()
-                               + SPG_PREFIX
-                               + auftragSperren.getSperrgrund());
-
-
+                sperren.add(
+                        String.format(TEMPLATE_ENTRY,
+                                auftragSperren.getSperrcode(), auftragSperren.getSperrgrund(),
+                                auftragSperren.getFreie()));
             }
-            final String sperrenResult = sperren.toString().substring(8);
+            final String sperrenResult = sperren.toString();
 
             getProtocolService().addProtocolEntry(protocol, ProtocolMessageEnum.ANZAHL_FREIE_VERLETZT_WARN,
                     sperrenResult,

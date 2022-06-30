@@ -29,12 +29,6 @@ import com.daimler.emst2.fhi.util.DateTimeHelper;
 
 public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext, IOrtsdatenProcessContext {
 
-    public static final String FHI = "FHI";
-
-    public static final String RHM = "RHM";
-
-    public static final String LEER = "";
-
     public Map<SendCheckEnum, Boolean> userAcklowlegeSendChecks;
     public String mandant;
     public FhiMandantEnum mandantEnum;

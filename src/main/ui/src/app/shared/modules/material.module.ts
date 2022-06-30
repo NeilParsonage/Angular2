@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -84,6 +85,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatTooltipModule,
     MatCardModule,
     MatChipsModule,
+    DragDropModule,
     MatDatepickerModule,
     MatSidenavModule,
     MatSlideToggleModule,
