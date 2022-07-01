@@ -2,6 +2,7 @@ import { DragRef, Point } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogStaticHelper } from '../../../../shared/utils/dialog-static-helper';
+import { ProtocolEntry } from '../../models/protocol-entry';
 import { UserConfirmDialogChoice } from './user-confirm-dialog-choice';
 import { UserConfirmDialogOptions } from './user-confirm-dialog-options';
 
@@ -14,6 +15,8 @@ export class UserConfirmDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<UserConfirmDialogComponent>, @Inject(MAT_DIALOG_DATA) public options: UserConfirmDialogOptions) {}
 
   // [cdkDragConstrainPosition]="constrainPosition" not supported
+  selectedOptions: string[] = [];
+  oldSelectedOptions: string[] = [];
 
   ngOnInit(): void {
     this.dialogRef.afterClosed().subscribe(result => {
@@ -51,5 +54,28 @@ export class UserConfirmDialogComponent implements OnInit {
 
   public constrainPosition(point: Point, dragRef: DragRef): Point {
     return DialogStaticHelper.constrainPositionPreventDialogBecomesUnreachable(point);
+  }
+
+  onSelectedOptionChange(event: string[]) {
+    console.log(`onSelectedOptionChange : new ${event} / old ${this.oldSelectedOptions} `);
+    let caseDeleted: string[] = this.oldSelectedOptions.filter(e => event.indexOf(e) < 0);
+    if (caseDeleted && caseDeleted.length > 0) {
+      console.log('not selected : ', caseDeleted[0]);
+      this.updateAcknowledged(caseDeleted[0], false);
+    } else {
+      const caseAdded: string[] = event.filter(e => this.oldSelectedOptions.indexOf(e) < 0);
+      if (caseAdded) {
+        console.log('selected : ', caseAdded[0]);
+        this.updateAcknowledged(caseAdded[0], true);
+      }
+    }
+    this.oldSelectedOptions = event;
+  }
+
+  updateAcknowledged(taskId: string, userAcknowledged: boolean) {
+    const entries: ProtocolEntry[] = this.options.protocolEntries.filter(e => e.taskId === taskId);
+    entries.forEach(e => {
+      e.userAcknowledged = userAcknowledged;
+    });
   }
 }
