@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.jpa.dao.AuftraegeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragSperrenDao;
@@ -91,12 +92,12 @@ public class SendungService {
         return senden(sendung, null, null);
     }
 
-    public SendContext senden(SendungDTO sendung, Map<SendCheckEnum, Boolean> userAcklowlegeSendChecks) {
-        return senden(sendung, null, userAcklowlegeSendChecks);
+    public SendContext senden(SendungDTO sendung, Map<SendCheckEnum, ProtocolEntryDTO> userProtocolCheckEntries) {
+        return senden(sendung, null, userProtocolCheckEntries);
     }
 
     public SendContext senden(SendungDTO sendung, Protocol protocol,
-            Map<SendCheckEnum, Boolean> userAcklowlegeSendChecks) {
+            Map<SendCheckEnum, ProtocolEntryDTO> userProtocolCheckEntries) {
 
         SendTypeEnum sendType = SendTypeEnum.valueOf(sendung.sendeTyp);
         Auftraege auftrag = getAuftragByPnrAndVersion(sendung.pnr, sendung.version);
@@ -105,7 +106,7 @@ public class SendungService {
         }
 
         SendContext sendContext = SendContext.create();
-        sendContext.userAcklowlegeSendChecks = userAcklowlegeSendChecks;
+        sendContext.userProtocolSendChecks = userProtocolCheckEntries;
         sendContext.mandant = this.configService.getWerksId(true);
         sendContext.mandantEnum = FhiMandantEnum.getMandant(sendContext.mandant);
         sendContext.sendTypeEnum = SendTypeEnum.valueOf(sendung.sendeTyp);

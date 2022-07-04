@@ -47,4 +47,8 @@ public enum ProtocolMessageEnum {
         // DEFAULT_TUEB_PREFIX +
         return tuebKey;
     }
+
+    public static final ProtocolMessageEnum getEnum(String name) {
+        return ProtocolMessageEnum.valueOf(name);
+    }
 }

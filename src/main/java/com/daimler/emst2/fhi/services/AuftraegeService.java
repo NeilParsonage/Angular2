@@ -25,6 +25,7 @@ import com.daimler.emst2.fhi.dto.AuftragLackeDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDetailsDTO;
 import com.daimler.emst2.fhi.dto.FhiDtoFactory;
+import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.dto.SendResponseDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.dto.SendungsprotokollDTO;
@@ -209,23 +210,24 @@ public class AuftraegeService {
     public SendResponseDTO sendeAuftragWithProtokoll(SendungsprotokollDTO sendungProtokoll) {
         SendungsprotokollDTO test = sendungProtokoll;
 
-        Map<SendCheckEnum, Boolean> userAcklowlegeSendChecks = createUserAcklowlegeSendChecks(sendungProtokoll);
+        Map<SendCheckEnum, ProtocolEntryDTO> userProtocolEntrySendChecks =
+                createUserProtocolSendCheckEntries(sendungProtokoll);
 
-        SendContext ctx = this.sendungService.senden(sendungProtokoll, userAcklowlegeSendChecks);
+        SendContext ctx = this.sendungService.senden(sendungProtokoll, userProtocolEntrySendChecks);
         return dtoFactory.createSendResponseDTO(sendungProtokoll, ctx.getErrorMessages(), ctx.getProtocol());
     }
 
-    private Map<SendCheckEnum, Boolean> createUserAcklowlegeSendChecks(SendungsprotokollDTO sendungProtokoll) {
+    private Map<SendCheckEnum, ProtocolEntryDTO> createUserProtocolSendCheckEntries(SendungsprotokollDTO sendungProtokoll) {
 
-        Map<SendCheckEnum, Boolean> userAcklowlegeSendChecks = new HashMap<SendCheckEnum, Boolean>();
+        Map<SendCheckEnum, ProtocolEntryDTO> userProtocollEntry = new HashMap<SendCheckEnum, ProtocolEntryDTO>();
 
         sendungProtokoll.protocol.allEntries.forEach(e -> {
             SendCheckEnum entry = SendCheckEnum.getByName(e.taskId);
             if (entry instanceof SendCheckEnum) {
-                userAcklowlegeSendChecks.put(entry, e.userAcknowledged);
+                userProtocollEntry.put(entry, e);
             }
         });
-        return userAcklowlegeSendChecks;
+        return userProtocollEntry;
     }
 
     public void initializeTransientSperrenUndAnkuendigungen(Auftraege pAuftrag) {
