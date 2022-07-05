@@ -9,15 +9,9 @@ import java.util.Set;
 
 import org.springframework.util.Assert;
 
-import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.model.IProcessId;
-import com.daimler.emst2.fhi.model.IProtocolMessage;
 import com.daimler.emst2.fhi.model.Protocol;
-import com.daimler.emst2.fhi.model.ProtocolEntry;
-import com.daimler.emst2.fhi.model.ProtocolMessage;
 import com.daimler.emst2.fhi.model.SeverityEnum;
-import com.daimler.emst2.fhi.sendung.check.SendCheckEnum;
-import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.process.action.IAction;
 import com.daimler.emst2.fhi.sendung.process.action.IActionFactory;
@@ -124,6 +118,9 @@ public abstract class AbstractProcessService<GenPreconditionEnum extends IProces
 			//    Rueckmeldung sofort, falls fataler Fehler aufgetreten ODER unbestaetigte WARNUNG vorliegt
 			return false;
 		}
+
+        // remove acknowleged protocol entries
+        pContext.getProtocol().finallyRemoveAcknowledgedEntries();
 
 		///////////////////////////////////////////////////////////////////////////////
 		// 5. Ermittlung aller Aktionen
@@ -236,50 +233,12 @@ public abstract class AbstractProcessService<GenPreconditionEnum extends IProces
 	protected void processChecks(List<ICheck> checkList, GenContext pContext) {
         SendContext ctx = (SendContext)pContext;
 		for (ICheck iCheck : checkList) {
-            if (processCheckUserAcknowleged(iCheck, ctx)) {
-                continue;
-            }
             iCheck.doExecute(pContext);
             if (pContext.getProtocol().existsErrorOrWorse()) {
                 break;
             }
 		}
 	}
-
-    private boolean processCheckUserAcknowleged(ICheck iCheck, SendContext ctx) {
-        
-        if (BasisObjectUtil.isEmptyOrNull(ctx.userProtocolSendChecks)) {
-            return false;
-        }
-        ProtocolEntryDTO userProtocolEntry = ctx.userProtocolSendChecks.get(iCheck.getIdentifier());
-
-        if (BasisObjectUtil.isEmptyOrNull(userProtocolEntry)) {
-            return false;
-        }
-
-        if (Boolean.FALSE.equals(userProtocolEntry.userAcknowledged)) {
-            return false;
-        }
-
-        // process user acknowledged sendcheck
-        ProtocolMessageEnum protocolMessageEnum =
-                ProtocolMessageEnum.getEnum(userProtocolEntry.protocolMessage.protocolMessageEnum);
-
-        List<String> paramsList = userProtocolEntry.protocolMessage.parameter;
-        String[] paramsArray = new String[paramsList.size()];
-        paramsArray = paramsList.toArray(paramsArray);
-
-        SendCheckEnum taskId = SendCheckEnum.valueOf(userProtocolEntry.taskId);
-
-        SeverityEnum servity = SeverityEnum.valueOf(userProtocolEntry.severity);
-
-        IProtocolMessage message =
-                new ProtocolMessage(protocolMessageEnum, paramsArray);
-        ProtocolEntry entry = new ProtocolEntry(taskId, message, servity);
-        ctx.getProtocol().addEntry(entry);
-
-        return true;
-    }
 
     /**
      * Führt die Aktionen durch und schreibt das Protokoll fort
@@ -289,6 +248,9 @@ public abstract class AbstractProcessService<GenPreconditionEnum extends IProces
      * @return true wenn keine Fehler- oder Fatal- Eintraege geschrieben wurden, ansonsten false
      */
 	protected void processActions(List<IAction> pActionList, GenContext pContext) {
+        if (BasisObjectUtil.isEmptyOrNull(pActionList)) {
+            return;
+        }
 		Collections.sort(pActionList, new ProcessActionComparator());
 		for (IAction iAction : pActionList) {
 			iAction.doExecute(pContext);

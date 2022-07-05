@@ -113,7 +113,7 @@ public class SendungenService extends AbstractProcessService<SendPreconditionEnu
 		boolean result = super.execute(sendContext);
 		// falls Sendung erfolgt - erzeuge INFO Protokolleintrag
 		if (result) {
-            getProtocolService().addProtocolEntry(sendContext.protocol, ProtocolMessageEnum.SENDUNG_DONE_INFO,
+            getProtocolService().addProtocolEntry(sendContext, ProtocolMessageEnum.SENDUNG_DONE_INFO,
                     sendTypeEnum,
                     SeverityEnum.INFO);
 		}

@@ -39,13 +39,11 @@ public class CheckFhiAnzahlFreie extends AbstractSendCheck {
         checkAnzahlFreie(pContext);
 
         // ProtocolEntry erzeugen
-        getProtocolService().addDebugProtocolEntry(protocol, getIdentifier());
+        getProtocolService().addDebugProtocolEntry(pContext, getIdentifier());
         return true;
     }
 
     private void checkAnzahlFreie(SendContext pContext) {
-
-        Protocol protocol = pContext.getProtocol();
 
         if (null != pContext && null != pContext.auftragSperrenList && !pContext.auftragSperrenList.isEmpty()) {
 
@@ -58,7 +56,7 @@ public class CheckFhiAnzahlFreie extends AbstractSendCheck {
             }
             final String sperrenResult = sperren.toString();
 
-            getProtocolService().addProtocolEntry(protocol, ProtocolMessageEnum.ANZAHL_FREIE_VERLETZT_WARN,
+            getProtocolService().addProtocolEntry(pContext, ProtocolMessageEnum.ANZAHL_FREIE_VERLETZT_WARN,
                     sperrenResult,
                     getIdentifier(),
                     SeverityEnum.WARNING);

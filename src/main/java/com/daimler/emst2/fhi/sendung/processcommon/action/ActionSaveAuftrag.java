@@ -3,7 +3,7 @@ package com.daimler.emst2.fhi.sendung.processcommon.action;
 import com.daimler.emst2.fhi.jpa.dao.AuftraegeDao;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.model.IProcessId;
-import com.daimler.emst2.fhi.model.Protocol;
+import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.process.AbstractProcessStep;
 import com.daimler.emst2.fhi.sendung.process.action.IAction;
 import com.daimler.emst2.fhi.sendung.processcommon.IAuftragProcessContext;
@@ -29,12 +29,15 @@ IAction<IProcessId, GenActionEnum, IAuftragProcessContext> {
 
     @Override
     protected boolean doExecuteImpl(IAuftragProcessContext pContext) {
-        Protocol protocol = pContext.getProtocol();
+        if (!(pContext instanceof SendContext)) {
+            throw new RuntimeException("SendContext is Missing");
+        }
+        SendContext ctx = (SendContext)pContext;
 
         Auftraege auftrag = pContext.getAuftrag();
         auftragDao.save(auftrag);
 
-        getProtocolService().addDebugProtocolEntry(protocol, getIdentifier());
+        getProtocolService().addDebugProtocolEntry(ctx, getIdentifier());
         return true;
     }
 }

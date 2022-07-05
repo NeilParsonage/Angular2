@@ -12,11 +12,14 @@ import { UserConfirmDialogOptions } from './user-confirm-dialog-options';
   styleUrls: ['./user-confirm-dialog.component.scss'],
 })
 export class UserConfirmDialogComponent implements OnInit {
-  constructor(public dialogRef: MatDialogRef<UserConfirmDialogComponent>, @Inject(MAT_DIALOG_DATA) public options: UserConfirmDialogOptions) {}
+  constructor(public dialogRef: MatDialogRef<UserConfirmDialogComponent>, @Inject(MAT_DIALOG_DATA) public options: UserConfirmDialogOptions) {
+    this.initData();
+  }
 
-  // [cdkDragConstrainPosition]="constrainPosition" not supported
-  selectedOptions: string[] = [];
-  oldSelectedOptions: string[] = [];
+  selectedOptions: ProtocolEntry[] = [];
+  oldSelectedOptions: ProtocolEntry[] = [];
+
+  reducedProtocolEntries: Array<ProtocolEntry> = []; // reduced by tuebId + parameters
 
   ngOnInit(): void {
     this.dialogRef.afterClosed().subscribe(result => {
@@ -26,6 +29,38 @@ export class UserConfirmDialogComponent implements OnInit {
       }
       this.options.onAbort();
     });
+  }
+
+  private initData() {
+    const tmpReducedProtocolEntries: Array<ProtocolEntry> = [];
+    console.log('initData data', this.options.protocolEntries);
+    this.options.protocolEntries.forEach(e => {
+      // if (false === this.existsUiProtocolMessage(tmpReducedProtocolEntries, e)) {
+      if (false === this.existsMessage(tmpReducedProtocolEntries, e)) {
+        if (e.userAcknowledged) {
+          this.selectedOptions.push(e);
+        }
+        tmpReducedProtocolEntries.push(e);
+      }
+    });
+    this.reducedProtocolEntries = tmpReducedProtocolEntries;
+    console.log('initData', this.reducedProtocolEntries);
+  }
+
+  /*
+  private existsUiProtocolMessage(tmpReducedProtocolEntries: Array<ProtocolEntry>, entry: ProtocolEntry): boolean {
+    const result: ProtocolEntry[] = tmpReducedProtocolEntries.filter(e => this.isSameMessage(e, entry));
+    if (result && result.length > 0) {
+      return true;
+    }
+    return false;
+  } */
+
+  isSameMessage(a: ProtocolEntry, b: ProtocolEntry): boolean {
+    const result: boolean =
+      a.protocolMessage.tuebKey === b.protocolMessage.tuebKey && JSON.stringify(a.protocolMessage.parameter) === JSON.stringify(b.protocolMessage.parameter);
+    console.log('isSameMessage ', result, a, b);
+    return result;
   }
 
   onChoiceConfirm(): void {
@@ -56,26 +91,39 @@ export class UserConfirmDialogComponent implements OnInit {
     return DialogStaticHelper.constrainPositionPreventDialogBecomesUnreachable(point);
   }
 
-  onSelectedOptionChange(event: string[]) {
-    console.log(`onSelectedOptionChange : new ${event} / old ${this.oldSelectedOptions} `);
-    let caseDeleted: string[] = this.oldSelectedOptions.filter(e => event.indexOf(e) < 0);
+  onSelectedOptionChange(entries: ProtocolEntry[]) {
+    console.log('onSelectedOptionChange : new vs. old ', entries, this.oldSelectedOptions);
+    let caseDeleted: ProtocolEntry[] = this.oldSelectedOptions.filter(e => this.notExistsMesssage(entries, e));
     if (caseDeleted && caseDeleted.length > 0) {
       console.log('not selected : ', caseDeleted[0]);
       this.updateAcknowledged(caseDeleted[0], false);
     } else {
-      const caseAdded: string[] = event.filter(e => this.oldSelectedOptions.indexOf(e) < 0);
+      const caseAdded: ProtocolEntry[] = entries.filter(e => this.notExistsMesssage(this.oldSelectedOptions, e));
       if (caseAdded) {
         console.log('selected : ', caseAdded[0]);
         this.updateAcknowledged(caseAdded[0], true);
       }
     }
-    this.oldSelectedOptions = event;
+    this.oldSelectedOptions = entries;
   }
 
-  updateAcknowledged(taskId: string, userAcknowledged: boolean) {
-    const entries: ProtocolEntry[] = this.options.protocolEntries.filter(e => e.taskId === taskId);
+  private notExistsMesssage(entries: ProtocolEntry[], entry: ProtocolEntry): boolean {
+    return false === this.existsMessage(entries, entry);
+  }
+
+  private existsMessage(entries: ProtocolEntry[], entry: ProtocolEntry): boolean {
+    const result = entries.filter(e => this.isSameMessage(e, entry));
+    if (result && result.length > 0) {
+      return true;
+    }
+    return false;
+  }
+
+  updateAcknowledged(entry: ProtocolEntry, userAcknowledged: boolean) {
+    const entries: ProtocolEntry[] = this.options.protocolEntries.filter(e => this.isSameMessage(entry, e));
     entries.forEach(e => {
       e.userAcknowledged = userAcknowledged;
     });
+    console.log('updateAcknowledged', this.options.protocolEntries);
   }
 }

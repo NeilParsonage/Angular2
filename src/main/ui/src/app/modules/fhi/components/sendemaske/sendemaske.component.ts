@@ -42,6 +42,7 @@ export class SendemaskeComponent {
     if (!initProtocol) {
       result = await this.doSendung(sendData);
     } else {
+      console.log('sendung', initProtocol);
       sendData.protocol = initProtocol;
       result = await this.doSendungWithProtocol(sendData);
     }

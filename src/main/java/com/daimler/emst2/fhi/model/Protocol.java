@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -100,18 +102,18 @@ public class Protocol {
         return result;
     }
 
-    /**
-     * Kennzeichnet die "unacknowledged" ProtocolEntries als "acknowledged" und entfernt sie aus der Liste
-     * der aktuellen Entries.
-     */
-    public void acknowledgeAll() {
-        for (IProtocolEntry protocolEntry : entryList) {
-            // nur zur Sicherheit - Fehler koennen nicht uebersteuert werden!
-            if (protocolEntry.getSeverity().isLower(SeverityEnum.ERROR)) {
-                protocolEntry.setUserAcknowledged(true);
-            }
-        }
-    }
+    //    /**
+    //     * Kennzeichnet die "unacknowledged" ProtocolEntries als "acknowledged" und entfernt sie aus der Liste
+    //     * der aktuellen Entries.
+    //     */
+    //    public void acknowledgeAll() {
+    //        for (IProtocolEntry protocolEntry : entryList) {
+    //            // nur zur Sicherheit - Fehler koennen nicht uebersteuert werden!
+    //            if (protocolEntry.getSeverity().isLower(SeverityEnum.ERROR)) {
+    //                protocolEntry.setUserAcknowledged(true);
+    //            }
+    //        }
+    //    }
 
     /**
      * @see IProtocol#addEntry(IProtocolEntry)
@@ -130,6 +132,10 @@ public class Protocol {
     }
 
     private boolean isSameMessage(ProtocolEntry pEntry, ProtocolEntry e) {
+        if (!pEntry.getTaskId().equals(e)) {
+            return false;
+        }
+
         IProtocolMessage protocolMessageA = pEntry.getProtocolMessage();
         IProtocolMessage protocolMessageB = e.getProtocolMessage();
 
@@ -193,6 +199,14 @@ public class Protocol {
 
     public void setActionId(IProcessId pActionId) {
         this.actionId = pActionId;
+    }
+
+    public void finallyRemoveAcknowledgedEntries() {
+        Stream<ProtocolEntry> result =
+                getAllEntries().stream().filter(e -> Boolean.FALSE.equals(e.isUserAcknowledged()));
+        List<ProtocolEntry> newEntries = result.collect(Collectors.toList());
+        this.entryList.clear();
+        this.entryList.addAll(newEntries);
     }
 
 }

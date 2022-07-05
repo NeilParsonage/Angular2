@@ -35,12 +35,13 @@ public abstract class AbstractCheckImpliziteTeilsendung extends AbstractSendChec
         Protocol protocol = pContext.getProtocol();
         if (!noWarning) {
             // ProtocolEntry erzeugen
-            getProtocolService().addProtocolEntry(protocol, ProtocolMessageEnum.TEILSEND_IMPLICIT, getIdentifier(),
+            getProtocolService().addProtocolEntry(pContext, ProtocolMessageEnum.TEILSEND_IMPLICIT,
+                    getIdentifier(),
                     SeverityEnum.WARNING);
         }
         else {
             // ProtocolEntry erzeugen
-            getProtocolService().addDebugProtocolEntry(protocol, getIdentifier());
+            getProtocolService().addDebugProtocolEntry(pContext, getIdentifier());
         }
 
         return noWarning;

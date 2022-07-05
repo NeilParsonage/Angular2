@@ -10,7 +10,6 @@ import com.daimler.emst2.fhi.jpa.dao.AktiveRestriktionHistDao;
 import com.daimler.emst2.fhi.jpa.model.AktiveRestriktion;
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.model.BandAuswahl;
-import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 import com.daimler.emst2.fhi.util.AktiveRestriktionHistDaoHelper;
@@ -38,7 +37,6 @@ public abstract class AbstractActionHistSterneAndCodes extends AbstractSendActio
     @Override
     public final boolean doExecuteImpl(SendContext pContext) {
         Auftraege auftrag = pContext.getAuftrag();
-        Protocol protocol = pContext.getProtocol();
 
         // 1. remove old entries from codes and restriktionen for sendung/bereich
         BandAuswahl auftragBandAuswahl = getHistBandAuswahl(auftrag);
@@ -84,7 +82,7 @@ public abstract class AbstractActionHistSterneAndCodes extends AbstractSendActio
                     AuftragUtil.getCodesBand(auftrag));
         }
 
-        getProtocolService().addDebugProtocolEntry(protocol, getIdentifier()); // CHECK
+        getProtocolService().addDebugProtocolEntry(pContext, getIdentifier()); // CHECK
         return true;
     }
 
