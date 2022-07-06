@@ -213,7 +213,10 @@ public class AuftraegeService {
         Map<SendCheckEnum, ProtocolEntryDTO> userProtocolEntrySendChecks =
                 createUserProtocolSendCheckEntries(sendungProtokoll);
 
-        SendContext ctx = this.sendungService.senden(sendungProtokoll, userProtocolEntrySendChecks);
+        Map<SendCheckEnum, ProtocolEntryDTO> unmodifiableuserProtocolEntrySendChecks =
+                Collections.unmodifiableMap(userProtocolEntrySendChecks);
+
+        SendContext ctx = this.sendungService.senden(sendungProtokoll, unmodifiableuserProtocolEntrySendChecks);
         return dtoFactory.createSendResponseDTO(sendungProtokoll, ctx.getErrorMessages(), ctx.getProtocol());
     }
 

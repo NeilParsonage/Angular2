@@ -1,7 +1,6 @@
 package com.daimler.emst2.fhi.sendung.protocol;
 
-import java.util.List;
-
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -212,30 +211,35 @@ public class ProtocolService {
             return false;
         }
 
-        if (Boolean.FALSE.equals(userProtocolEntry.userAcknowledged)) {
+        if (BooleanUtils.isNotTrue(SeverityEnum.WARNING.equals(newEntry.getSeverity()))
+                ||  Boolean.FALSE.equals(userProtocolEntry.userAcknowledged)) {
             ctx.getProtocol().addEntry(newEntry);
             return false;
         }
 
 
         // process user acknowledged sendcheck
-        ProtocolMessageEnum protocolMessageEnum =
-                ProtocolMessageEnum.getEnum(userProtocolEntry.protocolMessage.protocolMessageEnum);
+        //        ProtocolMessageEnum protocolMessageEnum =
+        //                ProtocolMessageEnum.getEnum(userProtocolEntry.protocolMessage.protocolMessageEnum);
+        //
+        //        List<String> paramsList = userProtocolEntry.protocolMessage.parameter;
+        //        String[] paramsArray = new String[paramsList.size()];
+        //        paramsArray = paramsList.toArray(paramsArray);
+        //
+        //        SendCheckEnum taskId = SendCheckEnum.valueOf(userProtocolEntry.taskId);
+        //
+        //        SeverityEnum servity = SeverityEnum.valueOf(userProtocolEntry.severity);
+        //
+        //        IProtocolMessage message =
+        //                new ProtocolMessage(protocolMessageEnum, paramsArray);
+        //        ProtocolEntry entry = new ProtocolEntry(taskId, message, servity);
+        //
+        //        entry.setUserAcknowledged(true);
+        //        
+        //        ctx.getProtocol().addEntry(entry);
 
-        List<String> paramsList = userProtocolEntry.protocolMessage.parameter;
-        String[] paramsArray = new String[paramsList.size()];
-        paramsArray = paramsList.toArray(paramsArray);
-
-        SendCheckEnum taskId = SendCheckEnum.valueOf(userProtocolEntry.taskId);
-
-        SeverityEnum servity = SeverityEnum.valueOf(userProtocolEntry.severity);
-
-        IProtocolMessage message =
-                new ProtocolMessage(protocolMessageEnum, paramsArray);
-        ProtocolEntry entry = new ProtocolEntry(taskId, message, servity);
-        entry.setUserAcknowledged(true);
-        ctx.getProtocol().addEntry(entry);
-
+        newEntry.setUserAcknowledged(true);
+        ctx.getProtocol().addEntry(newEntry);
         return true;
     }
 

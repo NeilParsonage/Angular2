@@ -57,6 +57,10 @@ export class UserConfirmDialogComponent implements OnInit {
   } */
 
   isSameMessage(a: ProtocolEntry, b: ProtocolEntry): boolean {
+    if (!a || !b) {
+      console.log('isSameMessage undefined case', a, b);
+      return false;
+    }
     const result: boolean =
       a.protocolMessage.tuebKey === b.protocolMessage.tuebKey && JSON.stringify(a.protocolMessage.parameter) === JSON.stringify(b.protocolMessage.parameter);
     console.log('isSameMessage ', result, a, b);
@@ -92,19 +96,20 @@ export class UserConfirmDialogComponent implements OnInit {
   }
 
   onSelectedOptionChange(entries: ProtocolEntry[]) {
-    console.log('onSelectedOptionChange : new vs. old ', entries, this.oldSelectedOptions);
-    let caseDeleted: ProtocolEntry[] = this.oldSelectedOptions.filter(e => this.notExistsMesssage(entries, e));
-    if (caseDeleted && caseDeleted.length > 0) {
-      console.log('not selected : ', caseDeleted[0]);
-      this.updateAcknowledged(caseDeleted[0], false);
-    } else {
-      const caseAdded: ProtocolEntry[] = entries.filter(e => this.notExistsMesssage(this.oldSelectedOptions, e));
-      if (caseAdded) {
-        console.log('selected : ', caseAdded[0]);
-        this.updateAcknowledged(caseAdded[0], true);
-      }
-    }
-    this.oldSelectedOptions = entries;
+    this.updateAllAcknowledged(entries);
+    // console.log('onSelectedOptionChange : new vs. old ', entries, this.oldSelectedOptions);
+    // let caseDeleted: ProtocolEntry[] = this.oldSelectedOptions.filter(e => this.notExistsMesssage(entries, e));
+    // if (caseDeleted && caseDeleted.length > 0) {
+    //   console.log('onSelectedOptionChange - deselected : ', caseDeleted[0]);
+    //   this.updateAcknowledged(caseDeleted[0], false);
+    // } else {
+    //   const caseAdded: ProtocolEntry[] = entries.filter(e => this.notExistsMesssage(this.oldSelectedOptions, e));
+    //   if (caseAdded) {
+    //     console.log('onSelectedOptionChange - selected : ', caseAdded[0]);
+    //     this.updateAcknowledged(caseAdded[0], true);
+    //   }
+    // }
+    // this.oldSelectedOptions = [...entries];
   }
 
   private notExistsMesssage(entries: ProtocolEntry[], entry: ProtocolEntry): boolean {
@@ -119,11 +124,20 @@ export class UserConfirmDialogComponent implements OnInit {
     return false;
   }
 
-  updateAcknowledged(entry: ProtocolEntry, userAcknowledged: boolean) {
-    const entries: ProtocolEntry[] = this.options.protocolEntries.filter(e => this.isSameMessage(entry, e));
-    entries.forEach(e => {
-      e.userAcknowledged = userAcknowledged;
+  // DEPRECATED
+  // updateAcknowledged(entry: ProtocolEntry, userAcknowledged: boolean) {
+  //   const entries: ProtocolEntry[] = this.options.protocolEntries.filter(e => this.isSameMessage(entry, e));
+  //   entries.forEach(e => {
+  //     e.userAcknowledged = userAcknowledged;
+  //     console.log('change userAcknowledged : state | entry', userAcknowledged, e);
+  //   });
+  //   console.log('updateAcknowledged', this.options.protocolEntries);
+  // }
+
+  updateAllAcknowledged(selectedEntries: ProtocolEntry[]) {
+    this.options.protocolEntries.forEach(e => {
+      const isSelected = this.existsMessage(selectedEntries, e);
+      e.userAcknowledged = isSelected;
     });
-    console.log('updateAcknowledged', this.options.protocolEntries);
   }
 }
