@@ -13,6 +13,7 @@ import com.daimler.emst2.fhi.model.IProcessId;
 import com.daimler.emst2.fhi.model.SeverityEnum;
 import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
+import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.process.AbstractProcessStep;
 import com.daimler.emst2.fhi.sendung.process.action.IAction;
 import com.daimler.emst2.fhi.sendung.processcommon.IAuftragLfdNrProcessContext;
@@ -52,6 +53,11 @@ implements IAction<GenPreconditionEnum, GenActionEnum, CTX> {
 
     @Override
     protected boolean doExecuteImpl(CTX pContext) {
+        if (!(pContext instanceof SendContext)) {
+            throw new RuntimeException("SendContext is Missing");
+        }
+        SendContext ctx = (SendContext)pContext;
+
         Auftraege auftrag = pContext.getAuftrag();
         int bandnr = auftrag.getBandnr().intValue();
         Map<String, Systemwerte> currentLfdNrMap = pContext.getCurrentLfdNrMap();
@@ -62,7 +68,9 @@ implements IAction<GenPreconditionEnum, GenActionEnum, CTX> {
         if (iSystemwert == null) {
             String sendTypeName = getSendTypeEnum().name();
             String bandnrString = String.valueOf(bandnr);
-            getProtocolService().addProtocolEntry(pContext.getProtocol(), ProtocolMessageEnum.ERR_NO_SYSTEMWERT_LFD_NR, new String[] { sendTypeName, bandnrString }, getIdentifier(),
+            getProtocolService().addProtocolEntry(ctx,
+                    ProtocolMessageEnum.ERR_NO_SYSTEMWERT_LFD_NR, new String[] { sendTypeName, bandnrString },
+                    getIdentifier(),
                     SeverityEnum.FATAL);
             throw new RuntimeException("No 'Systemwert' found for 'Sendung' " + sendTypeName + ", bandnr " + bandnrString);
         }
@@ -86,12 +94,13 @@ implements IAction<GenPreconditionEnum, GenActionEnum, CTX> {
         try {
             systemwertDao.save(iSystemwert);
         } catch (RuntimeException e) {
-            getProtocolService().addProtocolEntry(pContext.getProtocol(), ProtocolMessageEnum.TECHNICAL_ERR, getIdentifier(), SeverityEnum.FATAL);
+            getProtocolService().addProtocolEntry(ctx, ProtocolMessageEnum.TECHNICAL_ERR,
+                    getIdentifier(), SeverityEnum.FATAL);
             LOG.severe("Technischer Fehler beim Aktualisieren des Systemwerts fuer die laufenden Nummern.");
             throw e;
         }
 
-        getProtocolService().addDebugProtocolEntry(pContext.getProtocol(), getIdentifier());
+        getProtocolService().addDebugProtocolEntry(ctx, getIdentifier());
         return true;
     }
 }

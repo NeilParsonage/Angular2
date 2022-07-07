@@ -36,10 +36,11 @@ public class CheckAuftragSperren extends AbstractSendCheck {
         Assert.notNull(sperren, "transiente SperrInfos am Auftrag nicht versorgt");
 
         if (sperren.isEmpty()) {
-            getProtocolService().addDebugProtocolEntry(protocol, getIdentifier());
+            getProtocolService().addDebugProtocolEntry(pContext, getIdentifier());
             return true;
         } else {
-            getProtocolService().addProtocolEntry(protocol, ProtocolMessageEnum.AUFTRAG_SPERRE_VORHANDEN, getIdentifier(), SeverityEnum.ERROR);
+            getProtocolService().addProtocolEntry(pContext, ProtocolMessageEnum.AUFTRAG_SPERRE_VORHANDEN,
+                    getIdentifier(), SeverityEnum.ERROR);
             return false;
         }
     }

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.StringJoiner;
 
 import com.daimler.emst2.fhi.jpa.model.IAuftragSperrenForBereich;
-import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.SeverityEnum;
 import com.daimler.emst2.fhi.sendung.check.AbstractSendCheck;
 import com.daimler.emst2.fhi.sendung.check.SendCheckEnum;
@@ -39,18 +38,14 @@ public class CheckAuftragSperren extends AbstractSendCheck {
 
     @Override
     protected boolean doExecuteImpl(SendContext pContext) {
-        Protocol protocol = pContext.getProtocol();
-
         checkAuftragSperren(pContext, this.sendCheck.getTyp());
 
         // ProtocolEntry erzeugen
-        getProtocolService().addDebugProtocolEntry(protocol, getIdentifier());
+        getProtocolService().addDebugProtocolEntry(pContext, getIdentifier());
         return true;
     }
 
     protected void checkAuftragSperren(SendContext pContext, SendTypeEnum sendTyp) {
-
-        Protocol protocol = pContext.getProtocol();
 
         StringJoiner bereiche = new StringJoiner(SEPERATOR);
 
@@ -88,7 +83,7 @@ public class CheckAuftragSperren extends AbstractSendCheck {
             //                || anzahlSperrenForBereichMap.containsKey(SendTypeEnum.RHM.name())) {
             if (anzahlSperrenForBereichMap.containsKey(OHNE_BEREICH)) {
                 // Einzelmeldung - Leer
-                getProtocolService().addProtocolEntry(protocol,
+                getProtocolService().addProtocolEntry(pContext,
                         ProtocolMessageEnum.AUFTRAG_SPERREN_VERLETZT_SINGULAR_LEER_WARN,
                         pContext.auftrag.getPnr(),
                         getIdentifier(),
@@ -101,7 +96,7 @@ public class CheckAuftragSperren extends AbstractSendCheck {
                 String bereichWithSperre = getBereichsText(anzahlSperrenForBereichList.get(0).getBereich());
 
                 String[] params = { bereichWithSperre, pContext.auftrag.getPnr() };
-                getProtocolService().addProtocolEntry(protocol,
+                getProtocolService().addProtocolEntry(pContext,
                         ProtocolMessageEnum.AUFTRAG_SPERREN_VERLETZT_SINGULAR_FHI_OR_RHM_WARN,
                         params,
                         getIdentifier(),
@@ -114,7 +109,7 @@ public class CheckAuftragSperren extends AbstractSendCheck {
 
         // Prepare Protocol Warning for several  Sperren
         String[] params = { pContext.auftrag.getPnr(), bereiche.toString(), };
-        getProtocolService().addProtocolEntry(protocol,
+        getProtocolService().addProtocolEntry(pContext,
                 ProtocolMessageEnum.AUFTRAG_SPERREN_VERLETZT_SEVERAL_AREAS_WARN,
                 params,
                 getIdentifier(),

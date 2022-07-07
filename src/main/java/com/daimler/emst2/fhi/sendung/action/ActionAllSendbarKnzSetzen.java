@@ -26,7 +26,7 @@ public class ActionAllSendbarKnzSetzen extends AbstractSendAction {
 
         auftrag.meta.setSendbar(isOffen);
 
-        getProtocolService().addDebugProtocolEntry(protocol, getIdentifier());
+        getProtocolService().addDebugProtocolEntry(pContext, getIdentifier());
         return true;
     }
 

@@ -43,7 +43,7 @@ public class ActionSendeStatusSetzen extends AbstractSendAction {
             AuftragUtil.setZugebundenBool(auftrag, false);
             // auftrag.setZugebundenBool(false);
 		}
-		getProtocolService().addDebugProtocolEntry(protocol, getIdentifier());
+        getProtocolService().addDebugProtocolEntry(pContext, getIdentifier());
 		return true;
 	}
 }

@@ -3,7 +3,9 @@ package com.daimler.emst2.fhi.services;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -23,8 +25,10 @@ import com.daimler.emst2.fhi.dto.AuftragLackeDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDetailsDTO;
 import com.daimler.emst2.fhi.dto.FhiDtoFactory;
+import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.dto.SendResponseDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
+import com.daimler.emst2.fhi.dto.SendungsprotokollDTO;
 import com.daimler.emst2.fhi.jpa.dao.AuftraegeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragAggregateDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragCodesDao;
@@ -46,6 +50,7 @@ import com.daimler.emst2.fhi.jpa.model.AuftragSendestatus;
 import com.daimler.emst2.fhi.jpa.model.AuftragSperrInformation;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermine;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
+import com.daimler.emst2.fhi.sendung.check.SendCheckEnum;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragAnkuendigungenComparator;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragSperrenComparator;
 import com.daimler.emst2.fhi.sendung.constants.SperrtypEnum;
@@ -198,10 +203,34 @@ public class AuftraegeService {
             throw new RuntimeException("PNR kann nicht leer sein");
         }
 
-        
         SendContext ctx =  this.sendungService.senden(sendung);
-        
         return dtoFactory.createSendResponseDTO(sendung, ctx.getErrorMessages(), ctx.getProtocol());
+    }
+
+    public SendResponseDTO sendeAuftragWithProtokoll(SendungsprotokollDTO sendungProtokoll) {
+        SendungsprotokollDTO test = sendungProtokoll;
+
+        Map<SendCheckEnum, ProtocolEntryDTO> userProtocolEntrySendChecks =
+                createUserProtocolSendCheckEntries(sendungProtokoll);
+
+        Map<SendCheckEnum, ProtocolEntryDTO> unmodifiableuserProtocolEntrySendChecks =
+                Collections.unmodifiableMap(userProtocolEntrySendChecks);
+
+        SendContext ctx = this.sendungService.senden(sendungProtokoll, unmodifiableuserProtocolEntrySendChecks);
+        return dtoFactory.createSendResponseDTO(sendungProtokoll, ctx.getErrorMessages(), ctx.getProtocol());
+    }
+
+    private Map<SendCheckEnum, ProtocolEntryDTO> createUserProtocolSendCheckEntries(SendungsprotokollDTO sendungProtokoll) {
+
+        Map<SendCheckEnum, ProtocolEntryDTO> userProtocollEntry = new HashMap<SendCheckEnum, ProtocolEntryDTO>();
+
+        sendungProtokoll.protocol.allEntries.forEach(e -> {
+            SendCheckEnum entry = SendCheckEnum.getByName(e.taskId);
+            if (entry instanceof SendCheckEnum) {
+                userProtocollEntry.put(entry, e);
+            }
+        });
+        return userProtocollEntry;
     }
 
     public void initializeTransientSperrenUndAnkuendigungen(Auftraege pAuftrag) {

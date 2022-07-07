@@ -35,4 +35,8 @@ public final class BasisObjectUtil {
         return false;
     }
 
+    public static final boolean isNotEmptyOrNull(Object pObj) {
+        return !isEmptyOrNull(pObj);
+    }
+
 }

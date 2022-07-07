@@ -24,7 +24,7 @@ public class CheckAuftragUpToDate extends AbstractSendCheck {
     public boolean doExecuteImpl(SendContext pContext) {
         Protocol protocol = pContext.getProtocol();
         // ProtocolEntry erzeugen
-        getProtocolService().addDebugProtocolEntry(protocol, getIdentifier());
+        getProtocolService().addDebugProtocolEntry(pContext, getIdentifier());
         // check is empty - if auftrag is not up to date Precondition will fail earlier
         return true;
     }

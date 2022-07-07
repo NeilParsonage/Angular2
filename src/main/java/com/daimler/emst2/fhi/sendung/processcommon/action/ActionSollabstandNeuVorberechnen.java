@@ -2,6 +2,7 @@ package com.daimler.emst2.fhi.sendung.processcommon.action;
 
 import com.daimler.emst2.fhi.model.IProcessId;
 import com.daimler.emst2.fhi.model.vorgang.IDbStandardResult;
+import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.process.AbstractProcessStep;
 import com.daimler.emst2.fhi.sendung.process.IProcessContext;
 import com.daimler.emst2.fhi.sendung.process.action.IAction;
@@ -29,9 +30,14 @@ public class ActionSollabstandNeuVorberechnen<GenActionEnum extends IProcessId> 
 
     @Override
     protected boolean doExecuteImpl(IProcessContext pContext) {
+        if (!(pContext instanceof SendContext)) {
+            throw new RuntimeException("SendContext is Missing");
+        }
+        SendContext ctx = (SendContext)pContext;
+
         IDbStandardResult dbStandardResult = sendemaskeService.sollabstaendeNeuBerechnen(pContext.getUser());
         if (dbStandardResult.isSyncOk()) {
-            getProtocolService().addDebugProtocolEntry(pContext.getProtocol(), getIdentifier());
+            getProtocolService().addDebugProtocolEntry(ctx, getIdentifier());
             return true;
         }
         throw new RuntimeException(
