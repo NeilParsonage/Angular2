@@ -23,7 +23,9 @@ export class EinzelauskunftComponent implements OnInit {
     { value: 'pnr', label: 'PNR', key: 'PNR', filter: '' },
     { value: 'gesamt', label: 'Gesamt lfd. Nr.', key: 'Gesamt lfd. Nr.', filter: '' },
     { value: 'fhi', label: 'Ist lfd. FHI', key: 'Ist lfd. FHI', filter: '' },
-    { value: 'lmt', label: 'Ist lfd. LMT', key: 'Ist lfd. LMT', filter: '' },
+    { value: 'lmt1', label: 'Ist lfd. LMT Band 1', key: 'Ist lfd. LMT Band 1', filter: '' },
+    { value: 'lmt2', label: 'Ist lfd. LMT Band 2', key: 'Ist lfd. LMT Band 2', filter: '' },
+    { value: 'lmt3', label: 'Ist lfd. LMT Band 3', key: 'Ist lfd. LMT Band 3', filter: '' },
   ];
 
   selected = this.options[0];
