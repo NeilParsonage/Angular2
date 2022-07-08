@@ -26,6 +26,7 @@ public enum SendCheckEnum implements IProcessId {
     RHM_AUFTRAG_SPERREN_FUER_BEREICH_060("auftragSperrenFuerBereich.warning.rhm", SendTypeEnum.RHM, 500),
 
     AUFTRAG_ANZAHL_FREIE_060("anzahlfreie.warning.fhi", SendTypeEnum.UNDEFINED, 600),
+
     ;
 
     public static final String DEFAULT_TUEB_PREFIX = "send.check.";
@@ -40,6 +41,15 @@ public enum SendCheckEnum implements IProcessId {
         tuebKey = pTuebKey;
         sendTyp = pSendTyp;
         orderNum = pOrderNum;
+    }
+
+    public final static SendCheckEnum getByName(String name) {
+        for (SendCheckEnum entry : values()) {
+            if (entry.name().equals(name)) {
+                return entry;
+            }
+        }
+        return null;
     }
 
     @Override

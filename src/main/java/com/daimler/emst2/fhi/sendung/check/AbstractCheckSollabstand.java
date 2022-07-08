@@ -46,12 +46,13 @@ public abstract class AbstractCheckSollabstand extends AbstractSendCheck {
         Protocol protocol = pContext.getProtocol();
         if (isVerletzt) {
             // ProtocolEntry erzeugen
-            getProtocolService().addProtocolEntry(protocol, ProtocolMessageEnum.SOLLABSTAND_VERLETZT_WARN, getIdentifier(),
+            getProtocolService().addProtocolEntry(pContext, ProtocolMessageEnum.SOLLABSTAND_VERLETZT_WARN,
+                    getIdentifier(),
                     SeverityEnum.WARNING);
         }
         else {
             // ProtocolEntry erzeugen
-            getProtocolService().addDebugProtocolEntry(protocol, getIdentifier());
+            getProtocolService().addDebugProtocolEntry(pContext, getIdentifier());
         }
         return !isVerletzt;
     }

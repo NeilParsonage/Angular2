@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.jpa.dao.AuftragSperrenDao;
 import com.daimler.emst2.fhi.jpa.dao.SystemwerteDao;
 import com.daimler.emst2.fhi.jpa.model.AktiveRestriktion;
@@ -18,6 +19,7 @@ import com.daimler.emst2.fhi.jpa.model.IAuftragSperrenForBereich;
 import com.daimler.emst2.fhi.jpa.model.Systemwerte;
 import com.daimler.emst2.fhi.model.FhiMandantEnum;
 import com.daimler.emst2.fhi.model.Protocol;
+import com.daimler.emst2.fhi.sendung.check.SendCheckEnum;
 import com.daimler.emst2.fhi.sendung.constants.OrtCheckEnum;
 import com.daimler.emst2.fhi.sendung.constants.OrtTypEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
@@ -28,6 +30,7 @@ import com.daimler.emst2.fhi.util.DateTimeHelper;
 
 public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext, IOrtsdatenProcessContext {
 
+    public Map<SendCheckEnum, ProtocolEntryDTO> userProtocolSendChecks;
     public String mandant;
     public FhiMandantEnum mandantEnum;
     public MetaList<AktiveRestriktion> aktiveRestriktionenMetaList;
@@ -39,11 +42,8 @@ public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext
     public Date processTimestamp;
 
     public List<AuftragSperren> auftragSperrenList;
-
     public List<IAuftragSperrenForBereich> anzahlSperrenForBereich;
-
     public AuftragSperrenDao auftragSperrenDao;
-
     public SystemwerteDao systemwerteDao;
 
     private final Set<SendTypeEnum> performedSendSet = new HashSet<SendTypeEnum>();

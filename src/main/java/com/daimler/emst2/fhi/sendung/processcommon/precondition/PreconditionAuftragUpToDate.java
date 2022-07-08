@@ -9,6 +9,7 @@ import com.daimler.emst2.fhi.model.IProcessId;
 import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.SeverityEnum;
 import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
+import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.process.precondition.AbstractPrecondition;
 import com.daimler.emst2.fhi.sendung.processcommon.IAuftragLfdNrProcessContext;
 import com.daimler.emst2.fhi.sendung.processcommon.IAuftragProcessContext;
@@ -27,7 +28,11 @@ extends AbstractPrecondition<GenPreconditionEnum, CTX> {
 
     @Override
     public boolean doPrepareContext(CTX pContext) {
-        Auftraege auftrag = pContext.getAuftrag();
+        if (!(pContext instanceof SendContext)) {
+            throw new RuntimeException("SendContext is Missing");
+        }
+        SendContext ctx = (SendContext)pContext;
+        Auftraege auftrag = ctx.getAuftrag();
         boolean lockSuccess = false;
         try {
             String lockedPnr = auftragDao.lockAuftragForUpdate(auftrag.getPnr(), auftrag.getVersion());
@@ -37,8 +42,9 @@ extends AbstractPrecondition<GenPreconditionEnum, CTX> {
         }
         // Meldung hier nur falls ein Fehler auftritt
         if (!lockSuccess) {
-            Protocol protocol = pContext.getProtocol();
-            getProtocolService().addProtocolEntry(protocol, ProtocolMessageEnum.AUFTRAG_OUTDATED, getIdentifier(), SeverityEnum.FATAL);
+            Protocol protocol = ctx.getProtocol();
+            getProtocolService().addProtocolEntry(ctx, ProtocolMessageEnum.AUFTRAG_OUTDATED, getIdentifier(),
+                    SeverityEnum.FATAL);
         }
         return lockSuccess;
     }

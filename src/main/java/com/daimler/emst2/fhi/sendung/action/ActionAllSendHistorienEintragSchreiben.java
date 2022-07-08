@@ -43,7 +43,7 @@ public class ActionAllSendHistorienEintragSchreiben extends AbstractSendAction {
         SendTypeEnum performedUserAction = pContext.getSendTypeEnum();
         Date processTimestamp = pContext.getProcessTimestamp();
         auftragHistorienService.createSendungHistorie(performedUserAction, auftrag, performedSendTypes, processTimestamp);
-        getProtocolService().addDebugProtocolEntry(pContext.getProtocol(), getIdentifier());
+        getProtocolService().addDebugProtocolEntry(pContext, getIdentifier());
         return true;
     }
 }

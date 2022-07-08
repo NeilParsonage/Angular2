@@ -3,6 +3,7 @@ package com.daimler.emst2.fhi.sendung.processcommon.action;
 import java.util.logging.Logger;
 
 import com.daimler.emst2.fhi.model.IProcessId;
+import com.daimler.emst2.fhi.sendung.action.SendActionEnum;
 import com.daimler.emst2.fhi.sendung.process.AbstractProcessStep;
 import com.daimler.emst2.fhi.sendung.process.action.IAction;
 import com.daimler.emst2.fhi.sendung.processcommon.IAuftragLfdNrProcessContext;
@@ -17,6 +18,7 @@ implements IAction<GenPreconditionEnum, GenActionEnum, CTX> {
     public ActionDummyToImplement(
             ProtocolService pProtocolService) {
         super(pProtocolService);
+        setStepIdentifierEnum(((GenActionEnum)SendActionEnum.UNDEFINED));
     }
 
     @Override

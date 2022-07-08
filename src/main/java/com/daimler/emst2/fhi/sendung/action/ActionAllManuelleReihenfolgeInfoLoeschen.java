@@ -52,7 +52,7 @@ public class ActionAllManuelleReihenfolgeInfoLoeschen extends AbstractSendAction
             if (forDelete != null) {
                 manuellePnrReihenfolgeDao.delete(forDelete);
 
-                getProtocolService().addDebugProtocolEntry(protocol, getIdentifier());
+                getProtocolService().addDebugProtocolEntry(pContext, getIdentifier());
             }
             // XXX handle initial delete without entry in manuellePnrReihenfolge
             // after first action, there is no entry anymore

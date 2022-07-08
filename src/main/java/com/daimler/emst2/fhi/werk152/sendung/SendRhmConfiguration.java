@@ -24,7 +24,6 @@ public class SendRhmConfiguration implements IProcessConfiguration<SendTypeEnum,
         pCheckList.add(SendCheckEnum.AUFTRAG_SPERRE_VORHANDEN);
         pCheckList.add(SendCheckEnum.RHM_IMPLIZITE_TEILSENDUNG);
         pCheckList.add(SendCheckEnum.RHM_SOLLABSTAND);
-        pCheckList.add(SendCheckEnum.RHM_ORT_ERR);
     }
 
     @Override

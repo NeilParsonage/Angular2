@@ -34,10 +34,11 @@ public class CheckAuftragAnkuendigung extends AbstractSendCheck{
         Assert.notNull(ankuendigungen, "transiente AnkuendigungenInfos am Auftrag nicht versorgt");
 
         if (ankuendigungen.isEmpty()) {
-            getProtocolService().addDebugProtocolEntry(protocol, getIdentifier());
+            getProtocolService().addDebugProtocolEntry(pContext, getIdentifier());
             return true;
         } else {
-            getProtocolService().addProtocolEntry(protocol, ProtocolMessageEnum.AUFTRAG_ANKUENDIGUNG_VORHANDEN, getIdentifier(), SeverityEnum.WARNING);
+            getProtocolService().addProtocolEntry(pContext, ProtocolMessageEnum.AUFTRAG_ANKUENDIGUNG_VORHANDEN,
+                    getIdentifier(), SeverityEnum.WARNING);
             return false;
         }
     }

@@ -43,7 +43,7 @@ public class ActionTaktTelegramm extends AbstractSendAction {
         TaktTelegramDaoHelper.create().saveTelegram(taktTelegramDao, newTaktTelegram, seqDao);
         // taktTelegramDao.saveTelegram(newTaktTelegram);
 
-        getProtocolService().addDebugProtocolEntry(protocol, getIdentifier());
+        getProtocolService().addDebugProtocolEntry(pContext, getIdentifier());
         return true;
     }
 }

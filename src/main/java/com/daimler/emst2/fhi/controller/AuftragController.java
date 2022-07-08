@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import com.daimler.emst2.fhi.dto.AuftragTermineDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDetailsDTO;
 import com.daimler.emst2.fhi.dto.SendResponseDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
+import com.daimler.emst2.fhi.dto.SendungsprotokollDTO;
 import com.daimler.emst2.fhi.services.AuftraegeService;
 import com.daimler.emst2.fhi.services.SendungService;
 
@@ -57,6 +59,11 @@ public class AuftragController {
     @PostMapping("/sendung")
     public SendResponseDTO sendeAuftrag(@RequestBody SendungDTO sendung) {
         return auftraegeService.sendeAuftrag(sendung);
+    }
+
+    @PutMapping("/sendung")
+    public SendResponseDTO sendeAuftrag(@RequestBody SendungsprotokollDTO sendungProtokoll) {
+        return auftraegeService.sendeAuftragWithProtokoll(sendungProtokoll);
     }
 
     @GetMapping("/kabelsaetze")

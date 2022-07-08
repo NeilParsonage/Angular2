@@ -29,7 +29,6 @@ public class SendFhiConfiguration implements IProcessConfiguration<SendTypeEnum,
         pCheckList.add(SendCheckEnum.AUFTRAG_SPERRE_VORHANDEN);
         pCheckList.add(SendCheckEnum.FHI_IMPLIZITE_TEILSENDUNG);
         pCheckList.add(SendCheckEnum.FHI_SOLLABSTAND);
-        pCheckList.add(SendCheckEnum.FHI_ORT_ERR);
     }
 
     @Override

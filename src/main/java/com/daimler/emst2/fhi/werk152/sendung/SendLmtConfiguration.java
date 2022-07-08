@@ -23,7 +23,6 @@ public class SendLmtConfiguration implements IProcessConfiguration<SendTypeEnum,
         pCheckList.add(SendCheckEnum.AUFTRAG_ANKUENDIGUNG_VORHANDEN);
         pCheckList.add(SendCheckEnum.AUFTRAG_SPERRE_VORHANDEN);
         pCheckList.add(SendCheckEnum.LMT_SOLLABSTAND);
-        pCheckList.add(SendCheckEnum.LMT_ORT_ERR);
     }
 
     @Override
