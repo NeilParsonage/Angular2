@@ -10,16 +10,16 @@ import org.springframework.util.ObjectUtils;
 
 import com.daimler.emst2.fhi.constants.FhiSystemGruppeKeyEnum;
 import com.daimler.emst2.fhi.jpa.dao.SystemgruppenDao;
-import com.daimler.emst2.fhi.jpa.dao.SystemwerteDao;
+import com.daimler.emst2.fhi.jpa.dao.SystemwertDao;
 import com.daimler.emst2.fhi.jpa.model.Systemgruppen;
 import com.daimler.emst2.fhi.jpa.model.Systemgruppenzuo;
-import com.daimler.emst2.fhi.jpa.model.Systemwerte;
+import com.daimler.emst2.fhi.jpa.model.Systemwert;
 
 @Service
 public class KonfigurationService {
 
     @Autowired
-    private SystemwerteDao systemwerteDao;
+    private SystemwertDao systemwertDao;
 
     @Autowired
     private SystemgruppenDao systemgruppenDao;
@@ -47,7 +47,7 @@ public class KonfigurationService {
     }
 
     private String getSystemwert(String name, boolean required) {
-        Systemwerte result = systemwerteDao.findByWertName(name);
+        Systemwert result = systemwertDao.findByWertName(name);
         if (ObjectUtils.isEmpty(result)) {
             if (required) {
                 throw new RuntimeException(String.format("Systemwert %s nicht gefunden!", name));
@@ -64,15 +64,15 @@ public class KonfigurationService {
         return locale;
     }
 
-    public Map<String, Systemwerte> getKonfigurationGruppeWithReload(FhiSystemGruppeKeyEnum auftragLfdNummern) {
+    public Map<String, Systemwert> getKonfigurationGruppeWithReload(FhiSystemGruppeKeyEnum auftragLfdNummern) {
         String systemgruppeName = auftragLfdNummern.getKey();
         //final ISystemgruppe systemgruppe = getSystemgruppeByName(systemgruppeName);
 
         Systemgruppen systemgruppe = this.systemgruppenDao.findByGruppeName(systemgruppeName);
 
-        final HashMap<String, Systemwerte> result = new HashMap<String, Systemwerte>();
+        final HashMap<String, Systemwert> result = new HashMap<String, Systemwert>();
         for (Systemgruppenzuo membership : systemgruppe.getSystemgruppenzuos()) {
-            Systemwerte iSystemwert = membership.getSystemwerte();
+            Systemwert iSystemwert = membership.getSystemwert();
             final String key = iSystemwert.getWertName();
             result.put(key, iSystemwert);
 

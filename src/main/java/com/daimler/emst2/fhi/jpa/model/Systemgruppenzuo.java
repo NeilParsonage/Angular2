@@ -32,7 +32,7 @@ public class Systemgruppenzuo extends BaseAuditEntity implements Serializable {
 	//bi-directional many-to-one association to Systemwerte
 	@ManyToOne
 	@JoinColumn(name="WERT_ID")
-	private Systemwerte systemwerte;
+	private Systemwert systemwert;
 
 	public Systemgruppenzuo() {
 	}
@@ -53,12 +53,12 @@ public class Systemgruppenzuo extends BaseAuditEntity implements Serializable {
 		this.systemgruppen = systemgruppen;
 	}
 
-	public Systemwerte getSystemwerte() {
-		return this.systemwerte;
+	public Systemwert getSystemwert() {
+		return this.systemwert;
 	}
 
-	public void setSystemwerte(Systemwerte systemwerte) {
-		this.systemwerte = systemwerte;
+	public void setSystemwert(Systemwert systemwert) {
+		this.systemwert = systemwert;
 	}
 
     @Override

@@ -2,7 +2,7 @@ package com.daimler.emst2.fhi.sendung.processcommon;
 
 import java.util.Map;
 
-import com.daimler.emst2.fhi.jpa.model.Systemwerte;
+import com.daimler.emst2.fhi.jpa.model.Systemwert;
 
 public interface IAuftragLfdNrProcessContext extends IAuftragProcessContext {
     /**
@@ -10,11 +10,11 @@ public interface IAuftragLfdNrProcessContext extends IAuftragProcessContext {
      * Key: Systemwert-Name fuer die betreffende laufende Nummer
      * Value: Wert der laufenden Nummer
      */
-    public void setCurrentLfdNrMap(Map<String, Systemwerte> pLfdNrMap);
+    public void setCurrentLfdNrMap(Map<String, Systemwert> pLfdNrMap);
 
     /**
      * Liefert die im Context abgelegte Map der ermittelten aktuell vergebenen Laufenden Nummern.
      * Format @see #setCurrentLfdNrMap(Map)
      */
-    public Map<String, Systemwerte> getCurrentLfdNrMap();
+    public Map<String, Systemwert> getCurrentLfdNrMap();
 }

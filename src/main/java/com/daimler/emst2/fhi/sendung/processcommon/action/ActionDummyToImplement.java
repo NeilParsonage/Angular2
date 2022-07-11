@@ -3,11 +3,11 @@ package com.daimler.emst2.fhi.sendung.processcommon.action;
 import java.util.logging.Logger;
 
 import com.daimler.emst2.fhi.model.IProcessId;
-import com.daimler.emst2.fhi.sendung.action.SendActionEnum;
 import com.daimler.emst2.fhi.sendung.process.AbstractProcessStep;
 import com.daimler.emst2.fhi.sendung.process.action.IAction;
 import com.daimler.emst2.fhi.sendung.processcommon.IAuftragLfdNrProcessContext;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
+import com.daimler.emst2.fhi.sendung.werk.action.SendActionEnum;
 
 public class ActionDummyToImplement<GenPreconditionEnum extends IProcessId, GenActionEnum extends IProcessId, CTX extends IAuftragLfdNrProcessContext>
 extends AbstractProcessStep<GenPreconditionEnum, GenActionEnum, CTX>

@@ -1,13 +1,13 @@
 package com.daimler.emst2.fhi.util;
 
 import com.daimler.emst2.fhi.constants.BooleanEnum;
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.sendung.constants.SendStatusEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
 
 public class SendungUtil {
 
-    public static boolean isSendbar(Auftraege auftrag) {
+    public static boolean isSendbar(Auftrag auftrag) {
         boolean isOffen = SendungUtil.isSendungOffen(auftrag, SendTypeEnum.FHI);
         isOffen |= SendungUtil.isSendungOffen(auftrag, SendTypeEnum.LMT);
         isOffen |= SendungUtil.isSendungOffen(auftrag, SendTypeEnum.UBM);
@@ -15,7 +15,7 @@ public class SendungUtil {
         return isOffen;
     }
 
-    public static boolean isSendungOffen(Auftraege auftrag, SendTypeEnum pSendTypeEnum) {
+    public static boolean isSendungOffen(Auftrag auftrag, SendTypeEnum pSendTypeEnum) {
         BooleanEnum soll = getSendStatusSoll(auftrag, pSendTypeEnum);
         SendStatusEnum ist = SendungUtil.getSendStatusIst(auftrag, pSendTypeEnum);
 
@@ -24,7 +24,7 @@ public class SendungUtil {
         return check;
     }
 
-    private static BooleanEnum getSendStatusSoll(Auftraege auftrag, SendTypeEnum pSendTypeEnum) {
+    private static BooleanEnum getSendStatusSoll(Auftrag auftrag, SendTypeEnum pSendTypeEnum) {
         String sendekennung = null;
         switch (pSendTypeEnum) {
             case LMT:
@@ -46,7 +46,7 @@ public class SendungUtil {
         return kennung;
     }
 
-    public static SendStatusEnum getSendStatusIst(Auftraege auftrag, SendTypeEnum pSendTypeEnum) {
+    public static SendStatusEnum getSendStatusIst(Auftrag auftrag, SendTypeEnum pSendTypeEnum) {
         String sendestatus = null;
 
         switch (pSendTypeEnum) {

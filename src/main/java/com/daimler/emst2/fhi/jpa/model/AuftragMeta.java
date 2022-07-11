@@ -6,7 +6,7 @@ import com.daimler.emst2.fhi.sendung.constants.SendStatusEnum;
 
 public class AuftragMeta {
 
-    private final Auftraege auftrag;
+    private final Auftrag auftrag;
 
     private boolean isSendbar;
 
@@ -16,12 +16,12 @@ public class AuftragMeta {
     private List<AuftragSperrInformation> sperrInfosLMT;
     private List<AuftragSperrInformation> sperrInfosSonst;
 
-    private AuftragMeta(Auftraege auftraege) {
-        this.auftrag = auftraege;
+    private AuftragMeta(Auftrag auftrag) {
+        this.auftrag = auftrag;
     }
 
-    public static AuftragMeta create(Auftraege auftraege) {
-        return new AuftragMeta(auftraege);
+    public static AuftragMeta create(Auftrag auftrag) {
+        return new AuftragMeta(auftrag);
     }
 
     public List<AuftragSperrInformation> getAnkuendigungInfos() {

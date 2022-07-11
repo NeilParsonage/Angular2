@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
 import com.daimler.emst2.fhi.jpa.model.AuftragCodes;
 import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
@@ -19,50 +19,50 @@ import com.daimler.emst2.fhi.model.Protocol;
 @Component
 public class FhiDtoFactory {
 
-    public AuftraegeDTO createAuftragDTO(Auftraege auftraege) {
-        AuftraegeDTO neu = new AuftraegeDTO();
-        neu.pnr = auftraege.getPnr();
-        neu.lfdNrGes = auftraege.getLfdNrGes();
-        neu.lfdNrFhi = auftraege.getLfdNrFhi();
-        neu.lfdNrLmt = auftraege.getLfdNrLmt();
-        neu.lfdNrUbm = auftraege.getLfdNrUbm();
-        neu.bandNr = Long.valueOf(auftraege.getBandNr());
-        neu.fzgArt = auftraege.getFzgArt();
-        neu.fhsBaumuster = auftraege.getFhsBaumuster();
-        neu.fzgBaumuster = auftraege.getFzgBaumuster();
-        neu.fzgTaktklasse = auftraege.getFzgTaktklasse();
-        neu.fhsTaktklasse = auftraege.getFhsTaktklasse();
-        neu.anr = auftraege.getAnr();
-        neu.verkBez = auftraege.getVerkBez();
-        neu.bandNrRt2 = auftraege.getBandNrRt2();
-        neu.bandNrRt5 = auftraege.getBandNrRt5();
-        neu.fin = auftraege.getFin();
-        neu.vin = auftraege.getVin();
-        neu.version = auftraege.getVersion();
+    public AuftragDTO createAuftragDTO(Auftrag auftrag) {
+        AuftragDTO neu = new AuftragDTO();
+        neu.pnr = auftrag.getPnr();
+        neu.lfdNrGes = auftrag.getLfdNrGes();
+        neu.lfdNrFhi = auftrag.getLfdNrFhi();
+        neu.lfdNrLmt = auftrag.getLfdNrLmt();
+        neu.lfdNrUbm = auftrag.getLfdNrUbm();
+        neu.bandNr = Long.valueOf(auftrag.getBandNr());
+        neu.fzgArt = auftrag.getFzgArt();
+        neu.fhsBaumuster = auftrag.getFhsBaumuster();
+        neu.fzgBaumuster = auftrag.getFzgBaumuster();
+        neu.fzgTaktklasse = auftrag.getFzgTaktklasse();
+        neu.fhsTaktklasse = auftrag.getFhsTaktklasse();
+        neu.anr = auftrag.getAnr();
+        neu.verkBez = auftrag.getVerkBez();
+        neu.bandNrRt2 = auftrag.getBandNrRt2();
+        neu.bandNrRt5 = auftrag.getBandNrRt5();
+        neu.fin = auftrag.getFin();
+        neu.vin = auftrag.getVin();
+        neu.version = auftrag.getVersion();
 
         return neu;
     }
 
-    public AuftraegeDTO createAuftragDTO(Auftraege auftraege, AuftragDetails details, AuftragSendestatus sendestatus) {
-        AuftraegeDTO neu = new AuftraegeDTO();
-        neu.pnr = auftraege.getPnr();
-        neu.lfdNrGes = auftraege.getLfdNrGes();
-        neu.lfdNrFhi = auftraege.getLfdNrFhi();
-        neu.lfdNrLmt = auftraege.getLfdNrLmt();
-        neu.lfdNrUbm = auftraege.getLfdNrUbm();
-        neu.bandNr = auftraege.getBandNr();
-        neu.fzgArt = auftraege.getFzgArt();
-        neu.fhsBaumuster = auftraege.getFhsBaumuster();
-        neu.fzgBaumuster = auftraege.getFzgBaumuster();
-        neu.fzgTaktklasse = auftraege.getFzgTaktklasse();
-        neu.fhsTaktklasse = auftraege.getFhsTaktklasse();
-        neu.anr = auftraege.getAnr();
-        neu.verkBez = auftraege.getVerkBez();
-        neu.bandNrRt2 = auftraege.getBandNrRt2();
-        neu.bandNrRt5 = auftraege.getBandNrRt5();
-        neu.fin = auftraege.getFin();
-        neu.vin = auftraege.getVin();
-        neu.version = auftraege.getVersion();
+    public AuftragDTO createAuftragDTO(Auftrag auftrag, AuftragDetails details, AuftragSendestatus sendestatus) {
+        AuftragDTO neu = new AuftragDTO();
+        neu.pnr = auftrag.getPnr();
+        neu.lfdNrGes = auftrag.getLfdNrGes();
+        neu.lfdNrFhi = auftrag.getLfdNrFhi();
+        neu.lfdNrLmt = auftrag.getLfdNrLmt();
+        neu.lfdNrUbm = auftrag.getLfdNrUbm();
+        neu.bandNr = auftrag.getBandNr();
+        neu.fzgArt = auftrag.getFzgArt();
+        neu.fhsBaumuster = auftrag.getFhsBaumuster();
+        neu.fzgBaumuster = auftrag.getFzgBaumuster();
+        neu.fzgTaktklasse = auftrag.getFzgTaktklasse();
+        neu.fhsTaktklasse = auftrag.getFhsTaktklasse();
+        neu.anr = auftrag.getAnr();
+        neu.verkBez = auftrag.getVerkBez();
+        neu.bandNrRt2 = auftrag.getBandNrRt2();
+        neu.bandNrRt5 = auftrag.getBandNrRt5();
+        neu.fin = auftrag.getFin();
+        neu.vin = auftrag.getVin();
+        neu.version = auftrag.getVersion();
         /*
          * Details
          */
@@ -88,8 +88,8 @@ public class FhiDtoFactory {
         neu.zielSepu= sendestatus.getZielSepu();
         neu.skidNr = sendestatus.getSkidNr();
         neu.ort = sendestatus.getOrt();
-        neu.seqnrSepu = auftraege.getSeqnrSepu();
-        neu.seqnrLapu = auftraege.getSeqnrLapu();
+        neu.seqnrSepu = auftrag.getSeqnrSepu();
+        neu.seqnrLapu = auftrag.getSeqnrLapu();
         neu.hrknr = sendestatus.getHrknr();
         neu.fhiSendStatus = sendestatus.getFhiSendStatus();
         neu.fhisendung = sendestatus.getFhisendung();
@@ -127,8 +127,8 @@ public class FhiDtoFactory {
         /*
          * Audit 
          */
-        neu.fhiAudit = auftraege.getFhiAudit();
-        neu.hrkAudit = auftraege.getHrkAudit();
+        neu.fhiAudit = auftrag.getFhiAudit();
+        neu.hrkAudit = auftrag.getHrkAudit();
         return neu;
     }
 

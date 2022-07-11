@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.daimler.emst2.fhi.jpa.dao.AuftragHistorieCustomDao;
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.AuftragHistorie;
 import com.daimler.emst2.fhi.jpa.model.AuftragSperrInformation;
 import com.daimler.emst2.fhi.sendung.constants.CancelSendTypeEnum;
@@ -65,7 +65,7 @@ public class AuftragHistorienService {
     /**
      * {@inheritDoc}
      */
-    public void createSperreAnkuendigungAufhebenHistorie(Auftraege pAuftrag,
+    public void createSperreAnkuendigungAufhebenHistorie(Auftrag pAuftrag,
             AuftragSperrInformation pSperrInformation) {
         String pnr = pSperrInformation.getPnr();
         SperrtypEnum sperrtypEnum = pSperrInformation.getSperrtypEnum();
@@ -83,7 +83,7 @@ public class AuftragHistorienService {
     /**
      * {@inheritDoc}
      */
-    public void createSperreAnkuendigungSetzenHistorie(Auftraege pAuftrag, AuftragSperrInformation pSperrInformation) {
+    public void createSperreAnkuendigungSetzenHistorie(Auftrag pAuftrag, AuftragSperrInformation pSperrInformation) {
         String pnr = pSperrInformation.getPnr();
         SperrtypEnum sperrtypEnum = pSperrInformation.getSperrtypEnum();
         String sperrcode = pSperrInformation.getSperrcode();
@@ -100,7 +100,7 @@ public class AuftragHistorienService {
     /**
      * {@inheritDoc}
      */
-    public void createStornoHistorie(SendTypeEnum pUserAction, Auftraege pAuftrag,
+    public void createStornoHistorie(SendTypeEnum pUserAction, Auftrag pAuftrag,
             Map<SendTypeEnum, CancelSendTypeEnum> pPerformedStornoTypes, Date pProcessStartTimestamp) {
         String pnr = pAuftrag.getPnr();
         StornoMessageFactory smf =
@@ -115,7 +115,7 @@ public class AuftragHistorienService {
     /**
      * {@inheritDoc}
      */
-    public void createSendungHistorie(SendTypeEnum pUserAction, Auftraege pAuftrag,
+    public void createSendungHistorie(SendTypeEnum pUserAction, Auftrag pAuftrag,
             Collection<SendTypeEnum> pPerformedSendTypes, Date pProcessStartTimestamp) {
         String pnr = pAuftrag.getPnr();
         List<SendTypeEnum> performedSendTypesCopy = new ArrayList<SendTypeEnum>(pPerformedSendTypes);
@@ -128,7 +128,7 @@ public class AuftragHistorienService {
         getAuftragHistorieCustomDao().saveAuftragHistorie(pnr, melder, meldeKennung, meldung, sendeterminForHist);
     }
 
-    public void createAuftragZerstoertHistorie(Auftraege auftrag) {
+    public void createAuftragZerstoertHistorie(Auftrag auftrag) {
         String meldung = MessageFormat.format(MELDUNG_PNR_DELETED, auftrag.getPnr());
         Date sendeterminForHist = CalcSendeterminForHistUtil.calculateSimpleSendetermin(auftrag);
         getAuftragHistorieCustomDao().saveAuftragHistorie(auftrag, MELDER_PNR_DELETED, MELDEKENN_PNR_DELETED,
@@ -177,7 +177,7 @@ public class AuftragHistorienService {
 
         private final SendTypeEnum userAction;
 
-        private final Auftraege auftrag;
+        private final Auftrag auftrag;
 
         private final List<SendTypeEnum> performedSendTypes;
 
@@ -185,7 +185,7 @@ public class AuftragHistorienService {
 
         private List<SendTypeEnum> vorsendungenList = null;
 
-        protected SendMessageFactory(SendTypeEnum pUserAction, Auftraege pAuftrag,
+        protected SendMessageFactory(SendTypeEnum pUserAction, Auftrag pAuftrag,
                 List<SendTypeEnum> pPerformedSendTypes, Date pProcessStartTimestamp) {
             super();
             Assert.isTrue(!SendTypeEnum.UNDEFINED.equals(pUserAction));
@@ -316,13 +316,13 @@ public class AuftragHistorienService {
 
         private final SendTypeEnum userAction;
 
-        private final Auftraege auftrag;
+        private final Auftrag auftrag;
 
         private final Map<SendTypeEnum, CancelSendTypeEnum> performedStornoTypes;
 
         private final Date processStartTimestamp;
 
-        protected StornoMessageFactory(SendTypeEnum pUserAction, Auftraege pAuftrag,
+        protected StornoMessageFactory(SendTypeEnum pUserAction, Auftrag pAuftrag,
                 Map<SendTypeEnum, CancelSendTypeEnum> pPerformedStornoTypes, Date pProcessStartTimestamp) {
             super();
             userAction = pUserAction;
