@@ -19,10 +19,10 @@ public interface AuftraegeDao extends CrudRepository<Auftraege, String> {
     @Query("SELECT a from Auftraege a WHERE a.lfdNrGes = :lfdNrGes")
     public Auftraege findbyLfdNrGes(@Param("lfdNrGes") long lfdNrGes);
     
-    @Query("SELECT a from Auftraege a WHERE a.lfdNrLmt = :lfdNrLmt")
-    public Auftraege findbyLfdNrLmt(@Param("lfdNrLmt") long lfdNrLmt);
+    @Query("SELECT a from Auftraege a WHERE a.lfdNrLmt = :lfdNrLmt and a.bandNr= :band")
+    public Auftraege findbyLfdNrLmt(@Param("lfdNrLmt") long lfdNrLmt, @Param("band") long band);
 
-    @Query("SELECT a from Auftraege a WHERE a.lfdNrFhi = :lfdNrFhi")
+    @Query("SELECT a from Auftraege a WHERE  a.ortOrginal NOT IN ('BDAB','SATG') AND a.sendetermin IS NOT NULL AND a.lfdNrFhi = :lfdNrFhi")
     public Auftraege findbyLfdNrFhi(@Param("lfdNrFhi") long lfdNrFhi);
 
     @Query("SELECT a from Auftraege a WHERE a.pnr like :pnr and a.version = :version")

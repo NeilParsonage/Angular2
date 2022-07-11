@@ -130,9 +130,9 @@ public class AuftraegeService {
            return dtoFactory.createAuftragDTO(result, resultDetails.get(), resultSendestatus.get());
     }
 
-    public AuftraegeDTO getAuftragByLfdNrLmt(String lfdNummer) {
+    public AuftraegeDTO getAuftragByLfdNrLmt(String lfdNummer, String band) {
 
-        Auftraege result = auftraegeDao.findbyLfdNrLmt(Integer.parseInt(lfdNummer));
+        Auftraege result = auftraegeDao.findbyLfdNrLmt(Integer.parseInt(lfdNummer), Integer.parseInt(band));
         if (ObjectUtils.isEmpty(result)) {
 
             throw new RuntimeException(String.format("Auftrag mit Lfd Nummer Lmt %s nicht gefunden!", lfdNummer));
@@ -170,8 +170,12 @@ public class AuftraegeService {
                 return getAuftragByGesamtLfdNummer(key);
             case "fhi":
                 return getAuftragByLfdNrFhi(key);
-            case "lmt":
-                return getAuftragByLfdNrLmt(key);
+            case "lmt1":
+                return getAuftragByLfdNrLmt(key, option.substring(3));
+            case "lmt2":
+                return getAuftragByLfdNrLmt(key, option.substring(3));
+            case "lmt3":
+                return getAuftragByLfdNrLmt(key, option.substring(3));
             default:
                 return auftrag;
         }
