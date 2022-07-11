@@ -15,28 +15,28 @@ import org.springframework.util.ObjectUtils;
 
 import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
-import com.daimler.emst2.fhi.jpa.dao.AuftraegeDao;
+import com.daimler.emst2.fhi.jpa.dao.AuftragDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragSperrenDao;
-import com.daimler.emst2.fhi.jpa.dao.SystemwerteDao;
+import com.daimler.emst2.fhi.jpa.dao.SystemwertDao;
 import com.daimler.emst2.fhi.jpa.model.AktiveRestriktion;
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.KriteriumRelevant;
 import com.daimler.emst2.fhi.model.FhiMandantEnum;
 import com.daimler.emst2.fhi.model.Protocol;
-import com.daimler.emst2.fhi.sendung.action.SendActionEnum;
-import com.daimler.emst2.fhi.sendung.check.SendCheckEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
 import com.daimler.emst2.fhi.sendung.model.ISendService;
 import com.daimler.emst2.fhi.sendung.model.MetaList;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
-import com.daimler.emst2.fhi.sendung.precondition.SendPreconditionEnum;
 import com.daimler.emst2.fhi.sendung.process.action.IActionFactory;
 import com.daimler.emst2.fhi.sendung.process.precondition.IPreconditionFactory;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
+import com.daimler.emst2.fhi.sendung.werk.action.SendActionEnum;
+import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
+import com.daimler.emst2.fhi.sendung.werk.precondition.SendPreconditionEnum;
+import com.daimler.emst2.fhi.sendung.werk060.Sendung060;
+import com.daimler.emst2.fhi.sendung.werk152.Sendung152;
+import com.daimler.emst2.fhi.sendung.werk152.factory.SendCheckFactory;
 import com.daimler.emst2.fhi.util.BasisCollectionUtils;
-import com.daimler.emst2.fhi.werk060.Sendung060;
-import com.daimler.emst2.fhi.werk152.Sendung152;
-import com.daimler.emst2.fhi.werk152.sendung.SendCheckFactory;
 import com.daimler.emst2.frw.context.AuthenticationContext;
 
 // TODO refactor 2x SendungService :
@@ -83,10 +83,10 @@ public class SendungService {
     AuftragSperrenDao auftragSperrenDao;
 
     @Autowired
-    public SystemwerteDao systemwerteDao;
+    public SystemwertDao systemwertDao;
 
     @Autowired
-    AuftraegeDao auftragDao;
+    AuftragDao auftragDao;
 
     public SendContext senden(SendungDTO sendung) {
         return senden(sendung, null, null);
@@ -100,7 +100,7 @@ public class SendungService {
             Map<SendCheckEnum, ProtocolEntryDTO> userProtocolCheckEntries) {
 
         SendTypeEnum sendType = SendTypeEnum.valueOf(sendung.sendeTyp);
-        Auftraege auftrag = getAuftragByPnrAndVersion(sendung.pnr, sendung.version);
+        Auftrag auftrag = getAuftragByPnrAndVersion(sendung.pnr, sendung.version);
         if (ObjectUtils.isEmpty(auftrag)) {
             throw new RuntimeException("Could not find PNR");
         }
@@ -113,14 +113,14 @@ public class SendungService {
         sendContext.auftrag = auftrag;
         sendContext.user = authContext.getAuthentication().getName();
         sendContext.auftragSperrenDao = auftragSperrenDao;
-        sendContext.systemwerteDao = systemwerteDao;
+        sendContext.systemwertDao = systemwertDao;
         sendContext.protocol = protocol;
 
         this.auftragSendungStart(sendContext);
         return sendContext;
     }
 
-    private Auftraege getAuftragByPnrAndVersion(String pnr, Long version) {
+    private Auftrag getAuftragByPnrAndVersion(String pnr, Long version) {
         return auftragDao.findbyPnrAndVersion(pnr, version);
     }
 
@@ -265,12 +265,12 @@ public class SendungService {
         switch (sendContext.mandantEnum) {
             case WERK_060:
                 return Sendung060.create(protocolService, sendActionFactory060,
-                        com.daimler.emst2.fhi.werk060.sendung.SendCheckFactory.create(protocolService),
-                        preconditionFactory060, com.daimler.emst2.fhi.werk060.sendung.SendDefinitionFactory.create());
+                        com.daimler.emst2.fhi.sendung.werk060.factory.SendCheckFactory.create(protocolService),
+                        preconditionFactory060, com.daimler.emst2.fhi.sendung.werk060.factory.SendDefinitionFactory.create());
             case WERK_152:
                 return Sendung152.create(protocolService, sendActionFactory152,
                         SendCheckFactory.create(protocolService), preconditionFactory152,
-                        com.daimler.emst2.fhi.werk152.sendung.SendDefinitionFactory.create());
+                        com.daimler.emst2.fhi.sendung.werk152.factory.SendDefinitionFactory.create());
             default:
                 throw new RuntimeException("invalid mandant" + sendContext.mandant);
         }

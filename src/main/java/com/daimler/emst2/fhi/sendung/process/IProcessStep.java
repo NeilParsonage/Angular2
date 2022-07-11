@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.daimler.emst2.fhi.model.IProcessId;
 import com.daimler.emst2.fhi.model.IProtocolEntry;
-import com.daimler.emst2.fhi.sendung.check.SendCheckEnum;
 import com.daimler.emst2.fhi.sendung.process.precondition.IPrecondition;
+import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
 
 /**
  * A IProcessStep is a Part of an {@link IProcess}. ProcessSteps are ordered. A realization implements the doExecute and processes the 

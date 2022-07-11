@@ -1,7 +1,7 @@
 package com.daimler.emst2.fhi.sendung.processcommon.action;
 
-import com.daimler.emst2.fhi.jpa.dao.AuftraegeDao;
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.dao.AuftragDao;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.model.IProcessId;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.process.AbstractProcessStep;
@@ -13,9 +13,9 @@ public class ActionSaveAuftrag<GenActionEnum extends IProcessId> extends
 AbstractProcessStep<IProcessId, GenActionEnum, IAuftragProcessContext> implements
 IAction<IProcessId, GenActionEnum, IAuftragProcessContext> {
 
-    private final AuftraegeDao auftragDao;
+    private final AuftragDao auftragDao;
 
-    public ActionSaveAuftrag(GenActionEnum pActionEnum, ProtocolService pProtocolService, AuftraegeDao pAuftragDao) {
+    public ActionSaveAuftrag(GenActionEnum pActionEnum, ProtocolService pProtocolService, AuftragDao pAuftragDao) {
         super(pProtocolService);
         setStepIdentifierEnum(pActionEnum);
         auftragDao = pAuftragDao;
@@ -34,7 +34,7 @@ IAction<IProcessId, GenActionEnum, IAuftragProcessContext> {
         }
         SendContext ctx = (SendContext)pContext;
 
-        Auftraege auftrag = pContext.getAuftrag();
+        Auftrag auftrag = pContext.getAuftrag();
         auftragDao.save(auftrag);
 
         getProtocolService().addDebugProtocolEntry(ctx, getIdentifier());

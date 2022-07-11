@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.hibernate.Hibernate;
 
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.MvAlleRelCode;
 import com.daimler.emst2.fhi.sendung.constants.OrtTypEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendStatusEnum;
@@ -19,17 +19,17 @@ public class AuftragUtil {
 
     public static final String NUMERIC_FALSE_STRING = "0";
 
-    public static final String getOrt(Auftraege pAuftrag, OrtTypEnum pOrtType) {
+    public static final String getOrt(Auftrag pAuftrag, OrtTypEnum pOrtType) {
         switch (pOrtType) {
             case FHS:
-                return pAuftrag.getOrtOrginal();
+                return pAuftrag.getOrt();
             case RHM:
                 return pAuftrag.getOrtRhm();
         }
         throw new RuntimeException("Auftrag kennt keinen Ortstyp: " + pOrtType);
     }
 
-    public static Map<SendTypeEnum, SendStatusEnum> getSendStatusIstMap(Auftraege auftrag) {
+    public static Map<SendTypeEnum, SendStatusEnum> getSendStatusIstMap(Auftrag auftrag) {
         Map<SendTypeEnum, SendStatusEnum> result = new HashMap<SendTypeEnum, SendStatusEnum>();
         List<SendTypeEnum> allTeilSendTypes = SendTypeEnum.getAllTeilSendTypes();
         for (SendTypeEnum sendTypeEnum : allTeilSendTypes) {
@@ -38,7 +38,7 @@ public class AuftragUtil {
         return result;
     }
 
-    public static SendStatusEnum getSendStatusIst(Auftraege auftrag, SendTypeEnum pSendTypeEnum) {
+    public static SendStatusEnum getSendStatusIst(Auftrag auftrag, SendTypeEnum pSendTypeEnum) {
         String sendestatus = null;
 
         switch (pSendTypeEnum) {
@@ -61,7 +61,7 @@ public class AuftragUtil {
         return status;
     }
 
-    public static void setSendStatusIst(Auftraege auftrag, SendTypeEnum pSendTypeEnum, SendStatusEnum pSendStatus) {
+    public static void setSendStatusIst(Auftrag auftrag, SendTypeEnum pSendTypeEnum, SendStatusEnum pSendStatus) {
         switch (pSendTypeEnum) {
             case LMT:
                 auftrag.setLmtSendStatus(pSendStatus.getDBValue());
@@ -80,7 +80,7 @@ public class AuftragUtil {
         }
     }
 
-    public static Map<SendTypeEnum, Date> getSendeterminMap(Auftraege auftrag) {
+    public static Map<SendTypeEnum, Date> getSendeterminMap(Auftrag auftrag) {
         Map<SendTypeEnum, Date> resultMap = new HashMap<SendTypeEnum, Date>();
         resultMap.put(SendTypeEnum.LMT, auftrag.getSendetermin());
         resultMap.put(SendTypeEnum.FHI, auftrag.getSendeterminFhi());
@@ -89,18 +89,18 @@ public class AuftragUtil {
         return resultMap;
     }
 
-    public static Integer getTransientSollabstandLmt(Auftraege pAuftrag) {
+    public static Integer getTransientSollabstandLmt(Auftrag pAuftrag) {
         if (getLmtSendStatusEnum(pAuftrag).isGesendet()) {
             return null;
         }
         return pAuftrag.getSendeVorschlagDetails().getSollabsLmt();
     }
 
-    public static SendStatusEnum getLmtSendStatusEnum(Auftraege auftrag) {
+    public static SendStatusEnum getLmtSendStatusEnum(Auftrag auftrag) {
         return SendStatusEnum.getSendStatus(auftrag.getLmtSendStatus());
     }
 
-    public static void setSendetermin(Auftraege auftrag, SendTypeEnum sendTypeEnum, Date aktuellesDatum) {
+    public static void setSendetermin(Auftrag auftrag, SendTypeEnum sendTypeEnum, Date aktuellesDatum) {
         switch (sendTypeEnum) {
             case LMT:
                 auftrag.setSendetermin(aktuellesDatum);
@@ -119,7 +119,7 @@ public class AuftragUtil {
         }
     }
 
-    public static void setZugebundenBool(Auftraege auftrag, boolean pZugebunden) {
+    public static void setZugebundenBool(Auftrag auftrag, boolean pZugebunden) {
         if (pZugebunden) {
             auftrag.setZugebunden(NUMERIC_TRUE_STRING);
         }
@@ -128,7 +128,7 @@ public class AuftragUtil {
         }
     }
 
-    public static void setLfdNr(Auftraege auftrag, SendTypeEnum pSendTypeEnum, Long pLfdNr) {
+    public static void setLfdNr(Auftrag auftrag, SendTypeEnum pSendTypeEnum, Long pLfdNr) {
         switch (pSendTypeEnum) {
             case FHI:
                 auftrag.setLfdNrFhi(pLfdNr);
@@ -154,7 +154,7 @@ public class AuftragUtil {
         }
     }
 
-    public static String getCodesBand(Auftraege auftrag) {
+    public static String getCodesBand(Auftrag auftrag) {
         Hibernate.initialize(auftrag.getAlleRelCode());
         List<MvAlleRelCode> alleRelCode = auftrag.getAlleRelCode();
         if (alleRelCode.size() > 0) {

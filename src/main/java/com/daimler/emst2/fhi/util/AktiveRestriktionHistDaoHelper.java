@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.daimler.emst2.fhi.jpa.dao.AktiveRestriktionHistDao;
 import com.daimler.emst2.fhi.jpa.model.AktiveRestriktion;
 import com.daimler.emst2.fhi.jpa.model.AktiveRestriktionHist;
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.model.BandAuswahl;
 
 public class AktiveRestriktionHistDaoHelper {
@@ -55,7 +55,7 @@ public class AktiveRestriktionHistDaoHelper {
         return entity;
     }
 
-    public int deleteOldRestriktionenForBereich(AktiveRestriktionHistDao aktiveRestriktionHistDao, Auftraege pAuftrag,
+    public int deleteOldRestriktionenForBereich(AktiveRestriktionHistDao aktiveRestriktionHistDao, Auftrag pAuftrag,
             BandAuswahl pBandauswahl) {
         String pnr = pAuftrag.getPnr();
         String bereichLikePattern = null;

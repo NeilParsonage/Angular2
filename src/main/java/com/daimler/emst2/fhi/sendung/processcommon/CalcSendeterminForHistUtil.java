@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.util.Assert;
 
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
 import com.daimler.emst2.fhi.util.AuftragUtil;
 
@@ -15,7 +15,7 @@ public class CalcSendeterminForHistUtil {
         CALC_SEND, CALC_STORNO;
     }
 
-    public static Date calculateSendeterminHistForSendung(Auftraege auftrag, Date processTimestamp) {
+    public static Date calculateSendeterminHistForSendung(Auftrag auftrag, Date processTimestamp) {
         Date result = calculateSendetermin(auftrag, processTimestamp, CalcSendeterminTypeEnum.CALC_SEND);
         if (result == null) {
             // zweifelhaft - entspricht aber der Anforderung: Ist dies die erste (Teil-)Sendung des Auftrags,
@@ -25,7 +25,7 @@ public class CalcSendeterminForHistUtil {
         return result;
     }
 
-    public static Date calculateSendeterminHistForStorno(Auftraege auftrag, Date processTimestamp) {
+    public static Date calculateSendeterminHistForStorno(Auftrag auftrag, Date processTimestamp) {
         return calculateSendetermin(auftrag, processTimestamp, CalcSendeterminTypeEnum.CALC_STORNO);
     }
 
@@ -35,7 +35,7 @@ public class CalcSendeterminForHistUtil {
      * @param auftrag
      * @return "größter" Sendetermin. null wenn alle termine null sind.
      */
-    public static Date calculateSimpleSendetermin(Auftraege auftrag) {
+    public static Date calculateSimpleSendetermin(Auftrag auftrag) {
         Map<SendTypeEnum, Date> sendeterminMap = AuftragUtil.getSendeterminMap(auftrag);
         Date dateFound = null;
         for (Map.Entry<SendTypeEnum, Date> entry : sendeterminMap.entrySet()) {
@@ -50,7 +50,7 @@ public class CalcSendeterminForHistUtil {
         return dateFound;
     }
 
-    private static Date calculateSendetermin(Auftraege auftrag, Date processTimestamp, CalcSendeterminTypeEnum pType) {
+    private static Date calculateSendetermin(Auftrag auftrag, Date processTimestamp, CalcSendeterminTypeEnum pType) {
         Assert.notNull(processTimestamp);
         long procTime = processTimestamp.getTime();
         Map<SendTypeEnum, Date> sendeterminMap = AuftragUtil.getSendeterminMap(auftrag);

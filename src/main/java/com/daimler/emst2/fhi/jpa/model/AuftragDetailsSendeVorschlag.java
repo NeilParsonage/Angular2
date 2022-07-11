@@ -42,7 +42,7 @@ public class AuftragDetailsSendeVorschlag extends BaseAuditEntity implements Ser
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PNR", referencedColumnName = "PNR")
-    private Auftraege auftrag;
+    private Auftrag auftrag;
 
 	public AuftragDetailsSendeVorschlag() {
 	}
@@ -71,11 +71,11 @@ public class AuftragDetailsSendeVorschlag extends BaseAuditEntity implements Ser
 		this.sollabsLmt = sollabsLmt;
 	}
 
-    public Auftraege getAuftrag() {
+    public Auftrag getAuftrag() {
         return auftrag;
     }
 
-    public void setAuftrag(Auftraege auftrag) {
+    public void setAuftrag(Auftrag auftrag) {
         this.auftrag = auftrag;
     }
 

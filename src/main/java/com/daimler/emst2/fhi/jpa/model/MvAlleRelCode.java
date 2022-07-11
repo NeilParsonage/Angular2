@@ -38,7 +38,7 @@ public class MvAlleRelCode extends BaseAuditEntity implements Serializable {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pnr")
-    private Auftraege auftrag;
+    private Auftrag auftrag;
 
     public MvAlleRelCode() {
     }

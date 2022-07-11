@@ -6,9 +6,9 @@ import java.util.logging.Logger;
 import org.springframework.util.Assert;
 
 import com.daimler.emst2.fhi.constants.FhiSystemwertKeyEnum;
-import com.daimler.emst2.fhi.jpa.dao.SystemwerteDao;
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
-import com.daimler.emst2.fhi.jpa.model.Systemwerte;
+import com.daimler.emst2.fhi.jpa.dao.SystemwertDao;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
+import com.daimler.emst2.fhi.jpa.model.Systemwert;
 import com.daimler.emst2.fhi.model.IProcessId;
 import com.daimler.emst2.fhi.model.SeverityEnum;
 import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
@@ -29,10 +29,10 @@ implements IAction<GenPreconditionEnum, GenActionEnum, CTX> {
 
     private final SendTypeEnum sendTypeEnum;
 
-    private final SystemwerteDao systemwertDao;
+    private final SystemwertDao systemwertDao;
 
     public ActionIncLaufendeNummer(SendTypeEnum pSendTypeEnum, GenPreconditionEnum pPreconditionEnum,
-            GenActionEnum pActionEnum, ProtocolService pProtocolService, SystemwerteDao pSystemwertDao) {
+            GenActionEnum pActionEnum, ProtocolService pProtocolService, SystemwertDao pSystemwertDao) {
         super(pProtocolService);
         sendTypeEnum = pSendTypeEnum;
         systemwertDao = pSystemwertDao;
@@ -58,13 +58,13 @@ implements IAction<GenPreconditionEnum, GenActionEnum, CTX> {
         }
         SendContext ctx = (SendContext)pContext;
 
-        Auftraege auftrag = pContext.getAuftrag();
+        Auftrag auftrag = pContext.getAuftrag();
         int bandnr = auftrag.getBandnr().intValue();
-        Map<String, Systemwerte> currentLfdNrMap = pContext.getCurrentLfdNrMap();
+        Map<String, Systemwert> currentLfdNrMap = pContext.getCurrentLfdNrMap();
         FhiSystemwertKeyEnum systemwertKey = FhiSystemwertKeyEnum.getLfdNrKeyFor(getSendTypeEnum(), bandnr);
         String key = systemwertKey.getKey();
 
-        Systemwerte iSystemwert = currentLfdNrMap.get(key);
+        Systemwert iSystemwert = currentLfdNrMap.get(key);
         if (iSystemwert == null) {
             String sendTypeName = getSendTypeEnum().name();
             String bandnrString = String.valueOf(bandnr);
