@@ -11,12 +11,12 @@ import java.util.Set;
 
 import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.jpa.dao.AuftragSperrenDao;
-import com.daimler.emst2.fhi.jpa.dao.SystemwerteDao;
+import com.daimler.emst2.fhi.jpa.dao.SystemwertDao;
 import com.daimler.emst2.fhi.jpa.model.AktiveRestriktion;
 import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.AuftragSperren;
 import com.daimler.emst2.fhi.jpa.model.IAuftragSperrenForBereich;
-import com.daimler.emst2.fhi.jpa.model.Systemwerte;
+import com.daimler.emst2.fhi.jpa.model.Systemwert;
 import com.daimler.emst2.fhi.model.FhiMandantEnum;
 import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.sendung.constants.OrtCheckEnum;
@@ -44,7 +44,7 @@ public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext
     public List<AuftragSperren> auftragSperrenList;
     public List<IAuftragSperrenForBereich> anzahlSperrenForBereich;
     public AuftragSperrenDao auftragSperrenDao;
-    public SystemwerteDao systemwerteDao;
+    public SystemwertDao systemwertDao;
 
     private final Set<SendTypeEnum> performedSendSet = new HashSet<SendTypeEnum>();
 
@@ -53,7 +53,7 @@ public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext
 
     public Protocol protocol = null;
 
-    private Map<String, Systemwerte> lfdNrMap;
+    private Map<String, Systemwert> lfdNrMap;
 
     private SendContext() {
         this.processTimestamp = DateTimeHelper.getAktuellesDatum();
@@ -124,12 +124,12 @@ public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext
     }
 
     @Override
-    public void setCurrentLfdNrMap(Map<String, Systemwerte> pLfdNrMap) {
+    public void setCurrentLfdNrMap(Map<String, Systemwert> pLfdNrMap) {
         this.lfdNrMap = pLfdNrMap;
     }
 
     @Override
-    public Map<String, Systemwerte> getCurrentLfdNrMap() {
+    public Map<String, Systemwert> getCurrentLfdNrMap() {
         return lfdNrMap;
     }
 

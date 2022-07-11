@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -19,8 +20,9 @@ import javax.persistence.TemporalType;
  * 
  */
 @Entity
-@NamedQuery(name="Systemwerte.findAll", query="SELECT s FROM Systemwerte s")
-public class Systemwerte implements Serializable {
+@Table(name = "Systemwerte")
+@NamedQuery(name = "Systemwert.findAll", query = "SELECT s FROM Systemwert s")
+public class Systemwert implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -56,10 +58,10 @@ public class Systemwerte implements Serializable {
     private Long wertNum;
 
 	//bi-directional many-to-one association to Systemgruppenzuo
-	@OneToMany(mappedBy="systemwerte")
+    @OneToMany(mappedBy = "systemwert")
 	private List<Systemgruppenzuo> systemgruppenzuos;
 
-	public Systemwerte() {
+	public Systemwert() {
 	}
 
 	public long getWertId() {
@@ -153,14 +155,14 @@ public class Systemwerte implements Serializable {
 
 	public Systemgruppenzuo addSystemgruppenzuo(Systemgruppenzuo systemgruppenzuo) {
 		getSystemgruppenzuos().add(systemgruppenzuo);
-		systemgruppenzuo.setSystemwerte(this);
+		systemgruppenzuo.setSystemwert(this);
 
 		return systemgruppenzuo;
 	}
 
 	public Systemgruppenzuo removeSystemgruppenzuo(Systemgruppenzuo systemgruppenzuo) {
 		getSystemgruppenzuos().remove(systemgruppenzuo);
-		systemgruppenzuo.setSystemwerte(null);
+		systemgruppenzuo.setSystemwert(null);
 
 		return systemgruppenzuo;
 	}

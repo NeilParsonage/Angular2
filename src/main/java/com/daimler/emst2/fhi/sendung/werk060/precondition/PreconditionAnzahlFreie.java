@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.daimler.emst2.fhi.jpa.model.AuftragSperren;
-import com.daimler.emst2.fhi.jpa.model.Systemwerte;
+import com.daimler.emst2.fhi.jpa.model.Systemwert;
 import com.daimler.emst2.fhi.model.IProcessId;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.process.IProcessContext;
@@ -29,10 +29,10 @@ extends AbstractPrecondition<GenPreconditionEnum, CTX> {
     public boolean doPrepareContext(CTX pContext) {
         SendContext sendContext = (SendContext)pContext;
 
-        Systemwerte systemwerte = sendContext.systemwerteDao.findByWertName(ANZ_FREIE_SENDUNGSPRUEFUNG);
+        Systemwert systemwert = sendContext.systemwertDao.findByWertName(ANZ_FREIE_SENDUNGSPRUEFUNG);
         Long anzahlFreieAsInt = new Long(DEFAULT_ANZ_FREIE);
-        if (null != systemwerte) {
-            BigDecimal anzahlFreieAsBigDecimal = systemwerte.getWertDouble();
+        if (null != systemwert) {
+            BigDecimal anzahlFreieAsBigDecimal = systemwert.getWertDouble();
             if (null != anzahlFreieAsBigDecimal) {
                 anzahlFreieAsInt = anzahlFreieAsBigDecimal.longValue();
             }

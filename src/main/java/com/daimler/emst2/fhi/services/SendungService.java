@@ -17,7 +17,7 @@ import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.jpa.dao.AuftragDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragSperrenDao;
-import com.daimler.emst2.fhi.jpa.dao.SystemwerteDao;
+import com.daimler.emst2.fhi.jpa.dao.SystemwertDao;
 import com.daimler.emst2.fhi.jpa.model.AktiveRestriktion;
 import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.KriteriumRelevant;
@@ -83,7 +83,7 @@ public class SendungService {
     AuftragSperrenDao auftragSperrenDao;
 
     @Autowired
-    public SystemwerteDao systemwerteDao;
+    public SystemwertDao systemwertDao;
 
     @Autowired
     AuftragDao auftragDao;
@@ -113,7 +113,7 @@ public class SendungService {
         sendContext.auftrag = auftrag;
         sendContext.user = authContext.getAuthentication().getName();
         sendContext.auftragSperrenDao = auftragSperrenDao;
-        sendContext.systemwerteDao = systemwerteDao;
+        sendContext.systemwertDao = systemwertDao;
         sendContext.protocol = protocol;
 
         this.auftragSendungStart(sendContext);

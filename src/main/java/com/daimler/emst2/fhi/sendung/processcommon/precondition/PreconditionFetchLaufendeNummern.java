@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.daimler.emst2.fhi.constants.FhiSystemGruppeKeyEnum;
-import com.daimler.emst2.fhi.jpa.model.Systemwerte;
+import com.daimler.emst2.fhi.jpa.model.Systemwert;
 import com.daimler.emst2.fhi.model.IProcessId;
 import com.daimler.emst2.fhi.sendung.process.precondition.AbstractPrecondition;
 import com.daimler.emst2.fhi.sendung.processcommon.IAuftragLfdNrProcessContext;
@@ -40,7 +40,7 @@ extends AbstractPrecondition<GenPreconditionEnum, CTX> {
     }
 
     private void fetchDataAndStoreInContext(CTX pContext, Map<String, Long> mapForContext) {
-        Map<String, Systemwerte> konfigurationMap =
+        Map<String, Systemwert> konfigurationMap =
                 konfigurationsService.getKonfigurationGruppeWithReload(FhiSystemGruppeKeyEnum.AUFTRAG_LFD_NUMMERN);
         pContext.setCurrentLfdNrMap(konfigurationMap);
     }

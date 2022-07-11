@@ -8,7 +8,7 @@ import com.daimler.emst2.fhi.jpa.dao.AktiveRestriktionHistDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragDao;
 import com.daimler.emst2.fhi.jpa.dao.ManuellePnrReihenfolgeDao;
 import com.daimler.emst2.fhi.jpa.dao.SequenceDao;
-import com.daimler.emst2.fhi.jpa.dao.SystemwerteDao;
+import com.daimler.emst2.fhi.jpa.dao.SystemwertDao;
 import com.daimler.emst2.fhi.jpa.dao.W73rimpoDao;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
@@ -49,7 +49,7 @@ public class SendActionFactory implements IActionFactory<SendActionEnum> {
     private AuftragDao auftragDao;
 
     @Autowired
-    private SystemwerteDao systemwertDao;
+    private SystemwertDao systemwertDao;
 
     @Autowired
     private ManuellePnrReihenfolgeDao manuellePnrReihenfolgeDao;
