@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.AuftragHistorie;
 import com.daimler.emst2.fhi.util.DateTimeHelper;
 
@@ -15,7 +15,7 @@ public class AuftragHistorieCustomDao {
     @Autowired
     AuftragHistorieDao dao;
 
-    public void saveAuftragHistorie(Auftraege auftrag, String melder, String meldeKennung, String meldungenText,
+    public void saveAuftragHistorie(Auftrag auftrag, String melder, String meldeKennung, String meldungenText,
             Date sendeTermin) {
         saveAuftragHistorie(auftrag.getPnr(), melder, meldeKennung, meldungenText, sendeTermin);
     }

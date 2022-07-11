@@ -98,7 +98,7 @@ public class AuftragSperrInformation extends BaseAuditEntity implements Serializ
     // bi-directional many-to-one association to Auftrag
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pnr")
-    private Auftraege auftrag;
+    private Auftrag auftrag;
 
 	public AuftragSperrInformation() {
 	}
@@ -336,11 +336,11 @@ public class AuftragSperrInformation extends BaseAuditEntity implements Serializ
         return !(getPnr().equalsIgnoreCase(getPnrVorausfahrzeug()));
     }
 
-    public Auftraege getAuftrag() {
+    public Auftrag getAuftrag() {
         return auftrag;
     }
 
-    public void setAuftrag(Auftraege auftrag) {
+    public void setAuftrag(Auftrag auftrag) {
         this.auftrag = auftrag;
     }
 

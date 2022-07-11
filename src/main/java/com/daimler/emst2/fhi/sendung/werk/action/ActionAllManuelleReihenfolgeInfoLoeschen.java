@@ -3,7 +3,7 @@ package com.daimler.emst2.fhi.sendung.werk.action;
 import java.util.Optional;
 
 import com.daimler.emst2.fhi.jpa.dao.ManuellePnrReihenfolgeDao;
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.ManuellePnrReihenfolge;
 import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
@@ -28,7 +28,7 @@ public class ActionAllManuelleReihenfolgeInfoLoeschen extends AbstractSendAction
 
     @Override
     protected boolean doExecuteImpl(SendContext pContext) {
-        Auftraege auftrag = pContext.getAuftrag();
+        Auftrag auftrag = pContext.getAuftrag();
         Protocol protocol = pContext.getProtocol();
 
         //        boolean isOffen = auftrag.isSendungOffen(SendTypeEnum.FHI);

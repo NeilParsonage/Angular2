@@ -3,7 +3,7 @@ package com.daimler.emst2.fhi.sendung.werk.action;
 import java.util.Collection;
 import java.util.Date;
 
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
@@ -38,7 +38,7 @@ public class ActionAllSendHistorienEintragSchreiben extends AbstractSendAction {
      */
     @Override
     protected boolean doExecuteImpl(SendContext pContext) {
-        Auftraege auftrag = pContext.getAuftrag();
+        Auftrag auftrag = pContext.getAuftrag();
         Collection<SendTypeEnum> performedSendTypes = pContext.getPerformedSendCollection();
         SendTypeEnum performedUserAction = pContext.getSendTypeEnum();
         Date processTimestamp = pContext.getProcessTimestamp();

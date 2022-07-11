@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.daimler.emst2.fhi.jpa.dao.AktiveCodesHistDao;
 import com.daimler.emst2.fhi.jpa.dao.AktiveRestriktionHistDao;
-import com.daimler.emst2.fhi.jpa.dao.AuftraegeDao;
+import com.daimler.emst2.fhi.jpa.dao.AuftragDao;
 import com.daimler.emst2.fhi.jpa.dao.ManuellePnrReihenfolgeDao;
 import com.daimler.emst2.fhi.jpa.dao.SequenceDao;
 import com.daimler.emst2.fhi.jpa.dao.SystemwerteDao;
@@ -38,7 +38,7 @@ public class SendActionFactory implements IActionFactory<SendActionEnum> {
 	 * dao references injected by spring
 	 */
     @Autowired
-    private AuftraegeDao auftragDao;
+    private AuftragDao auftragDao;
 
     @Autowired
     private SystemwerteDao systemwertDao;

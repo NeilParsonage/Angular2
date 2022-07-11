@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
-import com.daimler.emst2.fhi.dto.AuftraegeDTO;
+import com.daimler.emst2.fhi.dto.AuftragDTO;
 import com.daimler.emst2.fhi.dto.AuftragAggregateDTO;
 import com.daimler.emst2.fhi.dto.AuftragCodesDTO;
 import com.daimler.emst2.fhi.dto.AuftragKabelsaetzeDTO;
@@ -29,7 +29,7 @@ import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.dto.SendResponseDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.dto.SendungsprotokollDTO;
-import com.daimler.emst2.fhi.jpa.dao.AuftraegeDao;
+import com.daimler.emst2.fhi.jpa.dao.AuftragDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragAggregateDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragCodesDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragDetailsDao;
@@ -39,7 +39,7 @@ import com.daimler.emst2.fhi.jpa.dao.AuftragLackeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragSendestatusDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDetailsDao;
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
 import com.daimler.emst2.fhi.jpa.model.AuftragCodes;
 import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
@@ -60,13 +60,13 @@ import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
 
 
 @Service
-public class AuftraegeService {
+public class AuftragService {
 
     private static final String MATERIALBEREICH_LMT = "RHM";
     private static final String MATERIALBEREICH_FHI = "FHI";
 
     @Autowired
-    AuftraegeDao auftraegeDao;
+    AuftragDao auftragDao;
 
     @Autowired
     AuftragDetailsDao auftragDetailsDao;
@@ -101,8 +101,8 @@ public class AuftraegeService {
     @Autowired
     AuftragKriterienDao auftragKriterienDao;
 
-    public AuftraegeDTO getAuftragByPnr(String pnr) {
-        Optional<Auftraege> result = auftraegeDao.findById(pnr);
+    public AuftragDTO getAuftragByPnr(String pnr) {
+        Optional<Auftrag> result = auftragDao.findById(pnr);
         if (ObjectUtils.isEmpty(result)) {
 
             throw new RuntimeException(String.format("Auftrag mit PNR %s nicht gefunden!", pnr));
@@ -115,9 +115,9 @@ public class AuftraegeService {
         return dtoFactory.createAuftragDTO(result.get(), resultDetails.get(), resultSendestatus.get());
     }
 
-    public AuftraegeDTO getAuftragByGesamtLfdNummer(String lfdNummer) {
+    public AuftragDTO getAuftragByGesamtLfdNummer(String lfdNummer) {
 
-        Auftraege result = auftraegeDao.findbyLfdNrGes(Integer.parseInt(lfdNummer));
+        Auftrag result = auftragDao.findbyLfdNrGes(Integer.parseInt(lfdNummer));
         if (ObjectUtils.isEmpty(result)) {
     
             throw new RuntimeException(String.format("Auftrag mit Gesamt Lfd Nummer %s nicht gefunden!", lfdNummer));
@@ -130,9 +130,9 @@ public class AuftraegeService {
            return dtoFactory.createAuftragDTO(result, resultDetails.get(), resultSendestatus.get());
     }
 
-    public AuftraegeDTO getAuftragByLfdNrLmt(String lfdNummer, String band) {
+    public AuftragDTO getAuftragByLfdNrLmt(String lfdNummer, String band) {
 
-        Auftraege result = auftraegeDao.findbyLfdNrLmt(Integer.parseInt(lfdNummer), Integer.parseInt(band));
+        Auftrag result = auftragDao.findbyLfdNrLmt(Integer.parseInt(lfdNummer), Integer.parseInt(band));
         if (ObjectUtils.isEmpty(result)) {
 
             throw new RuntimeException(String.format("Auftrag mit Lfd Nummer Lmt %s nicht gefunden!", lfdNummer));
@@ -145,9 +145,9 @@ public class AuftraegeService {
         return dtoFactory.createAuftragDTO(result, resultDetails.get(), resultSendestatus.get());
     }
 
-    public AuftraegeDTO getAuftragByLfdNrFhi(String lfdNummer) {
+    public AuftragDTO getAuftragByLfdNrFhi(String lfdNummer) {
 
-        Auftraege result = auftraegeDao.findbyLfdNrFhi(Integer.parseInt(lfdNummer));
+        Auftrag result = auftragDao.findbyLfdNrFhi(Integer.parseInt(lfdNummer));
         if (ObjectUtils.isEmpty(result)) {
 
             throw new RuntimeException(String.format("Auftrag mit Lfd Nummer Fhi %s nicht gefunden!", lfdNummer));
@@ -160,8 +160,8 @@ public class AuftraegeService {
         return dtoFactory.createAuftragDTO(result, resultDetails.get(), resultSendestatus.get());
     }
 
-    public AuftraegeDTO getAuftrag(String option, String key) {
-        AuftraegeDTO auftrag = new AuftraegeDTO();
+    public AuftragDTO getAuftrag(String option, String key) {
+        AuftragDTO auftrag = new AuftragDTO();
 
         switch (option) {
             case "pnr":
@@ -237,7 +237,7 @@ public class AuftraegeService {
         return userProtocollEntry;
     }
 
-    public void initializeTransientSperrenUndAnkuendigungen(Auftraege pAuftrag) {
+    public void initializeTransientSperrenUndAnkuendigungen(Auftrag pAuftrag) {
         if (!Hibernate.isInitialized(pAuftrag.getSperrInformationen())) {
             // initializeAssociations(pAuftrag, pAuftrag.getSperrInformationen());
             Hibernate.initialize(pAuftrag.getSperrInformationen());
@@ -251,7 +251,7 @@ public class AuftraegeService {
         initTransientSperrInfoSonstList(pAuftrag, sperrenUndAnkuendigungen);
     }
 
-    private void initTransientSperrInfoList(Auftraege pAuftrag,
+    private void initTransientSperrInfoList(Auftrag pAuftrag,
             List<AuftragSperrInformation> sperrenUndAnkuendigungen) {
         // Liste kopieren, damit umsortieren an Hibernate "vorbei" erfolgt
         List<AuftragSperrInformation> sperrenList = new ArrayList<AuftragSperrInformation>(sperrenUndAnkuendigungen);
@@ -261,7 +261,7 @@ public class AuftraegeService {
         pAuftrag.meta.setSperrInfos(sperrenList);
     }
 
-    private void initTransientAnkuendigungInfoList(Auftraege pAuftrag,
+    private void initTransientAnkuendigungInfoList(Auftrag pAuftrag,
             List<AuftragSperrInformation> sperrenUndAnkuendigungen) {
         // Liste kopieren, damit umsortieren an Hibernate "vorbei" erfolgt
         List<AuftragSperrInformation> ankuendigungenList =
@@ -272,7 +272,7 @@ public class AuftraegeService {
         pAuftrag.meta.setAnkuendigungInfos(ankuendigungenList);
     }
 
-    private void initTransientSperrInfoFHIList(Auftraege pAuftrag,
+    private void initTransientSperrInfoFHIList(Auftrag pAuftrag,
             List<AuftragSperrInformation> sperrenUndAnkuendigungen) {
         // Liste kopieren, damit umsortieren an Hibernate "vorbei" erfolgt
         List<AuftragSperrInformation> sperrenList = new ArrayList<AuftragSperrInformation>(sperrenUndAnkuendigungen);
@@ -282,7 +282,7 @@ public class AuftraegeService {
         pAuftrag.meta.setSperrInfosFHI(sperrenList);
     }
 
-    private void initTransientSperrInfoLMTList(Auftraege pAuftrag,
+    private void initTransientSperrInfoLMTList(Auftrag pAuftrag,
             List<AuftragSperrInformation> sperrenUndAnkuendigungen) {
         // Liste kopieren, damit umsortieren an Hibernate "vorbei" erfolgt
         List<AuftragSperrInformation> sperrenList = new ArrayList<AuftragSperrInformation>(sperrenUndAnkuendigungen);
@@ -292,7 +292,7 @@ public class AuftraegeService {
         pAuftrag.meta.setSperrInfosLMT(sperrenList);
     }
 
-    private void initTransientSperrInfoSonstList(Auftraege pAuftrag,
+    private void initTransientSperrInfoSonstList(Auftrag pAuftrag,
             List<AuftragSperrInformation> sperrenUndAnkuendigungen) {
         // Liste kopieren, damit umsortieren an Hibernate "vorbei" erfolgt
         List<AuftragSperrInformation> sperrenList = new ArrayList<AuftragSperrInformation>(sperrenUndAnkuendigungen);
@@ -341,8 +341,8 @@ public class AuftraegeService {
                 : Collections.emptyList();
     }
 
-    public List<AuftraegeDTO> getAuftraegebyLfdNrGes(int lfdNrGes) {
-        List<Auftraege> result = auftraegeDao.findListAuftraegebyLfdNrGes(lfdNrGes);
+    public List<AuftragDTO> getAuftraegebyLfdNrGes(int lfdNrGes) {
+        List<Auftrag> result = auftragDao.findListAuftraegebyLfdNrGes(lfdNrGes);
 
         return result instanceof List
                 ? result.stream().map(x -> dtoFactory.createAuftragDTO(x)).collect(Collectors.toList())

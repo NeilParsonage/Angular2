@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import org.springframework.util.Assert;
 
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.model.ITuebObject;
 import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.ProtocolEntry;
@@ -68,7 +68,7 @@ public class SendungenService extends AbstractProcessService<SendPreconditionEnu
 
 	@Override
 	protected List<ISend> getSubProcessList(SendContext pContext) {
-        Auftraege auftrag = pContext.getAuftrag();
+        Auftrag auftrag = pContext.getAuftrag();
 		SendTypeEnum sendTypeEnum = pContext.getSendTypeEnum();
 
         List<ISend> sendList = this.sendDefinitionFactory.createSendList(auftrag, sendTypeEnum);

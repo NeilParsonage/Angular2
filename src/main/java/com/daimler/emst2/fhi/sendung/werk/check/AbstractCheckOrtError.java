@@ -3,7 +3,7 @@ package com.daimler.emst2.fhi.sendung.werk.check;
 import java.util.Map;
 import java.util.Set;
 
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.model.FhiMandantEnum;
 import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.SeverityEnum;
@@ -33,7 +33,7 @@ public abstract class AbstractCheckOrtError extends AbstractSendCheck {
     }
 
     protected boolean isOrtAllowedForParameters(SendContext pContext, OrtCheckEnum pOrtCheckAusfallEnum, OrtTypEnum pOrtTypEnum) {
-        Auftraege auftrag = pContext.getAuftrag();
+        Auftrag auftrag = pContext.getAuftrag();
         String auftragsOrt = AuftragUtil.getOrt(auftrag, pOrtTypEnum);
         Map<OrtCheckEnum, Map<OrtTypEnum, Set<String>>> ortChecksMap = pContext.getOrtChecksMap();
         Map<OrtTypEnum, Set<String>> ortTypMap = ortChecksMap.get(pOrtCheckAusfallEnum);

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.daimler.emst2.fhi.jpa.dao.AktiveRestriktionDao;
-import com.daimler.emst2.fhi.jpa.dao.AuftraegeDao;
+import com.daimler.emst2.fhi.jpa.dao.AuftragDao;
 import com.daimler.emst2.fhi.jpa.dao.OrtCheckCustomDao;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.process.precondition.IPrecondition;
@@ -16,7 +16,7 @@ import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 import com.daimler.emst2.fhi.sendung.werk.precondition.SendPreconditionEnum;
 import com.daimler.emst2.fhi.sendung.werk060.precondition.PreconditionAnzahlFreie;
 import com.daimler.emst2.fhi.sendung.werk060.precondition.PreconditionAuftragsSperre;
-import com.daimler.emst2.fhi.services.AuftraegeService;
+import com.daimler.emst2.fhi.services.AuftragService;
 import com.daimler.emst2.fhi.services.KonfigurationService;
 
 
@@ -24,10 +24,10 @@ import com.daimler.emst2.fhi.services.KonfigurationService;
 public class SendPreconditionFactory implements IPreconditionFactory<SendPreconditionEnum> {
 
     @Autowired
-    private AuftraegeDao auftragDao;
+    private AuftragDao auftragDao;
 
     @Autowired
-    private AuftraegeService auftragService;
+    private AuftragService auftragService;
 
     @Autowired
     private AktiveRestriktionDao aktiveRestriktionDao;
@@ -87,7 +87,7 @@ public class SendPreconditionFactory implements IPreconditionFactory<SendPrecond
 		}
 	}
 
-    public void setAuftragDao(AuftraegeDao pAuftragDao) {
+    public void setAuftragDao(AuftragDao pAuftragDao) {
 		auftragDao = pAuftragDao;
 	}
 

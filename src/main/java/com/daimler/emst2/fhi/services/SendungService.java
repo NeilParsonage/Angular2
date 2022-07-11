@@ -15,11 +15,11 @@ import org.springframework.util.ObjectUtils;
 
 import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
-import com.daimler.emst2.fhi.jpa.dao.AuftraegeDao;
+import com.daimler.emst2.fhi.jpa.dao.AuftragDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragSperrenDao;
 import com.daimler.emst2.fhi.jpa.dao.SystemwerteDao;
 import com.daimler.emst2.fhi.jpa.model.AktiveRestriktion;
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.KriteriumRelevant;
 import com.daimler.emst2.fhi.model.FhiMandantEnum;
 import com.daimler.emst2.fhi.model.Protocol;
@@ -86,7 +86,7 @@ public class SendungService {
     public SystemwerteDao systemwerteDao;
 
     @Autowired
-    AuftraegeDao auftragDao;
+    AuftragDao auftragDao;
 
     public SendContext senden(SendungDTO sendung) {
         return senden(sendung, null, null);
@@ -100,7 +100,7 @@ public class SendungService {
             Map<SendCheckEnum, ProtocolEntryDTO> userProtocolCheckEntries) {
 
         SendTypeEnum sendType = SendTypeEnum.valueOf(sendung.sendeTyp);
-        Auftraege auftrag = getAuftragByPnrAndVersion(sendung.pnr, sendung.version);
+        Auftrag auftrag = getAuftragByPnrAndVersion(sendung.pnr, sendung.version);
         if (ObjectUtils.isEmpty(auftrag)) {
             throw new RuntimeException("Could not find PNR");
         }
@@ -120,7 +120,7 @@ public class SendungService {
         return sendContext;
     }
 
-    private Auftraege getAuftragByPnrAndVersion(String pnr, Long version) {
+    private Auftrag getAuftragByPnrAndVersion(String pnr, Long version) {
         return auftragDao.findbyPnrAndVersion(pnr, version);
     }
 

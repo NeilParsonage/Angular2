@@ -1,6 +1,6 @@
 package com.daimler.emst2.fhi.sendung.werk.check;
 
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 
 public class CheckLmtSollabstand extends AbstractCheckSollabstand {
@@ -15,7 +15,7 @@ public class CheckLmtSollabstand extends AbstractCheckSollabstand {
     }
 
     @Override
-    protected Integer getSollabstandsVerletzung(Auftraege pAuftrag) {
+    protected Integer getSollabstandsVerletzung(Auftrag pAuftrag) {
         return pAuftrag.meta.getTransientSollabstandLmt();
     }
 

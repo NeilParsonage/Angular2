@@ -1,6 +1,6 @@
 package com.daimler.emst2.fhi.sendung.werk.action;
 
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.sendung.constants.SendStatusEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
@@ -29,7 +29,7 @@ public class ActionSendeStatusSetzen extends AbstractSendAction {
 	@Override
 	protected boolean doExecuteImpl(SendContext pContext) {
         Protocol protocol = pContext.getProtocol();
-        Auftraege auftrag = pContext.getAuftrag();
+        Auftrag auftrag = pContext.getAuftrag();
         AuftragUtil.setSendStatusIst(auftrag, getSendTypeEnum(), SendStatusEnum.PLANSEQUENZIERT);
         //		auftrag.setSendStatusIst(getSendTypeEnum(),
         //				SendStatusEnum.PLANSEQUENZIERT);

@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.daimler.emst2.fhi.jpa.dao.AktiveCodesHistDao;
 import com.daimler.emst2.fhi.jpa.model.AktiveCodesHist;
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.model.BandAuswahl;
 
 public class HistCodeDaoHelper {
@@ -13,7 +13,7 @@ public class HistCodeDaoHelper {
         return new HistCodeDaoHelper();
     }
 
-    public int deleteOldCodesForBereich(AktiveCodesHistDao histCodeDao, Auftraege pAuftrag,
+    public int deleteOldCodesForBereich(AktiveCodesHistDao histCodeDao, Auftrag pAuftrag,
             BandAuswahl pBandauswahl) {
         String pnr = pAuftrag.getPnr();
         String bereichLikePattern = null;

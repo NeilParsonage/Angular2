@@ -1,6 +1,6 @@
 package com.daimler.emst2.fhi.sendung.werk.action;
 
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
@@ -17,7 +17,7 @@ public class ActionAllSendbarKnzSetzen extends AbstractSendAction {
     @Override
     protected boolean doExecuteImpl(SendContext pContext) {
         Protocol protocol = pContext.getProtocol();
-        Auftraege auftrag = pContext.getAuftrag();
+        Auftrag auftrag = pContext.getAuftrag();
 
         boolean isOffen = SendungUtil.isSendungOffen(auftrag, SendTypeEnum.FHI);
         isOffen |= SendungUtil.isSendungOffen(auftrag, SendTypeEnum.LMT);

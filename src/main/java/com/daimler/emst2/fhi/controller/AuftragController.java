@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.daimler.emst2.fhi.dto.AuftraegeDTO;
+import com.daimler.emst2.fhi.dto.AuftragDTO;
 import com.daimler.emst2.fhi.dto.AuftragAggregateDTO;
 import com.daimler.emst2.fhi.dto.AuftragCodesDTO;
 import com.daimler.emst2.fhi.dto.AuftragKabelsaetzeDTO;
@@ -22,7 +22,7 @@ import com.daimler.emst2.fhi.dto.AuftragTermineDetailsDTO;
 import com.daimler.emst2.fhi.dto.SendResponseDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.dto.SendungsprotokollDTO;
-import com.daimler.emst2.fhi.services.AuftraegeService;
+import com.daimler.emst2.fhi.services.AuftragService;
 import com.daimler.emst2.fhi.services.SendungService;
 
 @RestController
@@ -31,74 +31,74 @@ public class AuftragController {
     public static final String PATH = "/pub/auftrag";
 
     @Autowired
-    AuftraegeService auftraegeService;
+    AuftragService auftragService;
 
     @Autowired
     SendungService sendeService;
 
     @GetMapping("/info")
-    public AuftraegeDTO getAuftragbyPnr(@RequestParam String pnr) {
-        return auftraegeService.getAuftragByPnr(pnr);
+    public AuftragDTO getAuftragbyPnr(@RequestParam String pnr) {
+        return auftragService.getAuftragByPnr(pnr);
     }
 
     @GetMapping("/search")
-    public AuftraegeDTO getAuftrag(@RequestParam String option, @RequestParam String key) {
-        return auftraegeService.getAuftrag(option, key);
+    public AuftragDTO getAuftrag(@RequestParam String option, @RequestParam String key) {
+        return auftragService.getAuftrag(option, key);
     }
 
     @GetMapping("/termine")
     public AuftragTermineDTO getAuftragTerminebyPnr(@RequestParam String pnr) {
-        return auftraegeService.getAuftragTermineByPnr(pnr);
+        return auftragService.getAuftragTermineByPnr(pnr);
     }
 
     @GetMapping("/termineDetails")
     public List<AuftragTermineDetailsDTO> getAuftragTermineDetailsbyPnr(@RequestParam String pnr) {
-        return auftraegeService.getAuftragTermineDetailsByPnr(pnr);
+        return auftragService.getAuftragTermineDetailsByPnr(pnr);
     }
 
     @PostMapping("/sendung")
     public SendResponseDTO sendeAuftrag(@RequestBody SendungDTO sendung) {
-        return auftraegeService.sendeAuftrag(sendung);
+        return auftragService.sendeAuftrag(sendung);
     }
 
     @PutMapping("/sendung")
     public SendResponseDTO sendeAuftrag(@RequestBody SendungsprotokollDTO sendungProtokoll) {
-        return auftraegeService.sendeAuftragWithProtokoll(sendungProtokoll);
+        return auftragService.sendeAuftragWithProtokoll(sendungProtokoll);
     }
 
     @GetMapping("/kabelsaetze")
     public List<AuftragKabelsaetzeDTO> getAuftragKabelsaetzebyPnr(@RequestParam String pnr) {
-        return auftraegeService.getAuftragKabelsaetzeByPnr(pnr);
+        return auftragService.getAuftragKabelsaetzeByPnr(pnr);
     }
 
     @GetMapping("/aggregate")
     public List<AuftragAggregateDTO> getAuftragAggregatebyPnr(@RequestParam String pnr) {
-        return auftraegeService.getAuftragAggregateByPnr(pnr);
+        return auftragService.getAuftragAggregateByPnr(pnr);
     }
 
     @GetMapping("/fhsLacke")
     public List<AuftragLackeDTO> getAuftragFhsLackebyPnr(@RequestParam String pnr) {
-        return auftraegeService.getAuftragFhsLackeByPnr(pnr);
+        return auftragService.getAuftragFhsLackeByPnr(pnr);
     }
 
     @GetMapping("/fzgLack")
     public AuftragLackeDTO getAuftragRhmLackbyPnr(@RequestParam String pnr) {
-        return auftraegeService.getAuftragRhmLackByPnr(pnr);
+        return auftragService.getAuftragRhmLackByPnr(pnr);
     }
 
     @GetMapping("/listAuftraegebyGesLfdNr")
-    public List<AuftraegeDTO> getAuftraegby(@RequestParam int lfdNrGes) {
-        return auftraegeService.getAuftraegebyLfdNrGes(lfdNrGes);
+    public List<AuftragDTO> getAuftraegby(@RequestParam int lfdNrGes) {
+        return auftragService.getAuftraegebyLfdNrGes(lfdNrGes);
     }
 
     @GetMapping("/codes")
     public List<AuftragCodesDTO> getAuftragCodePnr(@RequestParam String pnr) {
-        return auftraegeService.getAuftragCodes(pnr);
+        return auftragService.getAuftragCodes(pnr);
     }
 
     @GetMapping("/kriterien")
     public List<AuftragKriterienDTO> getAuftragKriterienPnr(@RequestParam String pnr) {
-        return auftraegeService.getAuftragKriterien(pnr);
+        return auftragService.getAuftragKriterien(pnr);
     }
 
 }

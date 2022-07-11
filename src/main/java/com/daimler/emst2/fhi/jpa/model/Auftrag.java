@@ -20,13 +20,13 @@ import com.daimler.emst2.frw.model.BaseAuditEntity;
 
 
 /**
- * The persistent class for the WERTELISTEN database table.
+ * The persistent class for the AUFTRAG database table.
  * 
  */
 @Entity
 @Table(name = "Auftrag")
-@NamedQuery(name = "Auftraege.findAll", query = "SELECT a FROM Auftraege a")
-public class Auftraege extends BaseAuditEntity implements Serializable {
+@NamedQuery(name = "Auftrag.findAll", query = "SELECT a FROM Auftrag a")
+public class Auftrag extends BaseAuditEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -91,7 +91,7 @@ public class Auftraege extends BaseAuditEntity implements Serializable {
     private String wkz;
 
     @Column(name = "ORT")
-    private String ortOrginal;
+    private String ort;
 
     @Column(name = "ORT_RHM")
     private String ortRhm;
@@ -175,7 +175,7 @@ public class Auftraege extends BaseAuditEntity implements Serializable {
     @Transient
     public final AuftragMeta meta;
 
-    public Auftraege() {
+    public Auftrag() {
         this.meta = AuftragMeta.create(this);
     }
 
@@ -387,12 +387,12 @@ public class Auftraege extends BaseAuditEntity implements Serializable {
         this.lenkung = lenkung;
     }
 
-    public String getOrtOrginal() {
-        return ortOrginal;
+    public String getOrt() {
+        return ort;
     }
 
-    public void setOrtOrginal(String ortOrginal) {
-        this.ortOrginal = ortOrginal;
+    public void setOrt(String ort) {
+        this.ort = ort;
     }
 
     public String getOrtRhm() {

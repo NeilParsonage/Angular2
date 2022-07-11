@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.util.Assert;
 
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.AuftragSperrInformation;
 import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.SeverityEnum;
@@ -30,7 +30,7 @@ public class CheckAuftragSperren extends AbstractSendCheck {
     @Override
     protected boolean doExecuteImpl(SendContext pContext) {
         Protocol protocol = pContext.getProtocol();
-        Auftraege auftrag = pContext.getAuftrag();
+        Auftrag auftrag = pContext.getAuftrag();
 
         List<AuftragSperrInformation> sperren = auftrag.meta.getSperrInfos();
         Assert.notNull(sperren, "transiente SperrInfos am Auftrag nicht versorgt");

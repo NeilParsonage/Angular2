@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import com.daimler.emst2.fhi.jpa.dao.LackDao;
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.Lack;
 import com.daimler.emst2.fhi.model.TaktTelegram;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
@@ -87,7 +87,7 @@ public class TaktTelegramUtil {
 	//    63  65  3   LFD_NR_RHM
 	//    66  68  3   Leerzeichen, in Wörth mit STATION belegt
 	//    69  71  3   LFD_NR_UBM
-    public TaktTelegram createCancelTelegramAusfall(SendTypeEnum pSendTypeEnum, Auftraege pAuftrag) {
+    public TaktTelegram createCancelTelegramAusfall(SendTypeEnum pSendTypeEnum, Auftrag pAuftrag) {
 		//    15  24  10  Telegrammtyp
         long bandNr = pAuftrag.getBandNr();
 		String telegramTypString = getTelegramTypAusfall(pSendTypeEnum, bandNr, SIZE_TELEGRAMMTYP);
@@ -96,7 +96,7 @@ public class TaktTelegramUtil {
 		return telegram;
 	}
 
-    public TaktTelegram createCancelTelegramStorno(SendTypeEnum pSendTypeEnum, Auftraege pAuftrag) {
+    public TaktTelegram createCancelTelegramStorno(SendTypeEnum pSendTypeEnum, Auftrag pAuftrag) {
 		//    15  24  10  Telegrammtyp
         long bandNr = pAuftrag.getBandNr();
 		String telegramTypString = getTelegramTypStorno(pSendTypeEnum, bandNr, SIZE_TELEGRAMMTYP);
@@ -105,7 +105,7 @@ public class TaktTelegramUtil {
 		return telegram;
 	}
 
-    private TaktTelegram createCancelTelegramIntern(SendTypeEnum pSendTypeEnum, Auftraege pAuftrag,
+    private TaktTelegram createCancelTelegramIntern(SendTypeEnum pSendTypeEnum, Auftrag pAuftrag,
             String pTelegrammTypString) {
 		TaktTelegram taktTelegram = new TaktTelegram();
 		//    1   10  10  L3T0TAKT
@@ -126,7 +126,7 @@ public class TaktTelegramUtil {
 		return taktTelegram;
 	}
 
-    private StringBuilder createSendOrCancelSendMessageIntern(SendTypeEnum pSendTypeEnum, Auftraege pAuftrag,
+    private StringBuilder createSendOrCancelSendMessageIntern(SendTypeEnum pSendTypeEnum, Auftrag pAuftrag,
             String pTelegrammTypString) {
 		StringBuilder sb = new StringBuilder(TAKT_MESSAGE_START);
 
@@ -183,7 +183,7 @@ public class TaktTelegramUtil {
 	//    112 112 1   WKZ (falls vorhanden)
 	//    113 118 6   FGSTENDNR (falls vorhanden)
 	//    119 121 3   LFD_NR_UBM
-    public TaktTelegram createSendTelegram(SendTypeEnum pSendTypeEnum, Auftraege pAuftrag) {
+    public TaktTelegram createSendTelegram(SendTypeEnum pSendTypeEnum, Auftrag pAuftrag) {
 		TaktTelegram taktTelegram = new TaktTelegram();
 		//    15  24  10  Telegrammtyp
         long bandNr = pAuftrag.getBandNr();
@@ -249,7 +249,7 @@ public class TaktTelegramUtil {
 		return taktTelegram;
 	}
 
-    private String createLackdaten(Auftraege pAuftrag) {
+    private String createLackdaten(Auftrag pAuftrag) {
 		StringBuilder sb = new StringBuilder();
 
         List<Lack> auftragLacke = this.lackDao.findByAufPnr(pAuftrag.getPnr());

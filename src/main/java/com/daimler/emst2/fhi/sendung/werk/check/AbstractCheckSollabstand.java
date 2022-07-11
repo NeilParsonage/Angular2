@@ -1,6 +1,6 @@
 package com.daimler.emst2.fhi.sendung.werk.check;
 
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.SeverityEnum;
 import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
@@ -31,7 +31,7 @@ public abstract class AbstractCheckSollabstand extends AbstractSendCheck {
      * Liefert die Sollabstandsverletzung fuer den zu ueberpruefenden Sollabstand. Ist die Verletzung
      * > 0, so ist eine Warnung zu erzeugen.
      */
-    protected abstract Integer getSollabstandsVerletzung(Auftraege pAuftrag);
+    protected abstract Integer getSollabstandsVerletzung(Auftrag pAuftrag);
 
     /**
      * {@inheritDoc}
@@ -39,7 +39,7 @@ public abstract class AbstractCheckSollabstand extends AbstractSendCheck {
     @Override
     public boolean doExecuteImpl(SendContext pContext) {
         // precondition ist erfuellt
-        Auftraege auftrag = pContext.getAuftrag();
+        Auftrag auftrag = pContext.getAuftrag();
         Integer sollabstandsVerletzung = getSollabstandsVerletzung(auftrag);
         boolean isVerletzt = isSollabstandVerletzt(sollabstandsVerletzung);
 

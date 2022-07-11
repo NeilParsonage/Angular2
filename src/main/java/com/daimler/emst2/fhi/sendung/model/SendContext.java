@@ -13,7 +13,7 @@ import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.jpa.dao.AuftragSperrenDao;
 import com.daimler.emst2.fhi.jpa.dao.SystemwerteDao;
 import com.daimler.emst2.fhi.jpa.model.AktiveRestriktion;
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.AuftragSperren;
 import com.daimler.emst2.fhi.jpa.model.IAuftragSperrenForBereich;
 import com.daimler.emst2.fhi.jpa.model.Systemwerte;
@@ -34,7 +34,7 @@ public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext
     public String mandant;
     public FhiMandantEnum mandantEnum;
     public MetaList<AktiveRestriktion> aktiveRestriktionenMetaList;
-    public Auftraege auftrag;
+    public Auftrag auftrag;
     public List<AktiveRestriktion> auftragAktiveRestriktionList;
     public List<String> errorMessages = new ArrayList<String>();
     public SendTypeEnum sendTypeEnum;
@@ -103,7 +103,7 @@ public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext
     }
 
     @Override
-    public Auftraege getAuftrag() {
+    public Auftrag getAuftrag() {
         return auftrag;
     }
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.util.Assert;
 
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.AuftragSperrInformation;
 import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.SeverityEnum;
@@ -27,7 +27,7 @@ public class CheckAuftragAnkuendigung extends AbstractSendCheck{
 
     @Override
     protected boolean doExecuteImpl(SendContext pContext) {
-        Auftraege auftrag = pContext.getAuftrag();
+        Auftrag auftrag = pContext.getAuftrag();
         Protocol protocol = pContext.getProtocol();
 
         List<AuftragSperrInformation> ankuendigungen = auftrag.meta.getAnkuendigungInfos();

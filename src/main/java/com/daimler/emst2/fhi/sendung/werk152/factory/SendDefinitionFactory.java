@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.util.Assert;
 
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.sendung.ISend;
 import com.daimler.emst2.fhi.sendung.ISendDefinitionFactory;
 import com.daimler.emst2.fhi.sendung.SendProcess;
@@ -59,7 +59,7 @@ public class SendDefinitionFactory implements ISendDefinitionFactory {
      * {@inheritDoc}
      */
     @Override
-    public List<ISend> createSendList(Auftraege pAuftrag, SendTypeEnum pSendTypeEnum) {
+    public List<ISend> createSendList(Auftrag pAuftrag, SendTypeEnum pSendTypeEnum) {
         Assert.isTrue(pSendTypeEnum != null && !SendTypeEnum.UNDEFINED.equals(pSendTypeEnum));
         ISend requestedSend = findSendNodeByType(pSendTypeEnum);
         @SuppressWarnings("unchecked")
@@ -68,7 +68,7 @@ public class SendDefinitionFactory implements ISendDefinitionFactory {
         return shrinkedListForAuftrag;
     }
 
-    private List<ISend> shrinkSendListForAuftrag(Auftraege pAuftrag, List<ISend> sendSubTreeFlat) {
+    private List<ISend> shrinkSendListForAuftrag(Auftrag pAuftrag, List<ISend> sendSubTreeFlat) {
         List<ISend> listForAuftrag = new ArrayList<ISend>();
         for (ISend iSendNode : sendSubTreeFlat) {
             ISend sendNode = iSendNode;

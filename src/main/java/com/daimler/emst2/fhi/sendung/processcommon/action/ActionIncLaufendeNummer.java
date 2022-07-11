@@ -7,7 +7,7 @@ import org.springframework.util.Assert;
 
 import com.daimler.emst2.fhi.constants.FhiSystemwertKeyEnum;
 import com.daimler.emst2.fhi.jpa.dao.SystemwerteDao;
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.Systemwerte;
 import com.daimler.emst2.fhi.model.IProcessId;
 import com.daimler.emst2.fhi.model.SeverityEnum;
@@ -58,7 +58,7 @@ implements IAction<GenPreconditionEnum, GenActionEnum, CTX> {
         }
         SendContext ctx = (SendContext)pContext;
 
-        Auftraege auftrag = pContext.getAuftrag();
+        Auftrag auftrag = pContext.getAuftrag();
         int bandnr = auftrag.getBandnr().intValue();
         Map<String, Systemwerte> currentLfdNrMap = pContext.getCurrentLfdNrMap();
         FhiSystemwertKeyEnum systemwertKey = FhiSystemwertKeyEnum.getLfdNrKeyFor(getSendTypeEnum(), bandnr);

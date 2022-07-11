@@ -8,7 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import com.daimler.emst2.fhi.jpa.dao.AktiveCodesHistDao;
 import com.daimler.emst2.fhi.jpa.dao.AktiveRestriktionHistDao;
 import com.daimler.emst2.fhi.jpa.model.AktiveRestriktion;
-import com.daimler.emst2.fhi.jpa.model.Auftraege;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.model.BandAuswahl;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
@@ -36,7 +36,7 @@ public abstract class AbstractActionHistSterneAndCodes extends AbstractSendActio
 
     @Override
     public final boolean doExecuteImpl(SendContext pContext) {
-        Auftraege auftrag = pContext.getAuftrag();
+        Auftrag auftrag = pContext.getAuftrag();
 
         // 1. remove old entries from codes and restriktionen for sendung/bereich
         BandAuswahl auftragBandAuswahl = getHistBandAuswahl(auftrag);
@@ -90,7 +90,7 @@ public abstract class AbstractActionHistSterneAndCodes extends AbstractSendActio
         return (histBandAuswahl.isBereichFhi() || histBandAuswahl.isLmtBandauswahl());
     }
 
-    protected abstract BandAuswahl getHistBandAuswahl(Auftraege pAuftrag);
+    protected abstract BandAuswahl getHistBandAuswahl(Auftrag pAuftrag);
 
     public void setHistRestriktionDao(AktiveRestriktionHistDao histRestriktionDao) {
         this.aktiveRestriktionHistDao = histRestriktionDao;
