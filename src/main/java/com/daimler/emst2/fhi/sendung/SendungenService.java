@@ -12,19 +12,19 @@ import com.daimler.emst2.fhi.model.Protocol;
 import com.daimler.emst2.fhi.model.ProtocolEntry;
 import com.daimler.emst2.fhi.model.ProtocolMessage;
 import com.daimler.emst2.fhi.model.SeverityEnum;
-import com.daimler.emst2.fhi.sendung.action.SendActionEnum;
-import com.daimler.emst2.fhi.sendung.check.SendCheckEnum;
 import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
 import com.daimler.emst2.fhi.sendung.model.ISendService;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
-import com.daimler.emst2.fhi.sendung.precondition.SendPreconditionEnum;
 import com.daimler.emst2.fhi.sendung.process.AbstractProcessService;
 import com.daimler.emst2.fhi.sendung.process.action.IActionFactory;
 import com.daimler.emst2.fhi.sendung.process.check.ICheckFactory;
 import com.daimler.emst2.fhi.sendung.process.precondition.IPreconditionFactory;
 import com.daimler.emst2.fhi.sendung.protocol.IProtocolService;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
+import com.daimler.emst2.fhi.sendung.werk.action.SendActionEnum;
+import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
+import com.daimler.emst2.fhi.sendung.werk.precondition.SendPreconditionEnum;
 import com.daimler.emst2.fhi.util.SendungUtil;
 
 /**

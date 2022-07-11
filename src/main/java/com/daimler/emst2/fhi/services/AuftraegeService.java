@@ -50,13 +50,13 @@ import com.daimler.emst2.fhi.jpa.model.AuftragSendestatus;
 import com.daimler.emst2.fhi.jpa.model.AuftragSperrInformation;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermine;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
-import com.daimler.emst2.fhi.sendung.check.SendCheckEnum;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragAnkuendigungenComparator;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragSperrenComparator;
 import com.daimler.emst2.fhi.sendung.constants.SperrtypEnum;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.model.SperrenPredicate;
 import com.daimler.emst2.fhi.sendung.model.SperrtypPredicate;
+import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
 
 
 @Service

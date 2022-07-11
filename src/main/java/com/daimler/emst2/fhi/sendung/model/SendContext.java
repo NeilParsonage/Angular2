@@ -19,13 +19,13 @@ import com.daimler.emst2.fhi.jpa.model.IAuftragSperrenForBereich;
 import com.daimler.emst2.fhi.jpa.model.Systemwerte;
 import com.daimler.emst2.fhi.model.FhiMandantEnum;
 import com.daimler.emst2.fhi.model.Protocol;
-import com.daimler.emst2.fhi.sendung.check.SendCheckEnum;
 import com.daimler.emst2.fhi.sendung.constants.OrtCheckEnum;
 import com.daimler.emst2.fhi.sendung.constants.OrtTypEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
 import com.daimler.emst2.fhi.sendung.process.IProcessContext;
 import com.daimler.emst2.fhi.sendung.processcommon.IAuftragLfdNrProcessContext;
 import com.daimler.emst2.fhi.sendung.processcommon.IOrtsdatenProcessContext;
+import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
 import com.daimler.emst2.fhi.util.DateTimeHelper;
 
 public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext, IOrtsdatenProcessContext {

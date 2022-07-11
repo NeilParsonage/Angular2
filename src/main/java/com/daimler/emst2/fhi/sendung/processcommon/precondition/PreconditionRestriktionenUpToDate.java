@@ -6,8 +6,8 @@ import com.daimler.emst2.fhi.jpa.dao.AktiveRestriktionDao;
 import com.daimler.emst2.fhi.model.SeverityEnum;
 import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
-import com.daimler.emst2.fhi.sendung.precondition.SendPreconditionEnum;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
+import com.daimler.emst2.fhi.sendung.werk.precondition.SendPreconditionEnum;
 
 public class PreconditionRestriktionenUpToDate extends AbstractSendPrecondition {
 

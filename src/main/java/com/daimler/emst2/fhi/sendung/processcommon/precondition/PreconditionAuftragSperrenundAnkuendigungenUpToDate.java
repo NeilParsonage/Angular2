@@ -2,8 +2,8 @@ package com.daimler.emst2.fhi.sendung.processcommon.precondition;
 
 import com.daimler.emst2.fhi.jpa.model.Auftraege;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
-import com.daimler.emst2.fhi.sendung.precondition.SendPreconditionEnum;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
+import com.daimler.emst2.fhi.sendung.werk.precondition.SendPreconditionEnum;
 import com.daimler.emst2.fhi.services.AuftraegeService;
 
 public class PreconditionAuftragSperrenundAnkuendigungenUpToDate extends AbstractSendPrecondition {
