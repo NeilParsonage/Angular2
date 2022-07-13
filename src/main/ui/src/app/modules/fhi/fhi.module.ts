@@ -21,6 +21,7 @@ import { EinzelauskunftSperrenComponent } from './components/einzelauskunft/einz
 import { EinzelauskunftTermineComponent } from './components/einzelauskunft/einzelauskunft_termine/einzelauskunft_termine.component';
 import { PnrChooserComponent } from './components/pnr-chooser/pnr-chooser.component';
 import { SendemaskeDebugComponent } from './components/sendemaske-debug/sendemaske-debug.component';
+import { SendemaskeComponent } from './components/sendemaske/sendemaske.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 
 @NgModule({
@@ -39,6 +40,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     DialogShowCodesComponent,
     DialogShowKriterienComponent,
     PnrChooserComponent,
+    SendemaskeComponent,
     SendemaskeDebugComponent,
     TuebPipe,
   ],

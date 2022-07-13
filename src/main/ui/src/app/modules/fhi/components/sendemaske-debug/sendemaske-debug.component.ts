@@ -12,7 +12,7 @@ import { UserConfirmDialogOptions } from '../user-confirm-dialog/user-confirm-di
 import { UserConfirmDialogComponent } from '../user-confirm-dialog/user-confirm-dialog.component';
 
 @Component({
-  selector: 'app-sendemaske',
+  selector: 'app-sendemaske-debug',
   templateUrl: './sendemaske-debug.component.html',
   styleUrls: ['./sendemaske-debug.component.scss'],
 })
