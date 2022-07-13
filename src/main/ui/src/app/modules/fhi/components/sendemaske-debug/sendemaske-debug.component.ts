@@ -13,10 +13,10 @@ import { UserConfirmDialogComponent } from '../user-confirm-dialog/user-confirm-
 
 @Component({
   selector: 'app-sendemaske',
-  templateUrl: './sendemaske.component.html',
-  styleUrls: ['./sendemaske.component.scss'],
+  templateUrl: './sendemaske-debug.component.html',
+  styleUrls: ['./sendemaske-debug.component.scss'],
 })
-export class SendemaskeComponent {
+export class SendemaskeDebugComponent {
   selectedPnr: string;
   selectedSendung: SendeTyp;
   responseMessage: string;

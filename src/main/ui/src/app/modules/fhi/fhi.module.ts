@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { AngularSplitModule } from 'angular-split';
 import { LibEmstTableModule } from 'emst-table';
 import { MaterialModule } from 'src/app/shared/modules/material.module';
 import { TuebPipe } from 'src/app/shared/pipes/tueb.pipe';
@@ -19,7 +20,7 @@ import { EinzelauskunftSendestatusComponent } from './components/einzelauskunft/
 import { EinzelauskunftSperrenComponent } from './components/einzelauskunft/einzelauskunft_sperren/einzelauskunft_sperren.component';
 import { EinzelauskunftTermineComponent } from './components/einzelauskunft/einzelauskunft_termine/einzelauskunft_termine.component';
 import { PnrChooserComponent } from './components/pnr-chooser/pnr-chooser.component';
-import { SendemaskeComponent } from './components/sendemaske/sendemaske.component';
+import { SendemaskeDebugComponent } from './components/sendemaske-debug/sendemaske-debug.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 
 @NgModule({
@@ -38,11 +39,20 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     DialogShowCodesComponent,
     DialogShowKriterienComponent,
     PnrChooserComponent,
-    SendemaskeComponent,
+    SendemaskeDebugComponent,
     TuebPipe,
   ],
   providers: [],
-  imports: [CommonModule, FlexLayoutModule, FormsModule, LibEmstTableModule, MaterialModule, ReactiveFormsModule, TranslateModule.forRoot()],
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    FormsModule,
+    LibEmstTableModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    AngularSplitModule,
+    TranslateModule.forRoot(),
+  ],
   exports: [TuebPipe],
 })
 export class FhiModule {}

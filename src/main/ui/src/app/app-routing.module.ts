@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EinzelauskunftComponent } from './modules/fhi/components/einzelauskunft/einzelauskunft.component';
-import { SendemaskeComponent } from './modules/fhi/components/sendemaske/sendemaske.component';
+import { SendemaskeDebugComponent } from './modules/fhi/components/sendemaske-debug/sendemaske-debug.component';
 import { WelcomeComponent } from './modules/fhi/components/welcome/welcome.component';
 
 const wikibase = 'https://wiki.dewoe.corpintra.net/wikiemst/index.php/';
@@ -44,7 +44,7 @@ export const routes: Routes = [
 
   {
     path: 'Sendemaske',
-    component: SendemaskeComponent,
+    component: SendemaskeDebugComponent,
     data: {
       title: 'Sendemaske',
       wikilink: wikibase + 'W060.FHI.F.Frontend.Sendemaske',

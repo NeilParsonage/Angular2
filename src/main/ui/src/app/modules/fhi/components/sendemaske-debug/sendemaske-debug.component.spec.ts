@@ -1,20 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { SendemaskeComponent } from './sendemaske.component';
+import { SendemaskeDebugComponent } from './sendemaske-debug.component';
 
 describe('SendemaskeComponent', () => {
-  let component: SendemaskeComponent;
-  let fixture: ComponentFixture<SendemaskeComponent>;
+  let component: SendemaskeDebugComponent;
+  let fixture: ComponentFixture<SendemaskeDebugComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SendemaskeComponent ]
-    })
-    .compileComponents();
+      declarations: [SendemaskeDebugComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SendemaskeComponent);
+    fixture = TestBed.createComponent(SendemaskeDebugComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
