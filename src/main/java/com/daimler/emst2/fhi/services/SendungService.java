@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import com.daimler.emst2.fhi.constants.AuftragSeqNrEnum;
 import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.jpa.dao.AuftragDao;
@@ -175,12 +174,6 @@ public class SendungService implements ISendungServiceDao, ISendungService {
         sendContext.sendTypeEnum = SendTypeEnum.valueOf(sendung.sendeTyp);
         sendContext.auftrag = auftrag;
         sendContext.user = authContext.getAuthentication().getName();
-
-
-        // NEP To Test !!!
-        Long seqNrLapu = getAuftragService().getNextSeqNummer(AuftragSeqNrEnum.LAPU);
-        Long seqNrSepu = getAuftragService().getNextSeqNummer(AuftragSeqNrEnum.SEPU);
-        Long seqNrSitz = getAuftragService().getNextSeqNummer(AuftragSeqNrEnum.SITZ);
 
         sendContext.dao = this;
         sendContext.service = this;

@@ -31,19 +31,22 @@ public class CheckSeqNrObergrenze extends AbstractSendCheck {
 
     protected void checkMaxSeqNr(SendContext pContext, SendTypeEnum sendTyp) {
 
-        Long seqNrLapu = pContext.service.getAuftragService().getNextSeqNummer(AuftragSeqNrEnum.LAPU);
-        Long seqNrSepu = pContext.service.getAuftragService().getNextSeqNummer(AuftragSeqNrEnum.SEPU);
-        Long seqNrSitz = pContext.service.getAuftragService().getNextSeqNummer(AuftragSeqNrEnum.SITZ);
+        if (sendTyp != SendTypeEnum.RHM) {
 
-        if (seqNrLapu == AuftragService.INVALID_SEQ_NR
-            || seqNrSepu == AuftragService.INVALID_SEQ_NR
-            || seqNrSitz == AuftragService.INVALID_SEQ_NR) {
+            Long seqNrLapu = pContext.service.getAuftragService().getNextSeqNummer(AuftragSeqNrEnum.LAPU);
+            Long seqNrSepu = pContext.service.getAuftragService().getNextSeqNummer(AuftragSeqNrEnum.SEPU);
+            Long seqNrSitz = pContext.service.getAuftragService().getNextSeqNummer(AuftragSeqNrEnum.SITZ);
 
-            // Obergrenze gerissen
-            getProtocolService().addProtocolEntry(pContext,
-                    ProtocolMessageEnum.AUFTRAG_SEQNR_OBERGRENZE_VERLETZT_ERR,
-                    getIdentifier(),
-                    SeverityEnum.ERROR);
+            if (seqNrLapu == AuftragService.INVALID_SEQ_NR
+                || seqNrSepu == AuftragService.INVALID_SEQ_NR
+                || seqNrSitz == AuftragService.INVALID_SEQ_NR) {
+
+                // Obergrenze gerissen
+                getProtocolService().addProtocolEntry(pContext,
+                        ProtocolMessageEnum.AUFTRAG_SEQNR_OBERGRENZE_VERLETZT_ERR,
+                        getIdentifier(),
+                        SeverityEnum.ERROR);
+            }
         }
 
     }

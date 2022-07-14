@@ -393,7 +393,7 @@ public class AuftragService {
     public Long getNextSeqNummer(AuftragSeqNrEnum auftragSeqNrEnum) {
         IAuftragAllHighestSeqNr auftragAllHighestSeqNr = findMaxSeqNummernVonAuftrag();
 
-        Long nextSeqNr = -1L;
+        Long nextSeqNr = INVALID_SEQ_NR;
         switch (auftragSeqNrEnum) {
             case LAPU:
                 nextSeqNr =
