@@ -1,5 +1,6 @@
 package com.daimler.emst2.fhi.services;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.LongStream;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -16,9 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
-import com.daimler.emst2.fhi.dto.AuftragDTO;
+import com.daimler.emst2.fhi.constants.AuftragSeqNrEnum;
 import com.daimler.emst2.fhi.dto.AuftragAggregateDTO;
 import com.daimler.emst2.fhi.dto.AuftragCodesDTO;
+import com.daimler.emst2.fhi.dto.AuftragDTO;
 import com.daimler.emst2.fhi.dto.AuftragKabelsaetzeDTO;
 import com.daimler.emst2.fhi.dto.AuftragKriterienDTO;
 import com.daimler.emst2.fhi.dto.AuftragLackeDTO;
@@ -29,9 +32,9 @@ import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.dto.SendResponseDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.dto.SendungsprotokollDTO;
-import com.daimler.emst2.fhi.jpa.dao.AuftragDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragAggregateDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragCodesDao;
+import com.daimler.emst2.fhi.jpa.dao.AuftragDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragDetailsDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragKabelsaetzeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragKriterienDao;
@@ -39,6 +42,7 @@ import com.daimler.emst2.fhi.jpa.dao.AuftragLackeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragSendestatusDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDetailsDao;
+import com.daimler.emst2.fhi.jpa.dao.SystemwertDao;
 import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
 import com.daimler.emst2.fhi.jpa.model.AuftragCodes;
@@ -50,6 +54,8 @@ import com.daimler.emst2.fhi.jpa.model.AuftragSendestatus;
 import com.daimler.emst2.fhi.jpa.model.AuftragSperrInformation;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermine;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
+import com.daimler.emst2.fhi.jpa.model.IAuftragAllHighestSeqNr;
+import com.daimler.emst2.fhi.jpa.model.Systemwert;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragAnkuendigungenComparator;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragSperrenComparator;
 import com.daimler.emst2.fhi.sendung.constants.SperrtypEnum;
@@ -65,6 +71,18 @@ public class AuftragService {
     private static final String MATERIALBEREICH_LMT = "RHM";
     private static final String MATERIALBEREICH_FHI = "FHI";
 
+    private static final String MAX_SEQUENZNUMMER = "MAX_SEQUENZNUMMER";
+
+    private static final Long DEFAULT_MAX_SEQUENZNUMMER = 999999L;
+
+    public static final Long MIN_SEQ_NR = 1L;
+
+    private static final Long INCR_SEQ_LAPU_SEPU = 1L;
+
+    private static final Long INCR_SEQ_SITZ = 3L;
+
+    public static final Long INVALID_SEQ_NR = -1L;
+
     @Autowired
     AuftragDao auftragDao;
 
@@ -79,6 +97,9 @@ public class AuftragService {
 
     @Autowired
     SendungService sendungService;
+
+    @Autowired
+    SystemwertDao systemWertDao;
 
     @Autowired
     FhiDtoFactory dtoFactory;
@@ -364,5 +385,72 @@ public class AuftragService {
                 ? result.stream().map(x -> dtoFactory.createAuftragKriterienDTO(x)).collect(Collectors.toList())
                 : Collections.emptyList();
     }
+
+    public IAuftragAllHighestSeqNr findMaxSeqNummernVonAuftrag() {
+        return auftragDao.findMaxSeqNrn();
+    }
+    
+    public Long getNextSeqNummer(AuftragSeqNrEnum auftragSeqNrEnum) {
+        IAuftragAllHighestSeqNr auftragAllHighestSeqNr = findMaxSeqNummernVonAuftrag();
+
+        Long nextSeqNr = -1L;
+        switch (auftragSeqNrEnum) {
+            case LAPU:
+                nextSeqNr =
+                        nextSeqNrDefaultInc(auftragAllHighestSeqNr.getMaxSeqNrLapu(), MIN_SEQ_NR, INCR_SEQ_LAPU_SEPU);
+                break;
+            case SEPU:
+                nextSeqNr =
+                        nextSeqNrDefaultInc(auftragAllHighestSeqNr.getMaxSeqNrSepu(), MIN_SEQ_NR, INCR_SEQ_LAPU_SEPU);
+
+                break;
+            case SITZ:
+                Long seqnrMs =
+                        nextSeqNrDefaultInc(auftragAllHighestSeqNr.getMaxSeqNrMs(), MIN_SEQ_NR, INCR_SEQ_SITZ);
+
+                Long seqnrNs =
+                        nextSeqNrDefaultInc(auftragAllHighestSeqNr.getMaxSeqNrNs(), MIN_SEQ_NR, INCR_SEQ_SITZ);
+
+                Long seqnrFs =
+                        nextSeqNrDefaultInc(auftragAllHighestSeqNr.getMaxSeqNrFs(), MIN_SEQ_NR, INCR_SEQ_SITZ);
+
+                nextSeqNr = LongStream.of(seqnrMs, seqnrNs, seqnrFs).max().getAsLong();
+                break;
+            default:
+                // Oops Error !!!
+                break;
+        }
+
+        Long maxSeqNr = getMaxSeqNummer();
+        if (nextSeqNr > maxSeqNr) {
+            return INVALID_SEQ_NR;
+        }
+        
+        return nextSeqNr;
+    }
+
+    private Long nextSeqNrDefaultInc(final Long seqNr, final Long defaultValue, final Long increment) {
+        return (null == seqNr) ? defaultValue
+                : seqNr + increment;
+    }
+    
+    
+    public Long getMaxSeqNummer() {
+
+        Systemwert systemwert = systemWertDao.findByWertName(MAX_SEQUENZNUMMER);
+        Long maxSeqNumAsLong = DEFAULT_MAX_SEQUENZNUMMER;
+        if (null != systemwert) {
+            BigDecimal maxSeqNumAsBigDecimal = systemwert.getWertDouble();
+            if (null != maxSeqNumAsBigDecimal) {
+                maxSeqNumAsLong = maxSeqNumAsBigDecimal.longValue();
+            }
+        }
+        else {
+
+        }
+        return maxSeqNumAsLong;
+    }
+
+
 
 }

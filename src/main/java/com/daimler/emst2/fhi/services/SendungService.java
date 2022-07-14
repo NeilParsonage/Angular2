@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import com.daimler.emst2.fhi.constants.AuftragSeqNrEnum;
 import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.jpa.dao.AuftragDao;
@@ -44,7 +45,7 @@ import com.daimler.emst2.frw.context.AuthenticationContext;
 
 @Transactional
 @Service
-public class SendungService {
+public class SendungService implements ISendungServiceDao, ISendungService {
 
     private static final Logger LOG = Logger.getLogger(SendungService.class.getName());
 
@@ -53,6 +54,9 @@ public class SendungService {
 
     @Autowired
     KonfigurationService configService;
+
+    @Autowired
+    AuftragService auftragService;
 
     @Autowired
     RestriktionenService restriktionenService;
@@ -92,6 +96,65 @@ public class SendungService {
         return senden(sendung, null, null);
     }
 
+    public static Logger getLog() {
+        return LOG;
+    }
+
+    public AuthenticationContext getAuthContext() {
+        return authContext;
+    }
+
+    @Override
+    public KonfigurationService getConfigService() {
+        return configService;
+    }
+
+    @Override
+    public RestriktionenService getRestriktionenService() {
+        return restriktionenService;
+    }
+
+    @Override
+    public ProtocolService getProtocolService() {
+        return protocolService;
+    }
+
+    @Override
+    public KriterienService getKriterienService() {
+        return kriterienService;
+    }
+
+    public IActionFactory<SendActionEnum> getSendActionFactory152() {
+        return sendActionFactory152;
+    }
+
+    public IActionFactory<SendActionEnum> getSendActionFactory060() {
+        return sendActionFactory060;
+    }
+
+    public IPreconditionFactory<SendPreconditionEnum> getPreconditionFactory060() {
+        return preconditionFactory060;
+    }
+
+    public IPreconditionFactory<SendPreconditionEnum> getPreconditionFactory152() {
+        return preconditionFactory152;
+    }
+
+    @Override
+    public AuftragSperrenDao getAuftragSperrenDao() {
+        return auftragSperrenDao;
+    }
+
+    @Override
+    public SystemwertDao getSystemwertDao() {
+        return systemwertDao;
+    }
+
+    @Override
+    public AuftragDao getAuftragDao() {
+        return auftragDao;
+    }
+
     public SendContext senden(SendungDTO sendung, Map<SendCheckEnum, ProtocolEntryDTO> userProtocolCheckEntries) {
         return senden(sendung, null, userProtocolCheckEntries);
     }
@@ -112,8 +175,16 @@ public class SendungService {
         sendContext.sendTypeEnum = SendTypeEnum.valueOf(sendung.sendeTyp);
         sendContext.auftrag = auftrag;
         sendContext.user = authContext.getAuthentication().getName();
-        sendContext.auftragSperrenDao = auftragSperrenDao;
-        sendContext.systemwertDao = systemwertDao;
+
+
+        // NEP To Test !!!
+        Long seqNrLapu = getAuftragService().getNextSeqNummer(AuftragSeqNrEnum.LAPU);
+        Long seqNrSepu = getAuftragService().getNextSeqNummer(AuftragSeqNrEnum.SEPU);
+        Long seqNrSitz = getAuftragService().getNextSeqNummer(AuftragSeqNrEnum.SITZ);
+
+        sendContext.dao = this;
+        sendContext.service = this;
+
         sendContext.protocol = protocol;
 
         this.auftragSendungStart(sendContext);
@@ -276,5 +347,9 @@ public class SendungService {
         }
     }
 
+    @Override
+    public AuftragService getAuftragService() {
+        return auftragService;
+    }
 
 }

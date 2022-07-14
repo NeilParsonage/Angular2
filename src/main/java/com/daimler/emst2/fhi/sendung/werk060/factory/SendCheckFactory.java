@@ -11,6 +11,7 @@ import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiAnzahlFreie;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiOrtInvalid;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckLmtOrtInvalid;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckRhmOrtInvalid;
+import com.daimler.emst2.fhi.sendung.werk060.check.CheckSeqNrObergrenze;
 
 public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
 
@@ -59,6 +60,8 @@ public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
             return new CheckLmtOrtInvalid(getProtocolService());
 		case RHM_ORT_ERR:
 			return new CheckRhmOrtInvalid(getProtocolService());
+        case MAX_SEQNR_060:
+            return new CheckSeqNrObergrenze(getProtocolService(), pruefungKennung);
         case AUFTRAG_ANZAHL_FREIE_060:
             return new CheckFhiAnzahlFreie(getProtocolService());
         case FHI_AUFTRAG_SPERREN_FUER_BEREICH_060:

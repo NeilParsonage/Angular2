@@ -102,6 +102,15 @@ public class Auftrag extends BaseAuditEntity implements Serializable {
     @Column(name = "SEQNR_SEPU")
     private Long seqnrSepu;
 
+    @Column(name = "SEQNR_FS")
+    private Long seqnrFs;
+
+    @Column(name = "SEQNR_MS")
+    private Long seqnrMs;
+
+    @Column(name = "SEQNR_NS")
+    private Long seqnrNs;
+
     public Long getSeqnrLapu() {
         return seqnrLapu;
     }
@@ -568,6 +577,30 @@ public class Auftrag extends BaseAuditEntity implements Serializable {
 
     public void setAlleRelCode(List<MvAlleRelCode> alleRelCode) {
         this.alleRelCode = alleRelCode;
+    }
+
+    public Long getSeqnrFs() {
+        return seqnrFs;
+    }
+
+    public void setSeqnrFs(Long seqnrFs) {
+        this.seqnrFs = seqnrFs;
+    }
+
+    public Long getSeqnrMs() {
+        return seqnrMs;
+    }
+
+    public void setSeqnrMs(Long seqnrMs) {
+        this.seqnrMs = seqnrMs;
+    }
+
+    public Long getSeqnrNs() {
+        return seqnrNs;
+    }
+
+    public void setSeqnrNs(Long seqnrNs) {
+        this.seqnrNs = seqnrNs;
     }
 
     @Override
