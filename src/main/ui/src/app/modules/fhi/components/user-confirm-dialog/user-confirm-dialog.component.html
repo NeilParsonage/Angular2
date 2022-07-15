@@ -2,7 +2,7 @@
 
 <mat-dialog-content *ngIf="options.errorMode" class="mat-typography" style="width: 900px; height: auto">
   <mat-list>
-    <mat-list-item *ngFor="let entry of options.protocolEntries"> {{ entry.protocolMessage.tuebKey }} ({{ entry.taskId }}) </mat-list-item>
+    <mat-list-item *ngFor="let entry of options.protocolEntries"> {{ entry.protocolMessage.tuebKey | tuebPipe: entry.protocolMessage.parameter }} </mat-list-item>
   </mat-list>
 </mat-dialog-content>
 
