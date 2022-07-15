@@ -1,6 +1,5 @@
 package com.daimler.emst2.fhi.services;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -440,7 +439,7 @@ public class AuftragService {
         Systemwert systemwert = systemWertDao.findByWertName(MAX_SEQUENZNUMMER);
         Long maxSeqNumAsLong = DEFAULT_MAX_SEQUENZNUMMER;
         if (null != systemwert) {
-            BigDecimal maxSeqNumAsBigDecimal = systemwert.getWertDouble();
+            Long maxSeqNumAsBigDecimal = systemwert.getWertNum();
             if (null != maxSeqNumAsBigDecimal) {
                 maxSeqNumAsLong = maxSeqNumAsBigDecimal.longValue();
             }
