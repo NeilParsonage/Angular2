@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.daimler.emst2.fhi.jpa.model.Auftrag;
+import com.daimler.emst2.fhi.jpa.model.IAuftragAllHighestSeqNr;
 
 @Repository
 public interface AuftragDao extends CrudRepository<Auftrag, String> {
@@ -31,5 +32,8 @@ public interface AuftragDao extends CrudRepository<Auftrag, String> {
     @Query(nativeQuery = true,
             value = "select PNR from AUFTRAG where PNR = :pnr and VERSION = :version for update nowait")
     public String lockAuftragForUpdate(@Param("pnr") String pnr, @Param("version") Long version);
+
+    @Query("SELECT MAX(a.seqnrLapu) AS maxSeqNrLapu, MAX(a.seqnrSepu) AS maxSeqNrSepu, MAX(a.seqnrNs) AS maxSeqNrNs, MAX(a.seqnrMs) AS maxSeqNrMs, MAX(a.seqnrFs) AS maxSeqNrFs  from Auftrag a")
+    public IAuftragAllHighestSeqNr findMaxSeqNrn();
 
 }
