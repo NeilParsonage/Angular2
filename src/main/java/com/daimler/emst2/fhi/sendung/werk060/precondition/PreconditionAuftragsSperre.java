@@ -30,7 +30,7 @@ extends AbstractPrecondition<GenPreconditionEnum, CTX> {
         // Es gibt hier 3 Bereiche: FHI, RHM und NULL (Ohne)
 
         sendContext.anzahlSperrenForBereich =
-                sendContext.auftragSperrenDao.findSperrenFuerBereich(sendContext.getAuftrag().getPnr());
+                sendContext.dao.getAuftragSperrenDao().findSperrenFuerBereich(sendContext.getAuftrag().getPnr());
 
         return true;
     }

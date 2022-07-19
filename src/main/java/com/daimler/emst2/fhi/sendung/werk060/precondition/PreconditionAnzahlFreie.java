@@ -29,7 +29,7 @@ extends AbstractPrecondition<GenPreconditionEnum, CTX> {
     public boolean doPrepareContext(CTX pContext) {
         SendContext sendContext = (SendContext)pContext;
 
-        Systemwert systemwert = sendContext.systemwertDao.findByWertName(ANZ_FREIE_SENDUNGSPRUEFUNG);
+        Systemwert systemwert = sendContext.dao.getSystemwertDao().findByWertName(ANZ_FREIE_SENDUNGSPRUEFUNG);
         Long anzahlFreieAsInt = new Long(DEFAULT_ANZ_FREIE);
         if (null != systemwert) {
             BigDecimal anzahlFreieAsBigDecimal = systemwert.getWertDouble();
@@ -39,7 +39,7 @@ extends AbstractPrecondition<GenPreconditionEnum, CTX> {
         }
 
         List<AuftragSperren> auftragSperrenList =
-                sendContext.auftragSperrenDao.findSperren(sendContext.getAuftrag().getPnr(), anzahlFreieAsInt);
+                sendContext.dao.getAuftragSperrenDao().findSperren(sendContext.getAuftrag().getPnr(), anzahlFreieAsInt);
 
         sendContext.auftragSperrenList = auftragSperrenList;
 
