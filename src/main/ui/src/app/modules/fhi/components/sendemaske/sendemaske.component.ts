@@ -4,6 +4,7 @@ import { first } from 'rxjs/internal/operators/first';
 import { Auftrag } from '../../models/auftrag';
 import { Protocol } from '../../models/protocol';
 import { ProtocolEntry } from '../../models/protocol-entry';
+import { ProtocolSeverity } from '../../models/protocol-severity';
 import { SendeTyp } from '../../models/sendeTyp';
 import { Sendung } from '../../models/sendung';
 import { SendungResponse } from '../../models/sendungResponse';
@@ -96,11 +97,11 @@ export class SendemaskeComponent {
     const errorCases = Array<ProtocolEntry>();
     const warnCases = Array<ProtocolEntry>();
     allEntries.forEach(e => {
-      if (e.severity === 'ERROR' || e.severity === 'FATAL') {
+      if (e.severity === ProtocolSeverity.Error || e.severity === ProtocolSeverity.Fatal) {
         errorCases.push(e);
         return errorCases;
       }
-      if (e.severity === 'WARNING') {
+      if (e.severity === ProtocolSeverity.Warning) {
         warnCases.push(e);
       }
     });
@@ -114,11 +115,11 @@ export class SendemaskeComponent {
     if (!entries || entries.length < 1) {
       return false;
     }
-    return entries[0].severity === 'ERROR' || entries[0].severity === 'FATAL';
+    return entries[0].severity === ProtocolSeverity.Error || entries[0].severity === ProtocolSeverity.Fatal;
   }
 
   getErrorMode(allEntries: ProtocolEntry[]): boolean {
-    if (allEntries.find(e => e.severity === 'ERROR' || e.severity === 'FATAL')) {
+    if (allEntries.find(e => e.severity === ProtocolSeverity.Error || e.severity === ProtocolSeverity.Fatal)) {
       return true;
     }
     return false;
