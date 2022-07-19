@@ -96,7 +96,7 @@ export class SendemaskeComponent {
     const errorCases = Array<ProtocolEntry>();
     const warnCases = Array<ProtocolEntry>();
     allEntries.forEach(e => {
-      if (e.severity === 'ERROR') {
+      if (e.severity === 'ERROR' || e.severity === 'FATAL') {
         errorCases.push(e);
         return errorCases;
       }
@@ -114,11 +114,11 @@ export class SendemaskeComponent {
     if (!entries || entries.length < 1) {
       return false;
     }
-    return entries[0].severity === 'ERROR';
+    return entries[0].severity === 'ERROR' || entries[0].severity === 'FATAL';
   }
 
   getErrorMode(allEntries: ProtocolEntry[]): boolean {
-    if (allEntries.find(e => e.severity === 'ERROR')) {
+    if (allEntries.find(e => e.severity === 'ERROR' || e.severity === 'FATAL')) {
       return true;
     }
     return false;
