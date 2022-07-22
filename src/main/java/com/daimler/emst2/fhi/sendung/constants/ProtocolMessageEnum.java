@@ -35,6 +35,8 @@ public enum ProtocolMessageEnum {
     AUFTRAG_SPERREN_VERLETZT_SEVERAL_AREAS_WARN("warning.sendepruef.auftragssperren.fhiundrrhm"), // dbmessage.senden.30031
 
     AUFTRAG_SEQNR_OBERGRENZE_VERLETZT_ERR("error.sendepruef.auftrag.seqnrobergrenze"), // dbmessage.senden.20066
+
+    AUFTRAG_VORSENDUNGEN_VERLETZT_ERR("error.sendepruef.auftrag.vorsendungen"), // dbmessage.senden.20068
     ;
 
     private String tuebKey;
