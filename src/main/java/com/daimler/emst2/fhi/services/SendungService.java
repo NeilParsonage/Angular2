@@ -175,6 +175,10 @@ public class SendungService implements ISendungServiceDao, ISendungService {
         sendContext.auftrag = auftrag;
         sendContext.user = authContext.getAuthentication().getName();
 
+        //TODO NEP Just testing !!
+        Long test2 = auftragService.getMaxVorsendungen();
+        Long test1 = auftragService.getVorsendungen();
+
         sendContext.dao = this;
         sendContext.service = this;
 
