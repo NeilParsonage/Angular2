@@ -74,9 +74,13 @@ public class CheckFhiErreichbarkeit extends AbstractSendCheck {
             }
             
             if (DateTimeHelper.lessThan(vorschauzeit, ladispoPlan)) {
-                // Obergrenze gerissen
+
+                String[] params = { pContext.auftrag.getPnr() };
+
+                // Erreichbarkeit verpasst
                 getProtocolService().addProtocolEntry(pContext,
                         ProtocolMessageEnum.AUFTRAG_ERREICHBARKEIT_VERLETZT_WARN,
+                        params,
                         getIdentifier(),
                         SeverityEnum.WARNING);
             }
