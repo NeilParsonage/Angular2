@@ -40,8 +40,10 @@ import com.daimler.emst2.fhi.jpa.dao.AuftragKabelsaetzeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragKriterienDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragLackeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragSendestatusDao;
+import com.daimler.emst2.fhi.jpa.dao.AuftragTerminDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDetailsDao;
+import com.daimler.emst2.fhi.jpa.dao.AuftragZeitDao;
 import com.daimler.emst2.fhi.jpa.dao.OrtReihenfolgeDao;
 import com.daimler.emst2.fhi.jpa.dao.SystemwertDao;
 import com.daimler.emst2.fhi.jpa.model.Auftrag;
@@ -53,14 +55,17 @@ import com.daimler.emst2.fhi.jpa.model.AuftragKriterien;
 import com.daimler.emst2.fhi.jpa.model.AuftragLacke;
 import com.daimler.emst2.fhi.jpa.model.AuftragSendestatus;
 import com.daimler.emst2.fhi.jpa.model.AuftragSperrInformation;
+import com.daimler.emst2.fhi.jpa.model.AuftragTermin;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermine;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
+import com.daimler.emst2.fhi.jpa.model.AuftragZeit;
 import com.daimler.emst2.fhi.jpa.model.IAuftragAllHighestSeqNr;
 import com.daimler.emst2.fhi.jpa.model.ICountVorsendungen;
 import com.daimler.emst2.fhi.jpa.model.OrtReihenfolge;
 import com.daimler.emst2.fhi.jpa.model.Systemwert;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragAnkuendigungenComparator;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragSperrenComparator;
+import com.daimler.emst2.fhi.sendung.constants.BereichEnum;
 import com.daimler.emst2.fhi.sendung.constants.OrtEnum;
 import com.daimler.emst2.fhi.sendung.constants.SperrtypEnum;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
@@ -132,6 +137,12 @@ public class AuftragService {
 
     @Autowired
     AuftragKriterienDao auftragKriterienDao;
+
+    @Autowired
+    AuftragZeitDao auftragZeitDao;
+
+    @Autowired
+    AuftragTerminDao auftragTerminDao;
 
     public AuftragDTO getAuftragByPnr(String pnr) {
         Optional<Auftrag> result = auftragDao.findById(pnr);
@@ -502,5 +513,26 @@ public class AuftragService {
         return maxVoresendungenAsLong;
     }
 
+    public AuftragZeit getFhiZeitForBereich(final BereichEnum bereich) {
+        return auftragZeitDao.findEntryByBereich(bereich.getTyp());
+    }
+
+    public AuftragTermin getAuftragTerminForPnr(final String pnr) {
+        //List<AuftragTermin> auftragTerminList = auftragTerminDao.findEntryByPnr(pnr);
+        AuftragTermin auftragTermin = auftragTerminDao.findEntryByPnr(pnr);
+
+        if (null != auftragTermin) {
+            return auftragTermin;
+        }
+
+        /*
+        if (null != auftragTerminList && auftragTerminList.size() == 1) {
+            return auftragTerminList.get(0);
+        }
+        */
+        //FIXME NEP What to do with error cases ?
+        throw new RuntimeException("no individual pnr found in Auftrag_Termin Table : " + pnr);
+
+    }
 
 }

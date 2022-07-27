@@ -8,6 +8,7 @@ import com.daimler.emst2.fhi.sendung.werk.check.CheckDummyToImplement;
 import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckAuftragSperren;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiAnzahlFreie;
+import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiErreichbarkeit;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiOrtInvalid;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckLmtOrtInvalid;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckRhmOrtInvalid;
@@ -63,6 +64,8 @@ public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
 			return new CheckRhmOrtInvalid(getProtocolService());
         case MAX_VORSENDUNGEN_060:
             return new CheckVorsendungen(getProtocolService(), pruefungKennung);
+        case FHI_ERREICHBARKEIT_060:
+            return new CheckFhiErreichbarkeit(getProtocolService(), pruefungKennung);
         case MAX_SEQNR_060:
             return new CheckSeqNrObergrenze(getProtocolService(), pruefungKennung);
         case AUFTRAG_ANZAHL_FREIE_060:

@@ -26,10 +26,12 @@ public enum SendCheckEnum implements IProcessId {
 
     MAX_VORSENDUNGEN_060("maxVorsendungen.error.fhi", SendTypeEnum.FHI, 600),
 
-    FHI_AUFTRAG_SPERREN_FUER_BEREICH_060("auftragSperrenFuerBereich.warning.fhi", SendTypeEnum.FHI, 700),
-    RHM_AUFTRAG_SPERREN_FUER_BEREICH_060("auftragSperrenFuerBereich.warning.rhm", SendTypeEnum.RHM, 700),
+    FHI_ERREICHBARKEIT_060("erreichbarkeit.warning.fhi", SendTypeEnum.FHI, 700),
 
-    AUFTRAG_ANZAHL_FREIE_060("anzahlfreie.warning.fhi", SendTypeEnum.UNDEFINED, 800),
+    FHI_AUFTRAG_SPERREN_FUER_BEREICH_060("auftragSperrenFuerBereich.warning.fhi", SendTypeEnum.FHI, 800),
+    RHM_AUFTRAG_SPERREN_FUER_BEREICH_060("auftragSperrenFuerBereich.warning.rhm", SendTypeEnum.RHM, 800),
+
+    AUFTRAG_ANZAHL_FREIE_060("anzahlfreie.warning.fhi", SendTypeEnum.UNDEFINED, 900),
 
     ;
 

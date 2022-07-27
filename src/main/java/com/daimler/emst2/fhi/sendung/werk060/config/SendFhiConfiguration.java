@@ -28,6 +28,7 @@ public class SendFhiConfiguration implements IProcessConfiguration<SendTypeEnum,
         pCheckList.add(SendCheckEnum.FHI_ORT_ERR);
         pCheckList.add(SendCheckEnum.MAX_SEQNR_060);
         pCheckList.add(SendCheckEnum.MAX_VORSENDUNGEN_060);
+        pCheckList.add(SendCheckEnum.FHI_ERREICHBARKEIT_060);
         pCheckList.add(SendCheckEnum.FHI_AUFTRAG_SPERREN_FUER_BEREICH_060);
         pCheckList.add(SendCheckEnum.AUFTRAG_ANZAHL_FREIE_060);
     }
