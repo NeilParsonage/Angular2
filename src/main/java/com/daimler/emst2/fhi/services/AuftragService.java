@@ -46,6 +46,7 @@ import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDetailsDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragZeitDao;
 import com.daimler.emst2.fhi.jpa.dao.OrtReihenfolgeDao;
 import com.daimler.emst2.fhi.jpa.dao.SystemwertDao;
+import com.daimler.emst2.fhi.jpa.dao.WarteschlangeDao;
 import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
 import com.daimler.emst2.fhi.jpa.model.AuftragCodes;
@@ -63,6 +64,7 @@ import com.daimler.emst2.fhi.jpa.model.IAuftragAllHighestSeqNr;
 import com.daimler.emst2.fhi.jpa.model.ICountVorsendungen;
 import com.daimler.emst2.fhi.jpa.model.OrtReihenfolge;
 import com.daimler.emst2.fhi.jpa.model.Systemwert;
+import com.daimler.emst2.fhi.jpa.model.Warteschlange;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragAnkuendigungenComparator;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragSperrenComparator;
 import com.daimler.emst2.fhi.sendung.constants.BereichEnum;
@@ -84,9 +86,13 @@ public class AuftragService {
 
     private static final String MAX_VORSENDUNGEN = "MAX_VORSENDUNGEN";
 
+    private static final String MAX_WARTESCHLANGE = "SYS_MAX_WARTESCHLANGE";
+
     private static final Long DEFAULT_MAX_SEQUENZNUMMER = 999999L;
 
     private static final Long DEFAULT_MAX_VORSENDUNGEN = 801L;
+
+    private static final Long DEFAULT_MAX_WARTESCHLANGE = 1L;
 
     public static final Long MIN_SEQ_NR = 1L;
 
@@ -143,6 +149,9 @@ public class AuftragService {
 
     @Autowired
     AuftragTerminDao auftragTerminDao;
+
+    @Autowired
+    WarteschlangeDao warteschlangeDao;
 
     public AuftragDTO getAuftragByPnr(String pnr) {
         Optional<Auftrag> result = auftragDao.findById(pnr);
@@ -511,6 +520,27 @@ public class AuftragService {
 
         }
         return maxVoresendungenAsLong;
+    }
+
+    public Long getMaxWarteschlange() {
+
+        Systemwert systemwert = systemWertDao.findByWertName(MAX_WARTESCHLANGE);
+        Long maxVoresendungenAsLong = DEFAULT_MAX_WARTESCHLANGE;
+        if (null != systemwert) {
+            Long maxVoresendungenAsBigDecimal = systemwert.getWertNum();
+            if (null != maxVoresendungenAsBigDecimal) {
+                maxVoresendungenAsLong = maxVoresendungenAsBigDecimal.longValue();
+            }
+        }
+        return maxVoresendungenAsLong;
+    }
+
+    public Warteschlange getWarteschlangeForPnr(final String pnr) {
+        return warteschlangeDao.findEntryByPnr(pnr);
+    }
+
+    public long getCountWarteschlangeEntries() {
+        return warteschlangeDao.count();
     }
 
     public AuftragZeit getFhiZeitForBereich(final BereichEnum bereich) {
