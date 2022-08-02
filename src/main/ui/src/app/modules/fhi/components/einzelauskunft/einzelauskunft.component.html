@@ -28,7 +28,7 @@
       <div fxLayout="column" fxFlex="5"></div>
 
       <div fxLayout="column" fxFlex="65">
-        <div *ngIf="auftragList && auftragSearch">
+        <div *ngIf="auftragList && auftragSearch && auftragList.length > 0">
           <app-pnr-chooser [auftragList]="auftragList" [currentAuftrag]="auftragSearch" (auftragChanged)="onAuftragChanged($event)"> </app-pnr-chooser>
         </div>
       </div>
