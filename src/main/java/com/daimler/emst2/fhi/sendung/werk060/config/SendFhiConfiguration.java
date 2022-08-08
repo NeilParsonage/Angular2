@@ -24,6 +24,7 @@ public class SendFhiConfiguration implements IProcessConfiguration<SendTypeEnum,
         // @see SendungenService.getSubProcessList Sendekennung und -status 
         // includes the Sendekennung und Sendestatus check as performed in PL/SQL PROCEDURE Pruefe_Sendekennung
 
+        pCheckList.add(SendCheckEnum.AUFTRAG_ANZAHL_FREIE_060);
         pCheckList.add(SendCheckEnum.AUFTRAG_UPTODATE);
         pCheckList.add(SendCheckEnum.WARTESCHLANGE_060);
         pCheckList.add(SendCheckEnum.FHI_ORT_ERR);
@@ -31,7 +32,8 @@ public class SendFhiConfiguration implements IProcessConfiguration<SendTypeEnum,
         pCheckList.add(SendCheckEnum.MAX_VORSENDUNGEN_060);
         pCheckList.add(SendCheckEnum.FHI_ERREICHBARKEIT_060);
         pCheckList.add(SendCheckEnum.FHI_AUFTRAG_SPERREN_FUER_BEREICH_060);
-        pCheckList.add(SendCheckEnum.AUFTRAG_ANZAHL_FREIE_060);
+        pCheckList.add(SendCheckEnum.GASSENSPERRE_060);
+
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.daimler.emst2.fhi.jpa.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -23,7 +22,9 @@ public class Lapu implements Serializable {
 
     @Id
     private String reihe;
-    
+
+    private String pnr_ist;
+
     public String getPlatz() {
         return platz;
     }
@@ -39,9 +40,6 @@ public class Lapu implements Serializable {
     public void setReihe(String reihe) {
         this.reihe = reihe;
     }
-
-    @Column(name = "PNR_IST")
-    private String pnr_ist;
 
     public String getPnr_ist() {
         return pnr_ist;
