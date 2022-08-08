@@ -20,6 +20,7 @@ import com.daimler.emst2.fhi.jpa.dao.AuftragSperrenDao;
 import com.daimler.emst2.fhi.jpa.dao.SystemwertDao;
 import com.daimler.emst2.fhi.jpa.model.AktiveRestriktion;
 import com.daimler.emst2.fhi.jpa.model.Auftrag;
+import com.daimler.emst2.fhi.jpa.model.ICountGassenperre;
 import com.daimler.emst2.fhi.jpa.model.KriteriumRelevant;
 import com.daimler.emst2.fhi.model.FhiMandantEnum;
 import com.daimler.emst2.fhi.model.Protocol;
@@ -166,6 +167,9 @@ public class SendungService implements ISendungServiceDao, ISendungService {
         if (ObjectUtils.isEmpty(auftrag)) {
             throw new RuntimeException("Could not find PNR");
         }
+
+        ICountGassenperre countGassenperre = auftragService.findCountGassensperre("13617810");
+        long countGassenSperre = countGassenperre.getGassenSperre();
 
         SendContext sendContext = SendContext.create();
         sendContext.userProtocolSendChecks = userProtocolCheckEntries;
