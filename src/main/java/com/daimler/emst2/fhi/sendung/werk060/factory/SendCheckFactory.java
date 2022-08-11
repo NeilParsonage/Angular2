@@ -10,7 +10,8 @@ import com.daimler.emst2.fhi.sendung.werk060.check.CheckAuftragSperren;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiAnzahlFreie;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiErreichbarkeit;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiOrtInvalid;
-import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiWarteschlange;
+import com.daimler.emst2.fhi.sendung.werk060.check.CheckWarteschlange;
+import com.daimler.emst2.fhi.sendung.werk060.check.CheckGassensperre;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckLmtOrtInvalid;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckRhmOrtInvalid;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckSeqNrObergrenze;
@@ -63,14 +64,18 @@ public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
             return new CheckLmtOrtInvalid(getProtocolService());
 		case RHM_ORT_ERR:
 			return new CheckRhmOrtInvalid(getProtocolService());
-        case WARTESCHLANGE_060:
-            return new CheckFhiWarteschlange(getProtocolService(), pruefungKennung);
+        case FHI_WARTESCHLANGE_060:
+            return new CheckWarteschlange(getProtocolService(), pruefungKennung);
+        case RHM_WARTESCHLANGE_060:
+            return new CheckWarteschlange(getProtocolService(), pruefungKennung);
         case MAX_VORSENDUNGEN_060:
             return new CheckVorsendungen(getProtocolService(), pruefungKennung);
         case FHI_ERREICHBARKEIT_060:
             return new CheckFhiErreichbarkeit(getProtocolService(), pruefungKennung);
         case MAX_SEQNR_060:
             return new CheckSeqNrObergrenze(getProtocolService(), pruefungKennung);
+        case GASSENSPERRE_060:
+            return new CheckGassensperre(getProtocolService(), pruefungKennung);
         case AUFTRAG_ANZAHL_FREIE_060:
             return new CheckFhiAnzahlFreie(getProtocolService());
         case FHI_AUFTRAG_SPERREN_FUER_BEREICH_060:

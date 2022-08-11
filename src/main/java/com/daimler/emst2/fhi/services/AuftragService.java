@@ -44,6 +44,7 @@ import com.daimler.emst2.fhi.jpa.dao.AuftragTerminDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDetailsDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragZeitDao;
+import com.daimler.emst2.fhi.jpa.dao.LapuDao;
 import com.daimler.emst2.fhi.jpa.dao.OrtReihenfolgeDao;
 import com.daimler.emst2.fhi.jpa.dao.SystemwertDao;
 import com.daimler.emst2.fhi.jpa.dao.WarteschlangeDao;
@@ -61,6 +62,7 @@ import com.daimler.emst2.fhi.jpa.model.AuftragTermine;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
 import com.daimler.emst2.fhi.jpa.model.AuftragZeit;
 import com.daimler.emst2.fhi.jpa.model.IAuftragAllHighestSeqNr;
+import com.daimler.emst2.fhi.jpa.model.ICountGassenperre;
 import com.daimler.emst2.fhi.jpa.model.ICountVorsendungen;
 import com.daimler.emst2.fhi.jpa.model.OrtReihenfolge;
 import com.daimler.emst2.fhi.jpa.model.Systemwert;
@@ -149,6 +151,9 @@ public class AuftragService {
 
     @Autowired
     AuftragTerminDao auftragTerminDao;
+
+    @Autowired
+    LapuDao lapuDao;
 
     @Autowired
     WarteschlangeDao warteschlangeDao;
@@ -563,6 +568,10 @@ public class AuftragService {
         //FIXME NEP What to do with error cases ?
         throw new RuntimeException("no individual pnr found in Auftrag_Termin Table : " + pnr);
 
+    }
+
+    public ICountGassenperre findCountGassensperre(final String pnr) {
+        return lapuDao.findCountGassensperre(pnr);
     }
 
 }
