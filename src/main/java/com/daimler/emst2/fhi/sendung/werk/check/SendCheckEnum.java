@@ -22,7 +22,9 @@ public enum SendCheckEnum implements IProcessId {
     RHM_ORT_ERR("ort.error.rhm", SendTypeEnum.RHM, 400),
     UBM_ORT_ERR("ort.error.ubm", SendTypeEnum.UBM, 400),
 
-    WARTESCHLANGE_060("warteschlange.error.fhi", SendTypeEnum.UNDEFINED, 500),
+    //WARTESCHLANGE_060("warteschlange.error.fhi", SendTypeEnum.UNDEFINED, 500),
+    FHI_WARTESCHLANGE_060("warteschlange.error.fhi", SendTypeEnum.FHI, 500),
+    RHM_WARTESCHLANGE_060("warteschlange.error.rhm", SendTypeEnum.RHM, 500),
 
     MAX_SEQNR_060("maxSeqNr.error.fhi", SendTypeEnum.FHI, 600),
 

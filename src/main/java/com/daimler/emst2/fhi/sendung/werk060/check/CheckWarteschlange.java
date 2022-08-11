@@ -11,9 +11,9 @@ import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 import com.daimler.emst2.fhi.sendung.werk.check.AbstractSendCheck;
 import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
 
-public class CheckFhiWarteschlange extends AbstractSendCheck {
+public class CheckWarteschlange extends AbstractSendCheck {
 
-    public CheckFhiWarteschlange(ProtocolService pProtocolService, SendCheckEnum sendCheckStepIdentifier) {
+    public CheckWarteschlange(ProtocolService pProtocolService, SendCheckEnum sendCheckStepIdentifier) {
         super(pProtocolService, sendCheckStepIdentifier);
     }
 
