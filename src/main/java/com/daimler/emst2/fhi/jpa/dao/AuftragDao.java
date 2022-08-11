@@ -16,7 +16,7 @@ import com.daimler.emst2.fhi.jpa.model.ICountVorsendungen;
 @Repository
 public interface AuftragDao extends CrudRepository<Auftrag, String> {
 
-    @Query("SELECT a from Auftrag a WHERE a.lfdNrGes between (:lfdNrGes-10) and (:lfdNrGes+10) order by a.lfdNrGes")
+    @Query("SELECT a from Auftrag a WHERE  a.ort NOT IN ('BDAB','SATG') AND a.lfdNrGes between (:lfdNrGes-10) and (:lfdNrGes+10) order by a.lfdNrGes")
     public List<Auftrag> findListAuftraegebyLfdNrGes(@Param("lfdNrGes") int lfdNrGes);
 
     @Query("SELECT a from Auftrag a WHERE a.lfdNrGes = :lfdNrGes")
