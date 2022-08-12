@@ -31,7 +31,7 @@ public class CheckGassensperre extends AbstractSendCheck {
 
     protected void checkGassensperre(SendContext pContext, SendTypeEnum sendTyp) {
 
-        if (sendTyp != SendTypeEnum.FHI) {
+        if (pContext.getSendTypeEnum() != SendTypeEnum.FHI) {
             // this check only relevant for a teil-Sendung/FHI
             return;
         }
@@ -59,7 +59,7 @@ public class CheckGassensperre extends AbstractSendCheck {
                 ProtocolMessageEnum.AUFTRAG_GASSENSPERRE_VERLETZT_WARN,
                 params,
                 getIdentifier(),
-                SeverityEnum.ERROR);
+                SeverityEnum.WARNING);
 
     }
 }
