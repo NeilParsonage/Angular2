@@ -16,6 +16,7 @@ import { EinzelauskunftAuditComponent } from './components/einzelauskunft/einzel
 import { EinzelauskunftKopfComponent } from './components/einzelauskunft/einzelauskunft_kopf/einzelauskunft_kopf.component';
 import { EinzelauskunftOrtComponent } from './components/einzelauskunft/einzelauskunft_ort/einzelauskunft_ort.component';
 import { EinzelauskunftRFComponent } from './components/einzelauskunft/einzelauskunft_rf/einzelauskunft_rf.component';
+//import { EinzelauskunftSearchComponent } from './components/einzelauskunft/einzelauskunft_search/einzelauskunft_search.component';
 import { EinzelauskunftSendestatusComponent } from './components/einzelauskunft/einzelauskunft_sendestatus/einzelauskunft_sendestatus.component';
 import { EinzelauskunftSperrenComponent } from './components/einzelauskunft/einzelauskunft_sperren/einzelauskunft_sperren.component';
 import { EinzelauskunftTermineComponent } from './components/einzelauskunft/einzelauskunft_termine/einzelauskunft_termine.component';
@@ -32,6 +33,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     EinzelauskunftKopfComponent,
     EinzelauskunftTermineComponent,
     EinzelauskunftSendestatusComponent,
+    //  EinzelauskunftSearchComponent,
     EinzelauskunftAuditComponent,
     EinzelauskunftAktuelleFPComponent,
     EinzelauskunftOrtComponent,

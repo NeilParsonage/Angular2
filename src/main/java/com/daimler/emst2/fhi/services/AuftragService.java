@@ -1,5 +1,6 @@
 package com.daimler.emst2.fhi.services;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -39,9 +40,14 @@ import com.daimler.emst2.fhi.jpa.dao.AuftragKabelsaetzeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragKriterienDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragLackeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragSendestatusDao;
+import com.daimler.emst2.fhi.jpa.dao.AuftragTerminDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragTermineDetailsDao;
+import com.daimler.emst2.fhi.jpa.dao.AuftragZeitDao;
+import com.daimler.emst2.fhi.jpa.dao.LapuDao;
+import com.daimler.emst2.fhi.jpa.dao.OrtReihenfolgeDao;
 import com.daimler.emst2.fhi.jpa.dao.SystemwertDao;
+import com.daimler.emst2.fhi.jpa.dao.WarteschlangeDao;
 import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
 import com.daimler.emst2.fhi.jpa.model.AuftragCodes;
@@ -51,12 +57,20 @@ import com.daimler.emst2.fhi.jpa.model.AuftragKriterien;
 import com.daimler.emst2.fhi.jpa.model.AuftragLacke;
 import com.daimler.emst2.fhi.jpa.model.AuftragSendestatus;
 import com.daimler.emst2.fhi.jpa.model.AuftragSperrInformation;
+import com.daimler.emst2.fhi.jpa.model.AuftragTermin;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermine;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
+import com.daimler.emst2.fhi.jpa.model.AuftragZeit;
 import com.daimler.emst2.fhi.jpa.model.IAuftragAllHighestSeqNr;
+import com.daimler.emst2.fhi.jpa.model.ICountGassenperre;
+import com.daimler.emst2.fhi.jpa.model.ICountVorsendungen;
+import com.daimler.emst2.fhi.jpa.model.OrtReihenfolge;
 import com.daimler.emst2.fhi.jpa.model.Systemwert;
+import com.daimler.emst2.fhi.jpa.model.Warteschlange;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragAnkuendigungenComparator;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragSperrenComparator;
+import com.daimler.emst2.fhi.sendung.constants.BereichEnum;
+import com.daimler.emst2.fhi.sendung.constants.OrtEnum;
 import com.daimler.emst2.fhi.sendung.constants.SperrtypEnum;
 import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.model.SperrenPredicate;
@@ -72,7 +86,15 @@ public class AuftragService {
 
     private static final String MAX_SEQUENZNUMMER = "MAX_SEQUENZNUMMER";
 
+    private static final String MAX_VORSENDUNGEN = "MAX_VORSENDUNGEN";
+
+    private static final String MAX_WARTESCHLANGE = "SYS_MAX_WARTESCHLANGE";
+
     private static final Long DEFAULT_MAX_SEQUENZNUMMER = 999999L;
+
+    private static final Long DEFAULT_MAX_VORSENDUNGEN = 801L;
+
+    private static final Long DEFAULT_MAX_WARTESCHLANGE = 1L;
 
     public static final Long MIN_SEQ_NR = 1L;
 
@@ -101,6 +123,9 @@ public class AuftragService {
     SystemwertDao systemWertDao;
 
     @Autowired
+    OrtReihenfolgeDao ortReihenfolgeDao;
+
+    @Autowired
     FhiDtoFactory dtoFactory;
 
     @Autowired
@@ -120,6 +145,18 @@ public class AuftragService {
 
     @Autowired
     AuftragKriterienDao auftragKriterienDao;
+
+    @Autowired
+    AuftragZeitDao auftragZeitDao;
+
+    @Autowired
+    AuftragTerminDao auftragTerminDao;
+
+    @Autowired
+    LapuDao lapuDao;
+
+    @Autowired
+    WarteschlangeDao warteschlangeDao;
 
     public AuftragDTO getAuftragByPnr(String pnr) {
         Optional<Auftrag> result = auftragDao.findById(pnr);
@@ -385,10 +422,14 @@ public class AuftragService {
                 : Collections.emptyList();
     }
 
+    public ICountVorsendungen findMaxSeqNummernVonAuftragQuer(BigDecimal seqNrQuer) {
+        return auftragDao.findMaxVorsendungen(seqNrQuer);
+    }
+    
     public IAuftragAllHighestSeqNr findMaxSeqNummernVonAuftrag() {
         return auftragDao.findMaxSeqNrn();
     }
-    
+
     public Long getNextSeqNummer(AuftragSeqNrEnum auftragSeqNrEnum) {
         IAuftragAllHighestSeqNr auftragAllHighestSeqNr = findMaxSeqNummernVonAuftrag();
 
@@ -428,6 +469,26 @@ public class AuftragService {
         return nextSeqNr;
     }
 
+    public Long getVorsendungen() {
+
+        OrtReihenfolge rtReihenfolgeQuer = ortReihenfolgeDao.findOrtReihenfolgeForOrt(OrtEnum.QUER.getTyp());
+        if (ObjectUtils.isEmpty(rtReihenfolgeQuer.getOrtRfFabrik())) {
+
+            throw new RuntimeException(String.format("Ort_Reihenfolge entry for QUER not found"));
+        }
+
+        BigDecimal ortRfFabrikAsBigDecimal = rtReihenfolgeQuer.getOrtRfFabrik();
+        ICountVorsendungen countVorsendungen =
+                findMaxSeqNummernVonAuftragQuer((rtReihenfolgeQuer.getOrtRfFabrik()));
+
+        if (ObjectUtils.isEmpty(countVorsendungen.getMaxVorsendungen())) {
+
+            throw new RuntimeException(String.format("Anzahl Vorsendungen kann nicht ermittelt werden"));
+        }
+        Long count = countVorsendungen.getMaxVorsendungen();
+        return countVorsendungen.getMaxVorsendungen();
+    }
+
     private Long nextSeqNrDefaultInc(final Long seqNr, final Long defaultValue, final Long increment) {
         return (null == seqNr) ? defaultValue
                 : seqNr + increment;
@@ -450,6 +511,67 @@ public class AuftragService {
         return maxSeqNumAsLong;
     }
 
+    public Long getMaxVorsendungen() {
 
+        Systemwert systemwert = systemWertDao.findByWertName(MAX_VORSENDUNGEN);
+        Long maxVoresendungenAsLong = DEFAULT_MAX_VORSENDUNGEN;
+        if (null != systemwert) {
+            Long maxVoresendungenAsBigDecimal = systemwert.getWertNum();
+            if (null != maxVoresendungenAsBigDecimal) {
+                maxVoresendungenAsLong = maxVoresendungenAsBigDecimal.longValue();
+            }
+        }
+        else {
+
+        }
+        return maxVoresendungenAsLong;
+    }
+
+    public Long getMaxWarteschlange() {
+
+        Systemwert systemwert = systemWertDao.findByWertName(MAX_WARTESCHLANGE);
+        Long maxVoresendungenAsLong = DEFAULT_MAX_WARTESCHLANGE;
+        if (null != systemwert) {
+            Long maxVoresendungenAsBigDecimal = systemwert.getWertNum();
+            if (null != maxVoresendungenAsBigDecimal) {
+                maxVoresendungenAsLong = maxVoresendungenAsBigDecimal.longValue();
+            }
+        }
+        return maxVoresendungenAsLong;
+    }
+
+    public Warteschlange getWarteschlangeForPnr(final String pnr) {
+        return warteschlangeDao.findEntryByPnr(pnr);
+    }
+
+    public long getCountWarteschlangeEntries() {
+        return warteschlangeDao.count();
+    }
+
+    public AuftragZeit getFhiZeitForBereich(final BereichEnum bereich) {
+        return auftragZeitDao.findEntryByBereich(bereich.getTyp());
+    }
+
+    public AuftragTermin getAuftragTerminForPnr(final String pnr) {
+        //List<AuftragTermin> auftragTerminList = auftragTerminDao.findEntryByPnr(pnr);
+        AuftragTermin auftragTermin = auftragTerminDao.findEntryByPnr(pnr);
+
+        if (null != auftragTermin) {
+            return auftragTermin;
+        }
+
+        /*
+        if (null != auftragTerminList && auftragTerminList.size() == 1) {
+            return auftragTerminList.get(0);
+        }
+        */
+        //FIXME NEP What to do with error cases ?
+        throw new RuntimeException("no individual pnr found in Auftrag_Termin Table : " + pnr);
+
+    }
+
+    public ICountGassenperre findCountGassensperre(final String pnr) {
+        return lapuDao.findCountGassensperre(pnr);
+    }
 
 }
