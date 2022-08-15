@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 import { Auftrag } from '../../models/auftrag';
@@ -90,14 +89,6 @@ export class EinzelauskunftComponent implements OnInit {
   onAuftragChanged($event) {
     this.auftragChoosen = $event;
     console.log('onAuftragChanged');
-    console.log(this.auftragChoosen);
-    if (this.auftragChoosen) {
-      this.loadDataFromTab(this.auftragChoosen.pnr);
-    }
-  }
-  actionChangePnr($event: MatTabChangeEvent) {
-    this.auftragChoosen = this.auftragList[$event.index];
-    console.log('actionChangePnr              Test');
     console.log(this.auftragChoosen);
     if (this.auftragChoosen) {
       this.loadDataFromTab(this.auftragChoosen.pnr);
