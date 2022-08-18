@@ -1,0 +1,48 @@
+name: Black duck scan
+on:
+  workflow_dispatch:
+    inputs:
+      prnumber:
+        description: "insert pr number that needs scanning (must match with branch)"
+        required: true
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  scan:
+    runs-on:
+      - self-hosted
+      - builder
+      - daidev
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Checkout GitHub Action Repo
+        uses: actions/checkout@v2
+        with:
+          repository: emst/.github
+          ref: master
+          token: ${{ secrets.PAT_CLONE_SHARED_GITHUB }}
+          path: ./emst-actions
+
+      - name: Get version
+        id: version-gen
+        uses: ./emst-actions/actions/get-version
+        with:
+          prnumber: ${{ github.event.inputs.prnumber }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Cleanup actions path
+        run: rm -rf emst-actions
+
+      - name: Synopsys Detect
+        uses: eMST-actions/blackduck-scan-action@v1
+        with:
+          token: ${{ secrets.BLACKDUCK_TOKEN }}
+          args: >
+            --detect.project.name="${{ github.event.repository.name }}"
+            --detect.project.version.name="${{ steps.version-gen.outputs.version }}"
+            --detect.detector.search.depth=3
+            --detect.yarn.prod.only=true
