@@ -1,18 +1,6 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { first } from 'rxjs/internal/operators/first';
-import { Auftrag } from '../../models/auftrag';
-import { Protocol } from '../../models/protocol';
+import { Component, OnInit } from '@angular/core';
 import { ProtocolEntry } from '../../models/protocol-entry';
 import { ProtocolSeverity } from '../../models/protocol-severity';
-import { SendeTyp } from '../../models/sendeTyp';
-import { Sendung } from '../../models/sendung';
-import { SendungResponse } from '../../models/sendungResponse';
-import { AuftragService } from '../../services/auftrag.service';
-import { UserConfirmDialogOptions } from '../user-confirm-dialog/user-confirm-dialog-options';
-import { UserConfirmDialogComponent } from '../user-confirm-dialog/user-confirm-dialog.component';
-
-import { Component, OnInit } from '@angular/core';
 
 export interface PeriodicElement {
   name: string;
@@ -81,5 +69,4 @@ export class SendemaskeComponent implements OnInit {
     }
     return false;
   }
-
 }
