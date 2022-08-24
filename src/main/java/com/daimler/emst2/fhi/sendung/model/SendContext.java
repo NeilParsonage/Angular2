@@ -10,8 +10,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
-import com.daimler.emst2.fhi.jpa.dao.AuftragSperrenDao;
-import com.daimler.emst2.fhi.jpa.dao.SystemwertDao;
 import com.daimler.emst2.fhi.jpa.model.AktiveRestriktion;
 import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.AuftragSperren;
@@ -26,6 +24,8 @@ import com.daimler.emst2.fhi.sendung.process.IProcessContext;
 import com.daimler.emst2.fhi.sendung.processcommon.IAuftragLfdNrProcessContext;
 import com.daimler.emst2.fhi.sendung.processcommon.IOrtsdatenProcessContext;
 import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
+import com.daimler.emst2.fhi.services.ISendungService;
+import com.daimler.emst2.fhi.services.ISendungServiceDao;
 import com.daimler.emst2.fhi.util.DateTimeHelper;
 
 public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext, IOrtsdatenProcessContext {
@@ -43,8 +43,6 @@ public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext
 
     public List<AuftragSperren> auftragSperrenList;
     public List<IAuftragSperrenForBereich> anzahlSperrenForBereich;
-    public AuftragSperrenDao auftragSperrenDao;
-    public SystemwertDao systemwertDao;
 
     private final Set<SendTypeEnum> performedSendSet = new HashSet<SendTypeEnum>();
 
@@ -54,6 +52,11 @@ public class SendContext implements IProcessContext, IAuftragLfdNrProcessContext
     public Protocol protocol = null;
 
     private Map<String, Systemwert> lfdNrMap;
+
+    public ISendungServiceDao dao;
+
+
+    public ISendungService service;
 
     private SendContext() {
         this.processTimestamp = DateTimeHelper.getAktuellesDatum();

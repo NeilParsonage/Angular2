@@ -22,10 +22,23 @@ public enum SendCheckEnum implements IProcessId {
     RHM_ORT_ERR("ort.error.rhm", SendTypeEnum.RHM, 400),
     UBM_ORT_ERR("ort.error.ubm", SendTypeEnum.UBM, 400),
 
-    FHI_AUFTRAG_SPERREN_FUER_BEREICH_060("auftragSperrenFuerBereich.warning.fhi", SendTypeEnum.FHI, 500),
-    RHM_AUFTRAG_SPERREN_FUER_BEREICH_060("auftragSperrenFuerBereich.warning.rhm", SendTypeEnum.RHM, 500),
+    //WARTESCHLANGE_060("warteschlange.error.fhi", SendTypeEnum.UNDEFINED, 500),
+    FHI_WARTESCHLANGE_060("warteschlange.error.fhi", SendTypeEnum.FHI, 500),
+    RHM_WARTESCHLANGE_060("warteschlange.error.rhm", SendTypeEnum.RHM, 500),
 
-    AUFTRAG_ANZAHL_FREIE_060("anzahlfreie.warning.fhi", SendTypeEnum.UNDEFINED, 600),
+    MAX_SEQNR_060("maxSeqNr.error.fhi", SendTypeEnum.FHI, 600),
+
+    MAX_VORSENDUNGEN_060("maxVorsendungen.error.fhi", SendTypeEnum.FHI, 700),
+
+    FHI_ERREICHBARKEIT_060("erreichbarkeit.warning.fhi", SendTypeEnum.FHI, 800),
+
+    FHI_AUFTRAG_SPERREN_FUER_BEREICH_060("auftragSperrenFuerBereich.warning.fhi", SendTypeEnum.FHI, 900),
+    RHM_AUFTRAG_SPERREN_FUER_BEREICH_060("auftragSperrenFuerBereich.warning.rhm", SendTypeEnum.RHM, 900),
+
+    GASSENSPERRE_060("gassensperre.warning.fhi", SendTypeEnum.FHI, 1000),
+
+    AUFTRAG_ANZAHL_FREIE_060("anzahlfreie.warning.fhi", SendTypeEnum.UNDEFINED, 1100),
+
 
     ;
 
