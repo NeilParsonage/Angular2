@@ -1,97 +1,42 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { first } from 'rxjs/internal/operators/first';
-import { Auftrag } from '../../models/auftrag';
-import { Protocol } from '../../models/protocol';
+import { Component, OnInit } from '@angular/core';
 import { ProtocolEntry } from '../../models/protocol-entry';
 import { ProtocolSeverity } from '../../models/protocol-severity';
-import { SendeTyp } from '../../models/sendeTyp';
-import { Sendung } from '../../models/sendung';
-import { SendungResponse } from '../../models/sendungResponse';
-import { AuftragService } from '../../services/auftrag.service';
-import { UserConfirmDialogOptions } from '../user-confirm-dialog/user-confirm-dialog-options';
-import { UserConfirmDialogComponent } from '../user-confirm-dialog/user-confirm-dialog.component';
+
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
+  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
+  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
+  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
+  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
+  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
+  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
+  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
+  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
+];
 
 @Component({
   selector: 'app-sendemaske',
   templateUrl: './sendemaske.component.html',
   styleUrls: ['./sendemaske.component.scss'],
 })
-export class SendemaskeComponent {
-  selectedPnr: string;
-  selectedSendung: SendeTyp;
-  responseMessage: string;
+export class SendemaskeComponent implements OnInit {
+  displayedColumnsTop: string[] = ['position', 'name', 'weight', 'symbol'];
+  dataSourceTop = ELEMENT_DATA;
 
-  options = [
-    { value: SendeTyp.Komplett, viewValue: 'Komplettsendung' },
-    { value: SendeTyp.TeilSendung_FHI, viewValue: 'Teilsendung FHI' },
-    { value: SendeTyp.TeilSendung_LMT, viewValue: 'Teilsendung LMT' },
-    { value: SendeTyp.TeilSendung_RHM, viewValue: 'Teilsendung RHM' },
-    { value: SendeTyp.TeilSendung_UBM, viewValue: 'Teilsendung UBM' },
-  ];
+  displayedColumnsDown: string[] = ['position', 'name', 'weight', 'symbol'];
+  dataSourceDown = ELEMENT_DATA;
 
-  constructor(public dialog: MatDialog, private auftragService: AuftragService) {}
+  constructor() {}
 
-  async sendung(initProtocol?: Protocol) {
-    const auftrag: Auftrag = await this.loadSendung(this.selectedPnr);
-    const sendData: Sendung = {
-      pnr: auftrag.pnr,
-      version: auftrag.version,
-      sendeTyp: this.selectedSendung,
-    };
-    let result: SendungResponse = null;
-    if (!initProtocol) {
-      result = await this.doSendung(sendData);
-    } else {
-      console.log('sendung', initProtocol);
-      sendData.protocol = initProtocol;
-      result = await this.doSendungWithProtocol(sendData);
-    }
-    const protocol = result.protocol;
-    // this.openConfirmDialogSendung(JSON.stringify(result, null, 4));
-    this.responseMessage = JSON.stringify(result, null, 4);
-    this.openConfirmDialogSendung(protocol);
-  }
-
-  private loadSendung(pnr: string) {
-    return this.auftragService.getAuftragByPnr(pnr).pipe(first()).toPromise();
-  }
-
-  private doSendung(sendData: Sendung) {
-    return this.auftragService.sendung(sendData).pipe(first()).toPromise();
-  }
-
-  private doSendungWithProtocol(sendData: Sendung) {
-    return this.auftragService.sendungWithProtocol(sendData).pipe(first()).toPromise();
-  }
-
-  private openConfirmDialogSendung(pProtocol: Protocol) {
-    const protocolEntries = this.getProtocolEntries(pProtocol.allEntries);
-    console.log('protocolEntries', protocolEntries);
-    if (protocolEntries.length < 1) {
-      return; // no messages
-    }
-
-    const dialogOptions: UserConfirmDialogOptions = {
-      title: `Sendung der PNR '${this.selectedPnr}' // ${pProtocol.actionForProtocol} :`,
-      protocolEntries: protocolEntries,
-      errorMode: this.getErrorMode(protocolEntries),
-      buttonIconConfirm: 'done',
-      buttonTextConfirm: 'Ok',
-      buttonIconAbort: 'cancel',
-      buttonTextAbort: 'Abbrechen',
-      onConfirm: () => {
-        if (!this.isProtocolWithErrors(protocolEntries)) {
-          this.sendung(pProtocol); // resend
-        }
-      },
-      onAbort: () => {},
-    };
-    this.dialog.open(UserConfirmDialogComponent, {
-      data: dialogOptions,
-      disableClose: true,
-    });
-  }
+  ngOnInit(): void {}
 
   getProtocolEntries(allEntries: ProtocolEntry[]): ProtocolEntry[] {
     const errorCases = Array<ProtocolEntry>();
