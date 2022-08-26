@@ -1,5 +1,3 @@
-import { FunctionCall } from '@angular/compiler';
-
 export interface ConfirmDialogOptions {
   title: string;
   message?: string;

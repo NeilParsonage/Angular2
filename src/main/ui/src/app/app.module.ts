@@ -24,42 +24,41 @@ import { MaterialModule } from './shared/modules/material.module';
 import { TuebService } from './shared/services/tueb.service';
 
 @NgModule({
-  declarations: [AppComponent, ConfirmDialogComponent, UserConfirmDialogComponent, ConfirmationPopupComponent, MessageCardStapleComponent],
-  imports: [
-    AppRoutingModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    DaiUiFrameModule,
-    FhiModule,
-    FlexLayoutModule,
-    FormsModule,
-    HttpClientModule,
-    KeycloakAngularModule,
-    LibEmstTableModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    TranslateModule.forRoot(),
-  ],
-  providers: [
-    PrivilegeRouteGuard,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializer,
-      multi: true,
-      deps: [KeycloakService, TranslateService, TuebService],
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: BlobErrorHttpInterceptor,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpErrorInterceptor,
-      multi: true,
-    },
-  ],
-  entryComponents: [MessageCardStapleComponent],
-  bootstrap: [AppComponent],
+    declarations: [AppComponent, ConfirmDialogComponent, UserConfirmDialogComponent, ConfirmationPopupComponent, MessageCardStapleComponent],
+    imports: [
+        AppRoutingModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        DaiUiFrameModule,
+        FhiModule,
+        FlexLayoutModule,
+        FormsModule,
+        HttpClientModule,
+        KeycloakAngularModule,
+        LibEmstTableModule,
+        MaterialModule,
+        ReactiveFormsModule,
+        TranslateModule.forRoot(),
+    ],
+    providers: [
+        PrivilegeRouteGuard,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: initializer,
+            multi: true,
+            deps: [KeycloakService, TranslateService, TuebService],
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: BlobErrorHttpInterceptor,
+            multi: true,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpErrorInterceptor,
+            multi: true,
+        },
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}
