@@ -51,24 +51,36 @@ public enum SendTypeEnum implements IProcessId {
         return DEFAULT_TUEB_PREFIX + tuebKey + ".hist";
     }
 
+    @Override
     public String getTuebKey() {
         return DEFAULT_TUEB_PREFIX + tuebKey;
     }
 
+    @Override
     public Integer getOrderNum() {
         return orderNum;
     }
 
+    @Override
     public Object getId() {
         return orderNum;
     }
 
+    @Override
     public ITuebObject getTyp() {
         return this;
     }
 
     public boolean isKomplett() {
         return KOMPLETT.equals(this);
+    }
+
+    public boolean isNotFhiTeilsendung() {
+        return !isFhiTeilsendung();
+    }
+
+    public boolean isFhiTeilsendung() {
+        return FHI.equals(this) || isKomplett();
     }
 
 }

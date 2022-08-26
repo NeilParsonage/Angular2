@@ -1,5 +1,6 @@
 package com.daimler.emst2.fhi.sendung.werk060.check;
 
+import com.daimler.emst2.fhi.constants.AuftragSeqNrEnum;
 import com.daimler.emst2.fhi.model.SeverityEnum;
 import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
@@ -7,10 +8,11 @@ import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 import com.daimler.emst2.fhi.sendung.werk.check.AbstractSendCheck;
 import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
+import com.daimler.emst2.fhi.services.AuftragService;
 
-public class CheckVorsendungen extends AbstractSendCheck {
+public class CheckFhiSeqNrObergrenze extends AbstractSendCheck {
 
-    public CheckVorsendungen(ProtocolService pProtocolService, SendCheckEnum sendCheckStepIdentifier) {
+    public CheckFhiSeqNrObergrenze(ProtocolService pProtocolService, SendCheckEnum sendCheckStepIdentifier) {
         super(pProtocolService, sendCheckStepIdentifier);
     }
 
@@ -20,24 +22,30 @@ public class CheckVorsendungen extends AbstractSendCheck {
 
     @Override
     protected boolean doExecuteImpl(SendContext pContext) {
-        checkVorsendungen(pContext, this.sendCheck.getTyp());
+        checkMaxSeqNr(pContext, this.sendCheck.getTyp());
 
         // ProtocolEntry erzeugen
         getProtocolService().addDebugProtocolEntry(pContext, getIdentifier());
         return true;
     }
 
-    protected void checkVorsendungen(SendContext pContext, SendTypeEnum sendTyp) {
+    protected void checkMaxSeqNr(SendContext pContext, SendTypeEnum sendTyp) {
 
-        long maxVorsendungen = pContext.service.getAuftragService().getMaxVorsendungen();
-        long countVorsendungen = pContext.service.getAuftragService().getVorsendungen();
+        Long seqNrLapu = pContext.service.getAuftragService().getNextSeqNummer(AuftragSeqNrEnum.LAPU);
+        Long seqNrSepu = pContext.service.getAuftragService().getNextSeqNummer(AuftragSeqNrEnum.SEPU);
+        Long seqNrSitz = pContext.service.getAuftragService().getNextSeqNummer(AuftragSeqNrEnum.SITZ);
 
-        if (maxVorsendungen >= 0L && maxVorsendungen <= countVorsendungen) {
+        if (seqNrLapu == AuftragService.INVALID_SEQ_NR
+            || seqNrSepu == AuftragService.INVALID_SEQ_NR
+            || seqNrSitz == AuftragService.INVALID_SEQ_NR) {
+
             // Obergrenze gerissen
             getProtocolService().addProtocolEntry(pContext,
-                    ProtocolMessageEnum.AUFTRAG_VORSENDUNGEN_VERLETZT_ERR,
+                    ProtocolMessageEnum.AUFTRAG_SEQNR_OBERGRENZE_VERLETZT_ERR,
                     getIdentifier(),
                     SeverityEnum.ERROR);
         }
+
     }
+
 }

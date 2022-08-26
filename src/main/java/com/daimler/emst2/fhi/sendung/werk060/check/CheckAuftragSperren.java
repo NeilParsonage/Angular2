@@ -79,8 +79,6 @@ public class CheckAuftragSperren extends AbstractSendCheck {
         }
 
         if (anzahlSperrenForBereichList.size() == 1) {
-            //            if (anzahlSperrenForBereichMap.containsKey(SendTypeEnum.FHI.name())
-            //                || anzahlSperrenForBereichMap.containsKey(SendTypeEnum.RHM.name())) {
             if (anzahlSperrenForBereichMap.containsKey(OHNE_BEREICH)) {
                 // Einzelmeldung - Leer
                 getProtocolService().addProtocolEntry(pContext,
