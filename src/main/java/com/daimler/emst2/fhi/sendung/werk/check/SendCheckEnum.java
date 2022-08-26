@@ -26,9 +26,9 @@ public enum SendCheckEnum implements IProcessId {
     FHI_WARTESCHLANGE_060("warteschlange.error.fhi", SendTypeEnum.FHI, 500),
     RHM_WARTESCHLANGE_060("warteschlange.error.rhm", SendTypeEnum.RHM, 500),
 
-    MAX_SEQNR_060("maxSeqNr.error.fhi", SendTypeEnum.FHI, 600),
+    FHI_SEQNR_OBERGRENZE_060("maxSeqNr.error.fhi", SendTypeEnum.FHI, 600),
 
-    MAX_VORSENDUNGEN_060("maxVorsendungen.error.fhi", SendTypeEnum.FHI, 700),
+    FHI_VORSENDUNGEN_060("maxVorsendungen.error.fhi", SendTypeEnum.FHI, 700),
 
     FHI_ERREICHBARKEIT_060("erreichbarkeit.warning.fhi", SendTypeEnum.FHI, 800),
 

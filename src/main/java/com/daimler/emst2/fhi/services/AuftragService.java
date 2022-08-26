@@ -545,6 +545,7 @@ public class AuftragService {
     }
 
     public long getCountWarteschlangeEntries() {
+        long c = warteschlangeDao.count();
         return warteschlangeDao.count();
     }
 

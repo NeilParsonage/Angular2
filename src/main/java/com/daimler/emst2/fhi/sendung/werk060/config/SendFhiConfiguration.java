@@ -1,57 +1,56 @@
 package com.daimler.emst2.fhi.sendung.werk060.config;
 
 
-import java.util.List;
-
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
-import com.daimler.emst2.fhi.sendung.process.IProcessConfiguration;
 import com.daimler.emst2.fhi.sendung.werk.action.SendActionEnum;
 import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
+import com.daimler.emst2.fhi.sendung.werk.config.AbstractSendConfiguration;
 
 /**
  * Knoten fuer die FHIsendung.
  */
-public class SendFhiConfiguration implements IProcessConfiguration<SendTypeEnum, SendCheckEnum, SendActionEnum> {
+public class SendFhiConfiguration extends AbstractSendConfiguration {
 
-    @Override
-    public SendTypeEnum getType() {
-        return SendTypeEnum.FHI;
+    public SendFhiConfiguration() {
+
+        this.type = SendTypeEnum.FHI;
     }
 
     @Override
-    public void fillCheckEnumList(List<SendCheckEnum> pCheckList) {
+    protected void setupCheckEnumList() {
 
         // @see SendungenService.getSubProcessList Sendekennung und -status 
         // includes the Sendekennung und Sendestatus check as performed in PL/SQL PROCEDURE Pruefe_Sendekennung
 
-        pCheckList.add(SendCheckEnum.AUFTRAG_ANZAHL_FREIE_060);
-        pCheckList.add(SendCheckEnum.AUFTRAG_UPTODATE);
-        pCheckList.add(SendCheckEnum.FHI_WARTESCHLANGE_060);
-        pCheckList.add(SendCheckEnum.FHI_ORT_ERR);
-        pCheckList.add(SendCheckEnum.MAX_SEQNR_060);
-        pCheckList.add(SendCheckEnum.MAX_VORSENDUNGEN_060);
-        pCheckList.add(SendCheckEnum.FHI_ERREICHBARKEIT_060);
-        pCheckList.add(SendCheckEnum.FHI_AUFTRAG_SPERREN_FUER_BEREICH_060);
-        pCheckList.add(SendCheckEnum.GASSENSPERRE_060);
+        addVerifiedCheck(SendCheckEnum.AUFTRAG_ANZAHL_FREIE_060);
+        addVerifiedCheck(SendCheckEnum.AUFTRAG_UPTODATE);
+        addVerifiedCheck(SendCheckEnum.FHI_WARTESCHLANGE_060);
+        addVerifiedCheck(SendCheckEnum.FHI_ORT_ERR);
+        addVerifiedCheck(SendCheckEnum.FHI_SEQNR_OBERGRENZE_060);
+        addVerifiedCheck(SendCheckEnum.FHI_VORSENDUNGEN_060);
+        addVerifiedCheck(SendCheckEnum.FHI_ERREICHBARKEIT_060);
+        addVerifiedCheck(SendCheckEnum.FHI_AUFTRAG_SPERREN_FUER_BEREICH_060);
+        addVerifiedCheck(SendCheckEnum.GASSENSPERRE_060);
 
     }
 
     @Override
-    public void fillActionEnumList(List<SendActionEnum> pActionList) {
+    protected void setupActionEnumList() {
         // Actions, die unabhaengig von der Sendung immer durchgefuehrt werden muessen
-        pActionList.add(SendActionEnum.ALL_LAUFENDE_NUMMER_AKTUALISIEREN);
-        pActionList.add(SendActionEnum.ALL_MANUELLE_RF_INFO_LOESCHEN);
-        pActionList.add(SendActionEnum.ALL_SENDBAR_KNZ_SETZEN);
+        addVerifiedAction(SendActionEnum.ALL_LAUFENDE_NUMMER_AKTUALISIEREN);
+        addVerifiedAction(SendActionEnum.ALL_MANUELLE_RF_INFO_LOESCHEN);
+        addVerifiedAction(SendActionEnum.ALL_SENDBAR_KNZ_SETZEN);
 
-        pActionList.add(SendActionEnum.FHI_HISTORISIERUNG_STERNENHIMMEL);
-        pActionList.add(SendActionEnum.FHI_LAUFENDE_NUMMER_AKTUALISIEREN);
-        pActionList.add(SendActionEnum.FHI_SENDESTATUS_SETZEN);
-        pActionList.add(SendActionEnum.FHI_TAKT_TELEGRAMM);
+        addVerifiedAction(SendActionEnum.FHI_HISTORISIERUNG_STERNENHIMMEL);
+        addVerifiedAction(SendActionEnum.FHI_LAUFENDE_NUMMER_AKTUALISIEREN);
+        addVerifiedAction(SendActionEnum.FHI_SENDESTATUS_SETZEN);
+        addVerifiedAction(SendActionEnum.FHI_TAKT_TELEGRAMM);
 
-        pActionList.add(SendActionEnum.ALL_HISTORIE_SCHREIBEN);
-        pActionList.add(SendActionEnum.ALL_SAVE_AUFTRAG);
+        addVerifiedAction(SendActionEnum.ALL_HISTORIE_SCHREIBEN);
+        addVerifiedAction(SendActionEnum.ALL_SAVE_AUFTRAG);
 
-        pActionList.add(SendActionEnum.FHI_LMT_SOLLABSTAND_VORBERECHNEN);
+        addVerifiedAction(SendActionEnum.FHI_LMT_SOLLABSTAND_VORBERECHNEN);
     }
+
 
 }

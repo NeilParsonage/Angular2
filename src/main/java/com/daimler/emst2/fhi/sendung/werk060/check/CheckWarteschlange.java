@@ -55,8 +55,8 @@ public class CheckWarteschlange extends AbstractSendCheck {
             return;
         }
 
-        if (pContext.service.getAuftragService().getCountWarteschlangeEntries() == maxWarteschlange) {
-            if (null != warteschlange.getPosition() && warteschlange.getPosition().longValue() == maxWarteschlange) {
+        //if (pContext.service.getAuftragService().getCountWarteschlangeEntries() == maxWarteschlange) {
+        //    if (null != warteschlange.getPosition() && warteschlange.getPosition().longValue() == maxWarteschlange) {
                 if (null != warteschlange.getSendungsTyp()
                     && SendungsTypeMap
                             .getSendTypeEnumForString(warteschlange.getSendungsTyp()) == pContext.sendTypeEnum) {
@@ -67,8 +67,8 @@ public class CheckWarteschlange extends AbstractSendCheck {
                             SeverityEnum.ERROR);
 
                 }
-            }
-        }
+                //    }
+                //}
 
     }
 }

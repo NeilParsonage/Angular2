@@ -1,29 +1,32 @@
 package com.daimler.emst2.fhi.sendung.werk060.config;
 
-import java.util.List;
-
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
-import com.daimler.emst2.fhi.sendung.process.IProcessConfiguration;
-import com.daimler.emst2.fhi.sendung.werk.action.SendActionEnum;
-import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
+import com.daimler.emst2.fhi.sendung.werk.config.AbstractSendConfiguration;
 
 /**
  * Knoten fuer die Komplettsendung.
  */
-public class SendKomplettConfiguration implements IProcessConfiguration<SendTypeEnum, SendCheckEnum, SendActionEnum> {
+public class SendKomplettConfiguration extends AbstractSendConfiguration {
+
+    public SendKomplettConfiguration() {
+
+        this.type = SendTypeEnum.KOMPLETT;
+    }
 
     @Override
     public SendTypeEnum getType() {
         return SendTypeEnum.KOMPLETT;
     }
 
-    @Override
-    public void fillCheckEnumList(List<SendCheckEnum> pCheckList) {
-        // Komplettsendung hat keine eigenen checks oder actions - ist lediglich "Strukturknoten"
-    }
 
     @Override
-    public void fillActionEnumList(List<SendActionEnum> pActionList) {
-        // Komplettsendung hat keine eigenen checks oder actions - ist lediglich "Strukturknoten"
+    protected void setupCheckEnumList() {
+
+    }
+
+
+    @Override
+    protected void setupActionEnumList() {
+
     }
 }

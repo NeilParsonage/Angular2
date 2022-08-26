@@ -12,26 +12,27 @@ public class LapuId implements Serializable {
     private String platz;
     private String reihe;
 
+    /*
     public LapuId(String platz, String reihe) {
         this.platz = platz;
         this.reihe = reihe;
     }
-
+    
     public String getPlatz() {
         return platz;
     }
-
+    
     public void setPlatz(String platz) {
         this.platz = platz;
     }
-
+    
     public String getReihe() {
         return reihe;
     }
-
+    
     public void setReihe(String reihe) {
         this.reihe = reihe;
     }
-
+    */
 
 }

@@ -1,16 +1,18 @@
 package com.daimler.emst2.fhi.sendung.werk060.config;
 
-import java.util.List;
-
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
-import com.daimler.emst2.fhi.sendung.process.IProcessConfiguration;
 import com.daimler.emst2.fhi.sendung.werk.action.SendActionEnum;
 import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
+import com.daimler.emst2.fhi.sendung.werk.config.AbstractSendConfiguration;
 
 /**
  * Knoten fuer die RHMsendung.
  */
-public class SendRhmConfiguration implements IProcessConfiguration<SendTypeEnum, SendCheckEnum, SendActionEnum> {
+public class SendRhmConfiguration extends AbstractSendConfiguration {
+
+    public SendRhmConfiguration() {
+        this.type = SendTypeEnum.RHM;
+    }
 
     @Override
     public SendTypeEnum getType() {
@@ -18,26 +20,26 @@ public class SendRhmConfiguration implements IProcessConfiguration<SendTypeEnum,
     }
 
     @Override
-    public void fillCheckEnumList(List<SendCheckEnum> pCheckList) {
-        pCheckList.add(SendCheckEnum.AUFTRAG_UPTODATE);
-        // pCheckList.add(SendCheckEnum.RHM_ORT_ERR);
-        pCheckList.add(SendCheckEnum.RHM_AUFTRAG_SPERREN_FUER_BEREICH_060);
-        pCheckList.add(SendCheckEnum.RHM_WARTESCHLANGE_060);
-        pCheckList.add(SendCheckEnum.AUFTRAG_ANZAHL_FREIE_060);
+    protected void setupCheckEnumList() {
+        addVerifiedCheck(SendCheckEnum.AUFTRAG_UPTODATE);
+        // addVerifiedCheck(SendCheckEnum.RHM_ORT_ERR);
+        addVerifiedCheck(SendCheckEnum.RHM_AUFTRAG_SPERREN_FUER_BEREICH_060);
+        addVerifiedCheck(SendCheckEnum.RHM_WARTESCHLANGE_060);
+        addVerifiedCheck(SendCheckEnum.AUFTRAG_ANZAHL_FREIE_060);
     }
 
     @Override
-    public void fillActionEnumList(List<SendActionEnum> pActionList) {
+    protected void setupActionEnumList() {
         // Actions, die unabhaengig von der Sendung immer durchgefuehrt werden muessen
-        pActionList.add(SendActionEnum.ALL_LAUFENDE_NUMMER_AKTUALISIEREN);
-        pActionList.add(SendActionEnum.ALL_MANUELLE_RF_INFO_LOESCHEN);
-        pActionList.add(SendActionEnum.ALL_SENDBAR_KNZ_SETZEN);
+        addVerifiedAction(SendActionEnum.ALL_LAUFENDE_NUMMER_AKTUALISIEREN);
+        addVerifiedAction(SendActionEnum.ALL_MANUELLE_RF_INFO_LOESCHEN);
+        addVerifiedAction(SendActionEnum.ALL_SENDBAR_KNZ_SETZEN);
 
-        pActionList.add(SendActionEnum.RHM_LAUFENDE_NUMMER_AKTUALISIEREN);
-        pActionList.add(SendActionEnum.RHM_SENDESTATUS_SETZEN);
-        pActionList.add(SendActionEnum.RHM_TAKT_TELEGRAMM);
+        addVerifiedAction(SendActionEnum.RHM_LAUFENDE_NUMMER_AKTUALISIEREN);
+        addVerifiedAction(SendActionEnum.RHM_SENDESTATUS_SETZEN);
+        addVerifiedAction(SendActionEnum.RHM_TAKT_TELEGRAMM);
 
-        pActionList.add(SendActionEnum.ALL_HISTORIE_SCHREIBEN);
-        pActionList.add(SendActionEnum.ALL_SAVE_AUFTRAG);
+        addVerifiedAction(SendActionEnum.ALL_HISTORIE_SCHREIBEN);
+        addVerifiedAction(SendActionEnum.ALL_SAVE_AUFTRAG);
     }
 }

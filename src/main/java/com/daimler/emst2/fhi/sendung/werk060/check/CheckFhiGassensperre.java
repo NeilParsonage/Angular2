@@ -10,9 +10,9 @@ import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 import com.daimler.emst2.fhi.sendung.werk.check.AbstractSendCheck;
 import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
 
-public class CheckGassensperre extends AbstractSendCheck {
+public class CheckFhiGassensperre extends AbstractSendCheck {
 
-    public CheckGassensperre(ProtocolService pProtocolService, SendCheckEnum sendCheckStepIdentifier) {
+    public CheckFhiGassensperre(ProtocolService pProtocolService, SendCheckEnum sendCheckStepIdentifier) {
         super(pProtocolService, sendCheckStepIdentifier);
     }
 
@@ -30,11 +30,6 @@ public class CheckGassensperre extends AbstractSendCheck {
     }
 
     protected void checkGassensperre(SendContext pContext, SendTypeEnum sendTyp) {
-
-        if (pContext.getSendTypeEnum() != SendTypeEnum.FHI) {
-            // this check only relevant for a teil-Sendung/FHI
-            return;
-        }
 
         // FIXME NEP what to do if null pointer ??
         Auftrag auftrag = pContext.auftrag;
