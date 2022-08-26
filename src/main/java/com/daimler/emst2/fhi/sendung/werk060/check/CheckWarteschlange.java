@@ -32,9 +32,6 @@ public class CheckWarteschlange extends AbstractSendCheck {
 
     protected void checkWarteschlange(SendContext pContext, SendTypeEnum sendTyp) {
 
-        //TODO NEP check the sendTyp Parameter, doesn't always match what was selected in the GUI
-        // for example just selected Komplettsendung und here we get an UNDEFINED !!
-
         /*
             Wenn die Warteschlange voll ist und die aktuelle PNR steht an 1. Stelle, dann wird diese Plansequenziert.
             Deshalb darf sie nicht erneut mit der gleichen Sendungsart in die Warteschlange gestellt werden.
@@ -55,20 +52,15 @@ public class CheckWarteschlange extends AbstractSendCheck {
             return;
         }
 
-        if (pContext.service.getAuftragService().getCountWarteschlangeEntries() == maxWarteschlange) {
-            if (null != warteschlange.getPosition() && warteschlange.getPosition().longValue() == maxWarteschlange) {
-                if (null != warteschlange.getSendungsTyp()
-                    && SendungsTypeMap
-                            .getSendTypeEnumForString(warteschlange.getSendungsTyp()) == pContext.sendTypeEnum) {
+        if (null != warteschlange.getSendungsTyp()
+            && SendungsTypeMap
+                    .getSendTypeEnumForString(warteschlange.getSendungsTyp()) == pContext.sendTypeEnum) {
 
-                    getProtocolService().addProtocolEntry(pContext,
-                            ProtocolMessageEnum.WARTESCHLANGE_VERLETZT_ERR,
-                            getIdentifier(),
-                            SeverityEnum.ERROR);
+            getProtocolService().addProtocolEntry(pContext,
+                    ProtocolMessageEnum.WARTESCHLANGE_VERLETZT_ERR,
+                    getIdentifier(),
+                    SeverityEnum.ERROR);
 
-                }
-            }
         }
-
     }
 }

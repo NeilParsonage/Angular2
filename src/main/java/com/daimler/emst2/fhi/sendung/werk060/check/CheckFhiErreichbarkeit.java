@@ -7,7 +7,6 @@ import com.daimler.emst2.fhi.jpa.model.AuftragTermin;
 import com.daimler.emst2.fhi.jpa.model.AuftragZeit;
 import com.daimler.emst2.fhi.model.SeverityEnum;
 import com.daimler.emst2.fhi.sendung.constants.BereichEnum;
-import com.daimler.emst2.fhi.sendung.constants.FHISendungEnum;
 import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendStatusEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
@@ -38,30 +37,16 @@ public class CheckFhiErreichbarkeit extends AbstractSendCheck {
 
     protected void checkErreichbarkeit(SendContext pContext, SendTypeEnum sendTyp) {
 
-        // Check Send Typ contains an FHI element ??
-        if (sendTyp != SendTypeEnum.KOMPLETT && sendTyp != SendTypeEnum.FHI) {
-            return;
-        }
-
-        // FIXME NEP what to do if null pointer ??
         Auftrag auftrag = pContext.auftrag; 
-        if (null == auftrag
-            || null == auftrag.meta
-            || null == auftrag.meta.getFhiSendStatusEnum()
-            || null == auftrag.getFhiSendung()) {
-            return;
-        }
 
         SendStatusEnum sendStatusEnum = auftrag.meta.getFhiSendStatusEnum();
         
-        //FIXME NEP check whether we should use this Meta Class and the 
-        // SendStatusEnum to reference the "Fhi_Send_Status" Property of Auftrag
+        // Use the SendStatusEnum to reference the "Fhi_Send_Status" Property of Auftrag
         // aus PL/SQL 'FHI-Sendestatus. 0: nicht gesendet; 1: gesendet; 3: storniert';
         // Gesendet appears to mean the same as Plansequenziert !!
         
 
-        if (!sendStatusEnum.equals(SendStatusEnum.PLANSEQUENZIERT)
-            && FHISendungEnum.getSendStatus(auftrag.getFhiSendung()) == FHISendungEnum.SENDUNG) {
+        if (!sendStatusEnum.equals(SendStatusEnum.PLANSEQUENZIERT)) {
 
             AuftragZeit auftragZeit = pContext.service.getAuftragService().getFhiZeitForBereich(BereichEnum.LMT);
             Date vorschauzeit = auftragZeit.getFhiZeit();
