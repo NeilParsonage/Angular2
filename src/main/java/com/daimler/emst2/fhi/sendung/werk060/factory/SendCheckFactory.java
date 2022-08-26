@@ -9,13 +9,13 @@ import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckAuftragSperren;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiAnzahlFreie;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiErreichbarkeit;
-import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiOrtInvalid;
-import com.daimler.emst2.fhi.sendung.werk060.check.CheckWarteschlange;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiGassensperre;
-import com.daimler.emst2.fhi.sendung.werk060.check.CheckLmtOrtInvalid;
-import com.daimler.emst2.fhi.sendung.werk060.check.CheckRhmOrtInvalid;
+import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiOrtInvalid;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiSeqNrObergrenze;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiVorsendungen;
+import com.daimler.emst2.fhi.sendung.werk060.check.CheckLmtOrtInvalid;
+import com.daimler.emst2.fhi.sendung.werk060.check.CheckRhmOrtInvalid;
+import com.daimler.emst2.fhi.sendung.werk060.check.CheckWarteschlange;
 
 public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
 
@@ -64,9 +64,7 @@ public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
             return new CheckLmtOrtInvalid(getProtocolService());
 		case RHM_ORT_ERR:
 			return new CheckRhmOrtInvalid(getProtocolService());
-        case FHI_WARTESCHLANGE_060:
-            return new CheckWarteschlange(getProtocolService(), pruefungKennung);
-        case RHM_WARTESCHLANGE_060:
+        case WARTESCHLANGE_060:
             return new CheckWarteschlange(getProtocolService(), pruefungKennung);
         case FHI_VORSENDUNGEN_060:
             return new CheckFhiVorsendungen(getProtocolService(), pruefungKennung);
@@ -74,7 +72,7 @@ public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
             return new CheckFhiErreichbarkeit(getProtocolService(), pruefungKennung);
         case FHI_SEQNR_OBERGRENZE_060:
             return new CheckFhiSeqNrObergrenze(getProtocolService(), pruefungKennung);
-        case GASSENSPERRE_060:
+        case FHI_GASSENSPERRE_060:
             return new CheckFhiGassensperre(getProtocolService(), pruefungKennung);
         case AUFTRAG_ANZAHL_FREIE_060:
             return new CheckFhiAnzahlFreie(getProtocolService());

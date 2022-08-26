@@ -1,6 +1,5 @@
 package com.daimler.emst2.fhi.sendung.werk060.check;
 
-import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.ICountGassenperre;
 import com.daimler.emst2.fhi.model.SeverityEnum;
 import com.daimler.emst2.fhi.sendung.constants.ProtocolMessageEnum;
@@ -30,12 +29,6 @@ public class CheckFhiGassensperre extends AbstractSendCheck {
     }
 
     protected void checkGassensperre(SendContext pContext, SendTypeEnum sendTyp) {
-
-        // FIXME NEP what to do if null pointer ??
-        Auftrag auftrag = pContext.auftrag;
-        if (null == auftrag) {
-            return;
-        }
 
         ICountGassenperre countGassenperre =
                 pContext.service.getAuftragService().findCountGassensperre(pContext.auftrag.getPnr());

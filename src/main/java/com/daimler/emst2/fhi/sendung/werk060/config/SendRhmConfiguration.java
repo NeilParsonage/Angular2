@@ -24,7 +24,7 @@ public class SendRhmConfiguration extends AbstractSendConfiguration {
         addVerifiedCheck(SendCheckEnum.AUFTRAG_UPTODATE);
         // addVerifiedCheck(SendCheckEnum.RHM_ORT_ERR);
         addVerifiedCheck(SendCheckEnum.RHM_AUFTRAG_SPERREN_FUER_BEREICH_060);
-        addVerifiedCheck(SendCheckEnum.RHM_WARTESCHLANGE_060);
+        addVerifiedCheck(SendCheckEnum.WARTESCHLANGE_060);
         addVerifiedCheck(SendCheckEnum.AUFTRAG_ANZAHL_FREIE_060);
     }
 
