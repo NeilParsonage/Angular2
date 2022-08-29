@@ -94,4 +94,9 @@ export class EinzelauskunftComponent implements OnInit {
       this.loadDataFromTab(this.auftragChoosen.pnr);
     }
   }
+
+  isPNRChooserVisible(): boolean {
+    if (this.auftragList && this.auftragSearch && this.auftragList.length > 0 && this.auftrag.ort != 'SATG' && this.auftrag.ort != 'BDAB') return true;
+    else return false;
+  }
 }
