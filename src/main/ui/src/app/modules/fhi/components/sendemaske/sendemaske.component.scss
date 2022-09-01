@@ -16,14 +16,14 @@ table td,
 th {
   padding-left: 1em !important;
   border-left: 1px solid rgba(0, 0, 0, 0.12);
-  font-size: 9px;
+  font-size: 8px;
 }
 
 ::ng-deep table td,
 table th {
   padding-left: 0.25em !important;
   border-left: 1px solid rgba(0, 0, 0, 0.12);
-  // text-align: center;
+  white-space: nowrap;
 }
 
 ::ng-deep table th.mat-header-cell:first-of-type,
