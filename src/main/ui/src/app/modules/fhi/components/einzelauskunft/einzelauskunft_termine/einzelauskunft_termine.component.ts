@@ -1,11 +1,15 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { TranslateService } from '@ngx-translate/core';
 import { forkJoin, Observable } from 'rxjs';
 import { Auftrag } from '../../../models/auftrag';
+import { AuftragHeberhaus } from '../../../models/auftragHeberhaus';
 import { AuftragTermine } from '../../../models/auftragTermine';
 import { AuftragTermineDetails } from '../../../models/auftragTermineDetails';
 import { AuftragService } from '../../../services/auftrag.service';
+import { DialogShowHeberhausComponent } from '../dialog-showHeberhaus/dialog-showHeberhaus.component';
 @Component({
   selector: 'app-einzelauskunft-termine',
   templateUrl: './einzelauskunft_termine.component.html',
@@ -19,14 +23,15 @@ export class EinzelauskunftTermineComponent implements OnInit {
   };
   termine: AuftragTermine;
   terminDetails: AuftragTermineDetails[];
-  constructor(private auftragService: AuftragService, public datepipe: DatePipe) {}
+  heberhaus: AuftragHeberhaus;
+  constructor(private auftragService: AuftragService, public datepipe: DatePipe, public dialog: MatDialog, private translateService: TranslateService) {}
 
   einzelauskunft: Auftrag = null;
   dataSource$: Observable<any>;
 
   //displayedColumns: string[] = [];
 
-  displayedColumns: string[] = ['Gewerk', 'BeginnTermin', 'IstSequenzTermin', 'TeilsendungTermin', 'StornoTermin'];
+  displayedColumns: string[] = ['Gewerk', 'Aktion', 'BeginnTermin', 'IstSequenzTermin', 'TeilsendungTermin', 'StornoTermin'];
   matDataSource: MatTableDataSource<AuftragTermineDetails> = new MatTableDataSource<AuftragTermineDetails>();
   divider = '          ';
 
@@ -47,7 +52,8 @@ export class EinzelauskunftTermineComponent implements OnInit {
     console.log('load Data ' + auftrag.pnr);
     const termineData = this.auftragService.getAuftragTermineByPnr(auftrag.pnr);
     const termineDetailsData = this.auftragService.getAuftragTermineDetailsByPnr(auftrag.pnr);
-    const loadSources: any = [termineData, termineDetailsData];
+    const heberhausData = this.auftragService.getAuftragHeberhausByPnr(auftrag.pnr);
+    const loadSources: any = [termineData, termineDetailsData, heberhausData];
 
     let srcIdx = 0;
 
@@ -55,11 +61,12 @@ export class EinzelauskunftTermineComponent implements OnInit {
       if (!results) {
         return;
       }
-      //console.log(results[srcIdx++]);
+
       // let termresult: AuftragTermine = results[srcIdx++] as AuftragTermine;
       this.termine = results[srcIdx++] as AuftragTermine;
       this.terminDetails = results[srcIdx++] as AuftragTermineDetails[];
-
+      this.heberhaus = results[srcIdx++] as AuftragHeberhaus;
+      console.log('Heber' || this.heberhaus);
       this.matDataSource = new MatTableDataSource<AuftragTermineDetails>(this.terminDetails);
       console.log(this.termine);
       console.log(this.terminDetails);
@@ -84,5 +91,22 @@ export class EinzelauskunftTermineComponent implements OnInit {
     } else {
       return true;
     }
+  }
+
+  showHeberhaus() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '600px';
+    dialogConfig.height = 'auto';
+    dialogConfig.disableClose = true;
+    dialogConfig.data = {
+      auftragHeberhaus: this.heberhaus,
+      titel: this.translateService.instant('text.einzelauskunft.heberhaus') + ' ' + this.einzelauskunft.pnr,
+    };
+    const dialogRef = this.dialog.open(DialogShowHeberhausComponent, dialogConfig);
+  }
+
+  checkVisibleHeberhaus(gewerk: string): boolean {
+    if (gewerk == 'LMT') return true;
+    else return false;
   }
 }

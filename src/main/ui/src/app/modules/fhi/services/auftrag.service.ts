@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Auftrag } from '../models/auftrag';
 import { AuftragAggregate } from '../models/auftragAggregate';
 import { AuftragCodes } from '../models/auftragCodes';
+import { AuftragHeberhaus } from '../models/auftragHeberhaus';
 import { AuftragKabelsaetze } from '../models/auftragKabelsatz';
 import { AuftragKriterien } from '../models/auftragKriterien';
 import { AuftragLacke } from '../models/auftragLacke';
@@ -102,5 +103,11 @@ export class AuftragService {
       params: new HttpParams().set('pnr', pnr),
     };
     return this.http.get<AuftragKriterien[]>(`${this.endpoint}/kriterien`, options);
+  }
+  public getAuftragHeberhausByPnr(pnr: string): Observable<AuftragHeberhaus> {
+    const options = {
+      params: new HttpParams().set('pnr', pnr),
+    };
+    return this.http.get<AuftragHeberhaus>(`${this.endpoint}/heberhaus`, options);
   }
 }

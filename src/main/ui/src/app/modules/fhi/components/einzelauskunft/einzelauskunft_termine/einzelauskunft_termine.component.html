@@ -3,12 +3,10 @@
   <div fxLayout="row">
     <div fxLayout="column" style="width: 250px">
       <div fxLayout="row">
-
-          <mat-form-field class="dateItem">
-            <mat-label>{{ 'label.einzelauskunft.ibsperre' | translate }}</mat-label>
-            <input matInput  [class.basic-container]="ibSperreIsSet()" [readonly]="true" value="{{ termine?.ibSperre | date: 'dd.MM.yyyy HH:mm' }} " />
-          </mat-form-field>
-
+        <mat-form-field class="dateItem">
+          <mat-label>{{ 'label.einzelauskunft.ibsperre' | translate }}</mat-label>
+          <input matInput [class.basic-container]="ibSperreIsSet()" [readonly]="true" value="{{ termine?.ibSperre | date: 'dd.MM.yyyy HH:mm' }} " />
+        </mat-form-field>
       </div>
       <div fxLayout="row">
         <div fxLayout="column" fxFlex="50">
@@ -49,6 +47,17 @@
         <ng-container matColumnDef="Gewerk">
           <th mat-header-cell *matHeaderCellDef>{{ 'label.einzelauskunft.terminegewerk' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.gewerk }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Aktion">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <div *ngIf="element.gewerk == 'LMT'">
+              <button mat-icon-button color="accent" aria-label="Zeige Heberhaus Infos" (click)="showHeberhaus()">
+                <mat-icon>info</mat-icon>
+              </button>
+            </div>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="BeginnTermin">
