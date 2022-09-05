@@ -77,6 +77,7 @@ export class AppComponent implements OnInit, OnDestroy {
         console.log('handle event: "global-notifications-clicked"');
         break;
       default:
+        console.log(`handle event name: ${eventName}`);
         break;
     }
   }
