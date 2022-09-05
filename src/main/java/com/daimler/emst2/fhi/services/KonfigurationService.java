@@ -101,11 +101,8 @@ public class KonfigurationService {
         Systemwert iSystemwert = systemwertDao.findByWertName(systemWert.getKey());
 
         Long systemWertAsLong = defaultValue;
-        if (null != iSystemwert) {
-            Long systemWertAsBigDecimal = iSystemwert.getWertNum();
-            if (null != systemWertAsBigDecimal) {
-                systemWertAsLong = systemWertAsBigDecimal.longValue();
-            }
+        if (null != iSystemwert && null != iSystemwert.getWertNum()) {
+            systemWertAsLong = iSystemwert.getWertNum().longValue();
         }
         return systemWertAsLong;
     }

@@ -30,7 +30,6 @@ public class CheckUmlaufwerte extends AbstractSendCheck {
 
     protected void checkUmlaufwerte(SendContext pContext, SendTypeEnum sendTyp) {
 
-        // FIXME NEP what to do if null pointer ??
         Auftrag auftrag = pContext.auftrag;
         if (null == auftrag) {
             return;
