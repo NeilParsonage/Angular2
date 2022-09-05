@@ -12,13 +12,6 @@ table tr {
   height: 1.25em;
 }
 
-table td,
-th {
-  padding-left: 1em !important;
-  border-left: 1px solid rgba(0, 0, 0, 0.12);
-  font-size: 8px;
-}
-
 ::ng-deep table td,
 table th {
   padding-left: 0.25em !important;

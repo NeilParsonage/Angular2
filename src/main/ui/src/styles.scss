@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-@import "../node_modules/emst-ui-frame/assets/daiTheme.scss";
+@import '../node_modules/emst-ui-frame/assets/daiTheme.scss';
 
 @include mat.core();
 
@@ -25,7 +25,7 @@ html,
 body {
   margin: 0;
   height: 100vh;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
 ///////////////////////////////////////////////
@@ -87,4 +87,8 @@ mat-slide-toggle {
 // Wird benötigt für das Minimieren unten links
 .mat-drawer {
   max-width: 250px;
+}
+
+.mat-app-background {
+  background-color: white;
 }
