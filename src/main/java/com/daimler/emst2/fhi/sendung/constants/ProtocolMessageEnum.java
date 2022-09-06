@@ -42,8 +42,7 @@ public enum ProtocolMessageEnum {
     WARTESCHLANGE_VERLETZT_ERR("error.sendepruef.auftrag.warteschlange"), // dbmessage.senden.30073
     UMLAUF_OBERGRENZE_NICHT_DEFINIERT_ERR("error.sendepruef.auftrag.umlaufgrenze.nicht.definiert"), // dbmessage.senden.20082
     UMLAUF_OBERGRENZE_EXCEEDED_WARN("warning.sendepruef.umlaufgrenze.exceeded"), // dbmessage.senden.30020
-
-    AUFTRAG_GASSENSPERRE_VERLETZT_WARN("warning.sendepruef.auftrag.umlaufgrenze"), // dbmessage.senden.30012
+    AUFTRAG_GASSENSPERRE_VERLETZT_WARN("warning.sendepruef.auftrag.gassensperre"), // dbmessage.senden.30012
     ;
 
     private String tuebKey;
