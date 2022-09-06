@@ -30,6 +30,11 @@ public class CheckFhiGassensperre extends AbstractSendCheck {
 
     protected void checkGassensperre(SendContext pContext, SendTypeEnum sendTyp) {
 
+        if (pContext.getSendTypeEnum() != SendTypeEnum.FHI) {
+            // this check only relevant for a teil-Sendung/FHI
+            return;
+        }
+
         ICountGassenperre countGassenperre =
                 pContext.service.getAuftragService().findCountGassensperre(pContext.auftrag.getPnr());
 
