@@ -515,19 +515,6 @@ public class AuftragService {
                 DEFAULT_ABSTAND_UMLAUF_OBERGRENZE);
     }
 
-    /*
-    public Long getOgLmtBand1() {
-        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.OG_LMT_BAND1);
-    }
-    
-    public Long getOgLmtBand2() {
-        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.OG_LMT_BAND2);
-    }
-    
-    public Long getOgLmtBand3() {
-        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.OG_LMT_BAND3);
-    }
-    */
 
     public Long getOgLmtForBandBand(FhiSystemwertKeyEnum key) {
         return configService.getKonfigurationAsLong(key);
