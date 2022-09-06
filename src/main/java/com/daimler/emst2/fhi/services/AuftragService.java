@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
 import com.daimler.emst2.fhi.constants.AuftragSeqNrEnum;
@@ -33,6 +34,7 @@ import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.dto.SendResponseDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.dto.SendungsprotokollDTO;
+import com.daimler.emst2.fhi.dto.UmlaufWerteFuerAlleBaenderDTO;
 import com.daimler.emst2.fhi.jpa.dao.AuftragAggregateDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragCodesDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragDao;
@@ -48,6 +50,7 @@ import com.daimler.emst2.fhi.jpa.dao.AuftragZeitDao;
 import com.daimler.emst2.fhi.jpa.dao.LapuDao;
 import com.daimler.emst2.fhi.jpa.dao.OrtReihenfolgeDao;
 import com.daimler.emst2.fhi.jpa.dao.SystemwertDao;
+import com.daimler.emst2.fhi.jpa.dao.UmlaufWerteDao;
 import com.daimler.emst2.fhi.jpa.dao.WarteschlangeDao;
 import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
@@ -66,6 +69,7 @@ import com.daimler.emst2.fhi.jpa.model.IAuftragAllHighestSeqNr;
 import com.daimler.emst2.fhi.jpa.model.ICountGassenperre;
 import com.daimler.emst2.fhi.jpa.model.ICountVorsendungen;
 import com.daimler.emst2.fhi.jpa.model.OrtReihenfolge;
+import com.daimler.emst2.fhi.jpa.model.UmlaufWerte;
 import com.daimler.emst2.fhi.jpa.model.Warteschlange;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragAnkuendigungenComparator;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragSperrenComparator;
@@ -84,17 +88,9 @@ public class AuftragService {
     private static final String MATERIALBEREICH_LMT = "RHM";
     private static final String MATERIALBEREICH_FHI = "FHI";
 
-    private static final String MAX_SEQUENZNUMMER = "MAX_SEQUENZNUMMER";
-
-    private static final String MAX_VORSENDUNGEN = "MAX_VORSENDUNGEN";
-
-    private static final String MAX_WARTESCHLANGE = "SYS_MAX_WARTESCHLANGE";
-
-
-
     private static final Long DEFAULT_MAX_SEQUENZNUMMER = 999999L;
 
-    public static final Long DEFAULT_ABSTAND_UMLAUF_OBERGRENZE = 1L;
+    public static final Long DEFAULT_ABSTAND_UMLAUF_OBERGRENZE = 999999L;
 
     private static final Long DEFAULT_MAX_VORSENDUNGEN = 801L;
 
@@ -161,6 +157,9 @@ public class AuftragService {
 
     @Autowired
     WarteschlangeDao warteschlangeDao;
+
+    @Autowired
+    UmlaufWerteDao umlaufWerteDao;
 
     @Autowired
     private KonfigurationService configService;
@@ -568,13 +567,31 @@ public class AuftragService {
             return auftragTerminList.get(0);
         }
         */
-        //FIXME NEP What to do with error cases ?
+
         throw new RuntimeException("no individual pnr found in Auftrag_Termin Table : " + pnr);
 
     }
 
     public ICountGassenperre findCountGassensperre(final String pnr) {
         return lapuDao.findCountGassensperre(pnr);
+    }
+
+    public UmlaufWerteFuerAlleBaenderDTO getUmlaufwerteForAlleBaender()
+    {
+        List<UmlaufWerte> umlaufWerteList = umlaufWerteDao.findAllUmlaufWerteForAllBaender();
+        if (null == umlaufWerteList || umlaufWerteList.isEmpty() || umlaufWerteList.size() != 3) {
+            throw new RuntimeException("Expecting three entries is View V_UML, one for each Band");
+        }
+        UmlaufWerteFuerAlleBaenderDTO umlaufWerteFuerAlleBaenderDTO = new UmlaufWerteFuerAlleBaenderDTO();
+        Assert.notNull(umlaufWerteList.get(0).getUml(), "UML Value for Band1 must be defined in View V_UML");
+        Assert.notNull(umlaufWerteList.get(1).getUml(), "UML Value for Band2 must be defined in View V_UML");
+        Assert.notNull(umlaufWerteList.get(2).getUml(), "UML Value for Band3 must be defined in View V_UML");
+
+        umlaufWerteFuerAlleBaenderDTO.umlaufWertBand1 = umlaufWerteList.get(0).getUml();
+        umlaufWerteFuerAlleBaenderDTO.umlaufWertBand2 = umlaufWerteList.get(1).getUml();
+        umlaufWerteFuerAlleBaenderDTO.umlaufWertBand3 = umlaufWerteList.get(2).getUml();
+
+        return umlaufWerteFuerAlleBaenderDTO;
     }
 
 }
