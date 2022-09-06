@@ -16,7 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
 import com.daimler.emst2.fhi.constants.AuftragSeqNrEnum;
@@ -34,7 +33,6 @@ import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.dto.SendResponseDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.dto.SendungsprotokollDTO;
-import com.daimler.emst2.fhi.dto.UmlaufWerteFuerAlleBaenderDTO;
 import com.daimler.emst2.fhi.jpa.dao.AuftragAggregateDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragCodesDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragDao;
@@ -517,28 +515,22 @@ public class AuftragService {
                 DEFAULT_ABSTAND_UMLAUF_OBERGRENZE);
     }
 
+    /*
     public Long getOgLmtBand1() {
         return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.OG_LMT_BAND1);
     }
-
+    
     public Long getOgLmtBand2() {
         return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.OG_LMT_BAND2);
     }
-
+    
     public Long getOgLmtBand3() {
         return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.OG_LMT_BAND3);
     }
+    */
 
-    public Long getUgLmtBand1() {
-        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.UG_LMT_BAND1);
-    }
-
-    public Long getUgLmtBand2() {
-        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.UG_LMT_BAND2);
-    }
-
-    public Long getUgLmtBand3() {
-        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.UG_LMT_BAND3);
+    public Long getOgLmtForBandBand(FhiSystemwertKeyEnum key) {
+        return configService.getKonfigurationAsLong(key);
     }
 
     public Warteschlange getWarteschlangeForPnr(final String pnr) {
@@ -576,22 +568,10 @@ public class AuftragService {
         return lapuDao.findCountGassensperre(pnr);
     }
 
-    public UmlaufWerteFuerAlleBaenderDTO getUmlaufwerteForAlleBaender()
+    public Long getUmlaufwertForBand(Long bandNr)
     {
-        List<UmlaufWerte> umlaufWerteList = umlaufWerteDao.findAllUmlaufWerteForAllBaender();
-        if (null == umlaufWerteList || umlaufWerteList.isEmpty() || umlaufWerteList.size() != 3) {
-            throw new RuntimeException("Expecting three entries is View V_UML, one for each Band");
-        }
-        UmlaufWerteFuerAlleBaenderDTO umlaufWerteFuerAlleBaenderDTO = new UmlaufWerteFuerAlleBaenderDTO();
-        Assert.notNull(umlaufWerteList.get(0).getUml(), "UML Value for Band1 must be defined in View V_UML");
-        Assert.notNull(umlaufWerteList.get(1).getUml(), "UML Value for Band2 must be defined in View V_UML");
-        Assert.notNull(umlaufWerteList.get(2).getUml(), "UML Value for Band3 must be defined in View V_UML");
-
-        umlaufWerteFuerAlleBaenderDTO.umlaufWertBand1 = umlaufWerteList.get(0).getUml();
-        umlaufWerteFuerAlleBaenderDTO.umlaufWertBand2 = umlaufWerteList.get(1).getUml();
-        umlaufWerteFuerAlleBaenderDTO.umlaufWertBand3 = umlaufWerteList.get(2).getUml();
-
-        return umlaufWerteFuerAlleBaenderDTO;
+        UmlaufWerte UmlaufWertForBand = umlaufWerteDao.findUmlaufWertForBand(bandNr);
+        return UmlaufWertForBand.getUml();
     }
 
 }

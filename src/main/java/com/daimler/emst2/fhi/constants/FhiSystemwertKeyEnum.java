@@ -139,6 +139,19 @@ public enum FhiSystemwertKeyEnum implements ISystemwertKey {
         return UNDEFINED;
     }
 
+    public static final FhiSystemwertKeyEnum getUmlOgrKeyForBand(long pBandNr) {
+        if (pBandNr == 1L) {
+            return OG_LMT_BAND1;
+        }
+        else if (pBandNr == 2L) {
+            return OG_LMT_BAND2;
+        }
+        else if (pBandNr == 3L) {
+            return OG_LMT_BAND3;
+        }
+        return UNDEFINED;
+    }
+
     private FhiSystemwertKeyEnum(String pKeyString, Class<?> pValueType) {
         systemwertKeyString = pKeyString;
         valueType = pValueType;
