@@ -15,6 +15,7 @@ import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiSeqNrObergrenze;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiVorsendungen;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckLmtOrtInvalid;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckRhmOrtInvalid;
+import com.daimler.emst2.fhi.sendung.werk060.check.CheckUmlaufwerte;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckWarteschlange;
 
 public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
@@ -70,6 +71,8 @@ public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
             return new CheckFhiVorsendungen(getProtocolService(), pruefungKennung);
         case FHI_ERREICHBARKEIT_060:
             return new CheckFhiErreichbarkeit(getProtocolService(), pruefungKennung);
+        case UMLAUF_WERTE_060:
+            return new CheckUmlaufwerte(getProtocolService(), pruefungKennung);
         case FHI_SEQNR_OBERGRENZE_060:
             return new CheckFhiSeqNrObergrenze(getProtocolService(), pruefungKennung);
         case FHI_GASSENSPERRE_060:
