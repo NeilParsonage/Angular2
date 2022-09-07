@@ -48,6 +48,7 @@ import com.daimler.emst2.fhi.jpa.dao.AuftragZeitDao;
 import com.daimler.emst2.fhi.jpa.dao.LapuDao;
 import com.daimler.emst2.fhi.jpa.dao.OrtReihenfolgeDao;
 import com.daimler.emst2.fhi.jpa.dao.SystemwertDao;
+import com.daimler.emst2.fhi.jpa.dao.UmlaufWerteDao;
 import com.daimler.emst2.fhi.jpa.dao.WarteschlangeDao;
 import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
@@ -66,6 +67,7 @@ import com.daimler.emst2.fhi.jpa.model.IAuftragAllHighestSeqNr;
 import com.daimler.emst2.fhi.jpa.model.ICountGassenperre;
 import com.daimler.emst2.fhi.jpa.model.ICountVorsendungen;
 import com.daimler.emst2.fhi.jpa.model.OrtReihenfolge;
+import com.daimler.emst2.fhi.jpa.model.UmlaufWerte;
 import com.daimler.emst2.fhi.jpa.model.Warteschlange;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragAnkuendigungenComparator;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragSperrenComparator;
@@ -84,17 +86,9 @@ public class AuftragService {
     private static final String MATERIALBEREICH_LMT = "RHM";
     private static final String MATERIALBEREICH_FHI = "FHI";
 
-    private static final String MAX_SEQUENZNUMMER = "MAX_SEQUENZNUMMER";
-
-    private static final String MAX_VORSENDUNGEN = "MAX_VORSENDUNGEN";
-
-    private static final String MAX_WARTESCHLANGE = "SYS_MAX_WARTESCHLANGE";
-
-
-
     private static final Long DEFAULT_MAX_SEQUENZNUMMER = 999999L;
 
-    public static final Long DEFAULT_ABSTAND_UMLAUF_OBERGRENZE = 1L;
+    public static final Long DEFAULT_ABSTAND_UMLAUF_OBERGRENZE = 999999L;
 
     private static final Long DEFAULT_MAX_VORSENDUNGEN = 801L;
 
@@ -161,6 +155,9 @@ public class AuftragService {
 
     @Autowired
     WarteschlangeDao warteschlangeDao;
+
+    @Autowired
+    UmlaufWerteDao umlaufWerteDao;
 
     @Autowired
     private KonfigurationService configService;
@@ -518,28 +515,9 @@ public class AuftragService {
                 DEFAULT_ABSTAND_UMLAUF_OBERGRENZE);
     }
 
-    public Long getOgLmtBand1() {
-        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.OG_LMT_BAND1);
-    }
 
-    public Long getOgLmtBand2() {
-        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.OG_LMT_BAND2);
-    }
-
-    public Long getOgLmtBand3() {
-        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.OG_LMT_BAND3);
-    }
-
-    public Long getUgLmtBand1() {
-        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.UG_LMT_BAND1);
-    }
-
-    public Long getUgLmtBand2() {
-        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.UG_LMT_BAND2);
-    }
-
-    public Long getUgLmtBand3() {
-        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.UG_LMT_BAND3);
+    public Long getOgLmtForBandBand(FhiSystemwertKeyEnum key) {
+        return configService.getKonfigurationAsLong(key);
     }
 
     public Warteschlange getWarteschlangeForPnr(final String pnr) {
@@ -568,13 +546,19 @@ public class AuftragService {
             return auftragTerminList.get(0);
         }
         */
-        //FIXME NEP What to do with error cases ?
+
         throw new RuntimeException("no individual pnr found in Auftrag_Termin Table : " + pnr);
 
     }
 
     public ICountGassenperre findCountGassensperre(final String pnr) {
         return lapuDao.findCountGassensperre(pnr);
+    }
+
+    public Long getUmlaufwertForBand(Long bandNr)
+    {
+        UmlaufWerte UmlaufWertForBand = umlaufWerteDao.findUmlaufWertForBand(bandNr);
+        return UmlaufWertForBand.getUml();
     }
 
 }

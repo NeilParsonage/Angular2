@@ -21,6 +21,12 @@ public class CheckFhiGassensperre extends AbstractSendCheck {
 
     @Override
     protected boolean doExecuteImpl(SendContext pContext) {
+
+        if (pContext.getSendTypeEnum() != SendTypeEnum.FHI) {
+            // this check only relevant for a teil-Sendung/FHI
+            return true;
+        }
+
         checkGassensperre(pContext, this.sendCheck.getTyp());
 
         // ProtocolEntry erzeugen
@@ -29,6 +35,8 @@ public class CheckFhiGassensperre extends AbstractSendCheck {
     }
 
     protected void checkGassensperre(SendContext pContext, SendTypeEnum sendTyp) {
+
+
 
         ICountGassenperre countGassenperre =
                 pContext.service.getAuftragService().findCountGassensperre(pContext.auftrag.getPnr());
