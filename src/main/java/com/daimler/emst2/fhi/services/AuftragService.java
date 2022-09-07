@@ -66,6 +66,7 @@ import com.daimler.emst2.fhi.jpa.model.AuftragZeit;
 import com.daimler.emst2.fhi.jpa.model.IAuftragAllHighestSeqNr;
 import com.daimler.emst2.fhi.jpa.model.ICountGassenperre;
 import com.daimler.emst2.fhi.jpa.model.ICountVorsendungen;
+import com.daimler.emst2.fhi.jpa.model.Lapu;
 import com.daimler.emst2.fhi.jpa.model.OrtReihenfolge;
 import com.daimler.emst2.fhi.jpa.model.UmlaufWerte;
 import com.daimler.emst2.fhi.jpa.model.Warteschlange;
@@ -93,6 +94,8 @@ public class AuftragService {
     private static final Long DEFAULT_MAX_VORSENDUNGEN = 801L;
 
     private static final Long DEFAULT_MAX_WARTESCHLANGE = 1L;
+
+    private static final Long DEFAULT_GASSE_$_ANZ = 0L;
 
     public static final Long MIN_SEQ_NR = 1L;
 
@@ -515,6 +518,14 @@ public class AuftragService {
                 DEFAULT_ABSTAND_UMLAUF_OBERGRENZE);
     }
 
+    public Long getGasse4Anz() {
+        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.GASSE_4_ANZ,
+                DEFAULT_GASSE_$_ANZ);
+    }
+
+    public Long getGasse4Max() {
+        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.GASSE_4_MAX);
+    }
 
     public Long getOgLmtForBandBand(FhiSystemwertKeyEnum key) {
         return configService.getKonfigurationAsLong(key);
@@ -553,6 +564,10 @@ public class AuftragService {
 
     public ICountGassenperre findCountGassensperre(final String pnr) {
         return lapuDao.findCountGassensperre(pnr);
+    }
+
+    public Lapu findLapuEntryByPnr(String pnr) {
+        return lapuDao.findEntryByPnr(pnr);
     }
 
     public Long getUmlaufwertForBand(Long bandNr)

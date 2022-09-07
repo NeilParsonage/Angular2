@@ -50,6 +50,10 @@ public enum FhiSystemwertKeyEnum implements ISystemwertKey {
     UG_LMT_BAND3("UG_LMT_BAND3", Long.class),
 
     SYS_AKT_FHI_TAKT("SYS_AKT_FHI_TAKT", Long.class),
+
+    GASSE_4_ANZ("GASSE_4_ANZ", Long.class),
+    GASSE_4_MAX("GASSE_4_MAX", Long.class),
+
     AUFTRAG_ZUSENDEN_VORLAUFZEIT_FHI_LADISPO("AUFTRAG.ZUSENDEN.VORLAUFZEIT_FHI_LADISPO",Long.class);
 
     private String systemwertKeyString;
