@@ -63,7 +63,7 @@ public class CheckUmlaufwerte extends AbstractSendCheck {
         Long umlOberGrenze = pContext.service.getAuftragService().getOgLmtForBandBand(fhiSystemwertKeyEnumValue);
 
         if (umlaufWertForBand + maxUmlauf >= umlOberGrenze) {
-            getProtocolService().addProtocolEntry(pContext, ProtocolMessageEnum.UMLAUF_OBERGRENZE_EXCEEDED_WARN,
+            getProtocolService().addProtocolEntry(pContext, ProtocolMessageEnum.UMLAUF_OBERGRENZE_UEBERSCHRITTEN_WARN,
                     String.valueOf(bandNr),
                     getIdentifier(),
                     SeverityEnum.WARNING);

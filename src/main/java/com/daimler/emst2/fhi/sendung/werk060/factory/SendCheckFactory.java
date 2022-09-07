@@ -72,7 +72,7 @@ public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
             return new CheckFhiVorsendungen(getProtocolService(), pruefungKennung);
         case FHI_ERREICHBARKEIT_060:
             return new CheckFhiErreichbarkeit(getProtocolService(), pruefungKennung);
-        case UMLAUF_WERTE_060:
+        case UMLAUFGRENZE_UEBERSCHRITTEN_060:
             return new CheckUmlaufwerte(getProtocolService(), pruefungKennung);
         case FHI_SEQNR_OBERGRENZE_060:
             return new CheckFhiSeqNrObergrenze(getProtocolService(), pruefungKennung);

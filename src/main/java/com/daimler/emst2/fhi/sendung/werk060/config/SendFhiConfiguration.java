@@ -26,7 +26,7 @@ public class SendFhiConfiguration extends AbstractSendConfiguration {
         addVerifiedCheck(SendCheckEnum.AUFTRAG_UPTODATE);
         addVerifiedCheck(SendCheckEnum.WARTESCHLANGE_060);
         addVerifiedCheck(SendCheckEnum.FHI_ORT_ERR);
-        addVerifiedCheck(SendCheckEnum.UMLAUF_WERTE_060);
+        addVerifiedCheck(SendCheckEnum.UMLAUFGRENZE_UEBERSCHRITTEN_060);
         addVerifiedCheck(SendCheckEnum.FHI_SEQNR_OBERGRENZE_060);
         addVerifiedCheck(SendCheckEnum.FHI_VORSENDUNGEN_060);
         addVerifiedCheck(SendCheckEnum.FHI_ERREICHBARKEIT_060);

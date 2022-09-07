@@ -11,6 +11,7 @@ import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.protocol.ProtocolService;
 import com.daimler.emst2.fhi.sendung.werk.check.AbstractSendCheck;
 import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
+import com.daimler.emst2.fhi.util.BasisObjectUtil;
 import com.daimler.emst2.fhi.util.BasisStringUtils;
 
 public class CheckFhiAnzahlGasse4 extends AbstractSendCheck {
@@ -60,23 +61,24 @@ public class CheckFhiAnzahlGasse4 extends AbstractSendCheck {
         }
 
         Lapu lapu = pContext.service.getAuftragService().findLapuEntryByPnr(auftrag.getPnr());
-        if (null != lapu) {
-            String reihe = lapu.getReihe();
-            FHISendungEnum fHISendungEnum = FHISendungEnum.getSendStatus(auftrag.getFhiSendung());
-            FHISendStatusEnum fHISendStatusEnum = FHISendStatusEnum.getSendStatus(auftrag.getFhiSendStatus());
-            if (isReihe7or8(reihe)
-                && fHISendungEnum.equals(FHISendungEnum.SENDUNG)
-                && !fHISendStatusEnum.equals(FHISendStatusEnum.PLANSEQUENZIERT)) {
-                // Determine Uml Obergrenze
-                long gasse4Anz = pContext.service.getAuftragService().getGasse4Anz();
-                long gasse4Max = pContext.service.getAuftragService().getGasse4Max();
-                if (gasse4Max <= gasse4Anz) {
-                    getProtocolService().addProtocolEntry(pContext,
-                            ProtocolMessageEnum.AUFTRAG_GASSE_4_VERLETZT_WARN,
-                            getIdentifier(),
-                            SeverityEnum.WARNING);
-                }
+        if (BasisObjectUtil.isEmptyOrNull(lapu)) {
+            return;
+        }
 
+        String reihe = lapu.getReihe();
+        FHISendungEnum fHISendungEnum = FHISendungEnum.getSendStatus(auftrag.getFhiSendung());
+        FHISendStatusEnum fHISendStatusEnum = FHISendStatusEnum.getSendStatus(auftrag.getFhiSendStatus());
+        if (isReihe7or8(reihe)
+            && fHISendungEnum.equals(FHISendungEnum.SENDUNG)
+            && !fHISendStatusEnum.equals(FHISendStatusEnum.PLANSEQUENZIERT)) {
+            // Determine Uml Obergrenze
+            long gasse4Anz = pContext.service.getAuftragService().getGasse4Anz();
+            long gasse4Max = pContext.service.getAuftragService().getGasse4Max();
+            if (gasse4Max <= gasse4Anz) {
+                getProtocolService().addProtocolEntry(pContext,
+                        ProtocolMessageEnum.AUFTRAG_GASSE_4_VERLETZT_WARN,
+                        getIdentifier(),
+                        SeverityEnum.WARNING);
             }
         }
     }
