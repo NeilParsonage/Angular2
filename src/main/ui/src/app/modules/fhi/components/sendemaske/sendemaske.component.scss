@@ -5,16 +5,32 @@ content {
 
 table {
   width: 100%;
-  // background-color: green;
 }
 
-table tr {
-  height: 1.25em;
+::ng-deep .mat-select-panel-wrap,
+.cdk-overlay-container,
+.cdk-overlay-pane {
+  z-index: 99999 !important;
 }
 
-table td,
-th {
-  padding-left: 1em !important;
+::ng-deep table td,
+table th {
+  padding-left: 0.25em !important;
   border-left: 1px solid rgba(0, 0, 0, 0.12);
-  font-size: 12px;
+  white-space: nowrap;
+}
+
+::ng-deep #bottomArea table th.mat-header-cell {
+  top: 50px !important;
+}
+
+::ng-deep table th.mat-header-cell:first-of-type,
+td.mat-cell:first-of-type,
+td.mat-footer-cell:first-of-type {
+  padding-left: 0px;
+}
+
+::ng-deep tr.mat-row,
+tr.mat-footer-row {
+  height: auto !important;
 }
