@@ -116,13 +116,19 @@ export class SendemaskeGesendetService {
     entry.istTermin = '24.05. 21:20';
 
     let data = [];
-    data.push(entry);
+    for (let i = 1; i <= 400; i++) {
+      data.push(entry);
+    }
 
     return data;
   }
 
   generateDisplayedColumnsGesendet(entryExample: Object) {
-    let columns: any = {};
+    let columns: any = {
+      paginatorConfig: {
+        pageSizeOptions: 100,
+      },
+    };
 
     let k: keyof Object;
     for (k in entryExample) {

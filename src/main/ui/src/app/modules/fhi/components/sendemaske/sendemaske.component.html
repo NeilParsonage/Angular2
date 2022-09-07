@@ -1,13 +1,46 @@
-<div #sendemaske style="width: 100%; height: 100%; background-color: white">
-  <div class="mat-elevation-z8" style="width: 100%; height: calc(100% - 150px); background-color: white">
+<div #sendemaske style="width: 100%; height: 100%; background-color: white; z-index: 1 !important">
+  <div class="mat-elevation-z8" style="width: 100%; height: 50px; background-color: white">
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle value="FHI" checked="checked">FHI</mat-button-toggle>
+      <mat-button-toggle value="BAND1">Band 1</mat-button-toggle>
+      <mat-button-toggle value="BAND2">Band 2</mat-button-toggle>
+      <mat-button-toggle value="BAND3">Band 3</mat-button-toggle>
+      <mat-button-toggle value="GESAMT">Gesamt</mat-button-toggle>
+      <mat-button-toggle value="GESAMT">Gesperrt [26]</mat-button-toggle>
+      <mat-button-toggle value="LOGBUCH">Logbuch</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <div class="mat-elevation-z8" style="width: 100%; height: calc(100% - 150px - 50px); background-color: white">
     <as-split direction="vertical">
       <as-split-area>
         <dai-table [tableConfig]="daiTableConfigTop"></dai-table>
       </as-split-area>
-      <as-split-area>
+      <as-split-area id="bottomArea">
+        <div style="position: sticky; top: 0; height: 50px; z-index: 1000; background-color: white; width: 100%">
+          <mat-form-field appearance="fill">
+            <mat-label>Sortierung</mat-label>
+            <mat-select>
+              <mat-option value="option1">Plantermin Lackende</mat-option>
+              <mat-option value="option2">Sendbare nach LASDISPO</mat-option>
+              <mat-option value="option3">Perlenfenster</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+            <mat-button-toggle value="KRITERIEN">Kriterien</mat-button-toggle>
+            <mat-button-toggle value="STERNENHIMMEL" checked="checked">Sternenhimmel</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
         <dai-table [tableConfig]="daiTableConfigBottom"></dai-table>
       </as-split-area>
     </as-split>
-    <div class="mat-elevation-z8" style="width: 100%; height: 150px; background-color: white">TERMINE</div>
+    <div class="mat-elevation-z8" style="width: 100%; height: 150px; background-color: white">
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle value="FHI" checked="checked">FHI</mat-button-toggle>
+        <mat-button-toggle value="BAND1">Band 1</mat-button-toggle>
+        <mat-button-toggle value="BAND2">Band 2</mat-button-toggle>
+        <mat-button-toggle value="BAND3">Band 3</mat-button-toggle>
+        <mat-button-toggle value="GESAMT">CKD/ET</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
   </div>
 </div>

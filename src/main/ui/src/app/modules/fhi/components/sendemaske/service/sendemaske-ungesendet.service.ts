@@ -142,7 +142,10 @@ export class SendemaskeUngesendetService {
     entry['sollRfBand'] = '100';
 
     let data = [];
-    data.push(entry);
+
+    for (let i = 1; i <= 400; i++) {
+      data.push(entry);
+    }
 
     return data;
   }

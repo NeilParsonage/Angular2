@@ -1,5 +1,5 @@
 import { AfterContentInit, Component, OnInit, ViewChild } from '@angular/core';
-import { DaiTableConfig } from 'emst-table';
+import { DaiPaginatorConfig, DaiTableConfig } from 'emst-table';
 import { first } from 'rxjs/operators';
 import { ContextService } from 'src/app/core/services/context.service';
 import { ProtocolEntry } from '../../models/protocol-entry';
@@ -36,14 +36,26 @@ export class SendemaskeComponent implements OnInit, AfterContentInit {
     let dataSourceTop = this.gesendetService.generateTableColumnsGesendet(this.sizeSternenhimmel());
     let dataSourceDown = this.ungesendetService.generateTableColumnsUngesendet(this.sizeSternenhimmel());
 
-    this.daiTableConfigTop = new DaiTableConfig(dataSourceTop, this.gesendetService.generateDisplayedColumnsGesendet(dataSourceTop[0]));
-    this.daiTableConfigBottom = new DaiTableConfig(dataSourceDown, this.ungesendetService.generateDisplayedColumnsUngesendet(dataSourceDown[0]));
+    this.daiTableConfigTop = new DaiTableConfig(
+      dataSourceTop,
+      this.gesendetService.generateDisplayedColumnsGesendet(dataSourceTop[0]),
+      this.getPaginatorConfig()
+    );
+    this.daiTableConfigBottom = new DaiTableConfig(
+      dataSourceDown,
+      this.ungesendetService.generateDisplayedColumnsUngesendet(dataSourceDown[0]),
+      this.getPaginatorConfig()
+    );
 
     // let elem = this.document.documentElement;
     this.contextService
       .afterRendered()
       .pipe(first())
       .subscribe(() => this.toggleFullscreen());
+  }
+
+  getPaginatorConfig(): DaiPaginatorConfig {
+    return new DaiPaginatorConfig(true, null, ['100']);
   }
 
   toggleFullscreen() {
