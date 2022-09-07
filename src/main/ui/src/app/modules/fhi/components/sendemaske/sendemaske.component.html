@@ -1,14 +1,32 @@
 <div #sendemaske style="width: 100%; height: 100%; background-color: white; z-index: 1 !important">
   <div class="mat-elevation-z8" style="width: 100%; height: 50px; background-color: white">
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-      <mat-button-toggle value="FHI" checked="checked">FHI</mat-button-toggle>
-      <mat-button-toggle value="BAND1">Band 1</mat-button-toggle>
-      <mat-button-toggle value="BAND2">Band 2</mat-button-toggle>
-      <mat-button-toggle value="BAND3">Band 3</mat-button-toggle>
-      <mat-button-toggle value="GESAMT">Gesamt</mat-button-toggle>
-      <mat-button-toggle value="GESAMT">Gesperrt [26]</mat-button-toggle>
-      <mat-button-toggle value="LOGBUCH">Logbuch</mat-button-toggle>
-    </mat-button-toggle-group>
+    <div fxLayout="row">
+      <div fxLayout="column" fxFlex="60" fxLayoutAlign="start start">
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+          <mat-button-toggle value="FHI" checked="checked">FHI</mat-button-toggle>
+          <mat-button-toggle value="BAND1">Band 1</mat-button-toggle>
+          <mat-button-toggle value="BAND2">Band 2</mat-button-toggle>
+          <mat-button-toggle value="BAND3">Band 3</mat-button-toggle>
+          <mat-button-toggle value="GESAMT">Gesamt</mat-button-toggle>
+          <mat-button-toggle value="GESAMT">Gesperrt [26]</mat-button-toggle>
+          <mat-button-toggle value="LOGBUCH">Logbuch</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <div fxLayout="column" fxFlex="10" fxLayoutAlign="start start">
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+          <mat-button-toggle value="ORTFHI" checked="checked">Ort FHI</mat-button-toggle>
+          <mat-button-toggle value="ORTRHM">Ort RHM</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <div fxLayout="column" fxFlex="30" fxLayoutAlign="start end">
+        <mat-paginator
+          #paginatorTop
+          [pageSizeOptions]="getPaginatorConfig().pageSizeOptions"
+          showFirstLastButtons
+          (page)="pageChangeTop($event)"
+        ></mat-paginator>
+      </div>
+    </div>
   </div>
   <div class="mat-elevation-z8" style="width: 100%; height: calc(100% - 150px - 50px); background-color: white">
     <as-split direction="vertical">
@@ -17,30 +35,73 @@
       </as-split-area>
       <as-split-area id="bottomArea">
         <div style="position: sticky; top: 0; height: 50px; z-index: 1000; background-color: white; width: 100%">
-          <mat-form-field appearance="fill">
-            <mat-label>Sortierung</mat-label>
-            <mat-select>
-              <mat-option value="option1">Plantermin Lackende</mat-option>
-              <mat-option value="option2">Sendbare nach LASDISPO</mat-option>
-              <mat-option value="option3">Perlenfenster</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-            <mat-button-toggle value="KRITERIEN">Kriterien</mat-button-toggle>
-            <mat-button-toggle value="STERNENHIMMEL" checked="checked">Sternenhimmel</mat-button-toggle>
-          </mat-button-toggle-group>
+          <div fxLayout="row">
+            <div fxLayout="column" fxFlex="12" fxLayoutAlign="start start">
+              <mat-form-field appearance="fill">
+                <mat-label>Sortierung</mat-label>
+                <mat-select [(value)]="sendSortedBy">
+                  <mat-option value="lackende">Plantermin Lackende</mat-option>
+                  <mat-option value="ladispo">Sendbare nach LASDISPO</mat-option>
+                  <mat-option value="perlen">Perlenfenster</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxLayout="column" fxFlex="12" fxLayoutAlign="start start">
+              <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                <mat-button-toggle value="TKL" checked="checked">TKL / Länge</mat-button-toggle>
+                <mat-button-toggle value="FZGBM">FZGBM</mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+            <div fxLayout="column" fxFlex="12" fxLayoutAlign="start start">
+              <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                <mat-button-toggle value="ORTFHI" checked="checked">Ort FHI</mat-button-toggle>
+                <mat-button-toggle value="ORTRHM">Ort RHM</mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+            <div fxLayout="column" fxFlex="20" fxLayoutAlign="start start">
+              <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                <mat-button-toggle value="LADISPO" checked="checked">LADISPO</mat-button-toggle>
+                <mat-button-toggle value="PTFHI">Plan T.-FHI</mat-button-toggle>
+                <mat-button-toggle value="PTRHM">Plan T.-RHM</mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+            <div fxLayout="column" fxFlex="25" fxLayoutAlign="start start">
+              <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                <mat-button-toggle value="KRITERIEN">Kriterien</mat-button-toggle>
+                <mat-button-toggle value="STERNENHIMMEL" checked="checked">Sternenhimmel</mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+            <div fxLayout="column" fxFlex="25" fxLayoutAlign="start start">
+              <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                <mat-button-toggle value="PAT" checked="checked">PAT</mat-button-toggle>
+                <mat-button-toggle value="SAT">SAT</mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+          </div>
         </div>
         <dai-table [tableConfig]="daiTableConfigBottom"></dai-table>
       </as-split-area>
     </as-split>
     <div class="mat-elevation-z8" style="width: 100%; height: 150px; background-color: white">
-      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-        <mat-button-toggle value="FHI" checked="checked">FHI</mat-button-toggle>
-        <mat-button-toggle value="BAND1">Band 1</mat-button-toggle>
-        <mat-button-toggle value="BAND2">Band 2</mat-button-toggle>
-        <mat-button-toggle value="BAND3">Band 3</mat-button-toggle>
-        <mat-button-toggle value="GESAMT">CKD/ET</mat-button-toggle>
-      </mat-button-toggle-group>
+      <div fxLayout="row">
+        <div fxLayout="column" fxFlex="100" fxLayoutAlign="center start">
+          <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+            <mat-button-toggle value="FHI" checked="checked">FHI</mat-button-toggle>
+            <mat-button-toggle value="BAND1">Band 1</mat-button-toggle>
+            <mat-button-toggle value="BAND2">Band 2</mat-button-toggle>
+            <mat-button-toggle value="BAND3">Band 3</mat-button-toggle>
+            <mat-button-toggle value="GESAMT">CKD/ET</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+        <div fxLayout="column" fxFlex="100" fxLayoutAlign="center end">
+          <mat-paginator
+            #paginatorTop
+            [pageSizeOptions]="getPaginatorConfig().pageSizeOptions"
+            showFirstLastButtons
+            (page)="pageChangeTop($event)"
+          ></mat-paginator>
+        </div>
+      </div>
     </div>
   </div>
 </div>

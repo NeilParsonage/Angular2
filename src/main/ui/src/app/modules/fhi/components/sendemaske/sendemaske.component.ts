@@ -22,6 +22,8 @@ export class SendemaskeComponent implements OnInit, AfterContentInit {
 
   daiTableConfigBottom: DaiTableConfig = null;
 
+  sendSortedBy = 'ladispo';
+
   @ViewChild('sendemaske') selfComponent: any;
 
   constructor(
@@ -103,6 +105,10 @@ export class SendemaskeComponent implements OnInit, AfterContentInit {
     }
     return false;
   }
+
+  pageChangeTop($event) {}
+
+  pageChangeBottom($event) {}
 
   sizeSternenhimmel(): number {
     return 35;
