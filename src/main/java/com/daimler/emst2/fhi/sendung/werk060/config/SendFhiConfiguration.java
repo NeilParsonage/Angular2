@@ -32,6 +32,7 @@ public class SendFhiConfiguration extends AbstractSendConfiguration {
         addVerifiedCheck(SendCheckEnum.FHI_ERREICHBARKEIT_060);
         addVerifiedCheck(SendCheckEnum.FHI_AUFTRAG_SPERREN_FUER_BEREICH_060);
         addVerifiedCheck(SendCheckEnum.FHI_GASSENSPERRE_060);
+        addVerifiedCheck(SendCheckEnum.FHI_GASSE_4_060);
 
     }
 

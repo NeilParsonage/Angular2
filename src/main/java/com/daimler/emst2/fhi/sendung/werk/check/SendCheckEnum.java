@@ -37,7 +37,9 @@ public enum SendCheckEnum implements IProcessId {
 
     FHI_GASSENSPERRE_060("gassensperre.warning.fhi", SendTypeEnum.FHI, 1100),
 
-    AUFTRAG_ANZAHL_FREIE_060("anzahlfreie.warning.fhi", SendTypeEnum.UNDEFINED, 1200),
+    FHI_GASSE_4_060("gasse4.warning.fhi", SendTypeEnum.FHI, 1200),
+
+    AUFTRAG_ANZAHL_FREIE_060("anzahlfreie.warning.fhi", SendTypeEnum.UNDEFINED, 1300),
 
 
     ;
