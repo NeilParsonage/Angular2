@@ -42,12 +42,12 @@ public enum FhiSystemwertKeyEnum implements ISystemwertKey {
     MAX_VORSENDUNGEN("MAX_VORSENDUNGEN", Long.class),
     MAX_SEQUENZNUMMER("MAX_SEQUENZNUMMER", Long.class),
 
-    OG_LMT_BAND1("OG_LMT_BAND1", Long.class),
-    OG_LMT_BAND2("OG_LMT_BAND2", Long.class),
-    OG_LMT_BAND3("OG_LMT_BAND3", Long.class),
-    UG_LMT_BAND1("UG_LMT_BAND1", Long.class),
-    UG_LMT_BAND2("UG_LMT_BAND2", Long.class),
-    UG_LMT_BAND3("UG_LMT_BAND3", Long.class),
+    OG_UML_BAND1("OG_UML_BAND1", Long.class),
+    OG_UML_BAND2("OG_UML_BAND2", Long.class),
+    OG_UML_BAND3("OG_UML_BAND3", Long.class),
+    UG_UML_BAND1("UG_UML_BAND1", Long.class),
+    UG_UML_BAND2("UG_UML_BAND2", Long.class),
+    UG_UML_BAND3("UG_UML_BAND3", Long.class),
 
     SYS_AKT_FHI_TAKT("SYS_AKT_FHI_TAKT", Long.class),
 
@@ -145,13 +145,13 @@ public enum FhiSystemwertKeyEnum implements ISystemwertKey {
 
     public static final FhiSystemwertKeyEnum getUmlOgrKeyForBand(long pBandNr) {
         if (pBandNr == 1L) {
-            return OG_LMT_BAND1;
+            return OG_UML_BAND1;
         }
         else if (pBandNr == 2L) {
-            return OG_LMT_BAND2;
+            return OG_UML_BAND2;
         }
         else if (pBandNr == 3L) {
-            return OG_LMT_BAND3;
+            return OG_UML_BAND3;
         }
         return UNDEFINED;
     }
