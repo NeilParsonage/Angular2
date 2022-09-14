@@ -161,7 +161,7 @@ public class SendungService implements ISendungServiceDao, ISendungService {
     public SendContext senden(SendungDTO sendung, Protocol protocol,
             Map<SendCheckEnum, ProtocolEntryDTO> userProtocolCheckEntries) {
 
-        SendTypeEnum sendType = SendTypeEnum.valueOf(sendung.sendeTyp);
+        //SendTypeEnum sendType = SendTypeEnum.valueOf(sendung.sendeTyp);
         Auftrag auftrag = getAuftragByPnrAndVersion(sendung.pnr, sendung.version);
         if (ObjectUtils.isEmpty(auftrag)) {
             throw new RuntimeException("Could not find PNR");
