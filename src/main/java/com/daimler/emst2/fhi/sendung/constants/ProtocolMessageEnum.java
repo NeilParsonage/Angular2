@@ -34,7 +34,7 @@ public enum ProtocolMessageEnum {
     STORNO_DONE_INFO("protocol.msg.info.storno.done"),
     ANZAHL_FREIE_VERLETZT_WARN("warning.sendepruef.anzahlfreie"),
 
-    AUFTRAG_SPERREN_VERLETZT_SINGULAR_LEER_WARN("   warning.sendepruef.auftrag.sperren.keinbereich"), // dbmessage.senden.30027
+    AUFTRAG_SPERREN_VERLETZT_SINGULAR_LEER_WARN("warning.sendepruef.auftrag.sperren.keinbereich"), // dbmessage.senden.30027
     AUFTRAG_SPERREN_VERLETZT_SINGULAR_FHI_OR_RHM_WARN("warning.sendepruef.auftrag.sperren.fhioderrhm"), // dbmessage.senden.30030
     AUFTRAG_SPERREN_VERLETZT_SEVERAL_AREAS_WARN("warning.sendepruef.auftrag.sperren.fhiundrrhm"), // dbmessage.senden.30031
 
