@@ -1,42 +1,78 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnInit, ViewChild } from '@angular/core';
+import { DaiPaginatorConfig, DaiTableConfig } from 'emst-table';
+import { first } from 'rxjs/operators';
+import { ContextService } from 'src/app/core/services/context.service';
 import { ProtocolEntry } from '../../models/protocol-entry';
 import { ProtocolSeverity } from '../../models/protocol-severity';
+import { SendemaskeGesendetService } from './service/sendemaske-gesendet.service';
+import { SendemaskeUngesendetService } from './service/sendemaske-ungesendet.service';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
-
+// const ELEMENT_DATA: PeriodicElement[] = [{ position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' }];
 @Component({
   selector: 'app-sendemaske',
   templateUrl: './sendemaske.component.html',
   styleUrls: ['./sendemaske.component.scss'],
 })
-export class SendemaskeComponent implements OnInit {
-  displayedColumnsTop: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSourceTop = ELEMENT_DATA;
+export class SendemaskeComponent implements OnInit, AfterContentInit {
+  // private dataSourceTop = [{ band: 2, pnr: '13641290', tkl: 'H941 H424', sternenhimmel: 'x' }];
 
-  displayedColumnsDown: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSourceDown = ELEMENT_DATA;
+  // private dataSourceDown = this.generateTableColumnsUngesendet();
 
-  constructor() {}
+  daiTableConfigTop: DaiTableConfig = null;
 
-  ngOnInit(): void {}
+  daiTableConfigBottom: DaiTableConfig = null;
+
+  sendSortedBy = 'ladispo';
+
+  @ViewChild('sendemaske') selfComponent: any;
+
+  constructor(
+    private contextService: ContextService,
+    private gesendetService: SendemaskeGesendetService,
+    private ungesendetService: SendemaskeUngesendetService //  private host: ElementRef<HTMLElement>
+  ) {}
+
+  ngAfterContentInit(): void {}
+
+  ngOnInit(): void {
+    let dataSourceTop = this.gesendetService.generateTableColumnsGesendet(this.sizeSternenhimmel());
+    let dataSourceDown = this.ungesendetService.generateTableColumnsUngesendet(this.sizeSternenhimmel());
+
+    this.daiTableConfigTop = new DaiTableConfig(
+      dataSourceTop,
+      this.gesendetService.generateDisplayedColumnsGesendet(dataSourceTop[0]),
+      this.getPaginatorConfig()
+    );
+    this.daiTableConfigBottom = new DaiTableConfig(
+      dataSourceDown,
+      this.ungesendetService.generateDisplayedColumnsUngesendet(dataSourceDown[0]),
+      this.getPaginatorConfig()
+    );
+
+    // let elem = this.document.documentElement;
+    this.contextService
+      .afterRendered()
+      .pipe(first())
+      .subscribe(() => this.toggleFullscreen());
+  }
+
+  getPaginatorConfig(): DaiPaginatorConfig {
+    return new DaiPaginatorConfig(true, null, ['100']);
+  }
+
+  toggleFullscreen() {
+    // let elem1 = document.querySelector('app-sendemaske');
+    let elem = this.selfComponent.nativeElement;
+    // let elem = document.documentElement;
+
+    if (!document.fullscreenElement) {
+      elem.requestFullscreen().catch(err => {
+        // alert(`Error attempting to enable fullscreen mode: ${err.message} (${err.name})`);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  }
 
   getProtocolEntries(allEntries: ProtocolEntry[]): ProtocolEntry[] {
     const errorCases = Array<ProtocolEntry>();
@@ -68,5 +104,13 @@ export class SendemaskeComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  pageChangeTop($event) {}
+
+  pageChangeBottom($event) {}
+
+  sizeSternenhimmel(): number {
+    return 35;
   }
 }

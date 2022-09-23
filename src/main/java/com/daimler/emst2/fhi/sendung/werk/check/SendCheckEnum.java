@@ -30,12 +30,17 @@ public enum SendCheckEnum implements IProcessId {
 
     FHI_ERREICHBARKEIT_060("erreichbarkeit.warning.fhi", SendTypeEnum.FHI, 800),
 
-    FHI_AUFTRAG_SPERREN_FUER_BEREICH_060("auftragSperrenFuerBereich.warning.fhi", SendTypeEnum.FHI, 900),
-    RHM_AUFTRAG_SPERREN_FUER_BEREICH_060("auftragSperrenFuerBereich.warning.rhm", SendTypeEnum.RHM, 900),
+    FHI_UMLAUFGRENZE_UEBERSCHRITTEN_060("erreichbarkeit.warning.fhi", SendTypeEnum.FHI, 900),
+    RHM_UMLAUFGRENZE_UEBERSCHRITTEN_060("erreichbarkeit.warning.fhi", SendTypeEnum.RHM, 900),
 
-    FHI_GASSENSPERRE_060("gassensperre.warning.fhi", SendTypeEnum.FHI, 1000),
+    FHI_AUFTRAG_SPERREN_FUER_BEREICH_060("auftragSperrenFuerBereich.warning.fhi", SendTypeEnum.FHI, 1000),
+    RHM_AUFTRAG_SPERREN_FUER_BEREICH_060("auftragSperrenFuerBereich.warning.rhm", SendTypeEnum.RHM, 1000),
 
-    AUFTRAG_ANZAHL_FREIE_060("anzahlfreie.warning.fhi", SendTypeEnum.UNDEFINED, 1100),
+    FHI_GASSENSPERRE_060("gassensperre.warning.fhi", SendTypeEnum.FHI, 1100),
+
+    FHI_GASSE_4_060("gasse4.warning.fhi", SendTypeEnum.FHI, 1200),
+
+    AUFTRAG_ANZAHL_FREIE_060("anzahlfreie.warning.fhi", SendTypeEnum.UNDEFINED, 1300),
 
 
     ;

@@ -8,6 +8,7 @@ import com.daimler.emst2.fhi.sendung.werk.check.CheckDummyToImplement;
 import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckAuftragSperren;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiAnzahlFreie;
+import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiAnzahlGasse4;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiErreichbarkeit;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiGassensperre;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiOrtInvalid;
@@ -15,6 +16,7 @@ import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiSeqNrObergrenze;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckFhiVorsendungen;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckLmtOrtInvalid;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckRhmOrtInvalid;
+import com.daimler.emst2.fhi.sendung.werk060.check.CheckUmlaufwerte;
 import com.daimler.emst2.fhi.sendung.werk060.check.CheckWarteschlange;
 
 public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
@@ -70,10 +72,16 @@ public class SendCheckFactory implements ICheckFactory<SendCheckEnum> {
             return new CheckFhiVorsendungen(getProtocolService(), pruefungKennung);
         case FHI_ERREICHBARKEIT_060:
             return new CheckFhiErreichbarkeit(getProtocolService(), pruefungKennung);
+        case FHI_UMLAUFGRENZE_UEBERSCHRITTEN_060:
+            return new CheckUmlaufwerte(getProtocolService(), pruefungKennung);
+        case RHM_UMLAUFGRENZE_UEBERSCHRITTEN_060:
+            return new CheckUmlaufwerte(getProtocolService(), pruefungKennung);
         case FHI_SEQNR_OBERGRENZE_060:
             return new CheckFhiSeqNrObergrenze(getProtocolService(), pruefungKennung);
         case FHI_GASSENSPERRE_060:
             return new CheckFhiGassensperre(getProtocolService(), pruefungKennung);
+        case FHI_GASSE_4_060:
+            return new CheckFhiAnzahlGasse4(getProtocolService(), pruefungKennung);
         case AUFTRAG_ANZAHL_FREIE_060:
             return new CheckFhiAnzahlFreie(getProtocolService());
         case FHI_AUFTRAG_SPERREN_FUER_BEREICH_060:

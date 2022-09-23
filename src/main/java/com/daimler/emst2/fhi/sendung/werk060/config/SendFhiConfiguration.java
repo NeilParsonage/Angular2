@@ -26,11 +26,13 @@ public class SendFhiConfiguration extends AbstractSendConfiguration {
         addVerifiedCheck(SendCheckEnum.AUFTRAG_UPTODATE);
         addVerifiedCheck(SendCheckEnum.WARTESCHLANGE_060);
         addVerifiedCheck(SendCheckEnum.FHI_ORT_ERR);
+        addVerifiedCheck(SendCheckEnum.FHI_UMLAUFGRENZE_UEBERSCHRITTEN_060);
         addVerifiedCheck(SendCheckEnum.FHI_SEQNR_OBERGRENZE_060);
         addVerifiedCheck(SendCheckEnum.FHI_VORSENDUNGEN_060);
         addVerifiedCheck(SendCheckEnum.FHI_ERREICHBARKEIT_060);
         addVerifiedCheck(SendCheckEnum.FHI_AUFTRAG_SPERREN_FUER_BEREICH_060);
         addVerifiedCheck(SendCheckEnum.FHI_GASSENSPERRE_060);
+        addVerifiedCheck(SendCheckEnum.FHI_GASSE_4_060);
 
     }
 

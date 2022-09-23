@@ -61,7 +61,9 @@ public abstract class AbstractCheckOrtError extends AbstractSendCheck {
         boolean isFeatureActivated = FhiMandantEnum.WERK_060.equals(pContext.mandantEnum);
         if (isFeatureActivated && !isSendbar) {
             // FIXME WERK-152 thb sobald die Ortspruefungen spezifiziert und in der DB konfiguriert sind wird diese Protokollierung eingefuegt.
-            getProtocolService().addProtocolEntry(pContext, ProtocolMessageEnum.ORT_SENDUNG_ERR, getIdentifier(),
+            String auftragsOrt = pContext.getAuftrag().getOrt();
+            getProtocolService().addProtocolEntry(pContext, ProtocolMessageEnum.ORT_SENDUNG_ERR, auftragsOrt,
+                    getIdentifier(),
                     SeverityEnum.ERROR);
             return false;
         }

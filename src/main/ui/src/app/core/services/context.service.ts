@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { UiMessage } from 'src/app/shared/models/ui-message';
 import { MessageUtil } from 'src/app/shared/utils/message-util';
@@ -15,6 +15,58 @@ export class ContextService {
   private isBackendRequestInProgress$ = new BehaviorSubject<boolean>(false);
 
   private pageUserMessage$ = new Subject<UiMessage>();
+
+  private scrollPos: { top: number; left: number };
+
+  private rendered$ = new Subject<any>();
+
+  constructor(private ngZone: NgZone) {
+    console.log('+++++ new ContextService');
+    this.initReadyRenderer();
+  }
+
+  initReadyRenderer() {
+    // https://github.com/angular/components/issues/8068
+    this.ngZone.onStable.subscribe(() => {
+      console.log('Finished rendering');
+      this.rendered$.next(true);
+    });
+  }
+
+  afterRendered(): Observable<any> {
+    return this.rendered$.asObservable();
+  }
+
+  clearScrollPosition() {
+    this.scrollPos = null;
+  }
+
+  storeScrollPosition() {
+    const pos = this.getScrollPosition();
+    this.scrollPos = { top: pos.top, left: pos.left };
+  }
+
+  restoreScrollPosition() {
+    if (!this.scrollPos) {
+      return;
+    }
+    this.setScrollPosition(this.scrollPos.left, this.scrollPos.top);
+  }
+
+  public getScrollPosition() {
+    const elem = this.getScrollElement();
+    return { top: elem.scrollTop, left: elem.scrollLeft };
+  }
+
+  public setScrollPosition(left: number, top: number) {
+    const elem = this.getScrollElement();
+    elem.scrollTop = top;
+    elem.scrollLeft = left;
+  }
+
+  private getScrollElement() {
+    return document.getElementById('mainScroll');
+  }
 
   updateConnectionWorkingState(isworking: boolean): void {
     this.connectionOk = isworking;

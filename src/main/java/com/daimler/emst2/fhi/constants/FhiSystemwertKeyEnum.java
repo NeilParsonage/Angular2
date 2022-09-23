@@ -37,7 +37,23 @@ public enum FhiSystemwertKeyEnum implements ISystemwertKey {
 
     SHOW_DEBUG_PROTOCOL("DEBUG.SHOW.PROTOCOLENTRIES", Long.class),
 
+    ABSTAND_UMLAUF_OBERGRENZE("ABSTAND_UMLAUF_OBERGRENZE", Long.class),
+    MAX_WARTESCHLANGE("SYS_MAX_WARTESCHLANGE", Long.class),
+    MAX_VORSENDUNGEN("MAX_VORSENDUNGEN", Long.class),
+    MAX_SEQUENZNUMMER("MAX_SEQUENZNUMMER", Long.class),
+
+    OG_UML_BAND1("OG_UML_BAND1", Long.class),
+    OG_UML_BAND2("OG_UML_BAND2", Long.class),
+    OG_UML_BAND3("OG_UML_BAND3", Long.class),
+    UG_UML_BAND1("UG_UML_BAND1", Long.class),
+    UG_UML_BAND2("UG_UML_BAND2", Long.class),
+    UG_UML_BAND3("UG_UML_BAND3", Long.class),
+
     SYS_AKT_FHI_TAKT("SYS_AKT_FHI_TAKT", Long.class),
+
+    GASSE_4_ANZ("GASSE_4_ANZ", Long.class),
+    GASSE_4_MAX("GASSE_4_MAX", Long.class),
+
     AUFTRAG_ZUSENDEN_VORLAUFZEIT_FHI_LADISPO("AUFTRAG.ZUSENDEN.VORLAUFZEIT_FHI_LADISPO",Long.class);
 
     private String systemwertKeyString;
@@ -123,6 +139,19 @@ public enum FhiSystemwertKeyEnum implements ISystemwertKey {
         }
         else if (pBandNr == 5) {
             return LFD_NR_UBM_5;
+        }
+        return UNDEFINED;
+    }
+
+    public static final FhiSystemwertKeyEnum getUmlOgrKeyForBand(long pBandNr) {
+        if (pBandNr == 1L) {
+            return OG_UML_BAND1;
+        }
+        else if (pBandNr == 2L) {
+            return OG_UML_BAND2;
+        }
+        else if (pBandNr == 3L) {
+            return OG_UML_BAND3;
         }
         return UNDEFINED;
     }

@@ -77,7 +77,22 @@ public class SendungenService extends AbstractProcessService<SendPreconditionEnu
         if (sendList.isEmpty()
             || (!SendTypeEnum.KOMPLETT.equals(sendTypeEnum) && !SendungUtil.isSendungOffen(auftrag, sendTypeEnum))) {
             Protocol protocol = pContext.getProtocol();
-			protocol.addEntry(new ProtocolEntry(sendTypeEnum, new ProtocolMessage(ProtocolMessageEnum.AUFTRAG_SENDUNG_NICHT_OFFEN_ERR), SeverityEnum.ERROR));
+
+            if (sendTypeEnum == SendTypeEnum.FHI) {
+                protocol.addEntry(new ProtocolEntry(sendTypeEnum,
+                        new ProtocolMessage(ProtocolMessageEnum.AUFTRAG_SENDUNG_NICHT_OFFEN_FHI_ERR),
+                        SeverityEnum.ERROR));
+            }
+            else if (sendTypeEnum == SendTypeEnum.RHM) {
+                protocol.addEntry(new ProtocolEntry(sendTypeEnum,
+                        new ProtocolMessage(ProtocolMessageEnum.AUFTRAG_SENDUNG_NICHT_OFFEN_RHM_ERR),
+                        SeverityEnum.ERROR));
+            }
+            else if (sendTypeEnum.isKomplett()) {
+                protocol.addEntry(new ProtocolEntry(sendTypeEnum,
+                        new ProtocolMessage(ProtocolMessageEnum.AUFTRAG_SENDUNG_NICHT_OFFEN_KOMPLETT_ERR),
+                        SeverityEnum.ERROR));
+            }
 		}
 
 		return sendList;

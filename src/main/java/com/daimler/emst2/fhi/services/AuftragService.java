@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import com.daimler.emst2.fhi.constants.AuftragSeqNrEnum;
+import com.daimler.emst2.fhi.constants.FhiSystemwertKeyEnum;
 import com.daimler.emst2.fhi.dto.AuftragAggregateDTO;
 import com.daimler.emst2.fhi.dto.AuftragCodesDTO;
 import com.daimler.emst2.fhi.dto.AuftragDTO;
@@ -51,6 +52,7 @@ import com.daimler.emst2.fhi.jpa.dao.AuftragZeitDao;
 import com.daimler.emst2.fhi.jpa.dao.LapuDao;
 import com.daimler.emst2.fhi.jpa.dao.OrtReihenfolgeDao;
 import com.daimler.emst2.fhi.jpa.dao.SystemwertDao;
+import com.daimler.emst2.fhi.jpa.dao.UmlaufWerteDao;
 import com.daimler.emst2.fhi.jpa.dao.WarteschlangeDao;
 import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
@@ -69,8 +71,9 @@ import com.daimler.emst2.fhi.jpa.model.AuftragZeit;
 import com.daimler.emst2.fhi.jpa.model.IAuftragAllHighestSeqNr;
 import com.daimler.emst2.fhi.jpa.model.ICountGassenperre;
 import com.daimler.emst2.fhi.jpa.model.ICountVorsendungen;
+import com.daimler.emst2.fhi.jpa.model.Lapu;
 import com.daimler.emst2.fhi.jpa.model.OrtReihenfolge;
-import com.daimler.emst2.fhi.jpa.model.Systemwert;
+import com.daimler.emst2.fhi.jpa.model.UmlaufWerte;
 import com.daimler.emst2.fhi.jpa.model.Warteschlange;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragAnkuendigungenComparator;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragSperrenComparator;
@@ -89,17 +92,15 @@ public class AuftragService {
     private static final String MATERIALBEREICH_LMT = "RHM";
     private static final String MATERIALBEREICH_FHI = "FHI";
 
-    private static final String MAX_SEQUENZNUMMER = "MAX_SEQUENZNUMMER";
-
-    private static final String MAX_VORSENDUNGEN = "MAX_VORSENDUNGEN";
-
-    private static final String MAX_WARTESCHLANGE = "SYS_MAX_WARTESCHLANGE";
-
     private static final Long DEFAULT_MAX_SEQUENZNUMMER = 999999L;
+
+    public static final Long DEFAULT_ABSTAND_UMLAUF_OBERGRENZE = 999999L;
 
     private static final Long DEFAULT_MAX_VORSENDUNGEN = 801L;
 
     private static final Long DEFAULT_MAX_WARTESCHLANGE = 1L;
+
+    private static final Long DEFAULT_GASSE_$_ANZ = 0L;
 
     public static final Long MIN_SEQ_NR = 1L;
 
@@ -167,6 +168,12 @@ public class AuftragService {
 
     @Autowired
     WarteschlangeDao warteschlangeDao;
+
+    @Autowired
+    UmlaufWerteDao umlaufWerteDao;
+
+    @Autowired
+    private KonfigurationService configService;
 
     public AuftragDTO getAuftragByPnr(String pnr) {
         Optional<Auftrag> result = auftragDao.findById(pnr);
@@ -483,19 +490,15 @@ public class AuftragService {
 
         OrtReihenfolge rtReihenfolgeQuer = ortReihenfolgeDao.findOrtReihenfolgeForOrt(OrtEnum.QUER.getTyp());
         if (ObjectUtils.isEmpty(rtReihenfolgeQuer.getOrtRfFabrik())) {
-
             throw new RuntimeException(String.format("Ort_Reihenfolge entry for QUER not found"));
         }
 
-        BigDecimal ortRfFabrikAsBigDecimal = rtReihenfolgeQuer.getOrtRfFabrik();
         ICountVorsendungen countVorsendungen =
                 findMaxSeqNummernVonAuftragQuer((rtReihenfolgeQuer.getOrtRfFabrik()));
 
         if (ObjectUtils.isEmpty(countVorsendungen.getMaxVorsendungen())) {
-
             throw new RuntimeException(String.format("Anzahl Vorsendungen kann nicht ermittelt werden"));
         }
-        Long count = countVorsendungen.getMaxVorsendungen();
         return countVorsendungen.getMaxVorsendungen();
     }
 
@@ -506,48 +509,36 @@ public class AuftragService {
     
     
     public Long getMaxSeqNummer() {
-
-        Systemwert systemwert = systemWertDao.findByWertName(MAX_SEQUENZNUMMER);
-        Long maxSeqNumAsLong = DEFAULT_MAX_SEQUENZNUMMER;
-        if (null != systemwert) {
-            Long maxSeqNumAsBigDecimal = systemwert.getWertNum();
-            if (null != maxSeqNumAsBigDecimal) {
-                maxSeqNumAsLong = maxSeqNumAsBigDecimal.longValue();
-            }
-        }
-        else {
-
-        }
-        return maxSeqNumAsLong;
+        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.MAX_SEQUENZNUMMER,
+                DEFAULT_MAX_SEQUENZNUMMER);
     }
 
     public Long getMaxVorsendungen() {
-
-        Systemwert systemwert = systemWertDao.findByWertName(MAX_VORSENDUNGEN);
-        Long maxVoresendungenAsLong = DEFAULT_MAX_VORSENDUNGEN;
-        if (null != systemwert) {
-            Long maxVoresendungenAsBigDecimal = systemwert.getWertNum();
-            if (null != maxVoresendungenAsBigDecimal) {
-                maxVoresendungenAsLong = maxVoresendungenAsBigDecimal.longValue();
-            }
-        }
-        else {
-
-        }
-        return maxVoresendungenAsLong;
+        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.MAX_VORSENDUNGEN,
+                DEFAULT_MAX_VORSENDUNGEN);
     }
 
     public Long getMaxWarteschlange() {
+        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.MAX_WARTESCHLANGE,
+                DEFAULT_MAX_WARTESCHLANGE);
+    }
 
-        Systemwert systemwert = systemWertDao.findByWertName(MAX_WARTESCHLANGE);
-        Long maxVoresendungenAsLong = DEFAULT_MAX_WARTESCHLANGE;
-        if (null != systemwert) {
-            Long maxVoresendungenAsBigDecimal = systemwert.getWertNum();
-            if (null != maxVoresendungenAsBigDecimal) {
-                maxVoresendungenAsLong = maxVoresendungenAsBigDecimal.longValue();
-            }
-        }
-        return maxVoresendungenAsLong;
+    public Long getUmlaufObergrenze() {
+        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.ABSTAND_UMLAUF_OBERGRENZE,
+                DEFAULT_ABSTAND_UMLAUF_OBERGRENZE);
+    }
+
+    public Long getGasse4Anz() {
+        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.GASSE_4_ANZ,
+                DEFAULT_GASSE_$_ANZ);
+    }
+
+    public Long getGasse4Max() {
+        return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.GASSE_4_MAX);
+    }
+
+    public Long getOgLmtForBandBand(FhiSystemwertKeyEnum key) {
+        return configService.getKonfigurationAsLong(key);
     }
 
     public Warteschlange getWarteschlangeForPnr(final String pnr) {
@@ -576,7 +567,7 @@ public class AuftragService {
             return auftragTerminList.get(0);
         }
         */
-        //FIXME NEP What to do with error cases ?
+
         throw new RuntimeException("no individual pnr found in Auftrag_Termin Table : " + pnr);
 
     }
@@ -584,6 +575,7 @@ public class AuftragService {
     public ICountGassenperre findCountGassensperre(final String pnr) {
         return lapuDao.findCountGassensperre(pnr);
     }
+
 
     public AuftragHeberhausDTO getAuftragHeberhausByPnr(String pnr) {
         AuftragHeberhausDTO auftragHeberhaus = null;
@@ -596,6 +588,16 @@ public class AuftragService {
         auftragHeberhaus = dtoFactory.createAuftragHeberhausDTO(result);
 
         return  auftragHeberhaus;
+    }
+  
+    public Lapu findLapuEntryByPnr(String pnr) {
+        return lapuDao.findEntryByPnr(pnr);
+    }
+
+    public Long getUmlaufwertForBand(Long bandNr)
+    {
+        UmlaufWerte UmlaufWertForBand = umlaufWerteDao.findUmlaufWertForBand(bandNr);
+        return UmlaufWertForBand.getUml();
     }
 
 }
