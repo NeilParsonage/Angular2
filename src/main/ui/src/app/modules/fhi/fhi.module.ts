@@ -8,6 +8,7 @@ import { LibEmstTableModule } from 'emst-table';
 import { MaterialModule } from 'src/app/shared/modules/material.module';
 import { TuebPipe } from 'src/app/shared/pipes/tueb.pipe';
 import { DialogShowCodesComponent } from './components/einzelauskunft/dialog-showCodes/dialog-showCodes.component';
+import { DialogShowHeberhausComponent } from './components/einzelauskunft/dialog-showHeberhaus/dialog-showHeberhaus.component';
 import { DialogShowKriterienComponent } from './components/einzelauskunft/dialog-showKriterien/dialog-showKriterien.component';
 import { DialogShowlistComponent } from './components/einzelauskunft/dialog-showlist/dialog-showlist.component';
 import { EinzelauskunftComponent } from './components/einzelauskunft/einzelauskunft.component';
@@ -38,6 +39,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     EinzelauskunftAktuelleFPComponent,
     EinzelauskunftOrtComponent,
     EinzelauskunftSperrenComponent,
+    DialogShowHeberhausComponent,
     DialogShowlistComponent,
     DialogShowCodesComponent,
     DialogShowKriterienComponent,

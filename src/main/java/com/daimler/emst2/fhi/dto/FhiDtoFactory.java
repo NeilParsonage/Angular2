@@ -8,6 +8,7 @@ import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
 import com.daimler.emst2.fhi.jpa.model.AuftragCodes;
 import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
+import com.daimler.emst2.fhi.jpa.model.AuftragHeberhaus;
 import com.daimler.emst2.fhi.jpa.model.AuftragKabelsaetze;
 import com.daimler.emst2.fhi.jpa.model.AuftragKriterien;
 import com.daimler.emst2.fhi.jpa.model.AuftragLacke;
@@ -224,6 +225,27 @@ public class FhiDtoFactory {
         neu.relevant = auftragKriterium.getRelevant();
         neu.intervall = auftragKriterium.getIntervall();
         neu.dichte = auftragKriterium.getDichte();
+
+        return neu;
+    }
+
+    public AuftragHeberhausDTO createAuftragHeberhausDTO(AuftragHeberhaus auftragHeberhaus) {
+        AuftragHeberhausDTO neu = new AuftragHeberhausDTO();
+
+        neu.pnr = auftragHeberhaus.getPnr();
+        neu.bandNr = auftragHeberhaus.getBandNr();
+
+        neu.terminHeberhaus = auftragHeberhaus.getTerminHeberhaus();
+
+        neu.terminHeberhausTyp = auftragHeberhaus.getTerminHeberhausTyp();
+
+        neu.istPnr = auftragHeberhaus.getIstPnr();
+
+        neu.fertigungspunkt = auftragHeberhaus.getFertigungspunkt();
+
+        neu.istLfdNrLmt = auftragHeberhaus.getIstLfdNrLmt();
+
+        neu.istTermin = auftragHeberhaus.getIstTermin();
 
         return neu;
     }

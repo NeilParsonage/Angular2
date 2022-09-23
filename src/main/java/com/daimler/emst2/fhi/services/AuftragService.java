@@ -14,6 +14,8 @@ import java.util.stream.LongStream;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Hibernate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -23,6 +25,7 @@ import com.daimler.emst2.fhi.constants.FhiSystemwertKeyEnum;
 import com.daimler.emst2.fhi.dto.AuftragAggregateDTO;
 import com.daimler.emst2.fhi.dto.AuftragCodesDTO;
 import com.daimler.emst2.fhi.dto.AuftragDTO;
+import com.daimler.emst2.fhi.dto.AuftragHeberhausDTO;
 import com.daimler.emst2.fhi.dto.AuftragKabelsaetzeDTO;
 import com.daimler.emst2.fhi.dto.AuftragKriterienDTO;
 import com.daimler.emst2.fhi.dto.AuftragLackeDTO;
@@ -37,6 +40,7 @@ import com.daimler.emst2.fhi.jpa.dao.AuftragAggregateDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragCodesDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragDetailsDao;
+import com.daimler.emst2.fhi.jpa.dao.AuftragHeberhausDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragKabelsaetzeDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragKriterienDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragLackeDao;
@@ -54,6 +58,7 @@ import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
 import com.daimler.emst2.fhi.jpa.model.AuftragCodes;
 import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
+import com.daimler.emst2.fhi.jpa.model.AuftragHeberhaus;
 import com.daimler.emst2.fhi.jpa.model.AuftragKabelsaetze;
 import com.daimler.emst2.fhi.jpa.model.AuftragKriterien;
 import com.daimler.emst2.fhi.jpa.model.AuftragLacke;
@@ -105,11 +110,16 @@ public class AuftragService {
 
     public static final Long INVALID_SEQ_NR = -1L;
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     AuftragDao auftragDao;
 
     @Autowired
     AuftragDetailsDao auftragDetailsDao;
+
+    @Autowired
+    AuftragHeberhausDao auftragHeberhausDao;
 
     @Autowired
     AuftragTermineDao auftragTermineDao;
@@ -566,6 +576,20 @@ public class AuftragService {
         return lapuDao.findCountGassensperre(pnr);
     }
 
+
+    public AuftragHeberhausDTO getAuftragHeberhausByPnr(String pnr) {
+        AuftragHeberhausDTO auftragHeberhaus = null;
+        AuftragHeberhaus result = auftragHeberhausDao.findAuftragHeberhausByPnr(pnr);
+
+        if (ObjectUtils.isEmpty(result)) {
+        
+            throw new RuntimeException(String.format("Keine Heberhausdaten fuer %s gefunden!", pnr));
+        }
+        auftragHeberhaus = dtoFactory.createAuftragHeberhausDTO(result);
+
+        return  auftragHeberhaus;
+    }
+  
     public Lapu findLapuEntryByPnr(String pnr) {
         return lapuDao.findEntryByPnr(pnr);
     }

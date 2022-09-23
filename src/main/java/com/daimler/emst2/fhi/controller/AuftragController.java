@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.daimler.emst2.fhi.dto.AuftragDTO;
 import com.daimler.emst2.fhi.dto.AuftragAggregateDTO;
 import com.daimler.emst2.fhi.dto.AuftragCodesDTO;
+import com.daimler.emst2.fhi.dto.AuftragDTO;
+import com.daimler.emst2.fhi.dto.AuftragHeberhausDTO;
 import com.daimler.emst2.fhi.dto.AuftragKabelsaetzeDTO;
 import com.daimler.emst2.fhi.dto.AuftragKriterienDTO;
 import com.daimler.emst2.fhi.dto.AuftragLackeDTO;
@@ -84,6 +85,11 @@ public class AuftragController {
     @GetMapping("/fzgLack")
     public AuftragLackeDTO getAuftragRhmLackbyPnr(@RequestParam String pnr) {
         return auftragService.getAuftragRhmLackByPnr(pnr);
+    }
+
+    @GetMapping("/heberhaus")
+    public AuftragHeberhausDTO getAuftragHeberhausbyPnr(@RequestParam String pnr) {
+        return auftragService.getAuftragHeberhausByPnr(pnr);
     }
 
     @GetMapping("/listAuftraegebyGesLfdNr")
