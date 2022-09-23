@@ -7,9 +7,11 @@ public class AuftragHeberhausDTO {
 
     public Long bandNr;
 
-    public Date terminZhe;
+    public String fertigungspunkt;
 
-    public String terminZheTyp;
+    public Date terminHeberhaus;
+
+    public String terminHeberhausTyp;
 
     public String istPnr;
 

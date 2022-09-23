@@ -235,11 +235,13 @@ public class FhiDtoFactory {
         neu.pnr = auftragHeberhaus.getPnr();
         neu.bandNr = auftragHeberhaus.getBandNr();
 
-        neu.terminZhe = auftragHeberhaus.getTerminZhe();
+        neu.terminHeberhaus = auftragHeberhaus.getTerminHeberhaus();
 
-        neu.terminZheTyp = auftragHeberhaus.getTerminZheTyp();
+        neu.terminHeberhausTyp = auftragHeberhaus.getTerminHeberhausTyp();
 
         neu.istPnr = auftragHeberhaus.getIstPnr();
+
+        neu.fertigungspunkt = auftragHeberhaus.getFertigungspunkt();
 
         neu.istLfdNrLmt = auftragHeberhaus.getIstLfdNrLmt();
 

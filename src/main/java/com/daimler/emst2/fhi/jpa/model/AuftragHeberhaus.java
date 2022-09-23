@@ -23,11 +23,14 @@ public class AuftragHeberhaus implements Serializable {
     @Column(name = "BANDNR")
     private Long bandNr;
 
-    @Column(name = "TERMIN_ZHE")
-    private Date terminZhe;
+    @Column(name = "TERMIN_MRBHEB")
+    private Date terminHeberhaus;
 
-    @Column(name = "TERMIN_ZHE_TYP")
-    private String terminZheTyp;
+    @Column(name = "ZHE_FP")
+    private String fertigungspunkt;
+
+    @Column(name = "TERMIN_MRBHEB_TYP")
+    private String terminHeberhausTyp;
 
     @Column(name = "IST_PNR")
     private String istPnr;
@@ -54,20 +57,28 @@ public class AuftragHeberhaus implements Serializable {
         this.bandNr = bandNr;
     }
 
-    public Date getTerminZhe() {
-        return terminZhe;
+    public Date getTerminHeberhaus() {
+        return terminHeberhaus;
     }
 
-    public void setTerminZhe(Date terminZhe) {
-        this.terminZhe = terminZhe;
+    public void setTerminHeberhaus(Date terminHeberhaus) {
+        this.terminHeberhaus = terminHeberhaus;
     }
 
-    public String getTerminZheTyp() {
-        return terminZheTyp;
+    public String getFertigungspunkt() {
+        return fertigungspunkt;
     }
 
-    public void setTerminZheTyp(String terminZheTyp) {
-        this.terminZheTyp = terminZheTyp;
+    public void setFertigungspunkt(String fertigungspunkt) {
+        this.fertigungspunkt = fertigungspunkt;
+    }
+
+    public String getTerminHeberhausTyp() {
+        return terminHeberhausTyp;
+    }
+
+    public void setTerminHeberhausTyp(String terminHeberhausTyp) {
+        this.terminHeberhausTyp = terminHeberhausTyp;
     }
 
     public String getIstPnr() {
@@ -75,7 +86,7 @@ public class AuftragHeberhaus implements Serializable {
     }
 
     public void setIstPnr(String istPnr) {
-        istPnr = istPnr;
+        this.istPnr = istPnr;
     }
 
     public Long getIstLfdNrLmt() {
@@ -94,7 +105,7 @@ public class AuftragHeberhaus implements Serializable {
         this.istTermin = istTermin;
     }
 
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
+
+
+
 }

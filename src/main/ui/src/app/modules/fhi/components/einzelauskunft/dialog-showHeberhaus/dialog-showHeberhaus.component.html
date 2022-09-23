@@ -2,21 +2,25 @@
   <h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle [cdkDragConstrainPosition]="constrainPosition">{{ titel }}</h1>
   <div mat-dialog-content>
     <div fxLayout="row">
-      <div fxLayout="column" fxFlex="30">
-        <div fxLayout="row">{{ 'label.heberhaus.bandnr' | translate }}:</div>
-        <div fxLayout="row">{{ 'label.heberhaus.terminZhe' | translate }}:</div>
-        <div fxLayout="row">{{ 'label.heberhaus.terminZheTyp' | translate }}:</div>
-        <div fxLayout="row">{{ 'label.heberhaus.istPnr' | translate }}:</div>
-        <div fxLayout="row">{{ 'label.heberhaus.istLfdNrLmt' | translate }}:</div>
-        <div fxLayout="row">{{ 'label.heberhaus.istTermin' | translate }}:</div>
+      <div fxLayout="column" fxFlex="40">
+        <div fxLayout="row">{{ 'label.heberhaus.terminHeberhaus' | translate }}</div>
+        <div fxLayout="row">&nbsp;</div>
+
+        <div fxLayout="row">{{ 'label.heberhaus.istPnr' | translate }}</div>
+        <div fxLayout="row">{{ 'label.heberhaus.fpunkt' | translate }}</div>
+        <div fxLayout="row">{{ 'label.heberhaus.istLfdNrLmt' | translate }}</div>
+        <div fxLayout="row">{{ 'label.heberhaus.istTermin' | translate }}</div>
       </div>
-      <div fxLayout="column" fxFlex="70">
-        <div fxLayout="row">{{ auftragheberhaus.bandNr }}</div>
-        <div fxLayout="row">{{ auftragheberhaus.terminZhe }} Termin</div>
-        <div fxLayout="row">{{ auftragheberhaus.terminZheTyp }}</div>
-        <div fxLayout="row">{{ auftragheberhaus.istPnr }}</div>
-        <div fxLayout="row">{{ auftragheberhaus.istLfdNrLmt }}</div>
-        <div fxLayout="row">{{ auftragheberhaus.istTermin }} Termin</div>
+      <div fxLayout="column" fxFlex="60">
+        <div fxLayout="row">
+          {{ auftragheberhaus.terminHeberhaus | date: 'dd.MM.yyyy HH:mm' }}&nbsp; {{ setTyp(auftragheberhaus.terminHeberhausTyp) }}&nbsp;
+        </div>
+        <div fxLayout="row">&nbsp;</div>
+
+        <div fxLayout="row">{{ auftragheberhaus.istPnr }}&nbsp;</div>
+        <div fxLayout="row">{{ auftragheberhaus.fertigungspunkt }}&nbsp;</div>
+        <div fxLayout="row">{{ auftragheberhaus.istLfdNrLmt }}&nbsp;</div>
+        <div fxLayout="row">{{ auftragheberhaus.istTermin | date: 'dd.MM.yyyy HH:mm' }}&nbsp;(Ist)</div>
       </div>
     </div>
   </div>
