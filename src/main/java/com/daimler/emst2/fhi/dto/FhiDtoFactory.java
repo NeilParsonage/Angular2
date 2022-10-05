@@ -247,6 +247,8 @@ public class FhiDtoFactory {
 
         neu.istTermin = auftragHeberhaus.getIstTermin();
 
+        neu.istTerminTyp = auftragHeberhaus.getIstTerminTyp();
+
         return neu;
     }
 

@@ -19,6 +19,8 @@ public class AuftragHeberhausDTO {
 
     public Date istTermin;
 
+    public String istTerminTyp;
+
 }
 
 
