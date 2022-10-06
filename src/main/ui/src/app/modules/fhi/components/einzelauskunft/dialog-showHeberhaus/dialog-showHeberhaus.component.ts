@@ -2,7 +2,7 @@ import { DragRef, Point } from '@angular/cdk/drag-drop';
 import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogStaticHelper } from 'src/app/utils/dialog-static-helper';
+import { DialogStaticHelper } from 'src/app/shared/utils/dialog-static-helper';
 import { AuftragHeberhaus } from '../../../models/auftragHeberhaus';
 import { DialogShowHeberhausOptions } from './dialog-showHeberhaus.options.component';
 

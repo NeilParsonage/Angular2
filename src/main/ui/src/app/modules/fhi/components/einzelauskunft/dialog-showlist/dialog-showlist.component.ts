@@ -1,5 +1,7 @@
+import { DragRef, Point } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogStaticHelper } from 'src/app/shared/utils/dialog-static-helper';
 import { DialogShowlistOptions } from './dialog-showlist.options.component';
 
 @Component({
@@ -19,5 +21,8 @@ export class DialogShowlistComponent implements OnInit {
 
   onClickOk() {
     this.dialogRef.close();
+  }
+  public constrainPosition(point: Point, dragRef: DragRef): Point {
+    return DialogStaticHelper.constrainPositionPreventDialogBecomesUnreachable(point);
   }
 }
