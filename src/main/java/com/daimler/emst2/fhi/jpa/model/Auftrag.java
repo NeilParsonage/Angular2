@@ -412,13 +412,6 @@ public class Auftrag extends BaseAuditEntity implements Serializable {
         this.ortRhm = ortRhm;
     }
 
-    //    public String getCodesBand() {
-    //        return codesBand;
-    //    }
-    //
-    //    public void setCodesBand(String codesBand) {
-    //        this.codesBand = codesBand;
-    //    }
 
     public String getFhiSendung() {
         return fhiSendung;
