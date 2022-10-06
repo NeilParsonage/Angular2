@@ -1,6 +1,8 @@
+import { DragRef, Point } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { DialogStaticHelper } from 'src/app/shared/utils/dialog-static-helper';
 import { AuftragKriterien } from '../../../models/auftragKriterien';
 import { DialogShowKriterienOptions } from './dialog-showKriterien.options.component';
 
@@ -32,5 +34,8 @@ export class DialogShowKriterienComponent implements OnInit {
 
   onClickOk() {
     this.dialogRef.close();
+  }
+  public constrainPosition(point: Point, dragRef: DragRef): Point {
+    return DialogStaticHelper.constrainPositionPreventDialogBecomesUnreachable(point);
   }
 }

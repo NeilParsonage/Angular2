@@ -1,30 +1,15 @@
-<h1 mat-dialog-title>{{ title }}</h1>
+<h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle [cdkDragConstrainPosition]="constrainPosition">{{ title }}</h1>
 <mat-dialog-content>
   {{ text }}
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
   <ng-container *ngFor="let button of buttons">
-    <button
-      *ngIf="button.isPrimary"
-      type="button"
-      mat-button
-      mat-raised-button
-      color="{{ button.color }}"
-      cdkFocusInitial
-      (click)="actionButton(button)"
-    >
+    <button *ngIf="button.isPrimary" type="button" mat-button mat-raised-button color="{{ button.color }}" cdkFocusInitial (click)="actionButton(button)">
       <mat-icon class="pr-icon">{{ button.icon }}</mat-icon
       >{{ button.label }}
     </button>
-    <button
-      *ngIf="!button.isPrimary"
-      type="button"
-      mat-button
-      mat-stroked-button
-      color="{{ button.color }}"
-      (click)="actionButton(button)"
-    >
+    <button *ngIf="!button.isPrimary" type="button" mat-button mat-stroked-button color="{{ button.color }}" (click)="actionButton(button)">
       <mat-icon class="pr-icon">{{ button.icon }}</mat-icon
       >{{ button.label }}
     </button>
