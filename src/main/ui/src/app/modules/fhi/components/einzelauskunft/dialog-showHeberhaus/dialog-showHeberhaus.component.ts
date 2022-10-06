@@ -45,6 +45,6 @@ export class DialogShowHeberhausComponent implements OnInit {
     if (!typ) {
       return '';
     }
-    return this.typs[typ];
+    return '(' + this.typs[typ] + ')';
   }
 }

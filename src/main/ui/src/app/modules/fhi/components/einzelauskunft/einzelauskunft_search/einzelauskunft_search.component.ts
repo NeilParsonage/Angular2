@@ -6,7 +6,7 @@ import { searchOption } from '../../../models/searchOption';
   styleUrls: ['./einzelauskunft_search.component.scss'],
 })
 export class EinzelauskunftSearchComponent implements OnInit {
-  options = [
+  options: searchOption[] = [
     { value: 'pnr', label: 'PNR', key: 'PNR', filter: '' },
     { value: 'gesamt', label: 'Gesamt lfd. Nr.', key: 'Gesamt lfd. Nr.', filter: '' },
     { value: 'fhi', label: 'Ist lfd. FHI', key: 'Ist lfd. FHI', filter: '' },
@@ -25,7 +25,9 @@ export class EinzelauskunftSearchComponent implements OnInit {
 
   search(): void {
     console.log('Suche ' + this.selected.value + ' ' + this.selected.filter);
-    let selectedOption: searchOption = new searchOption(this.selected.value, this.selected.label, this.selected.key, this.selected.filter);
-    this.selectedSearch.emit(selectedOption);
+    -(
+      // let selectedOption: searchOption = new searchOption(this.selected.value, this.selected.label, this.selected.key, this.selected.filter);
+      this.selectedSearch.emit(this.selected)
+    );
   }
 }

@@ -20,7 +20,7 @@
         <div fxLayout="row">{{ auftragheberhaus.istPnr }}&nbsp;</div>
         <div fxLayout="row">{{ auftragheberhaus.fertigungspunkt }}&nbsp;</div>
         <div fxLayout="row">{{ auftragheberhaus.istLfdNrLmt }}&nbsp;</div>
-        <div fxLayout="row">{{ auftragheberhaus.istTermin | date: 'dd.MM.yyyy HH:mm' }}&nbsp;(Ist)</div>
+        <div fxLayout="row">{{ auftragheberhaus.istTermin | date: 'dd.MM.yyyy HH:mm' }}&nbsp; {{ setTyp(auftragheberhaus.istTerminTyp) }}</div>
       </div>
     </div>
   </div>

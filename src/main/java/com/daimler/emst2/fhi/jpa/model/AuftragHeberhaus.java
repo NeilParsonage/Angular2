@@ -26,7 +26,7 @@ public class AuftragHeberhaus implements Serializable {
     @Column(name = "TERMIN_MRBHEB")
     private Date terminHeberhaus;
 
-    @Column(name = "ZHE_FP")
+    @Column(name = "IST_ZHE_FP")
     private String fertigungspunkt;
 
     @Column(name = "TERMIN_MRBHEB_TYP")
@@ -40,6 +40,17 @@ public class AuftragHeberhaus implements Serializable {
 
     @Column(name = "IST_TERMIN")
     private Date istTermin;
+
+    @Column(name = "IST_TERMIN_TYP")
+    private String istTerminTyp;
+
+    public String getIstTerminTyp() {
+        return istTerminTyp;
+    }
+
+    public void setIstTerminTyp(String istTerminTyp) {
+        this.istTerminTyp = istTerminTyp;
+    }
 
     public String getPnr() {
         return pnr;

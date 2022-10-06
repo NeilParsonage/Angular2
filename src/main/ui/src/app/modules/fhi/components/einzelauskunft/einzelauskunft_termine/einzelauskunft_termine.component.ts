@@ -104,9 +104,4 @@ export class EinzelauskunftTermineComponent implements OnInit {
     };
     const dialogRef = this.dialog.open(DialogShowHeberhausComponent, dialogConfig);
   }
-
-  checkVisibleHeberhaus(gewerk: string): boolean {
-    if (gewerk == 'LMT') return true;
-    else return false;
-  }
 }
