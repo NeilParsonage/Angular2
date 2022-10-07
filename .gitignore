@@ -52,3 +52,4 @@ Thumbs.db
 
 kickstarter-core.log*
 fhi.log*
+/src/main/ui/src/app/modules/fhi/models/auftragHeberhaus

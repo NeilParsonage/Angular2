@@ -22,6 +22,7 @@ import org.springframework.util.ObjectUtils;
 
 import com.daimler.emst2.fhi.constants.AuftragSeqNrEnum;
 import com.daimler.emst2.fhi.constants.FhiSystemwertKeyEnum;
+import com.daimler.emst2.fhi.dto.AuftragAenderungstexteDTO;
 import com.daimler.emst2.fhi.dto.AuftragAggregateDTO;
 import com.daimler.emst2.fhi.dto.AuftragCodesDTO;
 import com.daimler.emst2.fhi.dto.AuftragDTO;
@@ -36,6 +37,7 @@ import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.dto.SendResponseDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.dto.SendungsprotokollDTO;
+import com.daimler.emst2.fhi.jpa.dao.AuftragAenderungstexteDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragAggregateDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragCodesDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragDao;
@@ -55,6 +57,7 @@ import com.daimler.emst2.fhi.jpa.dao.SystemwertDao;
 import com.daimler.emst2.fhi.jpa.dao.UmlaufWerteDao;
 import com.daimler.emst2.fhi.jpa.dao.WarteschlangeDao;
 import com.daimler.emst2.fhi.jpa.model.Auftrag;
+import com.daimler.emst2.fhi.jpa.model.AuftragAenderungstexte;
 import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
 import com.daimler.emst2.fhi.jpa.model.AuftragCodes;
 import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
@@ -156,6 +159,9 @@ public class AuftragService {
 
     @Autowired
     AuftragKriterienDao auftragKriterienDao;
+
+    @Autowired
+    AuftragAenderungstexteDao auftragAenderungstexteDao;
 
     @Autowired
     AuftragZeitDao auftragZeitDao;
@@ -598,6 +604,14 @@ public class AuftragService {
     {
         UmlaufWerte UmlaufWertForBand = umlaufWerteDao.findUmlaufWertForBand(bandNr);
         return UmlaufWertForBand.getUml();
+    }
+
+    public List<AuftragAenderungstexteDTO> getAuftragAenderungstexteByPnr(String pnr) {
+        List<AuftragAenderungstexte> result = auftragAenderungstexteDao.findAuftragAenderungstexteByPnr(pnr);
+
+        return result instanceof List
+                ? result.stream().map(x -> dtoFactory.createAuftragAenderungstexteDTO(x)).collect(Collectors.toList())
+                : Collections.emptyList();
     }
 
 }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Auftrag } from '../models/auftrag';
+import { AuftragAenderungstexte } from '../models/auftragAenderungstexte';
 import { AuftragAggregate } from '../models/auftragAggregate';
 import { AuftragCodes } from '../models/auftragCodes';
 import { AuftragHeberhaus } from '../models/auftragHeberhaus';
@@ -109,5 +110,11 @@ export class AuftragService {
       params: new HttpParams().set('pnr', pnr),
     };
     return this.http.get<AuftragHeberhaus>(`${this.endpoint}/heberhaus`, options);
+  }
+  public getListAuftragAenderungstexte(pnr: string): Observable<AuftragAenderungstexte[]> {
+    const options = {
+      params: new HttpParams().set('pnr', pnr),
+    };
+    return this.http.get<AuftragAenderungstexte[]>(`${this.endpoint}/aenderungstexte`, options);
   }
 }

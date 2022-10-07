@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.daimler.emst2.fhi.jpa.model.Auftrag;
+import com.daimler.emst2.fhi.jpa.model.AuftragAenderungstexte;
 import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
 import com.daimler.emst2.fhi.jpa.model.AuftragCodes;
 import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
@@ -234,21 +235,21 @@ public class FhiDtoFactory {
 
         neu.pnr = auftragHeberhaus.getPnr();
         neu.bandNr = auftragHeberhaus.getBandNr();
-
         neu.terminHeberhaus = auftragHeberhaus.getTerminHeberhaus();
-
         neu.terminHeberhausTyp = auftragHeberhaus.getTerminHeberhausTyp();
-
         neu.istPnr = auftragHeberhaus.getIstPnr();
-
         neu.fertigungspunkt = auftragHeberhaus.getFertigungspunkt();
-
         neu.istLfdNrLmt = auftragHeberhaus.getIstLfdNrLmt();
-
         neu.istTermin = auftragHeberhaus.getIstTermin();
-
         neu.istTerminTyp = auftragHeberhaus.getIstTerminTyp();
+        return neu;
+    }
 
+    public AuftragAenderungstexteDTO createAuftragAenderungstexteDTO(AuftragAenderungstexte auftragAenderungstext) {
+        AuftragAenderungstexteDTO neu = new AuftragAenderungstexteDTO();
+        neu.pnr = auftragAenderungstext.getPnr();
+        neu.quelle = auftragAenderungstext.getQuelle();
+        neu.text = auftragAenderungstext.getText();
         return neu;
     }
 
