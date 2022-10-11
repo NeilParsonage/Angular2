@@ -128,9 +128,9 @@ public class AuftragDTO {
     public Boolean zugebunden;
     /* Audit*/
 
-    public Long hrkAudit;
+    public String hrkAudit;
 
-    public Long fhiAudit;
+    public String fhiAudit;
 
     public Long version;
 

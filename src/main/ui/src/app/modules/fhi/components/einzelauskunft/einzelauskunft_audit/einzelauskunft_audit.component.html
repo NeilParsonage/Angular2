@@ -2,10 +2,12 @@
   <h4>{{ 'text.einzelauskunft.audit' | translate }}</h4>
 
   <div fxLayout="row">
-    <mat-checkbox checked="{{ einzelauskunft?.fhiAudit }} " disabled="1">{{ 'label.einzelauskunft.fhiaudit' | translate }}</mat-checkbox>
+    <mat-checkbox checked="{{ checkStatus(einzelauskunft?.fhiAudit) }}" disabled="1">{{ 'label.einzelauskunft.fhiaudit' | translate }}</mat-checkbox>
+    {{ einzelauskunft?.fhiAudit }}
   </div>
 
   <div fxLayout="row">
-    <mat-checkbox checked="{{ einzelauskunft?.hrkAudit }}" disabled="1">{{ 'label.einzelauskunft.hrkaudit' | translate }}</mat-checkbox>
+    <mat-checkbox checked="{{ checkStatus(einzelauskunft?.hrkAudit) }}" disabled="1">{{ 'label.einzelauskunft.hrkaudit' | translate }}</mat-checkbox>
+    {{ einzelauskunft?.hrkAudit }}
   </div>
 </div>

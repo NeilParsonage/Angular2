@@ -126,9 +126,20 @@ public class FhiDtoFactory {
         neu.fpRhmBenennung = sendestatus.getFpRhmBenennung();
         neu.sendbar = sendestatus.getSendbar();
         neu.zugebunden = sendestatus.getZugebunden();
+        neu.zugebunden = true;
         /*
          * Audit 
-         */
+        
+        if (auftrag.getFhiAudit() != null)
+            neu.fhiAudit = false;
+        else {
+            neu.fhiAudit = (auftrag.getFhiAudit() == 1);
+        }
+        if (auftrag.getHrkAudit() != null)
+            neu.fhiAudit = false;
+        else {
+            neu.hrkAudit = (auftrag.getHrkAudit() == 1);
+        }  */
         neu.fhiAudit = auftrag.getFhiAudit();
         neu.hrkAudit = auftrag.getHrkAudit();
         return neu;

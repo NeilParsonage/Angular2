@@ -215,24 +215,26 @@ public class Auftrag extends BaseAuditEntity implements Serializable {
     }
 
     @Column(name = "Hrk_Audit")
-    private Long hrkAudit;
+    private String hrkAudit;
 
     @Column(name = "Fhi_Audit")
-    private Long fhiAudit;
+    private String fhiAudit;
 
-    public Long getHrkAudit() {
+
+
+    public String getHrkAudit() {
         return hrkAudit;
     }
 
-    public void setHrkAudit(Long hrkAudit) {
+    public void setHrkAudit(String hrkAudit) {
         this.hrkAudit = hrkAudit;
     }
 
-    public Long getFhiAudit() {
+    public String getFhiAudit() {
         return fhiAudit;
     }
 
-    public void setFhiAudit(Long fhiAudit) {
+    public void setFhiAudit(String fhiAudit) {
         this.fhiAudit = fhiAudit;
     }
 
