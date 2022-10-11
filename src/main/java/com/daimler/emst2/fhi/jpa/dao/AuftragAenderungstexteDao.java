@@ -13,7 +13,7 @@ import com.daimler.emst2.fhi.jpa.model.AuftragAenderungstexte;
 @Repository
 public interface AuftragAenderungstexteDao extends CrudRepository<AuftragAenderungstexte, String> {
 
-    @Query("SELECT a from AuftragAenderungstexte a WHERE a.pnr = :pnr")
+    @Query("SELECT a from AuftragAenderungstexte a WHERE a.pnr = :pnr ORDER by a.reihenfolge")
     public List<AuftragAenderungstexte> findAuftragAenderungstexteByPnr(@Param("pnr") String pnr);
 
 }
