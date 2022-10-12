@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.daimler.emst2.fhi.dto.AuftragAenderungstexteDTO;
 import com.daimler.emst2.fhi.dto.AuftragAggregateDTO;
 import com.daimler.emst2.fhi.dto.AuftragCodesDTO;
 import com.daimler.emst2.fhi.dto.AuftragDTO;
@@ -90,6 +91,11 @@ public class AuftragController {
     @GetMapping("/heberhaus")
     public AuftragHeberhausDTO getAuftragHeberhausbyPnr(@RequestParam String pnr) {
         return auftragService.getAuftragHeberhausByPnr(pnr);
+    }
+
+    @GetMapping("/aenderungstexte")
+    public List<AuftragAenderungstexteDTO> getAuftragAenderungstextebyPnr(@RequestParam String pnr) {
+        return auftragService.getAuftragAenderungstexteByPnr(pnr);
     }
 
     @GetMapping("/listAuftraegebyGesLfdNr")

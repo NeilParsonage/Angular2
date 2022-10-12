@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
 import { Auftrag } from '../../../models/auftrag';
+import { AuftragAenderungstexte } from '../../../models/auftragAenderungstexte';
 import { AuftragAggregate } from '../../../models/auftragAggregate';
 import { AuftragCodes } from '../../../models/auftragCodes';
 import { AuftragKabelsaetze } from '../../../models/auftragKabelsatz';
@@ -19,6 +20,7 @@ import { DialogShowlistComponent } from '../dialog-showlist/dialog-showlist.comp
   styleUrls: ['./einzelauskunft_kopf.component.scss'],
 })
 export class EinzelauskunftKopfComponent implements OnInit {
+  aenderungstexteliste: AuftragAenderungstexte[];
   constructor(private auftragService: AuftragService, public dialog: MatDialog, private translateService: TranslateService) {}
 
   einzelauskunft: Auftrag = null;
@@ -57,7 +59,8 @@ export class EinzelauskunftKopfComponent implements OnInit {
     const aggregateData = this.auftragService.getAuftragAggregateByPnr(auftrag.pnr);
     const codeData = this.auftragService.getListAuftragCodes(auftrag.pnr);
     const kriterienData = this.auftragService.getListAuftragKriterien(auftrag.pnr);
-    const loadSources: any = [kabelsatzData, fhsLackeData, fzgLackeData, aggregateData, codeData, kriterienData];
+    const AenderungstexteData = this.auftragService.getListAuftragAenderungstexte(auftrag.pnr);
+    const loadSources: any = [kabelsatzData, fhsLackeData, fzgLackeData, aggregateData, codeData, kriterienData, AenderungstexteData];
 
     let srcIdx = 0;
 
@@ -74,6 +77,7 @@ export class EinzelauskunftKopfComponent implements OnInit {
       this.aggregateliste = results[srcIdx++] as AuftragAggregate[];
       this.codeliste = results[srcIdx++] as AuftragCodes[];
       this.kriterienliste = results[srcIdx++] as AuftragKriterien[];
+      this.aenderungstexteliste = results[srcIdx++] as AuftragAenderungstexte[];
       this.kabelsatz = this.kabelsaetzeliste[0];
       this.fhsLack = this.fhsLackeliste[0];
       this.aggregat = this.aggregateliste[0];
@@ -136,8 +140,26 @@ export class EinzelauskunftKopfComponent implements OnInit {
     this.showListe(listeElements, this.translateService.instant('text.einzelauskunft.bemerkungstextalt'));
   }
 
+  showListAenderungstexte() {
+    let listeElements: string[] = [];
+
+    this.aenderungstexteliste.forEach((e, i) => {
+      listeElements[i] = e.quelle + ' ' + e.text;
+    });
+
+    this.showListe(listeElements, this.translateService.instant('text.einzelauskunft.aenderungstexte'));
+  }
+
   checkVisibleBemerkungAlt() {
     if (this.einzelauskunft?.bemerkungAlt == null || this.einzelauskunft?.bemerkungAlt == '') {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  checkVisibleAenderungstexte() {
+    if (this.einzelauskunft?.aufaenText == null || this.einzelauskunft?.aufaenText == '') {
       return false;
     } else {
       return true;

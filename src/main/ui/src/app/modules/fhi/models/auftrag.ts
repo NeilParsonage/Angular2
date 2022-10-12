@@ -66,8 +66,8 @@ export interface Auftrag {
   sendbar: boolean;
   zugebunden: boolean;
   /* Audit*/
-  /* Audit*/
-  hrkAudit: number;
-  fhiAudit: number;
+
+  hrkAudit: string;
+  fhiAudit: string;
   version: number;
 }
