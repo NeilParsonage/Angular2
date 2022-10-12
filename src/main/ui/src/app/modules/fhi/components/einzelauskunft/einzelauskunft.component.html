@@ -15,7 +15,7 @@
           <div fxLayout="column" fxFlex="40">
             <mat-form-field class="selectItemLong">
               <mat-label>{{ selected.key }}</mat-label>
-              <input matInput placeholder="" [(ngModel)]="selected.filter" />
+              <input matInput placeholder="" [(ngModel)]="selected.filter" (keyup.enter)="search()" />
             </mat-form-field>
           </div>
           <!-- <p>You selected: {{ selected.key }} {{ selected.filter }}</p>-->
