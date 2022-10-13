@@ -1,9 +1,9 @@
-content {
+app-sendemaske content {
   width: 100%;
   height: 100%;
 }
 
-table {
+app-sendemaske table {
   width: 100%;
 }
 
@@ -13,24 +13,24 @@ table {
   z-index: 99999 !important;
 }
 
-::ng-deep table td,
-table th {
+::ng-deep app-sendemaske table td,
+app-sendemaske table th {
   padding-left: 0.25em !important;
   border-left: 1px solid rgba(0, 0, 0, 0.12);
   white-space: nowrap;
 }
 
-::ng-deep #bottomArea table th.mat-header-cell {
+::ng-deep app-sendemaske #bottomArea table th.mat-header-cell {
   top: 50px !important;
 }
 
-::ng-deep table th.mat-header-cell:first-of-type,
-td.mat-cell:first-of-type,
-td.mat-footer-cell:first-of-type {
+::ng-deep app-sendemaske table th.mat-header-cell:first-of-type,
+app-sendemaske td.mat-cell:first-of-type,
+app-sendemaske td.mat-footer-cell:first-of-type {
   padding-left: 0px;
 }
 
-::ng-deep tr.mat-row,
-tr.mat-footer-row {
+::ng-deep app-sendemaske tr.mat-row,
+app-sendemaske tr.mat-footer-row {
   height: auto !important;
 }
