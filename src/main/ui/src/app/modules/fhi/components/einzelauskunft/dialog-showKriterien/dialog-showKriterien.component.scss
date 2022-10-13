@@ -18,3 +18,8 @@
   max-width: 100%;
   overflow: auto;
 }
+
+::ng-deep .mat-dialog-title {
+  width: 100%;
+  cursor: move;
+}

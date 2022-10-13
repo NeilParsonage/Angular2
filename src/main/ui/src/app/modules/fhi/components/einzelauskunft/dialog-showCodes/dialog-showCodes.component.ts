@@ -1,6 +1,8 @@
+import { DragRef, Point } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { DialogStaticHelper } from 'src/app/shared/utils/dialog-static-helper';
 import { AuftragCodes } from '../../../models/auftragCodes';
 import { DialogShowCodesOptions } from './dialog-showCodes.options.component';
 
@@ -34,5 +36,8 @@ export class DialogShowCodesComponent implements OnInit {
 
   onClickOk() {
     this.dialogRef.close();
+  }
+  public constrainPosition(point: Point, dragRef: DragRef): Point {
+    return DialogStaticHelper.constrainPositionPreventDialogBecomesUnreachable(point);
   }
 }

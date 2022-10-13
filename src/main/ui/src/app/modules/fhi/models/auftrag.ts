@@ -63,11 +63,11 @@ export interface Auftrag {
 
   /*Fp_Rhm_Datum  */
   fpRhmBenennung: string;
-  sendbar: string;
-  zugebunden: string;
+  sendbar: boolean;
+  zugebunden: boolean;
   /* Audit*/
-  /* Audit*/
-  hrkAudit?: number;
-  fhiAudit?: number;
+
+  hrkAudit: string;
+  fhiAudit: string;
   version: number;
 }

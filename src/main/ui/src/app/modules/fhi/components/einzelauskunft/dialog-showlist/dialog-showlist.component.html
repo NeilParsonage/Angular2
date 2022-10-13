@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{ titel }}</h1>
+<h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle [cdkDragConstrainPosition]="constrainPosition">{{ titel }}</h1>
 <div mat-dialog-content>
   <ul style="list-style: none">
     <li *ngFor="let elem of liste">

@@ -200,10 +200,18 @@
       </div>
 
       <div fxLayout="row">
-        <mat-form-field class="selectItemExtraLong">
-          <mat-label>{{ 'label.einzelauskunft.aufaentext' | translate }}</mat-label>
-          <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.aufaenText }}" />
-        </mat-form-field>
+        <div fxLayout="column" fxFlex="70">
+          <mat-form-field class="selectItemExtraLong">
+            <mat-label>{{ 'label.einzelauskunft.aufaentext' | translate }}</mat-label>
+            <input matInput type="text" [readonly]="true" value="{{ einzelauskunft?.aufaenText }}" />
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="30"></div>
+        <div *ngIf="checkVisibleAenderungstexte()">
+          <button mat-icon-button color="accent" aria-label="Zeige Bemerkungstext Alt" (click)="showListAenderungstexte()">
+            <mat-icon>info</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
   </div>

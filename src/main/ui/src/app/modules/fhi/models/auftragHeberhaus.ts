@@ -7,4 +7,5 @@ export interface AuftragHeberhaus {
   istPnr?: string;
   istLfdNrLmt?: number;
   istTermin: string | Date;
+  istTerminTyp?: string;
 }
