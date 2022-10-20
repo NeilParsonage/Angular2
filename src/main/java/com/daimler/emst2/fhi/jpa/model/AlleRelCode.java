@@ -19,9 +19,9 @@ import com.daimler.emst2.frw.model.BaseAuditEntity;
  * 
  */
 @Entity
-@Table(name = "MV_ALLE_REL_CODES")
-@NamedQuery(name = "MvAlleRelCode.findAll", query = "SELECT m FROM MvAlleRelCode m")
-public class MvAlleRelCode extends BaseAuditEntity implements Serializable {
+@Table(name = "V_E2_ALLE_REL_CODES")
+@NamedQuery(name = "AlleRelCode.findAll", query = "SELECT m FROM AlleRelCode m")
+public class AlleRelCode extends BaseAuditEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column(name = "ALLE_CODES")
@@ -40,7 +40,7 @@ public class MvAlleRelCode extends BaseAuditEntity implements Serializable {
     @JoinColumn(name = "pnr")
     private Auftrag auftrag;
 
-    public MvAlleRelCode() {
+    public AlleRelCode() {
     }
 
     public String getAlleCodes() {
