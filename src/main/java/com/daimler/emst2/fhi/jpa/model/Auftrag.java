@@ -176,7 +176,7 @@ public class Auftrag extends BaseAuditEntity implements Serializable {
     private List<AuftragSperrInformation> sperrInformationen;
 
     @OneToMany(mappedBy = "auftrag", fetch = FetchType.LAZY)
-    private List<MvAlleRelCode> alleRelCode;
+    private List<AlleRelCode> alleRelCode;
 
     @Transient
     private AuftragDetailsSendeVorschlag transSendeVorschlagDetails;
@@ -566,11 +566,11 @@ public class Auftrag extends BaseAuditEntity implements Serializable {
         this.sperrInformationen = sperrInformationen;
     }
 
-    public List<MvAlleRelCode> getAlleRelCode() {
+    public List<AlleRelCode> getAlleRelCode() {
         return alleRelCode;
     }
 
-    public void setAlleRelCode(List<MvAlleRelCode> alleRelCode) {
+    public void setAlleRelCode(List<AlleRelCode> alleRelCode) {
         this.alleRelCode = alleRelCode;
     }
 

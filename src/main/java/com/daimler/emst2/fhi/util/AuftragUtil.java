@@ -8,7 +8,7 @@ import java.util.Map;
 import org.hibernate.Hibernate;
 
 import com.daimler.emst2.fhi.jpa.model.Auftrag;
-import com.daimler.emst2.fhi.jpa.model.MvAlleRelCode;
+import com.daimler.emst2.fhi.jpa.model.AlleRelCode;
 import com.daimler.emst2.fhi.sendung.constants.OrtTypEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendStatusEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendTypeEnum;
@@ -156,7 +156,7 @@ public class AuftragUtil {
 
     public static String getCodesBand(Auftrag auftrag) {
         Hibernate.initialize(auftrag.getAlleRelCode());
-        List<MvAlleRelCode> alleRelCode = auftrag.getAlleRelCode();
+        List<AlleRelCode> alleRelCode = auftrag.getAlleRelCode();
         if (alleRelCode.size() > 0) {
             return auftrag.getAlleRelCode().get(0).getCodesBand();
         }
