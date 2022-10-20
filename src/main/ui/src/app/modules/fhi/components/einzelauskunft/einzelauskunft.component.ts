@@ -6,7 +6,7 @@ import { ContextService } from 'src/app/core/services/context.service';
 import { Auftrag } from '../../models/auftrag';
 import { AuftragService } from '../../services/auftrag.service';
 import { DialogChangeBandComponent } from './dialog-changeBand/dialog-changeBand.component';
-import { DialogEditRemarkComponent } from './dialog-editRemark/dialog-editRemark.component';
+import { DialogEditBemerkungComponent } from './dialog-editBemerkung/dialog-editBemerkung.component';
 
 @Component({
   selector: 'app-einzelauskunft',
@@ -118,7 +118,7 @@ export class EinzelauskunftComponent implements OnInit {
       auftrag: this.auftrag,
       titel: 'Bemerkungstext ändern für PNR ' + this.auftrag.pnr,
     };
-    const dialogRef = this.dialog.open(DialogEditRemarkComponent, dialogConfig);
+    const dialogRef = this.dialog.open(DialogEditBemerkungComponent, dialogConfig);
   }
   public onclickChangeBand() {
     const dialogConfig = new MatDialogConfig();

@@ -1,6 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Privileges } from 'src/app/modules/fhi/models/privileges';
 import { UiMessage } from 'src/app/shared/models/ui-message';
 import { MessageUtil } from 'src/app/shared/utils/message-util';
 
@@ -20,7 +22,7 @@ export class ContextService {
 
   private rendered$ = new Subject<any>();
 
-  constructor(private ngZone: NgZone) {
+  constructor(private ngZone: NgZone, protected kc: KeycloakService) {
     console.log('+++++ new ContextService');
     this.initReadyRenderer();
   }
@@ -104,5 +106,9 @@ export class ContextService {
 
   public setBackendRequestInProgress(prog: boolean) {
     this.isBackendRequestInProgress$.next(prog);
+  }
+
+  public hasPrivilegeEditAuftrag() {
+    return this.kc.isUserInRole(Privileges.FHI_LEITWARTE) || this.kc.isUserInRole(Privileges.FHI_ADMIN);
   }
 }

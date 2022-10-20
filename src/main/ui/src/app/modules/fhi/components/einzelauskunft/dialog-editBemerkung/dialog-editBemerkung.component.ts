@@ -7,14 +7,14 @@ import { DialogStaticHelper } from 'src/app/shared/utils/dialog-static-helper';
 import { Auftrag } from '../../../models/auftrag';
 import { Dummy } from '../../../models/Dummy';
 import { AuftragService } from '../../../services/auftrag.service';
-import { DialogEditRemarkOptions } from './dialog-editRemark.options.component';
+import { DialogEditRemarkOptions } from './dialog-editBemerkung.options.component';
 
 @Component({
-  selector: 'dialog-editRemark',
-  templateUrl: 'dialog-editRemark.component.html',
-  styleUrls: ['dialog-editRemark.component.scss'],
+  selector: 'dialog-editBemerkung',
+  templateUrl: 'dialog-editBemerkung.component.html',
+  styleUrls: ['dialog-editBemerkung.component.scss'],
 })
-export class DialogEditRemarkComponent implements OnInit {
+export class DialogEditBemerkungComponent implements OnInit {
   auftrag: Auftrag = null;
   titel: string = null;
   auftragService: AuftragService;
@@ -22,7 +22,7 @@ export class DialogEditRemarkComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public options: DialogEditRemarkOptions,
     public datepipe: DatePipe,
-    public dialogRef: MatDialogRef<DialogEditRemarkComponent>
+    public dialogRef: MatDialogRef<DialogEditBemerkungComponent>
   ) {}
 
   ngOnInit(): void {
@@ -36,6 +36,11 @@ export class DialogEditRemarkComponent implements OnInit {
 
     this.dialogRef.close();
   }
+
+  onClickCancel() {
+    this.dialogRef.close();
+  }
+
   updateBemerkung(auftrag: Auftrag) {
     return this.auftragService.editBemerkungstext(auftrag).pipe(first()).toPromise<Dummy>();
   }

@@ -31,6 +31,10 @@ export class DialogChangeBandComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  onClickCancel() {
+    this.dialogRef.close();
+  }
+
   public constrainPosition(point: Point, dragRef: DragRef): Point {
     return DialogStaticHelper.constrainPositionPreventDialogBecomesUnreachable(point);
   }
