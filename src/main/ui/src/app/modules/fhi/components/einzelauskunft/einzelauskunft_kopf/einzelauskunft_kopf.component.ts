@@ -206,4 +206,23 @@ export class EinzelauskunftKopfComponent implements OnInit {
     }
     return '';
   }
+
+  setBackgroundColorBand(bandNr: number): string {
+    let result: string;
+    if (bandNr == null) {
+      return 'background_white';
+    }
+
+    if (bandNr == 1) {
+      result = 'background_white';
+    } else if (bandNr == 2) {
+      result = 'background_yelloq';
+    } else if (bandNr == 3) {
+      result = 'background_green';
+    } else {
+      result = 'background_magenta';
+    }
+
+    return result;
+  }
 }
