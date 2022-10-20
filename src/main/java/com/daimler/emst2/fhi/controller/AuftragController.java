@@ -24,6 +24,7 @@ import com.daimler.emst2.fhi.dto.AuftragTermineDetailsDTO;
 import com.daimler.emst2.fhi.dto.SendResponseDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.dto.SendungsprotokollDTO;
+import com.daimler.emst2.fhi.dto.StoredProcedureResultDTO;
 import com.daimler.emst2.fhi.services.AuftragService;
 import com.daimler.emst2.fhi.services.SendungService;
 
@@ -112,5 +113,12 @@ public class AuftragController {
     public List<AuftragKriterienDTO> getAuftragKriterienPnr(@RequestParam String pnr) {
         return auftragService.getAuftragKriterien(pnr);
     }
+
+    @PostMapping("/aendBemerkung")
+    public StoredProcedureResultDTO editRemark(@RequestBody AuftragDTO auftrag) {
+        StoredProcedureResultDTO result = auftragService.editBemerkungAuftrag(auftrag);
+        return result;
+    }
+
 
 }

@@ -1,8 +1,12 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
+import { ContextService } from 'src/app/core/services/context.service';
 import { Auftrag } from '../../models/auftrag';
 import { AuftragService } from '../../services/auftrag.service';
+import { DialogChangeBandComponent } from './dialog-changeBand/dialog-changeBand.component';
+import { DialogEditRemarkComponent } from './dialog-editRemark/dialog-editRemark.component';
 
 @Component({
   selector: 'app-einzelauskunft',
@@ -30,7 +34,12 @@ export class EinzelauskunftComponent implements OnInit {
   selected = this.options[0];
 
   dataSource$: any;
-  constructor(private auftragService: AuftragService, private translateService: TranslateService) {}
+  constructor(
+    private auftragService: AuftragService,
+    private translateService: TranslateService,
+    public dialog: MatDialog,
+    private contextService: ContextService
+  ) {}
   ngOnInit(): void {
     console.log('on init');
     // hello my friend
@@ -98,5 +107,28 @@ export class EinzelauskunftComponent implements OnInit {
   isPNRChooserVisible(): boolean {
     if (this.auftragList && this.auftragSearch && this.auftragList.length > 0 && this.auftrag.ort != 'SATG' && this.auftrag.ort != 'BDAB') return true;
     else return false;
+  }
+
+  public onclickEditRemark() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '600px';
+    dialogConfig.height = 'auto';
+    dialogConfig.disableClose = true;
+    dialogConfig.data = {
+      auftrag: this.auftrag,
+      titel: 'Bemerkungstext ändern für PNR ' + this.auftrag.pnr,
+    };
+    const dialogRef = this.dialog.open(DialogEditRemarkComponent, dialogConfig);
+  }
+  public onclickChangeBand() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '600px';
+    dialogConfig.height = 'auto';
+    dialogConfig.disableClose = true;
+    dialogConfig.data = {
+      auftrag: this.auftrag,
+      titel: 'Band wechseln für PNR ' + this.auftrag.pnr,
+    };
+    const dialogRef = this.dialog.open(DialogChangeBandComponent, dialogConfig);
   }
 }

@@ -37,6 +37,8 @@ import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.dto.SendResponseDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.dto.SendungsprotokollDTO;
+import com.daimler.emst2.fhi.dto.StoredProcedureResultDTO;
+import com.daimler.emst2.fhi.jpa.dao.AuftragAenderungenDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragAenderungstexteDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragAggregateDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragCodesDao;
@@ -174,6 +176,9 @@ public class AuftragService {
 
     @Autowired
     WarteschlangeDao warteschlangeDao;
+
+    @Autowired
+    AuftragAenderungenDao AuftragAenderungenDao;
 
     @Autowired
     UmlaufWerteDao umlaufWerteDao;
@@ -612,6 +617,15 @@ public class AuftragService {
         return result instanceof List
                 ? result.stream().map(x -> dtoFactory.createAuftragAenderungstexteDTO(x)).collect(Collectors.toList())
                 : Collections.emptyList();
+    }
+
+    public StoredProcedureResultDTO editBemerkungAuftrag(AuftragDTO auftrag) {
+
+        StoredProcedureResultDTO result = AuftragAenderungenDao.editAuftrag(auftrag.pnr, auftrag.version,
+                auftrag.bandNr, auftrag.bemerkung, null, null,
+                "user");
+  
+        return result;
     }
 
 }

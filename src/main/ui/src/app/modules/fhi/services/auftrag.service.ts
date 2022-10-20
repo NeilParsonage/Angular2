@@ -12,6 +12,7 @@ import { AuftragKriterien } from '../models/auftragKriterien';
 import { AuftragLacke } from '../models/auftragLacke';
 import { AuftragTermine } from '../models/auftragTermine';
 import { AuftragTermineDetails } from '../models/auftragTermineDetails';
+import { Dummy } from '../models/Dummy';
 import { Sendung } from '../models/sendung';
 import { SendungResponse } from '../models/sendungResponse';
 
@@ -116,5 +117,9 @@ export class AuftragService {
       params: new HttpParams().set('pnr', pnr),
     };
     return this.http.get<AuftragAenderungstexte[]>(`${this.endpoint}/aenderungstexte`, options);
+  }
+
+  public editBemerkungstext(auftrag: Auftrag) {
+    return this.http.post<Dummy>(`${this.endpoint}/aendBemerkung`, auftrag);
   }
 }

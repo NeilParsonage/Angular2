@@ -126,7 +126,7 @@ public class FhiDtoFactory {
         neu.fpRhmBenennung = sendestatus.getFpRhmBenennung();
         neu.sendbar = sendestatus.getSendbar();
         neu.zugebunden = sendestatus.getZugebunden();
-        neu.zugebunden = true;
+
         /*
          * Audit 
         

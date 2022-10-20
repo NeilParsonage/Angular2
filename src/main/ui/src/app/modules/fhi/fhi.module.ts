@@ -7,6 +7,8 @@ import { AngularSplitModule } from 'angular-split';
 import { LibEmstTableModule } from 'emst-table';
 import { MaterialModule } from 'src/app/shared/modules/material.module';
 import { TuebPipe } from 'src/app/shared/pipes/tueb.pipe';
+import { DialogChangeBandComponent } from './components/einzelauskunft/dialog-changeBand/dialog-changeBand.component';
+import { DialogEditRemarkComponent } from './components/einzelauskunft/dialog-editRemark/dialog-editRemark.component';
 import { DialogShowCodesComponent } from './components/einzelauskunft/dialog-showCodes/dialog-showCodes.component';
 import { DialogShowHeberhausComponent } from './components/einzelauskunft/dialog-showHeberhaus/dialog-showHeberhaus.component';
 import { DialogShowKriterienComponent } from './components/einzelauskunft/dialog-showKriterien/dialog-showKriterien.component';
@@ -40,6 +42,8 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     EinzelauskunftOrtComponent,
     EinzelauskunftSperrenComponent,
     DialogShowHeberhausComponent,
+    DialogEditRemarkComponent,
+    DialogChangeBandComponent,
     DialogShowlistComponent,
     DialogShowCodesComponent,
     DialogShowKriterienComponent,
