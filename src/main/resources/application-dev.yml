@@ -14,7 +14,7 @@ keycloak:
     realm: "060"
     auth-server-url:  https://auth.emst.opitz-consulting.int/auth/
     ssl-required: none
-    resource: emst2-fhi
+    resource: fhi-emst2
     disable-trust-manager: true
     
     public-client: true
