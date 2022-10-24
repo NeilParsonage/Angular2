@@ -89,7 +89,7 @@ public class AuftragSendestatus implements Serializable {
 
     private String rhmsendung;
 
-    private Boolean sendbar;
+    private String sendbar;
 
     @Column(name = "SKID_NR")
     private BigDecimal skidNr;
@@ -105,7 +105,7 @@ public class AuftragSendestatus implements Serializable {
     @Column(name = "ZIEL_SEPU")
     private String zielSepu;
 
-    private Boolean zugebunden;
+    private String zugebunden;
 
 
 
@@ -335,20 +335,21 @@ public class AuftragSendestatus implements Serializable {
         this.zielSepu = zielSepu;
     }
 
-    public Boolean getSendbar() {
+    public String getSendbar() {
         return sendbar;
     }
 
-    public void setSendbar(Boolean sendbar) {
+    public void setSendbar(String sendbar) {
         this.sendbar = sendbar;
     }
 
-    public Boolean getZugebunden() {
+    public String getZugebunden() {
         return zugebunden;
     }
 
-    public void setZugebunden(Boolean zugebunden) {
+    public void setZugebunden(String zugebunden) {
         this.zugebunden = zugebunden;
     }
+
 
 }

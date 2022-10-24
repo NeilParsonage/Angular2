@@ -21,4 +21,15 @@ export class EinzelauskunftSendestatusComponent implements OnInit {
   ngOnInit(): void {
     console.log('on init' || this.einzelauskunft.pnr);
   }
+  public checkStatus(status: string): boolean {
+    if (status == null || status == '') {
+      return false;
+    }
+
+    if (status === '1') {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

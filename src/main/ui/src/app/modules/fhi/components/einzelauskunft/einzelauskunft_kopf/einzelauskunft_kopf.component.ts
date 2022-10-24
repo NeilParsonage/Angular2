@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
+import { ContextService } from 'src/app/core/services/context.service';
 import { Auftrag } from '../../../models/auftrag';
 import { AuftragAenderungstexte } from '../../../models/auftragAenderungstexte';
 import { AuftragAggregate } from '../../../models/auftragAggregate';
@@ -21,7 +22,7 @@ import { DialogShowlistComponent } from '../dialog-showlist/dialog-showlist.comp
 })
 export class EinzelauskunftKopfComponent implements OnInit {
   aenderungstexteliste: AuftragAenderungstexte[];
-  constructor(private auftragService: AuftragService, public dialog: MatDialog, private translateService: TranslateService) {}
+  constructor(private auftragService: AuftragService, public dialog: MatDialog, private translateService: TranslateService, private ctx: ContextService) {}
 
   einzelauskunft: Auftrag = null;
   codesView: string = null;

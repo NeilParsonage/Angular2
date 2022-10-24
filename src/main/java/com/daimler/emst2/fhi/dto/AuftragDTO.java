@@ -123,9 +123,9 @@ public class AuftragDTO {
     /*Fp_Rhm_Datum  */
     public String fpRhmBenennung;
     
-    public Boolean sendbar;
+    public String sendbar;
     
-    public Boolean zugebunden;
+    public String zugebunden;
     /* Audit*/
 
     public String hrkAudit;

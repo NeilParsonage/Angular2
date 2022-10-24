@@ -131,4 +131,10 @@ export class EinzelauskunftComponent implements OnInit {
     };
     const dialogRef = this.dialog.open(DialogChangeBandComponent, dialogConfig);
   }
+
+  hasPrivilegeEdit() {
+    //return false;
+
+    return this.contextService.hasPrivilegeEditAuftrag();
+  }
 }
