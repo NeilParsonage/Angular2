@@ -3,6 +3,7 @@ package com.daimler.emst2.fhi.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,6 +28,7 @@ import com.daimler.emst2.fhi.dto.SendungsprotokollDTO;
 import com.daimler.emst2.fhi.dto.StoredProcedureResultDTO;
 import com.daimler.emst2.fhi.services.AuftragService;
 import com.daimler.emst2.fhi.services.SendungService;
+import com.daimler.emst2.frw.model.Privileges;
 
 @RestController
 @RequestMapping(path = AuftragController.PATH)
@@ -44,6 +46,13 @@ public class AuftragController {
         return auftragService.getAuftragByPnr(pnr);
     }
 
+    @PreAuthorize("hasAnyAuthority('"
+                  + Privileges.FHI_ADMIN
+                  + "','"
+                  + Privileges.FHI_LEITWARTE
+                  + "','"
+                  + Privileges.FHI_READER
+                  + "')")
     @GetMapping("/search")
     public AuftragDTO getAuftrag(@RequestParam String option, @RequestParam String key) {
         return auftragService.getAuftrag(option, key);
@@ -94,6 +103,7 @@ public class AuftragController {
         return auftragService.getAuftragHeberhausByPnr(pnr);
     }
 
+
     @GetMapping("/aenderungstexte")
     public List<AuftragAenderungstexteDTO> getAuftragAenderungstextebyPnr(@RequestParam String pnr) {
         return auftragService.getAuftragAenderungstexteByPnr(pnr);
@@ -114,6 +124,7 @@ public class AuftragController {
         return auftragService.getAuftragKriterien(pnr);
     }
 
+    @PreAuthorize("hasAnyAuthority('" + Privileges.FHI_ADMIN + "','" + Privileges.FHI_LEITWARTE + "')")
     @PostMapping("/aendBemerkung")
     public StoredProcedureResultDTO editRemark(@RequestBody AuftragDTO auftrag) {
         StoredProcedureResultDTO result = auftragService.editBemerkungAuftrag(auftrag);

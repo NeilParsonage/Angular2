@@ -4,6 +4,7 @@ import { EinzelauskunftComponent } from './modules/fhi/components/einzelauskunft
 import { SendemaskeDebugComponent } from './modules/fhi/components/sendemaske-debug/sendemaske-debug.component';
 import { SendemaskeComponent } from './modules/fhi/components/sendemaske/sendemaske.component';
 import { WelcomeComponent } from './modules/fhi/components/welcome/welcome.component';
+import { Privileges } from './modules/fhi/models/privileges';
 
 const wikibase = 'https://wiki.dewoe.corpintra.net/wikiemst/index.php/';
 
@@ -36,7 +37,7 @@ export const routes: Routes = [
     data: {
       title: 'Einzelauskunft',
       wikilink: wikibase + 'W060.FHI.F.Frontend.Einzelauskunft',
-      roles: [],
+      roles: [Privileges.FHI_LEITWARTE, Privileges.FHI_ADMIN, Privileges.FHI_READER],
       displaySidemenu: true,
       displayText: 'Einzelauskunft',
       displayIcon: 'info',
@@ -49,7 +50,7 @@ export const routes: Routes = [
     data: {
       title: 'Sendemaske',
       wikilink: wikibase + 'W060.FHI.F.Frontend.Sendemaske',
-      roles: [],
+      roles: [Privileges.FHI_ADMIN],
       displaySidemenu: true,
       displayText: 'Sendemaske',
       displayIcon: 'send',
@@ -62,7 +63,7 @@ export const routes: Routes = [
     data: {
       title: 'Sendemaske',
       wikilink: wikibase + 'W060.FHI.F.Frontend.Sendemaske',
-      roles: [],
+      roles: [Privileges.FHI_ADMIN],
       displaySidemenu: true,
       displayText: 'Sendemaske Debug',
       displayIcon: 'bug_report',
