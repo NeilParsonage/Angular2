@@ -1,19 +1,18 @@
 package com.daimler.emst2.fhi.jpa.dao;
 
-import java.math.BigDecimal;
+import java.util.Map;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.daimler.emst2.fhi.dto.StoredProcedureResultDTO;
-import com.daimler.emst2.fhi.jpa.model.AktiveCodesHist;
+import com.daimler.emst2.fhi.jpa.model.Auftrag;
 
 
 // statt AktiveCodesHist vielleicht eine Vorgangstabellen Entity
 @Repository
-public interface AuftragAenderungenDao extends JpaRepository<AktiveCodesHist, Long> {
+public interface AuftragAenderungenDao extends JpaRepository<Auftrag, String> {
 
     /*  PROCEDURE Bemerkung_Aendern (Pi_Pnr          IN     Auftrag.Pnr%TYPE
                              , Pi_Version      IN     Auftrag.Version%TYPE
@@ -24,18 +23,10 @@ public interface AuftragAenderungenDao extends JpaRepository<AktiveCodesHist, Lo
                              
                              */
 
-    /* @Procedure("DIALOGMASKEN_INTERFACE_E2.BEMERKUNG_AENDERN")
-    StoredProcedureResultDTO editAuftrag(String pnr,
-            Long version,
-            String bemerkung,
-            String user);*/
-
-    @Query(value = "Call DIALOGMASKEN_INTERFACE_E2.BEMERKUNG_AENDERN(:pnr, :version, :bemerkung, :user)",
-            nativeQuery = true)
-    StoredProcedureResultDTO editAuftrag(@Param("pnr") String pnr,
-            @Param("version") BigDecimal version,
-            @Param("bemerkung") String bemerkung,
-            @Param("user") String user);
-    
+    @Procedure(name = "Auftrag.Bemerkung_Aendern")
+    Map<String, Long> editAuftrag(@Param("Pi_Pnr") String pnr,
+            @Param("Pi_Version") Long version,
+            @Param("Pi_Bemerkung") String bemerkung,
+            @Param("Pi_User") String user);
 
 }

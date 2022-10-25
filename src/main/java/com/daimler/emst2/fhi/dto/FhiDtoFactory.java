@@ -1,6 +1,7 @@
 package com.daimler.emst2.fhi.dto;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -261,6 +262,13 @@ public class FhiDtoFactory {
         neu.pnr = auftragAenderungstext.getPnr();
         neu.quelle = auftragAenderungstext.getQuelle();
         neu.text = auftragAenderungstext.getText();
+        return neu;
+    }
+
+    public AuftragStoredProcedureResultDTO createStoredProcecdureResultDTO(Map<String, Long> result) {
+        AuftragStoredProcedureResultDTO neu = new AuftragStoredProcedureResultDTO();
+        neu.vorgangId = result.getOrDefault("Po_Vorgang_Id", null);
+        neu.status = result.getOrDefault("Po_Status", null);
         return neu;
     }
 

@@ -14,6 +14,7 @@ import { AuftragTermine } from '../models/auftragTermine';
 import { AuftragTermineDetails } from '../models/auftragTermineDetails';
 import { Sendung } from '../models/sendung';
 import { SendungResponse } from '../models/sendungResponse';
+import { AuftragVorgangStatus } from '../models/auftrag-status';
 
 @Injectable({
   providedIn: 'root',
@@ -118,7 +119,7 @@ export class AuftragService {
     return this.http.get<AuftragAenderungstexte[]>(`${this.endpoint}/aenderungstexte`, options);
   }
 
-  public editBemerkungstext(auftrag: Auftrag) {
-    return this.http.post(`${this.endpoint}/aendBemerkung`, auftrag);
+  public editBemerkungstext(auftrag: Auftrag): Observable<AuftragVorgangStatus> {
+    return this.http.post<AuftragVorgangStatus>(`${this.endpoint}/aendBemerkung`, auftrag);
   }
 }

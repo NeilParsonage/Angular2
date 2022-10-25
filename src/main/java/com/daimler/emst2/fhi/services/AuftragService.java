@@ -11,6 +11,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
+import javax.transaction.Transactional;
+
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Hibernate;
@@ -30,6 +32,7 @@ import com.daimler.emst2.fhi.dto.AuftragHeberhausDTO;
 import com.daimler.emst2.fhi.dto.AuftragKabelsaetzeDTO;
 import com.daimler.emst2.fhi.dto.AuftragKriterienDTO;
 import com.daimler.emst2.fhi.dto.AuftragLackeDTO;
+import com.daimler.emst2.fhi.dto.AuftragStoredProcedureResultDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDetailsDTO;
 import com.daimler.emst2.fhi.dto.FhiDtoFactory;
@@ -37,7 +40,6 @@ import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.dto.SendResponseDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.dto.SendungsprotokollDTO;
-import com.daimler.emst2.fhi.dto.StoredProcedureResultDTO;
 import com.daimler.emst2.fhi.jpa.dao.AuftragAenderungenDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragAenderungstexteDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragAggregateDao;
@@ -178,7 +180,7 @@ public class AuftragService {
     WarteschlangeDao warteschlangeDao;
 
     @Autowired
-    AuftragAenderungenDao AuftragAenderungenDao;
+    AuftragAenderungenDao auftragAenderungenDao;
 
     @Autowired
     UmlaufWerteDao umlaufWerteDao;
@@ -619,12 +621,14 @@ public class AuftragService {
                 : Collections.emptyList();
     }
 
-    public StoredProcedureResultDTO editBemerkungAuftrag(AuftragDTO auftrag) {
-
-        StoredProcedureResultDTO result =
-                AuftragAenderungenDao.editAuftrag(auftrag.pnr, BigDecimal.valueOf(auftrag.version),
+    @Transactional
+    public AuftragStoredProcedureResultDTO editBemerkungAuftrag(AuftragDTO auftrag) {
+        Map<String, Long> resultMap = auftragAenderungenDao.editAuftrag(auftrag.pnr, auftrag.version,
                 auftrag.bemerkung, "user");
-  
+        AuftragStoredProcedureResultDTO result = dtoFactory.createStoredProcecdureResultDTO(resultMap);
+        if (result.status <= 2) { // OK
+            result.auftrag = this.getAuftragByPnr(auftrag.pnr);
+        }
         return result;
     }
 

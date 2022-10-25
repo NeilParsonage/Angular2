@@ -25,7 +25,7 @@ import com.daimler.emst2.fhi.dto.AuftragTermineDetailsDTO;
 import com.daimler.emst2.fhi.dto.SendResponseDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.dto.SendungsprotokollDTO;
-import com.daimler.emst2.fhi.dto.StoredProcedureResultDTO;
+import com.daimler.emst2.fhi.dto.AuftragStoredProcedureResultDTO;
 import com.daimler.emst2.fhi.services.AuftragService;
 import com.daimler.emst2.fhi.services.SendungService;
 import com.daimler.emst2.frw.model.Privileges;
@@ -126,8 +126,8 @@ public class AuftragController {
 
     @PreAuthorize("hasAnyAuthority('" + Privileges.FHI_ADMIN + "','" + Privileges.FHI_LEITWARTE + "')")
     @PostMapping("/aendBemerkung")
-    public StoredProcedureResultDTO editRemark(@RequestBody AuftragDTO auftrag) {
-        StoredProcedureResultDTO result = auftragService.editBemerkungAuftrag(auftrag);
+    public AuftragStoredProcedureResultDTO editRemark(@RequestBody AuftragDTO auftrag) {
+        AuftragStoredProcedureResultDTO result = auftragService.editBemerkungAuftrag(auftrag);
         return result;
     }
 
