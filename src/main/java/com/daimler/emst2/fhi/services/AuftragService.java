@@ -621,9 +621,9 @@ public class AuftragService {
 
     public StoredProcedureResultDTO editBemerkungAuftrag(AuftragDTO auftrag) {
 
-        StoredProcedureResultDTO result = AuftragAenderungenDao.editAuftrag(auftrag.pnr, auftrag.version,
-                auftrag.bandNr, auftrag.bemerkung, null, null,
-                "user");
+        StoredProcedureResultDTO result =
+                AuftragAenderungenDao.editAuftrag(auftrag.pnr, BigDecimal.valueOf(auftrag.version),
+                auftrag.bemerkung, "user");
   
         return result;
     }

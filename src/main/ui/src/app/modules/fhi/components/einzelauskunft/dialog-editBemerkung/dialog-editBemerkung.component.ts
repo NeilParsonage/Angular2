@@ -5,7 +5,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { first } from 'rxjs/operators';
 import { DialogStaticHelper } from 'src/app/shared/utils/dialog-static-helper';
 import { Auftrag } from '../../../models/auftrag';
-import { Dummy } from '../../../models/Dummy';
 import { AuftragService } from '../../../services/auftrag.service';
 import { DialogEditRemarkOptions } from './dialog-editBemerkung.options.component';
 
@@ -17,23 +16,27 @@ import { DialogEditRemarkOptions } from './dialog-editBemerkung.options.componen
 export class DialogEditBemerkungComponent implements OnInit {
   auftrag: Auftrag = null;
   titel: string = null;
-  auftragService: AuftragService;
+  bemerkung: string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public options: DialogEditRemarkOptions,
     public datepipe: DatePipe,
-    public dialogRef: MatDialogRef<DialogEditBemerkungComponent>
-  ) {}
-
-  ngOnInit(): void {
+    public dialogRef: MatDialogRef<DialogEditBemerkungComponent>,
+    private auftragService: AuftragService
+  ) {
     this.auftrag = this.options.auftrag;
-
+    this.bemerkung = this.auftrag.bemerkung;
     this.titel = this.options.titel;
   }
 
-  async onClickOk() {
-    await this.updateBemerkung(this.auftrag);
+  ngOnInit(): void {}
 
+  async onClickOk() {
+    const updateAuftrag = { ...this.auftrag };
+    updateAuftrag.bemerkung = this.bemerkung;
+    await this.updateBemerkung(updateAuftrag);
+
+    this.auftrag.bemerkung = this.bemerkung;
     this.dialogRef.close();
   }
 
@@ -42,7 +45,7 @@ export class DialogEditBemerkungComponent implements OnInit {
   }
 
   updateBemerkung(auftrag: Auftrag) {
-    return this.auftragService.editBemerkungstext(auftrag).pipe(first()).toPromise<Dummy>();
+    return this.auftragService.editBemerkungstext(auftrag).pipe(first()).toPromise();
   }
 
   public constrainPosition(point: Point, dragRef: DragRef): Point {

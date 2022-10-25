@@ -4,7 +4,7 @@
 <div mat-dialog-content>
   <mat-form-field class="selectItemNewLong">
     <mat-label>{{ 'label.einzelauskunft.bemerkung' | translate }}</mat-label>
-    <input matInput type="text" value="{{ auftrag?.bemerkung }}" />
+    <input matInput type="text" [(ngModel)]="bemerkung" />
   </mat-form-field>
 </div>
 
