@@ -52,7 +52,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     SendemaskeDebugComponent,
     TuebPipe,
   ],
-  providers: [],
+  providers: [TuebPipe],
   imports: [
     CommonModule,
     FlexLayoutModule,

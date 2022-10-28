@@ -1,7 +1,9 @@
 package com.daimler.emst2.fhi.dto;
 
+import java.util.List;
+
 public class AuftragStoredProcedureResultDTO {
-    public Long vorgangId;
-    public Long status;
+    // public StoredProcedureResultDTO storedProcedureResult;
     public AuftragDTO auftrag;
+    public List<MessageDTO> messages;
 }

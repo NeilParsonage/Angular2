@@ -39,10 +39,12 @@ import com.daimler.emst2.fhi.dto.AuftragStoredProcedureResultDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDetailsDTO;
 import com.daimler.emst2.fhi.dto.FhiDtoFactory;
+import com.daimler.emst2.fhi.dto.MessageDTO;
 import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.dto.SendResponseDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.dto.SendungsprotokollDTO;
+import com.daimler.emst2.fhi.dto.StoredProcedureResultDTO;
 import com.daimler.emst2.fhi.jpa.dao.AuftragAenderungenDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragAenderungstexteDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragAggregateDao;
@@ -84,6 +86,7 @@ import com.daimler.emst2.fhi.jpa.model.ICountVorsendungen;
 import com.daimler.emst2.fhi.jpa.model.Lapu;
 import com.daimler.emst2.fhi.jpa.model.OrtReihenfolge;
 import com.daimler.emst2.fhi.jpa.model.UmlaufWerte;
+import com.daimler.emst2.fhi.jpa.model.VorgaengeMeldungen;
 import com.daimler.emst2.fhi.jpa.model.Warteschlange;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragAnkuendigungenComparator;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragSperrenComparator;
@@ -94,6 +97,7 @@ import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.model.SperrenPredicate;
 import com.daimler.emst2.fhi.sendung.model.SperrtypPredicate;
 import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
+import com.daimler.emst2.frw.webexceptions.NotAcceptableRuntimeException;
 
 @Service
 public class AuftragService {
@@ -190,6 +194,9 @@ public class AuftragService {
 
     @Autowired
     private KonfigurationService configService;
+
+    @Autowired
+    private VorgangService vorgangService;
 
     public AuftragDTO getAuftragByPnr(String pnr) {
         Optional<Auftrag> result = auftragDao.findById(pnr);
@@ -637,28 +644,29 @@ public class AuftragService {
     public AuftragStoredProcedureResultDTO editBemerkungAuftrag(AuftragDTO auftrag) {
         Map<String, Long> resultMap = auftragAenderungenDao.editBemerkung(auftrag.pnr, auftrag.version,
                 auftrag.bemerkung, getCurrentUsername());
-        AuftragStoredProcedureResultDTO result = dtoFactory.createStoredProcecdureResultDTO(resultMap);
-        if (result.status <= 2) { // OK
-            result.auftrag = this.getAuftragByPnr(auftrag.pnr);
-        }
+        StoredProcedureResultDTO result = dtoFactory.createStoredProcecdureResultDTO(resultMap);
 
-        return result;
+        return generateStoredProcedureResponse(auftrag, result);
     }
 
     @Transactional
     public AuftragStoredProcedureResultDTO BandwechselnAuftrag(AuftragDTO auftrag) {
         Map<String, Long> resultMap = auftragAenderungenDao.Bandwechseln(auftrag.pnr, auftrag.version,
                 auftrag.bandNr, getCurrentUsername());
-        AuftragStoredProcedureResultDTO result = dtoFactory.createStoredProcecdureResultDTO(resultMap);
-        if (result.status <= 2) { // OK
-            result.auftrag = this.getAuftragByPnr(auftrag.pnr);
-        }
-        else {
-            // Vorgangsmeldung auslesen
-            throw new RuntimeException("Änderung nicht möglich");
-        }
+        StoredProcedureResultDTO result = dtoFactory.createStoredProcecdureResultDTO(resultMap);
 
-        return result;
+        return generateStoredProcedureResponse(auftrag, result);
     }
 
+    private AuftragStoredProcedureResultDTO generateStoredProcedureResponse(AuftragDTO auftrag,
+            StoredProcedureResultDTO result) {
+        List<VorgaengeMeldungen> messages = this.vorgangService.getFailMessages(result);
+        List<MessageDTO> failMessages =
+                messages.stream().map(x -> this.dtoFactory.createMessageDTO(x)).collect(Collectors.toList());
+        if (failMessages instanceof List && Boolean.FALSE.equals(failMessages.isEmpty())) {
+            throw new NotAcceptableRuntimeException(this.dtoFactory.createResponseMessages(failMessages));
+        }
+        return dtoFactory.createAuftragStoredProcecdureResultDTO(this.getAuftragByPnr(auftrag.pnr),
+                failMessages);
+    }
 }
