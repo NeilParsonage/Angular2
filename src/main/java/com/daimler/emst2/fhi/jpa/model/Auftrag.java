@@ -41,7 +41,19 @@ import com.daimler.emst2.frw.model.BaseAuditEntity;
                         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "Po_Vorgang_Id",
                                 type = Long.class),
                         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "Po_Status", type = Long.class)
+                }),
+        @NamedStoredProcedureQuery(name = "Auftrag.Band_Wechseln",
+                procedureName = "Dialogmasken_Interface_E2.Bandwechsel",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Pi_Pnr", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Pi_Version", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Pi_Bandnr", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Pi_User", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "Po_Vorgang_Id",
+                                type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "Po_Status", type = Long.class)
                 })
+
 })
 public class Auftrag extends BaseAuditEntity implements Serializable {
     private static final long serialVersionUID = 1L;

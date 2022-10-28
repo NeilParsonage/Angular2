@@ -9,6 +9,7 @@ import { Auftrag } from '../../../models/auftrag';
 import { AuftragVorgangStatus } from '../../../models/auftrag-status';
 import { AuftragService } from '../../../services/auftrag.service';
 import { DialogEditRemarkOptions } from './dialog-editBemerkung.options.component';
+import { editBemerkungChoice } from './editBemerkungChoice.';
 
 @Component({
   selector: 'dialog-editBemerkung',
@@ -47,17 +48,14 @@ export class DialogEditBemerkungComponent implements OnInit {
       this.ctx.addErrorString('Fehler!! TODO ErrorMessage');
     } else {
       this.ctx.addInfoString(`Bemerkungstext der PNR ${updateAuftrag.pnr} von '${this.auftrag.bemerkung}' nach '${updateAuftrag.bemerkung}' geändert!`);
-      // this.auftrag.bemerkung = this.bemerkung;
-      this.auftrag.version = vorgang.auftrag.version; // update data from rest state TODO check OR page refresh ???
-      this.auftrag.bemerkung = vorgang.auftrag.bemerkung;
       // TODO besser refresh master Auftrag
-    }
 
-    this.dialogRef.close();
+      this.dialogRef.close(editBemerkungChoice.CONFIRM);
+    }
   }
 
   onClickCancel() {
-    this.dialogRef.close();
+    this.dialogRef.close(editBemerkungChoice.ABORT);
   }
 
   updateBemerkung(auftrag: Auftrag) {

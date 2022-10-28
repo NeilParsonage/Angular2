@@ -1,6 +1,6 @@
 import { Auftrag } from '../../../models/auftrag';
 
-export interface DialogEditRemarkOptions {
+export interface DialogChangeBandOptions {
   auftrag: Auftrag;
   titel: string;
 }

@@ -24,9 +24,25 @@ public interface AuftragAenderungenDao extends JpaRepository<Auftrag, String> {
                              */
 
     @Procedure(name = "Auftrag.Bemerkung_Aendern")
-    Map<String, Long> editAuftrag(@Param("Pi_Pnr") String pnr,
+    Map<String, Long> editBemerkung(@Param("Pi_Pnr") String pnr,
             @Param("Pi_Version") Long version,
             @Param("Pi_Bemerkung") String bemerkung,
+            @Param("Pi_User") String user);
+
+    /*
+     * 
+     *   PROCEDURE Bandwechsel (Pi_Pnr          IN     Auftrag.Pnr%TYPE
+                       , Pi_Version      IN     Auftrag.Version%TYPE
+                       , Pi_Bandnr       IN     Auftrag.Bandnr%TYPE
+                       , Pi_User         IN     Applikation_User.User_Id%TYPE
+                       , Po_Vorgang_Id      OUT Vorgaenge.Vorgang_Id%TYPE
+                       , Po_Status          OUT NUMBER)
+     */
+
+    @Procedure(name = "Auftrag.Band_Wechseln")
+    Map<String, Long> Bandwechseln(@Param("Pi_Pnr") String pnr,
+            @Param("Pi_Version") Long version,
+            @Param("Pi_Bandnr") Long bandNr,
             @Param("Pi_User") String user);
 
 }

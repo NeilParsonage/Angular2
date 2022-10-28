@@ -5,8 +5,10 @@ import { first } from 'rxjs/operators';
 import { ContextService } from 'src/app/core/services/context.service';
 import { Auftrag } from '../../models/auftrag';
 import { AuftragService } from '../../services/auftrag.service';
+import { changeBandChoice } from './dialog-changeBand/changeBandChoice.';
 import { DialogChangeBandComponent } from './dialog-changeBand/dialog-changeBand.component';
 import { DialogEditBemerkungComponent } from './dialog-editBemerkung/dialog-editBemerkung.component';
+import { editBemerkungChoice } from './dialog-editBemerkung/editBemerkungChoice.';
 
 @Component({
   selector: 'app-einzelauskunft',
@@ -74,13 +76,17 @@ export class EinzelauskunftComponent implements OnInit {
       });
   }
 
-  private loadDataFromTab(pnr: string) {
+  private loadDataByPNR(pnr: string) {
     this.auftragService
       .getAuftragByPnr(pnr)
       .pipe(first())
       .subscribe(data => {
         this.auftrag = data;
       });
+  }
+
+  private loadDataFromTab(pnr: string) {
+    this.loadDataByPNR(pnr);
   }
 
   private loadList(lfdNrGes: number) {
@@ -119,6 +125,11 @@ export class EinzelauskunftComponent implements OnInit {
       titel: 'Bemerkungstext ändern für PNR ' + this.auftrag.pnr,
     };
     const dialogRef = this.dialog.open(DialogEditBemerkungComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === editBemerkungChoice.CONFIRM) {
+        this.loadDataByPNR(this.auftrag.pnr);
+      }
+    });
   }
   public onclickChangeBand() {
     const dialogConfig = new MatDialogConfig();
@@ -130,11 +141,22 @@ export class EinzelauskunftComponent implements OnInit {
       titel: 'Band wechseln für PNR ' + this.auftrag.pnr,
     };
     const dialogRef = this.dialog.open(DialogChangeBandComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === changeBandChoice.CONFIRM) {
+        this.loadDataByPNR(this.auftrag.pnr);
+      }
+    });
   }
 
   hasPrivilegeEdit() {
-    //return false;
-
     return this.contextService.hasPrivilegeEditAuftrag();
+  }
+
+  isEditable() {
+    if (this.auftrag != null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

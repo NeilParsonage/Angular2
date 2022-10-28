@@ -84,6 +84,7 @@ export class EinzelauskunftKopfComponent implements OnInit {
       this.aggregat = this.aggregateliste[0];
       this.codesView = this.einzelauskunft.fhiRelCodes + ' - ' + this.einzelauskunft.bandRelCodes;
       this.kriterienView = this.einzelauskunft.fhiRelKrits + ' - ' + this.einzelauskunft.bandRelKrits;
+      console.log('nachladen......');
     });
   }
   showListe(listeElements: string[], titel: string, dialogWidth: string = '500px') {
@@ -217,7 +218,7 @@ export class EinzelauskunftKopfComponent implements OnInit {
     if (bandNr == 1) {
       result = 'background_white';
     } else if (bandNr == 2) {
-      result = 'background_yelloq';
+      result = 'background_yellow';
     } else if (bandNr == 3) {
       result = 'background_green';
     } else {

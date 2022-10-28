@@ -27,11 +27,11 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button [disabled]="!hasPrivilegeEdit()" mat-menu-item (click)="onclickChangeBand()">
+              <button [disabled]="!hasPrivilegeEdit() || !isEditable()" mat-menu-item (click)="onclickChangeBand()">
                 <mat-icon>edit</mat-icon>
                 <span>Band wechseln</span>
               </button>
-              <button [disabled]="!hasPrivilegeEdit()" mat-menu-item (click)="onclickEditRemark()">
+              <button [disabled]="!hasPrivilegeEdit() || !isEditable()" mat-menu-item (click)="onclickEditRemark()">
                 <mat-icon>edit</mat-icon>
                 <span>Bemerkungstext ändern</span>
               </button>

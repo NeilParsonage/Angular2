@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Auftrag } from '../models/auftrag';
+import { AuftragVorgangStatus } from '../models/auftrag-status';
 import { AuftragAenderungstexte } from '../models/auftragAenderungstexte';
 import { AuftragAggregate } from '../models/auftragAggregate';
 import { AuftragCodes } from '../models/auftragCodes';
@@ -14,7 +15,6 @@ import { AuftragTermine } from '../models/auftragTermine';
 import { AuftragTermineDetails } from '../models/auftragTermineDetails';
 import { Sendung } from '../models/sendung';
 import { SendungResponse } from '../models/sendungResponse';
-import { AuftragVorgangStatus } from '../models/auftrag-status';
 
 @Injectable({
   providedIn: 'root',
@@ -121,5 +121,9 @@ export class AuftragService {
 
   public editBemerkungstext(auftrag: Auftrag): Observable<AuftragVorgangStatus> {
     return this.http.post<AuftragVorgangStatus>(`${this.endpoint}/aendBemerkung`, auftrag);
+  }
+
+  public changeBand(auftrag: Auftrag): Observable<AuftragVorgangStatus> {
+    return this.http.post<AuftragVorgangStatus>(`${this.endpoint}/bandwechseln`, auftrag);
   }
 }
