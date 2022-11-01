@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.ListUtils;
@@ -20,9 +21,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import com.daimler.emst2.fhi.dto.AuftragHistorieDTO;
+import com.daimler.emst2.fhi.dto.FhiDtoFactory;
 import com.daimler.emst2.fhi.jpa.dao.AuftragHistorieCustomDao;
+import com.daimler.emst2.fhi.jpa.dao.AuftragHistorieReadOnlyDao;
 import com.daimler.emst2.fhi.jpa.model.Auftrag;
 import com.daimler.emst2.fhi.jpa.model.AuftragHistorie;
+import com.daimler.emst2.fhi.jpa.model.AuftragHistorieReadOnly;
 import com.daimler.emst2.fhi.jpa.model.AuftragSperrInformation;
 import com.daimler.emst2.fhi.sendung.constants.CancelSendTypeEnum;
 import com.daimler.emst2.fhi.sendung.constants.SendStatusEnum;
@@ -58,8 +63,24 @@ public class AuftragHistorienService {
     @Autowired
     private AuftragHistorieCustomDao auftragHistorieCustomDao;
 
+    @Autowired
+    AuftragHistorieReadOnlyDao auftragHistorieReadOnlyDao;
+
+    @Autowired
+    FhiDtoFactory dtoFactory;
+
     public AuftragHistorienService() {
         super();
+    }
+
+    public List<AuftragHistorieDTO> getAlleAuftragHistorie() {
+
+        List<AuftragHistorieReadOnly> result = this.auftragHistorieReadOnlyDao.findAllAuftragHistorieReadOnlyD();
+
+        return result instanceof List
+                ? result.stream().map(x -> dtoFactory.createAuftragAenderungstexteDTO(x))
+                        .collect(Collectors.toList())
+                : Collections.emptyList();
     }
 
     /**

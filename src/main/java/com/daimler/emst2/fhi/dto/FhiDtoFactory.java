@@ -10,6 +10,7 @@ import com.daimler.emst2.fhi.jpa.model.AuftragAggregate;
 import com.daimler.emst2.fhi.jpa.model.AuftragCodes;
 import com.daimler.emst2.fhi.jpa.model.AuftragDetails;
 import com.daimler.emst2.fhi.jpa.model.AuftragHeberhaus;
+import com.daimler.emst2.fhi.jpa.model.AuftragHistorieReadOnly;
 import com.daimler.emst2.fhi.jpa.model.AuftragKabelsaetze;
 import com.daimler.emst2.fhi.jpa.model.AuftragKriterien;
 import com.daimler.emst2.fhi.jpa.model.AuftragLacke;
@@ -261,6 +262,20 @@ public class FhiDtoFactory {
         neu.pnr = auftragAenderungstext.getPnr();
         neu.quelle = auftragAenderungstext.getQuelle();
         neu.text = auftragAenderungstext.getText();
+        return neu;
+    }
+
+    public AuftragHistorieDTO createAuftragAenderungstexteDTO(AuftragHistorieReadOnly auftragHistorieReadOnly) {
+        AuftragHistorieDTO neu = new AuftragHistorieDTO();
+        neu.pnr = auftragHistorieReadOnly.getAufPnr();
+        neu.quelle = auftragHistorieReadOnly.getMelder();
+        neu.meldkenn = auftragHistorieReadOnly.getMeldkenn();
+        neu.aktion = auftragHistorieReadOnly.getMeldung();
+        neu.sendetermin = auftragHistorieReadOnly.getSendetermin();
+        neu.zeit = auftragHistorieReadOnly.getZeit();
+        neu.bandnr = auftragHistorieReadOnly.getBandnr();
+        neu.fzgbm = auftragHistorieReadOnly.getFzgbm();
+        neu.ort = auftragHistorieReadOnly.getOrt();
         return neu;
     }
 

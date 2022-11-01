@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuftragshistorieComponent } from './modules/fhi/components/auftragshistorie/auftragshistorie.component';
 import { EinzelauskunftComponent } from './modules/fhi/components/einzelauskunft/einzelauskunft.component';
 import { SendemaskeDebugComponent } from './modules/fhi/components/sendemaske-debug/sendemaske-debug.component';
 import { SendemaskeComponent } from './modules/fhi/components/sendemaske/sendemaske.component';
@@ -66,6 +67,19 @@ export const routes: Routes = [
       displaySidemenu: true,
       displayText: 'Sendemaske Debug',
       displayIcon: 'bug_report',
+    },
+  },
+
+  {
+    path: 'Auftragshistorie',
+    component: AuftragshistorieComponent,
+    data: {
+      title: 'Auftragshistorie',
+      wikilink: wikibase + 'W060.FHI.F.Frontend.Auftragshistorie',
+      roles: [],
+      displaySidemenu: true,
+      displayText: 'Auftragshistorie',
+      displayIcon: 'reorder',
     },
   },
 ];
