@@ -75,7 +75,9 @@ public class AuftragHistorienService {
 
     public List<AuftragHistorieDTO> getAlleAuftragHistorie() {
 
-        List<AuftragHistorieReadOnly> result = this.auftragHistorieReadOnlyDao.findAllAuftragHistorieReadOnlyD();
+        //List<AuftragHistorieReadOnly> result = this.auftragHistorieReadOnlyDao.findAllAuftragHistorieReadOnly();
+        List<AuftragHistorieReadOnly> result =
+                this.auftragHistorieReadOnlyDao.findAllAuftragHistorieReadOnly(69646040, 69646140);
 
         return result instanceof List
                 ? result.stream().map(x -> dtoFactory.createAuftragAenderungstexteDTO(x))

@@ -24,7 +24,7 @@ import com.daimler.emst2.frw.model.BaseAuditEntity;
  */
 @Entity
 @Table(name = "V_E2_HISTORIE")
-@NamedQuery(name = "AuftragHistorie.findAll", query = "SELECT v FROM AuftragHistorie v")
+@NamedQuery(name = "AuftragHistorieReadOnly.findAll", query = "SELECT v FROM AuftragHistorieReadOnly v")
 public class AuftragHistorieReadOnly extends BaseAuditEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 

@@ -20,6 +20,8 @@ export class ContextService {
 
   private rendered$ = new Subject<any>();
 
+  private forcePageRefresh$ = new Subject<any>();
+
   constructor(private ngZone: NgZone) {
     console.log('+++++ new ContextService');
     this.initReadyRenderer();
@@ -104,5 +106,9 @@ export class ContextService {
 
   public setBackendRequestInProgress(prog: boolean) {
     this.isBackendRequestInProgress$.next(prog);
+  }
+
+  public getForcePageRefresh() {
+    return this.forcePageRefresh$.asObservable();
   }
 }

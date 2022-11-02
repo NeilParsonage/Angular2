@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.daimler.emst2.fhi.jpa.model.AuftragHistorieReadOnly;
@@ -14,7 +15,7 @@ import com.daimler.emst2.fhi.jpa.model.AuftragHistorieReadOnly;
 public interface AuftragHistorieReadOnlyDao extends CrudRepository<AuftragHistorieReadOnly, String> {
 
 
-    @Query("SELECT a from AuftragHistorieReadOnly a")
-    public List<AuftragHistorieReadOnly> findAllAuftragHistorieReadOnlyD();
+    @Query("SELECT a from AuftragHistorieReadOnly a where a.aufHistId > :von and a.aufHistId < :bis")
+    public List<AuftragHistorieReadOnly> findAllAuftragHistorieReadOnly(@Param("von") long von, @Param("bis") long bis);
 
 }

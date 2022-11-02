@@ -1,1 +1,27 @@
-<p>auftragshistorie works!</p>
+<p>auftragshistorie works - almost !</p>
+<div class="container mat-elevation-z8">
+  <div class="content">
+    <div class="table-container" fxLayout="row">
+      <table mat-table [dataSource]="matdataSource" style="width: 100%">
+        <ng-container matColumnDef="Pnr">
+          <th mat-header-cell *matHeaderCellDef>Pnr</th>
+          <td mat-cell *matCellDef="let element">{{ element.pnr }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Bd">
+          <th mat-header-cell *matHeaderCellDef>Bd</th>
+          <td mat-cell *matCellDef="let element">{{ element.bandnr }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="container">
+    <p>Loading data...</p>
+  </div>
+</ng-template>
