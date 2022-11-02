@@ -24,8 +24,8 @@ export class AuftragshistorieComponent implements OnInit {
   auftragshistorie: Auftragshistorie[] = [];
   selectedAuftragshistorie: Auftragshistorie;
   expandedElement: Auftragshistorie;
-  //displayedColumns: string[] = ['Pnr', 'Bd', 'Fzgbm', 'Quelle', 'Aktion', 'Aktionstermin', 'Ort'];
-  displayedColumns: string[] = ['Pnr', 'Bd'];
+  displayedColumns: string[] = ['Pnr', 'Bd', 'Fzgbm', 'Quelle', 'Aktion', 'Aktionstermin', 'Ort'];
+  //displayedColumns: string[] = ['Pnr', 'Bd', 'Fzgbm'];
 
   //matDataSource: MatTableDataSource<Auftragshistorie> = new MatTableDataSource<Auftragshistorie>();
 
