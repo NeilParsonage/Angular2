@@ -83,6 +83,18 @@
             <artifactId>ojdbc7</artifactId>
             <version>${version.oracle.ojdbc}</version>
         </dependency>
+        
+        
+        <dependency>
+            <groupId>io.github.perplexhub</groupId>
+            <artifactId>rsql-jpa-spring-boot-starter</artifactId>
+            <version>5.0.9</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.perplexhub</groupId>
+            <artifactId>rsql-jpa-specification</artifactId>
+            <version>5.0.9</version>
+        </dependency>
 
         <!-- ********************** -->
         <!-- SCOPE - RUNTIME -->

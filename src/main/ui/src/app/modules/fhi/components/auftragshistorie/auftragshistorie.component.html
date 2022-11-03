@@ -1,6 +1,13 @@
 <div class="container mat-elevation-z8">
   <div class="content">
     <div class="table-container" fxLayout="row">
+      <dai-table [tableConfig]="daiTableConfig"></dai-table>
+    </div>
+  </div>
+
+  <!--
+  <div class="content">
+    <div class="table-container" fxLayout="row">
       <table mat-table [dataSource]="matdataSource" style="width: 100%">
         <ng-container matColumnDef="Pnr">
           <th mat-header-cell *matHeaderCellDef>Pnr</th>
@@ -41,7 +48,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
     </div>
-  </div>
+  </div> -->
 </div>
 
 <ng-template #loading>

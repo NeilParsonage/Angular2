@@ -18,6 +18,9 @@ import org.apache.commons.collections4.Predicate;
 import org.apache.commons.collections4.Transformer;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -38,6 +41,7 @@ import com.daimler.emst2.fhi.sendung.processcommon.CalcSendeterminForHistUtil;
 import com.daimler.emst2.fhi.util.AuftragUtil;
 import com.daimler.emst2.fhi.util.BasisStringUtils;
 
+import io.github.perplexhub.rsql.RSQLSupport;
 
 @Service
 public class AuftragHistorienService {
@@ -83,6 +87,14 @@ public class AuftragHistorienService {
                 ? result.stream().map(x -> dtoFactory.createAuftragAenderungstexteDTO(x))
                         .collect(Collectors.toList())
                 : Collections.emptyList();
+    }
+
+    public Page<AuftragHistorieDTO> getAlleAuftragHistorieBySearchString(String search, Pageable pageable) {
+        Specification<AuftragHistorieReadOnly> specification = RSQLSupport.toSpecification(search);
+
+        Page<AuftragHistorieReadOnly> entities = auftragHistorieReadOnlyDao.findAll(specification, pageable);
+
+        return entities.map(x -> dtoFactory.createAuftragAenderungstexteDTO(x));
     }
 
     /**

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ContextService } from '../../../core/services/context.service';
 import { Auftragshistorie } from '../models/auftragshistorie';
+import { AuftragshistoriePage } from '../models/auftragshistoriePage';
 
 @Injectable({
   providedIn: 'root',
@@ -20,5 +21,9 @@ export class AuftragHistorieService {
   public getAllAuftragsHistorie(): Observable<Auftragshistorie[]> {
     const options = {};
     return this.http.get<Auftragshistorie[]>(`${this.endpoint}/listAllHistorieAuftraege`, options);
+  }
+
+  public getAll(query: string): Observable<AuftragshistoriePage> {
+    return this.http.get<AuftragshistoriePage>(this.endpoint + '?search=' + query);
   }
 }
