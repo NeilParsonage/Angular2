@@ -30,7 +30,7 @@ public class AuftragHistorieController {
 
     @GetMapping
     public Page<AuftragHistorieDTO> getAll(@RequestParam(value = "search", required = false) String search,
-            @AdditionalSort("fehlerOrtQId") Pageable pageable) throws IOException {
+            @AdditionalSort("aufPnr") Pageable pageable) throws IOException {
         return auftragHistorienService.getAlleAuftragHistorieBySearchString(search, pageable);
     }
 

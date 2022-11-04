@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { DaiPaginatorConfig, DaiTableConfig } from 'emst-table';
+import { DaiFilterCode, DaiFilterType, DaiPaginatorConfig, DaiTableConfig } from 'emst-table';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { ContextService } from 'src/app/core/services/context.service';
@@ -39,10 +39,17 @@ export class AuftragshistorieComponent implements OnInit {
     pnr: {
       name: 'Pnr',
       sortable: true,
+      filter: {
+        type: DaiFilterType.STRING,
+        code: DaiFilterCode.IGNORECASELIKE,
+        title: 'Pnr',
+        key: 'aufPnr',
+      },
     },
     aufhId: {
       name: 'Id',
       sortable: true,
+      direction: 'asc',
     },
     quelle: {
       name: 'Quelle',
@@ -67,7 +74,6 @@ export class AuftragshistorieComponent implements OnInit {
     bandnr: {
       name: 'Bd',
       sortable: true,
-      direction: 'asc',
     },
     fzgbm: {
       name: 'Fzgbm',
@@ -115,5 +121,9 @@ export class AuftragshistorieComponent implements OnInit {
 
   getPaginatorConfig(): DaiPaginatorConfig {
     return new DaiPaginatorConfig(true, null, ['100']);
+  }
+
+  queryChanged(query: any) {
+    console.log(query);
   }
 }

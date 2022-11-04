@@ -1,54 +1,7 @@
 <div class="container mat-elevation-z8">
   <div class="content">
-    <div class="table-container" fxLayout="row">
-      <dai-table [tableConfig]="daiTableConfig"></dai-table>
-    </div>
+    <dai-table (queryChange)="queryChanged($event)" [tableConfig]="daiTableConfig"> </dai-table>
   </div>
-
-  <!--
-  <div class="content">
-    <div class="table-container" fxLayout="row">
-      <table mat-table [dataSource]="matdataSource" style="width: 100%">
-        <ng-container matColumnDef="Pnr">
-          <th mat-header-cell *matHeaderCellDef>Pnr</th>
-          <td mat-cell *matCellDef="let element">{{ element.pnr }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="Bd">
-          <th mat-header-cell *matHeaderCellDef>Bd</th>
-          <td mat-cell *matCellDef="let element">{{ element.bandnr }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="Fzgbm">
-          <th mat-header-cell *matHeaderCellDef>Fzgbm</th>
-          <td mat-cell *matCellDef="let element">{{ element.fzgbm }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="Quelle">
-          <th mat-header-cell *matHeaderCellDef>Quelle</th>
-          <td mat-cell *matCellDef="let element">{{ element.quelle }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="Aktion">
-          <th mat-header-cell *matHeaderCellDef>Aktion</th>
-          <td mat-cell *matCellDef="let element">{{ element.aktion }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="Aktionstermin">
-          <th mat-header-cell *matHeaderCellDef>Aktionstermin</th>
-          <td mat-cell *matCellDef="let element">{{ element.sendetermin }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="Ort">
-          <th mat-header-cell *matHeaderCellDef>Ort</th>
-          <td mat-cell *matCellDef="let element">{{ element.ort }}</td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
-    </div>
-  </div> -->
 </div>
 
 <ng-template #loading>
