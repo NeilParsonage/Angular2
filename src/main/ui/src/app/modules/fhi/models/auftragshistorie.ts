@@ -12,4 +12,13 @@ export interface Auftragshistorie {
   bandnr: number;
   fzgbm: string;
   ort: string;
+
+  lfdNrGes: number;
+  lfdNrFhi: number;
+  //lfdNrLmt: number;
+  lfdNrRhm: number;
+  lfdNrUbm: number;
+  pat: string | Date | Moment;
+  gesLfdSoll: number;
+  bdLfdSoll: number;
 }

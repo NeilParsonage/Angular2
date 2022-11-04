@@ -276,6 +276,18 @@ public class FhiDtoFactory {
         neu.bandnr = auftragHistorieReadOnly.getBandnr();
         neu.fzgbm = auftragHistorieReadOnly.getFzgbm();
         neu.ort = auftragHistorieReadOnly.getOrt();
+        
+        neu.lfdNrGes = auftragHistorieReadOnly.getLfdNrGes();
+        neu.lfdNrFhi = auftragHistorieReadOnly.getLfdNrFhi();
+        //neu.lfdNrLmt = auftragHistorieReadOnly.getLfdNrLmt();
+        neu.lfdNrRhm = auftragHistorieReadOnly.getLfdNrRhm();
+        neu.lfdNrUbm = auftragHistorieReadOnly.getLfdNrUbm();
+        neu.pat = auftragHistorieReadOnly.getPat();
+        neu.gesLfdSoll = auftragHistorieReadOnly.getLfdNrGes();
+        neu.bdLfdSoll = auftragHistorieReadOnly.getBdLfdSoll();
+        
+        
+        
         return neu;
     }
 

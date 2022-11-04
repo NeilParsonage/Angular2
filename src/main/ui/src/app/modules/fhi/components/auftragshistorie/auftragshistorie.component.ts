@@ -47,57 +47,8 @@ export class AuftragshistorieComponent implements OnDestroy {
         code: DaiFilterCode.IGNORECASELIKE,
         title: 'Pnr',
         key: 'aufPnr',
-        width: '100px',
+        width: '80px',
       },
-    },
-    quelle: {
-      name: 'Quelle',
-      filter: {
-        type: DaiFilterType.STRING,
-        code: DaiFilterCode.IGNORECASELIKE,
-        title: 'Quelle',
-      },
-      sortable: true,
-    },
-    meldkenn: {
-      name: 'Meld-Kennung',
-      filter: {
-        type: DaiFilterType.STRING,
-        code: DaiFilterCode.IGNORECASELIKE,
-        title: 'Meld-Kennung',
-      },
-      sortable: true,
-    },
-    aktion: {
-      name: 'Aktion',
-      filter: {
-        type: DaiFilterType.STRING,
-        code: DaiFilterCode.IGNORECASELIKE,
-        title: 'Aktion',
-      },
-      sortable: true,
-    },
-    sendetermin: {
-      name: 'Aktionstermin',
-      filter: {
-        type: DaiFilterType.DATERANGE,
-        code: DaiFilterCode.EQUAL,
-        title: 'Aktionstermin',
-      },
-      function: function (element: Auftragshistorie) {
-        if (element.sendetermin) return '<div> ' + FormatUtil.formatDateWithFormat(element.sendetermin, 'dd.MM.yyyy') + ' </div>';
-      },
-      sortable: true,
-      direction: 'asc',
-    },
-    zeit: {
-      name: 'Zeit',
-      filter: {
-        type: DaiFilterType.STRING,
-        code: DaiFilterCode.IGNORECASELIKE,
-        title: 'Zeit',
-      },
-      sortable: true,
     },
     bandnr: {
       name: 'Bd',
@@ -105,7 +56,7 @@ export class AuftragshistorieComponent implements OnDestroy {
         type: DaiFilterType.SELECT,
         code: DaiFilterCode.EQUAL,
         title: 'Band',
-        width: '50px',
+        width: '30px',
         list: [
           {
             text: '0',
@@ -129,15 +80,161 @@ export class AuftragshistorieComponent implements OnDestroy {
         type: DaiFilterType.STRING,
         code: DaiFilterCode.IGNORECASELIKE,
         title: 'Fzgbm',
+        width: '80px',
       },
       sortable: true,
     },
+    quelle: {
+      name: 'Quelle',
+      filter: {
+        type: DaiFilterType.STRING,
+        code: DaiFilterCode.IGNORECASELIKE,
+        title: 'Quelle',
+        width: '80px',
+      },
+      sortable: true,
+    },
+    aktion: {
+      name: 'Aktion',
+      filter: {
+        type: DaiFilterType.STRING,
+        code: DaiFilterCode.IGNORECASELIKE,
+        title: 'Aktion',
+        width: '200px',
+      },
+      sortable: true,
+    },
+    /*
+    meldkenn: {
+      name: 'Meld-Kennung',
+      filter: {
+        type: DaiFilterType.STRING,
+        code: DaiFilterCode.IGNORECASELIKE,
+        title: 'Meld-Kennung',
+        width: '100px',
+      },
+      sortable: true,
+    },
+    */
+    sendetermin: {
+      name: 'Aktionstermin',
+      filter: {
+        type: DaiFilterType.DATERANGE,
+        code: DaiFilterCode.EQUAL,
+        title: 'Aktionstermin',
+        width: '150px',
+      },
+      function: function (element: Auftragshistorie) {
+        if (element.sendetermin) return '<div> ' + FormatUtil.formatDateWithFormat(element.sendetermin, 'dd.MM.yyyy') + ' </div>';
+      },
+      sortable: true,
+      direction: 'asc',
+    },
+    /*
+    zeit: {
+      name: 'Zeit',
+      filter: {
+        type: DaiFilterType.STRING,
+        code: DaiFilterCode.IGNORECASELIKE,
+        title: 'Zeit',
+        width: '100px',
+      },
+      sortable: true,
+    },
+    */
     ort: {
       name: 'Ort',
       filter: {
         type: DaiFilterType.STRING,
         code: DaiFilterCode.IGNORECASELIKE,
         title: 'Ort',
+        width: '50px',
+      },
+      sortable: true,
+    },
+    lfdNrGes: {
+      name: 'Ges.lfdNr',
+      filter: {
+        type: DaiFilterType.STRING,
+        code: DaiFilterCode.IGNORECASELIKE,
+        title: 'lfdNrGes',
+        width: '50px',
+      },
+      sortable: true,
+    },
+    lfdNrFhi: {
+      name: 'Ist.lfd FHI',
+      filter: {
+        type: DaiFilterType.STRING,
+        code: DaiFilterCode.IGNORECASELIKE,
+        title: 'lfdNrFhi',
+        width: '50px',
+      },
+      sortable: true,
+    },
+    /*
+    lfdNrLmt: {
+      name: 'Ist.lfd LMT',
+      filter: {
+        type: DaiFilterType.STRING,
+        code: DaiFilterCode.IGNORECASELIKE,
+        title: 'lfdNrLmt',
+        width: '50px',
+      },
+      sortable: true,
+    },
+    */
+    lfdNrRhm: {
+      name: 'Ist.lfd RHM',
+      filter: {
+        type: DaiFilterType.STRING,
+        code: DaiFilterCode.IGNORECASELIKE,
+        title: 'lfdNrRhm',
+        width: '50px',
+      },
+      sortable: true,
+    },
+    lfdNrUbm: {
+      name: 'Ist.lfd UBM',
+      filter: {
+        type: DaiFilterType.STRING,
+        code: DaiFilterCode.IGNORECASELIKE,
+        title: 'lfdNrUbm',
+        width: '50px',
+      },
+      sortable: true,
+    },
+    pat: {
+      name: 'Pat',
+      filter: {
+        type: DaiFilterType.DATERANGE,
+        code: DaiFilterCode.EQUAL,
+        title: 'Pat',
+        width: '150px',
+      },
+      function: function (element: Auftragshistorie) {
+        if (element.sendetermin) return '<div> ' + FormatUtil.formatDateWithFormat(element.pat, 'dd.MM.yyyy') + ' </div>';
+      },
+      sortable: true,
+      direction: 'asc',
+    },
+    gesLfdSoll: {
+      name: 'Soll.Rf-G',
+      filter: {
+        type: DaiFilterType.STRING,
+        code: DaiFilterCode.IGNORECASELIKE,
+        title: 'gesLfdSoll',
+        width: '50px',
+      },
+      sortable: true,
+    },
+    bdLfdSoll: {
+      name: 'Soll.Rf-Bd',
+      filter: {
+        type: DaiFilterType.STRING,
+        code: DaiFilterCode.IGNORECASELIKE,
+        title: 'bdLfdSoll',
+        width: '50px',
       },
       sortable: true,
     },

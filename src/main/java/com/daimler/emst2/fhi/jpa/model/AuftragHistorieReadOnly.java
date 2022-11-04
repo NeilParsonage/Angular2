@@ -61,6 +61,30 @@ public class AuftragHistorieReadOnly extends BaseAuditEntity implements Serializ
 
     private String ort;
 
+    @Column(name = "LFD_NR_GES")
+    private Long lfdNrGes;
+
+    @Column(name = "LFD_NR_FHI")
+    private Long lfdNrFhi;
+
+    //@Column(name = "LFD_NR_LMT")
+    //private Long lfdNrLmt;
+
+    @Column(name = "LFD_NR_RHM")
+    private Long lfdNrRhm;
+
+    @Column(name = "LFD_NR_UBM")
+    private Long lfdNrUbm;
+
+    @Temporal(TemporalType.DATE)
+    private Date pat;
+
+    @Column(name = "GESLFDSOLL")
+    private Long gesLfdSoll;
+
+    @Column(name = "BDLFDSOLL")
+    private Long bdLfdSoll;
+
     public AuftragHistorieReadOnly() {
     }
 
@@ -150,6 +174,71 @@ public class AuftragHistorieReadOnly extends BaseAuditEntity implements Serializ
 
     public void setOrt(String ort) {
         this.ort = ort;
+    }
+
+    public Long getLfdNrGes() {
+        return lfdNrGes;
+    }
+
+    public void setLfdNrGes(Long lfdNrGes) {
+        this.lfdNrGes = lfdNrGes;
+    }
+
+    public Long getLfdNrFhi() {
+        return lfdNrFhi;
+    }
+
+    public void setLfdNrFhi(Long lfdNrFhi) {
+        this.lfdNrFhi = lfdNrFhi;
+    }
+
+    /*
+    public Long getLfdNrLmt() {
+        return lfdNrLmt;
+    }
+    
+    public void setLfdNrLmt(Long lfdNrLmt) {
+        this.lfdNrLmt = lfdNrLmt;
+    }
+     */
+    public Long getLfdNrRhm() {
+        return lfdNrRhm;
+    }
+
+    public void setLfdNrRhm(Long lfdNrRhm) {
+        this.lfdNrRhm = lfdNrRhm;
+    }
+
+    public Long getLfdNrUbm() {
+        return lfdNrUbm;
+    }
+
+    public void setLfdNrUbm(Long lfdNrUbm) {
+        this.lfdNrUbm = lfdNrUbm;
+    }
+
+    public Date getPat() {
+        return pat;
+    }
+
+    public void setPat(Date pat) {
+        this.pat = pat;
+    }
+
+    public Long getGesLfdSoll() {
+        return gesLfdSoll;
+    }
+
+    public void setGesLfdSoll(Long gesLfdSoll) {
+        this.gesLfdSoll = gesLfdSoll;
+    }
+
+    public Long getBdLfdSoll() {
+        return bdLfdSoll;
+    }
+
+    public void setBdLfdSoll(Long bdLfdSoll) {
+        this.bdLfdSoll = bdLfdSoll;
     }
 
     @Override
