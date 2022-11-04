@@ -1,6 +1,7 @@
 <div class="container mat-elevation-z8">
   <div class="content">
-    <dai-table (queryChange)="queryChanged($event)" [tableConfig]="daiTableConfig"> </dai-table>
+    <dai-table *ngIf="daiTableConfig$ | async as daiTableConfigState; else loading" [tableConfig]="daiTableConfigState" (queryChange)="queryChanged($event)">
+    </dai-table>
   </div>
 </div>
 

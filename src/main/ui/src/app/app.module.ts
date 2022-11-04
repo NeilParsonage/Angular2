@@ -3,6 +3,8 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 // ... other import statements ...
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -23,42 +25,56 @@ import { MessageCardStapleComponent } from './shared/components/message-card-sta
 import { MaterialModule } from './shared/modules/material.module';
 import { TuebService } from './shared/services/tueb.service';
 
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD.MM.YYYY',
+  },
+  display: {
+    dateInput: 'DD.MM.YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
+
 @NgModule({
-    declarations: [AppComponent, ConfirmDialogComponent, UserConfirmDialogComponent, ConfirmationPopupComponent, MessageCardStapleComponent],
-    imports: [
-        AppRoutingModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        DaiUiFrameModule,
-        FhiModule,
-        FlexLayoutModule,
-        FormsModule,
-        HttpClientModule,
-        KeycloakAngularModule,
-        LibEmstTableModule,
-        MaterialModule,
-        ReactiveFormsModule,
-        TranslateModule.forRoot(),
-    ],
-    providers: [
-        PrivilegeRouteGuard,
-        {
-            provide: APP_INITIALIZER,
-            useFactory: initializer,
-            multi: true,
-            deps: [KeycloakService, TranslateService, TuebService],
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: BlobErrorHttpInterceptor,
-            multi: true,
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: HttpErrorInterceptor,
-            multi: true,
-        },
-    ],
-    bootstrap: [AppComponent]
+  declarations: [AppComponent, ConfirmDialogComponent, UserConfirmDialogComponent, ConfirmationPopupComponent, MessageCardStapleComponent],
+  imports: [
+    AppRoutingModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    DaiUiFrameModule,
+    FhiModule,
+    FlexLayoutModule,
+    FormsModule,
+    HttpClientModule,
+    KeycloakAngularModule,
+    LibEmstTableModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    TranslateModule.forRoot(),
+  ],
+  providers: [
+    PrivilegeRouteGuard,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializer,
+      multi: true,
+      deps: [KeycloakService, TranslateService, TuebService],
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BlobErrorHttpInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true,
+    },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
