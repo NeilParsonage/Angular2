@@ -29,11 +29,11 @@
             <mat-menu #menu="matMenu">
               <button [disabled]="!hasPrivilegeEdit() || !isEditable()" mat-menu-item (click)="onclickChangeBand()">
                 <mat-icon>edit</mat-icon>
-                <span>Band wechseln</span>
+                <span>{{ 'action.einzelauskunft.bandwechseln' | translate }}</span>
               </button>
               <button [disabled]="!hasPrivilegeEdit() || !isEditable()" mat-menu-item (click)="onclickEditRemark()">
                 <mat-icon>edit</mat-icon>
-                <span>Bemerkungstext ändern</span>
+                <span>{{ 'action.einzelauskunft.bemerkungstextaendern' | translate }}</span>
               </button>
             </mat-menu>
           </div>
