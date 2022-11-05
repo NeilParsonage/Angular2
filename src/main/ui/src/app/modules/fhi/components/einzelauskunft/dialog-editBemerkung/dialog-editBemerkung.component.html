@@ -9,6 +9,10 @@
 </div>
 
 <mat-dialog-actions align="end">
-  <button mat-stroked-button color="primary" (click)="onClickCancel()"><mat-icon>done</mat-icon><span> Abbrechen</span></button>
-  <button mat-raised-button color="primary" (click)="onClickOk()" cdkFocusInitial><mat-icon>done</mat-icon><span> ok</span></button>
+  <button mat-stroked-button color="primary" (click)="onClickCancel()">
+    <mat-icon>cancel</mat-icon><span> {{ 'button.einzelauskunft.cancel' | translate }}</span>
+  </button>
+  <button mat-raised-button color="primary" (click)="onClickOk()" cdkFocusInitial>
+    <mat-icon>save</mat-icon><span>{{ 'button.einzelauskunft.save' | translate }}</span>
+  </button>
 </mat-dialog-actions>

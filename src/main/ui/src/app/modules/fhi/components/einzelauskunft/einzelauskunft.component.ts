@@ -122,7 +122,7 @@ export class EinzelauskunftComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.data = {
       auftrag: this.auftrag,
-      titel: 'Bemerkungstext ändern für PNR ' + this.auftrag.pnr,
+      titel: this.translateService.instant('text.einzelauskunft.bemerkungstextaendern') + this.auftrag.pnr,
     };
     const dialogRef = this.dialog.open(DialogEditBemerkungComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
@@ -138,7 +138,7 @@ export class EinzelauskunftComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.data = {
       auftrag: this.auftrag,
-      titel: 'Band wechseln für PNR ' + this.auftrag.pnr,
+      titel: this.translateService.instant('text.einzelauskunft.bandwechsler') + this.auftrag.pnr,
     };
     const dialogRef = this.dialog.open(DialogChangeBandComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
