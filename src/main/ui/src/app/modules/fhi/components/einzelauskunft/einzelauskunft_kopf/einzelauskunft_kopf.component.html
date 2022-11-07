@@ -4,7 +4,7 @@
       <div fxLayout="row">
         <mat-form-field class="selectItemShort">
           <mat-label>{{ 'label.einzelauskunft.band' | translate }}</mat-label>
-          <input matInput type="number" [readonly]="true" value="{{ einzelauskunft?.bandNr }}" />
+          <input matInput [ngClass]="setBackgroundColorBand(einzelauskunft?.bandNr)" type="number" [readonly]="true" value="{{ einzelauskunft?.bandNr }}" />
         </mat-form-field>
       </div>
       <div fxLayout="row">

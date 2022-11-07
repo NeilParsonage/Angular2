@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
+import { ContextService } from 'src/app/core/services/context.service';
 import { Auftrag } from '../../../models/auftrag';
 import { AuftragAenderungstexte } from '../../../models/auftragAenderungstexte';
 import { AuftragAggregate } from '../../../models/auftragAggregate';
@@ -21,7 +22,7 @@ import { DialogShowlistComponent } from '../dialog-showlist/dialog-showlist.comp
 })
 export class EinzelauskunftKopfComponent implements OnInit {
   aenderungstexteliste: AuftragAenderungstexte[];
-  constructor(private auftragService: AuftragService, public dialog: MatDialog, private translateService: TranslateService) {}
+  constructor(private auftragService: AuftragService, public dialog: MatDialog, private translateService: TranslateService, private ctx: ContextService) {}
 
   einzelauskunft: Auftrag = null;
   codesView: string = null;
@@ -83,6 +84,7 @@ export class EinzelauskunftKopfComponent implements OnInit {
       this.aggregat = this.aggregateliste[0];
       this.codesView = this.einzelauskunft.fhiRelCodes + ' - ' + this.einzelauskunft.bandRelCodes;
       this.kriterienView = this.einzelauskunft.fhiRelKrits + ' - ' + this.einzelauskunft.bandRelKrits;
+      console.log('nachladen......');
     });
   }
   showListe(listeElements: string[], titel: string, dialogWidth: string = '500px') {
@@ -205,5 +207,24 @@ export class EinzelauskunftKopfComponent implements OnInit {
       return text;
     }
     return '';
+  }
+
+  setBackgroundColorBand(bandNr: number): string {
+    let result: string;
+    if (bandNr == null) {
+      return 'background_white';
+    }
+
+    if (bandNr == 1) {
+      result = 'background_white';
+    } else if (bandNr == 2) {
+      result = 'background_yellow';
+    } else if (bandNr == 3) {
+      result = 'background_green';
+    } else {
+      result = 'background_magenta';
+    }
+
+    return result;
   }
 }

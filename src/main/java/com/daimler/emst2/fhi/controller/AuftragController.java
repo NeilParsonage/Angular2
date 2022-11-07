@@ -3,6 +3,7 @@ package com.daimler.emst2.fhi.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,6 +20,7 @@ import com.daimler.emst2.fhi.dto.AuftragHeberhausDTO;
 import com.daimler.emst2.fhi.dto.AuftragKabelsaetzeDTO;
 import com.daimler.emst2.fhi.dto.AuftragKriterienDTO;
 import com.daimler.emst2.fhi.dto.AuftragLackeDTO;
+import com.daimler.emst2.fhi.dto.AuftragStoredProcedureResultDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDetailsDTO;
 import com.daimler.emst2.fhi.dto.SendResponseDTO;
@@ -26,6 +28,7 @@ import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.dto.SendungsprotokollDTO;
 import com.daimler.emst2.fhi.services.AuftragService;
 import com.daimler.emst2.fhi.services.SendungService;
+import com.daimler.emst2.frw.model.Privileges;
 
 @RestController
 @RequestMapping(path = AuftragController.PATH)
@@ -43,6 +46,13 @@ public class AuftragController {
         return auftragService.getAuftragByPnr(pnr);
     }
 
+    @PreAuthorize("hasAnyAuthority('"
+                  + Privileges.FHI_ADMIN
+                  + "','"
+                  + Privileges.FHI_LEITWARTE
+                  + "','"
+                  + Privileges.FHI_READER
+                  + "')")
     @GetMapping("/search")
     public AuftragDTO getAuftrag(@RequestParam String option, @RequestParam String key) {
         return auftragService.getAuftrag(option, key);
@@ -93,6 +103,7 @@ public class AuftragController {
         return auftragService.getAuftragHeberhausByPnr(pnr);
     }
 
+
     @GetMapping("/aenderungstexte")
     public List<AuftragAenderungstexteDTO> getAuftragAenderungstextebyPnr(@RequestParam String pnr) {
         return auftragService.getAuftragAenderungstexteByPnr(pnr);
@@ -112,5 +123,20 @@ public class AuftragController {
     public List<AuftragKriterienDTO> getAuftragKriterienPnr(@RequestParam String pnr) {
         return auftragService.getAuftragKriterien(pnr);
     }
+
+    @PreAuthorize("hasAnyAuthority('" + Privileges.FHI_ADMIN + "','" + Privileges.FHI_LEITWARTE + "')")
+    @PostMapping("/aendBemerkung")
+    public AuftragStoredProcedureResultDTO editBemerkung(@RequestBody AuftragDTO auftrag) {
+        AuftragStoredProcedureResultDTO result = auftragService.editBemerkungAuftrag(auftrag);
+        return result;
+    }
+
+    @PreAuthorize("hasAnyAuthority('" + Privileges.FHI_ADMIN + "','" + Privileges.FHI_LEITWARTE + "')")
+    @PostMapping("/bandwechseln")
+    public AuftragStoredProcedureResultDTO Bandwechseln(@RequestBody AuftragDTO auftrag) {
+        AuftragStoredProcedureResultDTO result = auftragService.BandwechselnAuftrag(auftrag);
+        return result;
+    }
+
 
 }

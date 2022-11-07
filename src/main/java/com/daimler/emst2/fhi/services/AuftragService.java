@@ -11,12 +11,17 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
+import javax.transaction.Transactional;
+
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -30,13 +35,17 @@ import com.daimler.emst2.fhi.dto.AuftragHeberhausDTO;
 import com.daimler.emst2.fhi.dto.AuftragKabelsaetzeDTO;
 import com.daimler.emst2.fhi.dto.AuftragKriterienDTO;
 import com.daimler.emst2.fhi.dto.AuftragLackeDTO;
+import com.daimler.emst2.fhi.dto.AuftragStoredProcedureResultDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDTO;
 import com.daimler.emst2.fhi.dto.AuftragTermineDetailsDTO;
 import com.daimler.emst2.fhi.dto.FhiDtoFactory;
+import com.daimler.emst2.fhi.dto.MessageDTO;
 import com.daimler.emst2.fhi.dto.ProtocolEntryDTO;
 import com.daimler.emst2.fhi.dto.SendResponseDTO;
 import com.daimler.emst2.fhi.dto.SendungDTO;
 import com.daimler.emst2.fhi.dto.SendungsprotokollDTO;
+import com.daimler.emst2.fhi.dto.StoredProcedureResultDTO;
+import com.daimler.emst2.fhi.jpa.dao.AuftragAenderungenDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragAenderungstexteDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragAggregateDao;
 import com.daimler.emst2.fhi.jpa.dao.AuftragCodesDao;
@@ -77,6 +86,7 @@ import com.daimler.emst2.fhi.jpa.model.ICountVorsendungen;
 import com.daimler.emst2.fhi.jpa.model.Lapu;
 import com.daimler.emst2.fhi.jpa.model.OrtReihenfolge;
 import com.daimler.emst2.fhi.jpa.model.UmlaufWerte;
+import com.daimler.emst2.fhi.jpa.model.VorgaengeMeldungen;
 import com.daimler.emst2.fhi.jpa.model.Warteschlange;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragAnkuendigungenComparator;
 import com.daimler.emst2.fhi.sendung.comparators.AuftragSperrenComparator;
@@ -87,12 +97,13 @@ import com.daimler.emst2.fhi.sendung.model.SendContext;
 import com.daimler.emst2.fhi.sendung.model.SperrenPredicate;
 import com.daimler.emst2.fhi.sendung.model.SperrtypPredicate;
 import com.daimler.emst2.fhi.sendung.werk.check.SendCheckEnum;
-
+import com.daimler.emst2.frw.webexceptions.NotAcceptableRuntimeException;
 
 @Service
 public class AuftragService {
 
     private static final String MATERIALBEREICH_LMT = "RHM";
+
     private static final String MATERIALBEREICH_FHI = "FHI";
 
     private static final Long DEFAULT_MAX_SEQUENZNUMMER = 999999L;
@@ -176,10 +187,16 @@ public class AuftragService {
     WarteschlangeDao warteschlangeDao;
 
     @Autowired
+    AuftragAenderungenDao auftragAenderungenDao;
+
+    @Autowired
     UmlaufWerteDao umlaufWerteDao;
 
     @Autowired
     private KonfigurationService configService;
+
+    @Autowired
+    private VorgangService vorgangService;
 
     public AuftragDTO getAuftragByPnr(String pnr) {
         Optional<Auftrag> result = auftragDao.findById(pnr);
@@ -191,7 +208,7 @@ public class AuftragService {
         Optional<AuftragDetails> resultDetails = auftragDetailsDao.findById(pnr);
 
         Optional<AuftragSendestatus> resultSendestatus = auftragSendestatusDao.findById(pnr);
-      
+
         return dtoFactory.createAuftragDTO(result.get(), resultDetails.get(), resultSendestatus.get());
     }
 
@@ -199,15 +216,15 @@ public class AuftragService {
 
         Auftrag result = auftragDao.findbyLfdNrGes(Integer.parseInt(lfdNummer));
         if (ObjectUtils.isEmpty(result)) {
-    
+
             throw new RuntimeException(String.format("Auftrag mit Gesamt Lfd Nummer %s nicht gefunden!", lfdNummer));
         }
-    
+
         Optional<AuftragDetails> resultDetails = auftragDetailsDao.findById(result.getPnr());
-    
+
         Optional<AuftragSendestatus> resultSendestatus = auftragSendestatusDao.findById(result.getPnr());
-    
-           return dtoFactory.createAuftragDTO(result, resultDetails.get(), resultSendestatus.get());
+
+        return dtoFactory.createAuftragDTO(result, resultDetails.get(), resultSendestatus.get());
     }
 
     public AuftragDTO getAuftragByLfdNrLmt(String lfdNummer, String band) {
@@ -262,7 +279,6 @@ public class AuftragService {
 
     }
 
-
     public AuftragTermineDTO getAuftragTermineByPnr(String pnr) {
         Optional<AuftragTermine> result = auftragTermineDao.findById(pnr);
         if (ObjectUtils.isEmpty(result)) {
@@ -272,7 +288,6 @@ public class AuftragService {
 
         return dtoFactory.createAuftragTermineDTO(result.get());
     }
-
 
     public List<AuftragTermineDetailsDTO> getAuftragTermineDetailsByPnr(String pnr) {
         List<AuftragTermineDetails> result = auftragTermineDetailsDao.findAuftragTermineDetailsByPnr(pnr);
@@ -287,7 +302,7 @@ public class AuftragService {
             throw new RuntimeException("PNR kann nicht leer sein");
         }
 
-        SendContext ctx =  this.sendungService.senden(sendung);
+        SendContext ctx = this.sendungService.senden(sendung);
         return dtoFactory.createSendResponseDTO(sendung, ctx.getErrorMessages(), ctx.getProtocol());
     }
 
@@ -304,7 +319,8 @@ public class AuftragService {
         return dtoFactory.createSendResponseDTO(sendungProtokoll, ctx.getErrorMessages(), ctx.getProtocol());
     }
 
-    private Map<SendCheckEnum, ProtocolEntryDTO> createUserProtocolSendCheckEntries(SendungsprotokollDTO sendungProtokoll) {
+    private Map<SendCheckEnum, ProtocolEntryDTO>
+            createUserProtocolSendCheckEntries(SendungsprotokollDTO sendungProtokoll) {
 
         Map<SendCheckEnum, ProtocolEntryDTO> userProtocollEntry = new HashMap<SendCheckEnum, ProtocolEntryDTO>();
 
@@ -448,7 +464,7 @@ public class AuftragService {
     public ICountVorsendungen findMaxSeqNummernVonAuftragQuer(BigDecimal seqNrQuer) {
         return auftragDao.findMaxVorsendungen(seqNrQuer);
     }
-    
+
     public IAuftragAllHighestSeqNr findMaxSeqNummernVonAuftrag() {
         return auftragDao.findMaxSeqNrn();
     }
@@ -488,7 +504,7 @@ public class AuftragService {
         if (nextSeqNr > maxSeqNr) {
             return INVALID_SEQ_NR;
         }
-        
+
         return nextSeqNr;
     }
 
@@ -512,8 +528,7 @@ public class AuftragService {
         return (null == seqNr) ? defaultValue
                 : seqNr + increment;
     }
-    
-    
+
     public Long getMaxSeqNummer() {
         return configService.getKonfigurationAsLong(FhiSystemwertKeyEnum.MAX_SEQUENZNUMMER,
                 DEFAULT_MAX_SEQUENZNUMMER);
@@ -582,26 +597,24 @@ public class AuftragService {
         return lapuDao.findCountGassensperre(pnr);
     }
 
-
     public AuftragHeberhausDTO getAuftragHeberhausByPnr(String pnr) {
         AuftragHeberhausDTO auftragHeberhaus = null;
         AuftragHeberhaus result = auftragHeberhausDao.findAuftragHeberhausByPnr(pnr);
 
         if (ObjectUtils.isEmpty(result)) {
-        
+
             throw new RuntimeException(String.format("Keine Heberhausdaten fuer %s gefunden!", pnr));
         }
         auftragHeberhaus = dtoFactory.createAuftragHeberhausDTO(result);
 
-        return  auftragHeberhaus;
+        return auftragHeberhaus;
     }
-  
+
     public Lapu findLapuEntryByPnr(String pnr) {
         return lapuDao.findEntryByPnr(pnr);
     }
 
-    public Long getUmlaufwertForBand(Long bandNr)
-    {
+    public Long getUmlaufwertForBand(Long bandNr) {
         UmlaufWerte UmlaufWertForBand = umlaufWerteDao.findUmlaufWertForBand(bandNr);
         return UmlaufWertForBand.getUml();
     }
@@ -614,4 +627,46 @@ public class AuftragService {
                 : Collections.emptyList();
     }
 
+    protected String getCurrentUsername() {
+        final String ANONYMOUS = "FHIUI";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            return ANONYMOUS;
+        }
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            return currentUserName == null ? ANONYMOUS : currentUserName.toUpperCase();
+        }
+        return ANONYMOUS;
+    }
+
+    @Transactional
+    public AuftragStoredProcedureResultDTO editBemerkungAuftrag(AuftragDTO auftrag) {
+        Map<String, Long> resultMap = auftragAenderungenDao.editBemerkung(auftrag.pnr, auftrag.version,
+                auftrag.bemerkung, getCurrentUsername());
+        StoredProcedureResultDTO result = dtoFactory.createStoredProcecdureResultDTO(resultMap);
+
+        return generateStoredProcedureResponse(auftrag, result);
+    }
+
+    @Transactional
+    public AuftragStoredProcedureResultDTO BandwechselnAuftrag(AuftragDTO auftrag) {
+        Map<String, Long> resultMap = auftragAenderungenDao.Bandwechseln(auftrag.pnr, auftrag.version,
+                auftrag.bandNr, getCurrentUsername());
+        StoredProcedureResultDTO result = dtoFactory.createStoredProcecdureResultDTO(resultMap);
+
+        return generateStoredProcedureResponse(auftrag, result);
+    }
+
+    private AuftragStoredProcedureResultDTO generateStoredProcedureResponse(AuftragDTO auftrag,
+            StoredProcedureResultDTO result) {
+        List<VorgaengeMeldungen> messages = this.vorgangService.getFailMessages(result);
+        List<MessageDTO> failMessages =
+                messages.stream().map(x -> this.dtoFactory.createMessageDTO(x)).collect(Collectors.toList());
+        if (failMessages instanceof List && Boolean.FALSE.equals(failMessages.isEmpty())) {
+            throw new NotAcceptableRuntimeException(this.dtoFactory.createResponseMessages(failMessages));
+        }
+        return dtoFactory.createAuftragStoredProcecdureResultDTO(this.getAuftragByPnr(auftrag.pnr),
+                failMessages);
+    }
 }

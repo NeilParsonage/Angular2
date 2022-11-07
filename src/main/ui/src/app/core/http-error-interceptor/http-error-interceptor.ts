@@ -2,8 +2,11 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { TuebPipe } from 'src/app/shared/pipes/tueb.pipe';
 import { MessageUtil } from 'src/app/shared/utils/message-util';
 import { ErrorDto } from '../models/error-dto';
+import { ResponseMessageType } from '../models/response-message-type';
+import { ResponseMessages } from '../models/response-messages';
 import { ContextService } from '../services/context.service';
 
 @Injectable()
@@ -16,7 +19,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
   readonly noErrorHandlingWhitelistMap = new Map<string, Array<string>>();
 
-  constructor(private contextService: ContextService) {
+  constructor(private contextService: ContextService, private tuebPipe: TuebPipe) {
     this.initErrorHandlingWhitelistMap();
   }
 
@@ -43,9 +46,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       }),
       catchError(err => {
         this.updateConnectionStatus(err);
-        const uiMessage = MessageUtil.createErrorMsg(err.error.exception);
 
-        this.contextService.addUserMessage(uiMessage);
+        this.processUserMessages(err);
+
         /*
 
         let myError = err;
@@ -70,6 +73,31 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         });
       })
     );
+  }
+  processUserMessages(pErr: any) {
+    if (!pErr && !pErr.error) {
+      return;
+    }
+    const error = pErr.error;
+    if (error?.exception) {
+      const uiMessage = MessageUtil.createErrorMsg(error.exception);
+      this.contextService.addUserMessage(uiMessage);
+    }
+    if (error?.messages) {
+      const msgs: ResponseMessages = error;
+
+      // new handling
+      const result = msgs.messages.filter(msg => msg.typ === ResponseMessageType.ERROR);
+      if (result) {
+        const entry = result[0];
+        if (entry.tuebKey) {
+          const translation = this.tuebPipe.transform(entry.tuebKey, entry.parameter);
+          this.contextService.addErrorString(translation);
+        } else {
+          this.contextService.addErrorString(result[0].meldung);
+        }
+      }
+    }
   }
 
   private updateConnectionStatus(errorEvent: HttpErrorResponse): void {
