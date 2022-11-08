@@ -35,6 +35,10 @@
                 <mat-icon>edit</mat-icon>
                 <span>{{ 'action.einzelauskunft.bemerkungstextaendern' | translate }}</span>
               </button>
+              <button [disabled]="!hasPrivilegeEdit() || !isEditable()" mat-menu-item (click)="onAbsprungAuftragsHistorie()">
+                <mat-icon>edit</mat-icon>
+                <span>{{ 'action.einzelauskunft.auftragshistorie' | translate }}</span>
+              </button>
             </mat-menu>
           </div>
         </div>

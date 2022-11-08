@@ -4,7 +4,7 @@ import localeDeExtra from '@angular/common/locales/extra/de';
 import { Component, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginatorIntl } from '@angular/material/paginator';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DaiFilterCode, DaiFilterType, DaiPageData, DaiPaginatorConfig, DaiTableConfig } from 'emst-table';
 import { BehaviorSubject, combineLatest, concat, Observable, of, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
@@ -237,12 +237,14 @@ export class AuftragshistorieComponent implements OnDestroy {
       sortable: true,
     },
   };
+  selectedPnr: string;
 
   constructor(
     private contextService: ContextService,
     private auftragsHistorieService: AuftragHistorieService,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.contextService
       .getForcePageRefresh()
@@ -257,6 +259,9 @@ export class AuftragshistorieComponent implements OnDestroy {
     this.matPaginatorIntl.itemsPerPageLabel = 'Auftragshistorie pro Seite:';
     this.matPaginatorIntl.nextPageLabel = 'nächste Seite';
     this.matPaginatorIntl.previousPageLabel = 'vorherige Seite';
+
+    this.selectedPnr = this.route.snapshot.queryParams.pnr;
+    console.log('selected Pnr', this.selectedPnr);
   }
 
   initializeTable(data: AuftragshistoriePage): Observable<DaiTableConfig> {
@@ -289,6 +294,7 @@ export class AuftragshistorieComponent implements OnDestroy {
   }
 
   queryChanged(query: any) {
+    console.log('queryChanged', query);
     if (query.enterPressed) {
       console.log(query);
       this.querySubject.next(query.query);

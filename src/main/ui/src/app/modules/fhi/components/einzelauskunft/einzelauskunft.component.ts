@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 import { ContextService } from 'src/app/core/services/context.service';
@@ -40,7 +41,8 @@ export class EinzelauskunftComponent implements OnInit {
     private auftragService: AuftragService,
     private translateService: TranslateService,
     public dialog: MatDialog,
-    private contextService: ContextService
+    private contextService: ContextService,
+    private router: Router
   ) {}
   ngOnInit(): void {
     console.log('on init');
@@ -158,5 +160,16 @@ export class EinzelauskunftComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  onAbsprungAuftragsHistorie() {
+    console.log('onAbsprungMasseonAbsprungAuftragsHistorienaenderung');
+    let paramAuftrag = this.auftrag.pnr;
+
+    this.router.navigate(['/Auftragshistorie'], {
+      queryParams: {
+        pnr: paramAuftrag,
+      },
+    });
   }
 }
