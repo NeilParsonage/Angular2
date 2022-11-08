@@ -84,7 +84,7 @@ public class AuftragHistorienService {
                 this.auftragHistorieReadOnlyDao.findAllAuftragHistorieReadOnly(69646040, 69646140);
 
         return result instanceof List
-                ? result.stream().map(x -> dtoFactory.createAuftragAenderungstexteDTO(x))
+                ? result.stream().map(x -> dtoFactory.createAuftragHistorieDTO(x))
                         .collect(Collectors.toList())
                 : Collections.emptyList();
     }
@@ -94,7 +94,7 @@ public class AuftragHistorienService {
 
         Page<AuftragHistorieReadOnly> entities = auftragHistorieReadOnlyDao.findAll(specification, pageable);
 
-        return entities.map(x -> dtoFactory.createAuftragAenderungstexteDTO(x));
+        return entities.map(x -> dtoFactory.createAuftragHistorieDTO(x));
     }
 
     /**

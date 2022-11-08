@@ -265,7 +265,7 @@ public class FhiDtoFactory {
         return neu;
     }
 
-    public AuftragHistorieDTO createAuftragAenderungstexteDTO(AuftragHistorieReadOnly auftragHistorieReadOnly) {
+    public AuftragHistorieDTO createAuftragHistorieDTO(AuftragHistorieReadOnly auftragHistorieReadOnly) {
         AuftragHistorieDTO neu = new AuftragHistorieDTO();
         neu.pnr = auftragHistorieReadOnly.getAufPnr();
         neu.quelle = auftragHistorieReadOnly.getMelder();
@@ -276,7 +276,6 @@ public class FhiDtoFactory {
         neu.bandnr = auftragHistorieReadOnly.getBandnr();
         neu.fzgbm = auftragHistorieReadOnly.getFzgbm();
         neu.ort = auftragHistorieReadOnly.getOrt();
-        
         neu.lfdNrGes = auftragHistorieReadOnly.getLfdNrGes();
         neu.lfdNrFhi = auftragHistorieReadOnly.getLfdNrFhi();
         //neu.lfdNrLmt = auftragHistorieReadOnly.getLfdNrLmt();
@@ -285,9 +284,6 @@ public class FhiDtoFactory {
         neu.pat = auftragHistorieReadOnly.getPat();
         neu.gesLfdSoll = auftragHistorieReadOnly.getLfdNrGes();
         neu.bdLfdSoll = auftragHistorieReadOnly.getBdLfdSoll();
-        
-        
-        
         return neu;
     }
 
