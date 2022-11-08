@@ -3335,10 +3335,10 @@ emojis-list@^3.0.0:
   resolved "https://nexus-emst.dwoeacp.tbintra.net/repository/npm-group/emojis-list/-/emojis-list-3.0.0.tgz#5570662046ad29e2e916e71aae260abdff4f6a78"
   integrity sha512-/kyM18EfinwXZbno9FyUGeFh87KC8HRQBQGildHZbEuRyWFOmv1U10o9BBp8XVZDVNNuQKyIGIu5ZYAAXJ0V2Q==
 
-emst-table@^0.15.0:
-  version "0.15.0"
-  resolved "https://nexus-emst.dwoeacp.tbintra.net/repository/npm-group/emst-table/-/emst-table-0.15.0.tgz#a601f9a21c70d2c7c49d07765bc4969d00d257df"
-  integrity sha512-S/1lKEfbny/btPqH+Jm1dsEw65UTUQhOS0PdvIapY1KfICFcEN/mUK5t5d7KsiJNqg5gkzzWD8xLIe+VWnVFMw==
+emst-table@^0.15.2:
+  version "0.15.2"
+  resolved "https://nexus-emst.dwoeacp.tbintra.net/repository/npm-group/emst-table/-/emst-table-0.15.2.tgz#dd92e071bc93e628bbfe3771329d8f96f3e87526"
+  integrity sha512-8K4/sH6n7hy7fPQHmXApQfo1yGoAVIyvRS0m2Yu4q1JGeUjsEebya2gd2jwJrndHAF8X6UwKz1FNO006GcstXw==
   dependencies:
     tslib "^2.3.0"
 

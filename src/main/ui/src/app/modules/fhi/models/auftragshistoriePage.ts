@@ -5,4 +5,5 @@ export interface AuftragshistoriePage {
   totalElements: number;
   // eslint-disable-next-line id-blacklist
   number: number;
+  size: number;
 }

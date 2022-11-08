@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { DaiFilterCode, DaiFilterType, DaiPageData, DaiPaginatorConfig, DaiTableConfig } from 'emst-table';
-import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, concat, Observable, of, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { ContextService } from 'src/app/core/services/context.service';
 import { FormatUtil } from 'src/app/shared/utils/format-util';
@@ -27,9 +27,7 @@ export class AuftragshistorieComponent implements OnDestroy {
   unsubscribe$ = new Subject<void>();
 
   daiTableConfig$: Observable<DaiTableConfig> = combineLatest([this.queryValue$]).pipe(
-    switchMap(([query]) => {
-      return this.auftragsHistorieService.getAll(query).pipe(switchMap(data => this.initializeTable(data)));
-    })
+    switchMap(([query]) => concat(of(null), this.auftragsHistorieService.getAll(query).pipe(switchMap(data => this.initializeTable(data)))))
   );
 
   // zum Beispiel zum Laden einer Liste von Steuerbereichen
@@ -56,7 +54,7 @@ export class AuftragshistorieComponent implements OnDestroy {
         type: DaiFilterType.SELECT,
         code: DaiFilterCode.EQUAL,
         title: 'Band',
-        width: '30px',
+        width: '50px',
         list: [
           {
             text: '0',
@@ -158,7 +156,7 @@ export class AuftragshistorieComponent implements OnDestroy {
         type: DaiFilterType.STRING,
         code: DaiFilterCode.IGNORECASELIKE,
         title: 'lfdNrGes',
-        width: '50px',
+        width: '75px',
       },
       sortable: true,
     },
@@ -168,7 +166,7 @@ export class AuftragshistorieComponent implements OnDestroy {
         type: DaiFilterType.STRING,
         code: DaiFilterCode.IGNORECASELIKE,
         title: 'lfdNrFhi',
-        width: '50px',
+        width: '75px',
       },
       sortable: true,
     },
@@ -190,7 +188,7 @@ export class AuftragshistorieComponent implements OnDestroy {
         type: DaiFilterType.STRING,
         code: DaiFilterCode.IGNORECASELIKE,
         title: 'lfdNrRhm',
-        width: '50px',
+        width: '75px',
       },
       sortable: true,
     },
@@ -200,7 +198,7 @@ export class AuftragshistorieComponent implements OnDestroy {
         type: DaiFilterType.STRING,
         code: DaiFilterCode.IGNORECASELIKE,
         title: 'lfdNrUbm',
-        width: '50px',
+        width: '75px',
       },
       sortable: true,
     },
@@ -210,7 +208,7 @@ export class AuftragshistorieComponent implements OnDestroy {
         type: DaiFilterType.DATERANGE,
         code: DaiFilterCode.EQUAL,
         title: 'Pat',
-        width: '150px',
+        width: '125px',
       },
       function: function (element: Auftragshistorie) {
         if (element.sendetermin) return '<div> ' + FormatUtil.formatDateWithFormat(element.pat, 'dd.MM.yyyy') + ' </div>';
@@ -224,7 +222,7 @@ export class AuftragshistorieComponent implements OnDestroy {
         type: DaiFilterType.STRING,
         code: DaiFilterCode.IGNORECASELIKE,
         title: 'gesLfdSoll',
-        width: '50px',
+        width: '75px',
       },
       sortable: true,
     },
@@ -234,7 +232,7 @@ export class AuftragshistorieComponent implements OnDestroy {
         type: DaiFilterType.STRING,
         code: DaiFilterCode.IGNORECASELIKE,
         title: 'bdLfdSoll',
-        width: '50px',
+        width: '75px',
       },
       sortable: true,
     },
@@ -263,7 +261,7 @@ export class AuftragshistorieComponent implements OnDestroy {
 
   initializeTable(data: AuftragshistoriePage): Observable<DaiTableConfig> {
     const daiPaginatorConfig = new DaiPaginatorConfig(true, this.matPaginatorIntl, ['10', '25', '50', '100']);
-    const daiPageData = new DaiPageData(data?.totalElements, data?.number);
+    const daiPageData = new DaiPageData(data?.totalElements, data?.number, data?.size);
 
     // return of('').pipe(
     //   concatMap(() => this.steuerbereiche$),
