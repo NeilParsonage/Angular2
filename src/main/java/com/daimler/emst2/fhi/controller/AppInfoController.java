@@ -27,7 +27,8 @@ public class AppInfoController {
         data.put("language", defaultLocale.getLanguage());
         data.put("region", defaultLocale.getCountry());
         data.put("werk", konfigurationService.getWerksId(false));
-        data.put("umgebung", konfigurationService.getUmgebung(false));       
+        data.put("umgebung", konfigurationService.getUmgebung(false));
+
         return data;
     }
 

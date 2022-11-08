@@ -8,6 +8,8 @@ import { LibEmstTableModule } from 'emst-table';
 import { MaterialModule } from 'src/app/shared/modules/material.module';
 import { TuebPipe } from 'src/app/shared/pipes/tueb.pipe';
 import { AuftragshistorieComponent } from './components/auftragshistorie/auftragshistorie.component';
+import { DialogChangeBandComponent } from './components/einzelauskunft/dialog-changeBand/dialog-changeBand.component';
+import { DialogEditBemerkungComponent } from './components/einzelauskunft/dialog-editBemerkung/dialog-editBemerkung.component';
 import { DialogShowCodesComponent } from './components/einzelauskunft/dialog-showCodes/dialog-showCodes.component';
 import { DialogShowHeberhausComponent } from './components/einzelauskunft/dialog-showHeberhaus/dialog-showHeberhaus.component';
 import { DialogShowKriterienComponent } from './components/einzelauskunft/dialog-showKriterien/dialog-showKriterien.component';
@@ -42,6 +44,8 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     EinzelauskunftOrtComponent,
     EinzelauskunftSperrenComponent,
     DialogShowHeberhausComponent,
+    DialogEditBemerkungComponent,
+    DialogChangeBandComponent,
     DialogShowlistComponent,
     DialogShowCodesComponent,
     DialogShowKriterienComponent,
@@ -50,7 +54,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     SendemaskeDebugComponent,
     TuebPipe,
   ],
-  providers: [],
+  providers: [TuebPipe],
   imports: [
     CommonModule,
     FlexLayoutModule,

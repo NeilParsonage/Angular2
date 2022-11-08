@@ -9,7 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.NamedStoredProcedureQueries;
+import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,6 +30,31 @@ import com.daimler.emst2.frw.model.BaseAuditEntity;
 @Entity
 @Table(name = "Auftrag")
 @NamedQuery(name = "Auftrag.findAll", query = "SELECT a FROM Auftrag a")
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(name = "Auftrag.Bemerkung_Aendern",
+                procedureName = "Dialogmasken_Interface_E2.Bemerkung_Aendern",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Pi_Pnr", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Pi_Version", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Pi_Bemerkung", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Pi_User", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "Po_Vorgang_Id",
+                                type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "Po_Status", type = Long.class)
+                }),
+        @NamedStoredProcedureQuery(name = "Auftrag.Band_Wechseln",
+                procedureName = "Dialogmasken_Interface_E2.Bandwechsel",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Pi_Pnr", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Pi_Version", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Pi_Bandnr", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Pi_User", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "Po_Vorgang_Id",
+                                type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "Po_Status", type = Long.class)
+                })
+
+})
 public class Auftrag extends BaseAuditEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 

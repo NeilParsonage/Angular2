@@ -1,0 +1,25 @@
+::ng-deep dialog-showCodes table {
+  width: 100%;
+}
+
+::ng-deep dialog-showCodes .content {
+  height: 700px;
+  width: 800px;
+}
+
+::ng-deep .mat-dialog-content {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+::ng-deep .tabelle-container {
+  height: 600px;
+  width: 800px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+::ng-deep .mat-dialog-title {
+  width: 100%;
+  cursor: move;
+}

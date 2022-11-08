@@ -73,8 +73,14 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 	@ExceptionHandler(value = { NotAcceptableRuntimeException.class })
 	protected ResponseEntity<Object> handleNotAcceptable(NotAcceptableRuntimeException ex, WebRequest request) {
 		String msg = ex.getMessage();
+        if (ex.hasMessages()) {
+            return handleExceptionLoggingDelegate(ex,
+                    ex.getResponseMessage(),
+                    new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE, request);
+        }
         return handleExceptionLoggingDelegate(ex,
-                ErrorResponse.createError(msg, extractImportantExceptionErrors(ex)), new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE, request);
+                ErrorResponse.createError(msg, extractImportantExceptionErrors(ex)),
+                new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE, request);
 	}
 
 	/*

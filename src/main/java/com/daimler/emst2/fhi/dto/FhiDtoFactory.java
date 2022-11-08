@@ -1,7 +1,11 @@
 package com.daimler.emst2.fhi.dto;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import com.daimler.emst2.fhi.jpa.model.Auftrag;
@@ -17,6 +21,7 @@ import com.daimler.emst2.fhi.jpa.model.AuftragLacke;
 import com.daimler.emst2.fhi.jpa.model.AuftragSendestatus;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermine;
 import com.daimler.emst2.fhi.jpa.model.AuftragTermineDetails;
+import com.daimler.emst2.fhi.jpa.model.VorgaengeMeldungen;
 import com.daimler.emst2.fhi.model.Protocol;
 
 @Component
@@ -127,7 +132,7 @@ public class FhiDtoFactory {
         neu.fpRhmBenennung = sendestatus.getFpRhmBenennung();
         neu.sendbar = sendestatus.getSendbar();
         neu.zugebunden = sendestatus.getZugebunden();
-        neu.zugebunden = true;
+
         /*
          * Audit 
         
@@ -265,6 +270,7 @@ public class FhiDtoFactory {
         return neu;
     }
 
+
     public AuftragHistorieDTO createAuftragHistorieDTO(AuftragHistorieReadOnly auftragHistorieReadOnly) {
         AuftragHistorieDTO neu = new AuftragHistorieDTO();
         neu.pnr = auftragHistorieReadOnly.getAufPnr();
@@ -284,6 +290,42 @@ public class FhiDtoFactory {
         neu.pat = auftragHistorieReadOnly.getPat();
         neu.gesLfdSoll = auftragHistorieReadOnly.getLfdNrGes();
         neu.bdLfdSoll = auftragHistorieReadOnly.getBdLfdSoll();
+        return neu;
+    }
+
+    public StoredProcedureResultDTO createStoredProcecdureResultDTO(Map<String, Long> result) {
+        StoredProcedureResultDTO neu = new StoredProcedureResultDTO();
+        neu.vorgangId = result.getOrDefault("Po_Vorgang_Id", null);
+        neu.status = result.getOrDefault("Po_Status", null);
+        return neu;
+    }
+
+    public AuftragStoredProcedureResultDTO createAuftragStoredProcecdureResultDTO(
+            AuftragDTO auftrag, List<MessageDTO> failMessages) {
+        AuftragStoredProcedureResultDTO neu = new AuftragStoredProcedureResultDTO();
+        neu.auftrag = auftrag;
+        neu.messages = failMessages;
+        return neu;
+    }
+
+    public MessageDTO createMessageDTO(VorgaengeMeldungen x) {
+        MessageDTO neu = new MessageDTO();
+        neu.typ = x.getMeldungTyp();
+        neu.tuebKey = x.getTuebTname();
+        neu.meldung = x.getMeldung();
+        if (StringUtils.isNoneBlank(x.getParamstring())) {
+            List<String> params = Arrays.stream(x.getParamstring().split("\\,"))
+                    .map(str -> str)
+                    .collect(Collectors.toList());
+            neu.parameter = params;
+        }
+
+        return neu;
+    }
+
+    public ResponseMessagesDTO createResponseMessages(List<MessageDTO> failMessages) {
+        ResponseMessagesDTO neu = new ResponseMessagesDTO();
+        neu.messages = failMessages;
         return neu;
     }
 

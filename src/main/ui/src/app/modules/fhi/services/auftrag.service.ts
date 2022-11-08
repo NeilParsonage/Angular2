@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Auftrag } from '../models/auftrag';
+import { AuftragVorgangStatus } from '../models/auftrag-status';
 import { AuftragAenderungstexte } from '../models/auftragAenderungstexte';
 import { AuftragAggregate } from '../models/auftragAggregate';
 import { AuftragCodes } from '../models/auftragCodes';
@@ -116,5 +117,13 @@ export class AuftragService {
       params: new HttpParams().set('pnr', pnr),
     };
     return this.http.get<AuftragAenderungstexte[]>(`${this.endpoint}/aenderungstexte`, options);
+  }
+
+  public editBemerkungstext(auftrag: Auftrag): Observable<AuftragVorgangStatus> {
+    return this.http.post<AuftragVorgangStatus>(`${this.endpoint}/aendBemerkung`, auftrag);
+  }
+
+  public changeBand(auftrag: Auftrag): Observable<AuftragVorgangStatus> {
+    return this.http.post<AuftragVorgangStatus>(`${this.endpoint}/bandwechseln`, auftrag);
   }
 }

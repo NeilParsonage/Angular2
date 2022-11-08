@@ -48,12 +48,13 @@
   </div>
   <div fxLayout="row">
     <div fxLayout="column" fxFlex="40">
-      <mat-checkbox checked="{{ einzelauskunft?.sendbar }}" disabled="1">{{ 'label.einzelauskunft.sendbar' | translate }}</mat-checkbox>
+      <mat-checkbox checked="{{ checkStatus(einzelauskunft?.sendbar) }}" disabled="1">{{ 'label.einzelauskunft.sendbar' | translate }}</mat-checkbox>
     </div>
 
     <div fxLayout="column" fxFlex="40">
-      <mat-checkbox checked="{{ einzelauskunft?.zugebunden }}" disabled="1">{{ 'label.einzelauskunft.zugebunden' | translate }}</mat-checkbox>
+      <mat-checkbox checked="{{ checkStatus(einzelauskunft?.zugebunden) }}" disabled="1">{{ 'label.einzelauskunft.zugebunden' | translate }}</mat-checkbox>
     </div>
+
     <div fxLayout="column" fxFlex="20"></div>
   </div>
 </div>
