@@ -30,6 +30,8 @@ export class AuftragshistorieComponent implements OnDestroy {
     switchMap(([query]) => concat(of(null), this.auftragsHistorieService.getAll(query).pipe(switchMap(data => this.initializeTable(data)))))
   );
 
+  //daiTableConfig$: Observable<DaiTableConfig> = null;
+
   // zum Beispiel zum Laden einer Liste von Steuerbereichen
   // steuerbereiche$ = this.steuerbereichService.getAll().pipe(takeUntil(this.unsubscribe$), shareReplay(1));
 
@@ -261,6 +263,19 @@ export class AuftragshistorieComponent implements OnDestroy {
     this.matPaginatorIntl.previousPageLabel = 'vorherige Seite';
 
     this.selectedPnr = this.route.snapshot.queryParams.pnr;
+    if (this.selectedPnr !== null) {
+      let queryStr = 'aufPnr=="%5E*' + this.selectedPnr + '*"&page=0&size=10&sort=pat,asc';
+      //this.queryChanged(queryStr);
+      this.querySubject = new BehaviorSubject<string>(queryStr);
+      this.queryValue$ = this.querySubject.asObservable();
+      console.log('New Query String with selected Pnr', queryStr);
+    }
+
+    /*
+    this.daiTableConfig$ = combineLatest([this.queryValue$]).pipe(
+      switchMap(([query]) => concat(of(null), this.auftragsHistorieService.getAll(query).pipe(switchMap(data => this.initializeTable(data)))))
+    );
+*/
     console.log('selected Pnr', this.selectedPnr);
   }
 
@@ -268,32 +283,11 @@ export class AuftragshistorieComponent implements OnDestroy {
     const daiPaginatorConfig = new DaiPaginatorConfig(true, this.matPaginatorIntl, ['10', '25', '50', '100']);
     const daiPageData = new DaiPageData(data?.totalElements, data?.number, data?.size);
 
-    // return of('').pipe(
-    //   concatMap(() => this.steuerbereiche$),
-    //   tap(steuerbereiche => {
-    //     this.steuerbereiche = steuerbereiche;
-    //     this.displayedColumns.steuerbereich.filter.list = steuerbereiche.map(x => ({
-    //       text: x.steuerbereich,
-    //       value: x.steuerbereich,
-    //     }));
-    //   }),switchMap(() => {
-    //     return of(
-    //       new DaiTableConfig(
-    //         data?.content,
-    //         this.displayedColumns,
-    //         daiPaginatorConfig,
-    //         [],
-    //         daiPageData,
-    //         !this.querySubject.value
-    //       )
-    //     );
-    //   })
-    // );
-
     return of(new DaiTableConfig(data?.content, this.displayedColumns, daiPaginatorConfig, [], daiPageData, !this.querySubject.value));
   }
 
   queryChanged(query: any) {
+    // aufPnr=="%5E*15354930*"&page=0&size=10&sort=pat,asc
     console.log('queryChanged', query);
     if (query.enterPressed) {
       console.log(query);
