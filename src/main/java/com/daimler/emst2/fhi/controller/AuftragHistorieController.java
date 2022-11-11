@@ -28,6 +28,11 @@ public class AuftragHistorieController {
         return auftragHistorienService.getAlleAuftragHistorie();
     }
 
+    @GetMapping("/listAllTutorial")
+    public List<AuftragHistorieDTO> AlleTutorial() {
+        return auftragHistorienService.getAlleAuftragHistorie();
+    }
+
     @GetMapping
     public Page<AuftragHistorieDTO> getAll(@RequestParam(value = "search", required = false) String search,
             @AdditionalSort("aufPnr") Pageable pageable) throws IOException {

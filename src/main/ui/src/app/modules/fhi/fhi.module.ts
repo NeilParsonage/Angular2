@@ -28,6 +28,7 @@ import { PnrChooserComponent } from './components/pnr-chooser/pnr-chooser.compon
 import { SendemaskeDebugComponent } from './components/sendemaske-debug/sendemaske-debug.component';
 import { SendemaskeComponent } from './components/sendemaske/sendemaske.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { TutorialComponent } from './components/tutorial/tutorial.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     SendemaskeComponent,
     SendemaskeDebugComponent,
     TuebPipe,
+    TutorialComponent,
   ],
   providers: [TuebPipe],
   imports: [

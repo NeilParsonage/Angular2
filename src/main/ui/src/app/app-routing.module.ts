@@ -4,6 +4,7 @@ import { AuftragshistorieComponent } from './modules/fhi/components/auftragshist
 import { EinzelauskunftComponent } from './modules/fhi/components/einzelauskunft/einzelauskunft.component';
 import { SendemaskeDebugComponent } from './modules/fhi/components/sendemaske-debug/sendemaske-debug.component';
 import { SendemaskeComponent } from './modules/fhi/components/sendemaske/sendemaske.component';
+import { TutorialComponent } from './modules/fhi/components/tutorial/tutorial.component';
 import { WelcomeComponent } from './modules/fhi/components/welcome/welcome.component';
 import { Privileges } from './modules/fhi/models/privileges';
 
@@ -81,6 +82,18 @@ export const routes: Routes = [
       displaySidemenu: true,
       displayText: 'Auftragshistorie',
       displayIcon: 'reorder',
+    },
+  },
+  {
+    path: 'Tutorial',
+    component: TutorialComponent,
+    data: {
+      title: 'Tutorial',
+      wikilink: wikibase + 'W060.FHI.F.Frontend.Tutorial',
+      roles: [],
+      displaySidemenu: true,
+      displayText: 'Tutorial',
+      displayIcon: 'book',
     },
   },
 ];

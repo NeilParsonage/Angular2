@@ -30,6 +30,7 @@
     "@ngx-translate/core": "12.1.2",
     "angular-split": "^13.2.0",
     "app-root-path": "^3.0.0",
+    "bootstrap": "^3.4.1",
     "emst-table": "^0.15.2",
     "emst-ui-frame": "2.4.0",
     "emst-universal-dialog": "0.2.0",
