@@ -29,6 +29,13 @@ import { SendemaskeDebugComponent } from './components/sendemaske-debug/sendemas
 import { SendemaskeComponent } from './components/sendemaske/sendemaske.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { TutorialComponent } from './components/tutorial/tutorial.component';
+import { RecipesComponent } from './components/recipes/recipes.component';
+import { HeaderComponent } from './components/header/header.component';
+import { RecipeListComponent } from './components/recipes/recipe-list/recipe-list.component';
+import { RecipeDetailComponent } from './components/recipes/recipe-detail/recipe-detail.component';
+import { RecipeItemComponent } from './components/recipes/recipe-list/recipe-item/recipe-item.component';
+import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
+import { ShoppingEditComponent } from './components/shopping-list/shopping-edit/shopping-edit.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +62,13 @@ import { TutorialComponent } from './components/tutorial/tutorial.component';
     SendemaskeDebugComponent,
     TuebPipe,
     TutorialComponent,
+    RecipesComponent,
+    HeaderComponent,
+    RecipeListComponent,
+    RecipeDetailComponent,
+    RecipeItemComponent,
+    ShoppingListComponent,
+    ShoppingEditComponent,
   ],
   providers: [TuebPipe],
   imports: [
