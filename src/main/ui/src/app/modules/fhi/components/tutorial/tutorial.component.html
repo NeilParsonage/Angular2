@@ -1,9 +1,18 @@
-<app-header></app-header>
+<dt-toolbar
+  ><mat-button-toggle-group name="ingredients" [(ngModel)]="selected" aria-label="Ingredients" (change)="onValChange()" multiple>
+    <mat-button-toggle value="kritsFhi">Kriterium</mat-button-toggle>
+    <mat-button-toggle value="codesFhi">Code</mat-button-toggle>
+    <mat-button-toggle value="ort">Ort FHS</mat-button-toggle>
+    <mat-button-toggle value="ortRhm">Ort RHM</mat-button-toggle>
+  </mat-button-toggle-group>
+</dt-toolbar>
+
+<app-header (featureSelected)="onNavigate($event)"></app-header>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <app-recipes></app-recipes>
-      <app-shopping-list></app-shopping-list>
+      <app-recipes *ngIf="loadedFeature === 'recipe'"></app-recipes>
+      <app-shopping-list *ngIf="loadedFeature !== 'recipe'"></app-shopping-list>
     </div>
   </div>
 </div>

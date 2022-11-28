@@ -21,21 +21,22 @@ import { EinzelauskunftKopfComponent } from './components/einzelauskunft/einzela
 import { EinzelauskunftOrtComponent } from './components/einzelauskunft/einzelauskunft_ort/einzelauskunft_ort.component';
 import { EinzelauskunftRFComponent } from './components/einzelauskunft/einzelauskunft_rf/einzelauskunft_rf.component';
 //import { EinzelauskunftSearchComponent } from './components/einzelauskunft/einzelauskunft_search/einzelauskunft_search.component';
+import { DtToolbarModule } from '@ite/ng-daimlertruck';
 import { EinzelauskunftSendestatusComponent } from './components/einzelauskunft/einzelauskunft_sendestatus/einzelauskunft_sendestatus.component';
 import { EinzelauskunftSperrenComponent } from './components/einzelauskunft/einzelauskunft_sperren/einzelauskunft_sperren.component';
 import { EinzelauskunftTermineComponent } from './components/einzelauskunft/einzelauskunft_termine/einzelauskunft_termine.component';
-import { PnrChooserComponent } from './components/pnr-chooser/pnr-chooser.component';
-import { SendemaskeDebugComponent } from './components/sendemaske-debug/sendemaske-debug.component';
-import { SendemaskeComponent } from './components/sendemaske/sendemaske.component';
-import { WelcomeComponent } from './components/welcome/welcome.component';
-import { TutorialComponent } from './components/tutorial/tutorial.component';
-import { RecipesComponent } from './components/recipes/recipes.component';
 import { HeaderComponent } from './components/header/header.component';
-import { RecipeListComponent } from './components/recipes/recipe-list/recipe-list.component';
+import { PnrChooserComponent } from './components/pnr-chooser/pnr-chooser.component';
 import { RecipeDetailComponent } from './components/recipes/recipe-detail/recipe-detail.component';
 import { RecipeItemComponent } from './components/recipes/recipe-list/recipe-item/recipe-item.component';
-import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
+import { RecipeListComponent } from './components/recipes/recipe-list/recipe-list.component';
+import { RecipesComponent } from './components/recipes/recipes.component';
+import { SendemaskeDebugComponent } from './components/sendemaske-debug/sendemaske-debug.component';
+import { SendemaskeComponent } from './components/sendemaske/sendemaske.component';
 import { ShoppingEditComponent } from './components/shopping-list/shopping-edit/shopping-edit.component';
+import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
+import { TutorialComponent } from './components/tutorial/tutorial.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { ShoppingEditComponent } from './components/shopping-list/shopping-edit/
     ReactiveFormsModule,
     AngularSplitModule,
     TranslateModule.forRoot(),
+    DtToolbarModule,
   ],
   exports: [TuebPipe],
 })

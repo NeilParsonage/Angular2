@@ -7,9 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TutorialComponent implements OnInit {
 
+  selected = ['kritsFhi', 'ort'];
+  selection = ['codesFhi', 'ort', 'ortRhm', 'kritsFhi'];
+
+  public loadedFeature = 'recipe';
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onNavigate(feature: string){
+    this.loadedFeature = feature;
+  }
+
+  onValChange() {
+    console.log("onValChanged called")
+    //this.querySubject.next(this.querySubject.value);
   }
 
 }

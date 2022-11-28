@@ -59,7 +59,7 @@ export class DialogEditBemerkungComponent implements OnInit {
   }
 
   updateBemerkung(auftrag: Auftrag) {
-    return this.auftragService.editBemerkungstext(auftrag).pipe(first()).toPromise<AuftragVorgangStatus>();
+    return this.auftragService.editBemerkungstext(auftrag).pipe(first()).toPromise();
   }
 
   public constrainPosition(point: Point, dragRef: DragRef): Point {

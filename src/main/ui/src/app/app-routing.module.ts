@@ -11,15 +11,15 @@ import { Privileges } from './modules/fhi/models/privileges';
 const wikibase = 'https://wiki.dewoe.corpintra.net/wikiemst/index.php/';
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'welcome',
-    pathMatch: 'full',
-    data: {
-      roles: [],
-      displaySidemenu: false,
-    },
-  },
+  // {
+  //   path: '',
+  //   redirectTo: 'welcome',
+  //   pathMatch: 'full',
+  //   data: {
+  //     roles: [],
+  //     displaySidemenu: false,
+  //   },
+  // },
   {
     path: 'welcome',
     component: WelcomeComponent,

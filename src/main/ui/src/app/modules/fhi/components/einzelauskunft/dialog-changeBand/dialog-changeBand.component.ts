@@ -65,6 +65,6 @@ export class DialogChangeBandComponent implements OnInit {
   }
 
   updateBandnr(auftrag: Auftrag) {
-    return this.auftragService.changeBand(auftrag).pipe(first()).toPromise<AuftragVorgangStatus>();
+    return this.auftragService.changeBand(auftrag).pipe(first()).toPromise();
   }
 }
