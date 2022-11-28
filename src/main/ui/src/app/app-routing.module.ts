@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuftragshistorieComponent } from './modules/fhi/components/auftragshistorie/auftragshistorie.component';
 import { EinzelauskunftComponent } from './modules/fhi/components/einzelauskunft/einzelauskunft.component';
+import { RecipesComponent } from './modules/fhi/components/recipes/recipes.component';
 import { SendemaskeDebugComponent } from './modules/fhi/components/sendemaske-debug/sendemaske-debug.component';
 import { SendemaskeComponent } from './modules/fhi/components/sendemaske/sendemaske.component';
+import { ShoppingListComponent } from './modules/fhi/components/shopping-list/shopping-list.component';
 import { TutorialComponent } from './modules/fhi/components/tutorial/tutorial.component';
 import { WelcomeComponent } from './modules/fhi/components/welcome/welcome.component';
 import { Privileges } from './modules/fhi/models/privileges';
@@ -11,15 +13,17 @@ import { Privileges } from './modules/fhi/models/privileges';
 const wikibase = 'https://wiki.dewoe.corpintra.net/wikiemst/index.php/';
 
 export const routes: Routes = [
-  // {
-  //   path: '',
-  //   redirectTo: 'welcome',
-  //   pathMatch: 'full',
-  //   data: {
-  //     roles: [],
-  //     displaySidemenu: false,
-  //   },
-  // },
+
+
+  {
+    path: '',
+    redirectTo: '/recipes',
+    pathMatch: 'full',
+    data: {
+      roles: [],
+      displaySidemenu: false,
+    },
+  },
   {
     path: 'welcome',
     component: WelcomeComponent,
@@ -96,6 +100,8 @@ export const routes: Routes = [
       displayIcon: 'book',
     },
   },
+  {path: 'recipes', component: RecipesComponent},
+  {path: 'shopping-list', component: ShoppingListComponent},
 ];
 
 @NgModule({

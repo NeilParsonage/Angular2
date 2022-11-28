@@ -21,6 +21,7 @@ import { EinzelauskunftKopfComponent } from './components/einzelauskunft/einzela
 import { EinzelauskunftOrtComponent } from './components/einzelauskunft/einzelauskunft_ort/einzelauskunft_ort.component';
 import { EinzelauskunftRFComponent } from './components/einzelauskunft/einzelauskunft_rf/einzelauskunft_rf.component';
 //import { EinzelauskunftSearchComponent } from './components/einzelauskunft/einzelauskunft_search/einzelauskunft_search.component';
+import { RouterModule } from '@angular/router';
 import { DtToolbarModule } from '@ite/ng-daimlertruck';
 import { EinzelauskunftSendestatusComponent } from './components/einzelauskunft/einzelauskunft_sendestatus/einzelauskunft_sendestatus.component';
 import { EinzelauskunftSperrenComponent } from './components/einzelauskunft/einzelauskunft_sperren/einzelauskunft_sperren.component';
@@ -82,6 +83,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     AngularSplitModule,
     TranslateModule.forRoot(),
     DtToolbarModule,
+    RouterModule,
   ],
   exports: [TuebPipe],
 })

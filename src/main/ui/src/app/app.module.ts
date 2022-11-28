@@ -7,6 +7,7 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LibEmstTableModule } from 'emst-table';
 import { DaiUiFrameModule } from 'emst-ui-frame';
@@ -54,6 +55,7 @@ export const MY_FORMATS = {
     MaterialModule,
     ReactiveFormsModule,
     TranslateModule.forRoot(),
+    RouterModule
   ],
   providers: [
     PrivilegeRouteGuard,
