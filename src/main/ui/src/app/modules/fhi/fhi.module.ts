@@ -34,8 +34,10 @@ import { RecipeListComponent } from './components/recipes/recipe-list/recipe-lis
 import { RecipesComponent } from './components/recipes/recipes.component';
 import { SendemaskeDebugComponent } from './components/sendemaske-debug/sendemaske-debug.component';
 import { SendemaskeComponent } from './components/sendemaske/sendemaske.component';
+import { DropdownDirective } from './components/shared/dropdown.directive';
 import { ShoppingEditComponent } from './components/shopping-list/shopping-edit/shopping-edit.component';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
+import { ShoppingListService } from './components/shopping-list/shopping-list.service';
 import { TutorialComponent } from './components/tutorial/tutorial.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 
@@ -71,8 +73,9 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     RecipeItemComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
+    DropdownDirective,
   ],
-  providers: [TuebPipe],
+  providers: [TuebPipe,ShoppingListService],
   imports: [
     CommonModule,
     FlexLayoutModule,
