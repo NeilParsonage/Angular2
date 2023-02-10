@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuftragshistorieComponent } from './modules/fhi/components/auftragshistorie/auftragshistorie.component';
 import { EinzelauskunftComponent } from './modules/fhi/components/einzelauskunft/einzelauskunft.component';
+import { RecipeDetailComponent } from './modules/fhi/components/recipes/recipe-detail/recipe-detail.component';
+import { RecipeEditComponent } from './modules/fhi/components/recipes/recipe-edit/recipe-edit.component';
+import { RecipeStartComponent } from './modules/fhi/components/recipes/recipe-start/recipe-start.component';
 import { RecipesComponent } from './modules/fhi/components/recipes/recipes.component';
 import { SendemaskeDebugComponent } from './modules/fhi/components/sendemaske-debug/sendemaske-debug.component';
 import { SendemaskeComponent } from './modules/fhi/components/sendemaske/sendemaske.component';
@@ -100,7 +103,12 @@ export const routes: Routes = [
       displayIcon: 'book',
     },
   },
-  {path: 'recipes', component: RecipesComponent},
+  {path: 'recipes', component: RecipesComponent, children:[
+   { path: '', component: RecipeStartComponent},
+   { path: 'new', component: RecipeEditComponent},
+   { path: ':id', component: RecipeDetailComponent},
+   { path: ':id/edit', component: RecipeEditComponent}
+  ] },
   {path: 'shopping-list', component: ShoppingListComponent},
 ];
 

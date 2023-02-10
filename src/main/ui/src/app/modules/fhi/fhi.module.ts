@@ -40,6 +40,8 @@ import { ShoppingListComponent } from './components/shopping-list/shopping-list.
 import { ShoppingListService } from './components/shopping-list/shopping-list.service';
 import { TutorialComponent } from './components/tutorial/tutorial.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { RecipeStartComponent } from './components/recipes/recipe-start/recipe-start.component';
+import { RecipeEditComponent } from './components/recipes/recipe-edit/recipe-edit.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,8 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     ShoppingListComponent,
     ShoppingEditComponent,
     DropdownDirective,
+    RecipeStartComponent,
+    RecipeEditComponent,
   ],
   providers: [TuebPipe,ShoppingListService],
   imports: [
